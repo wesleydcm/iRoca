@@ -6,6 +6,7 @@ export const Container = styled.div`
 
   div {
     font-family: var(--Poppins);
+    color: var(--gray700);
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -19,6 +20,7 @@ export const Card = styled.div`
   border-radius: 10px;
   width: 100%;
   height: 100%;
+  display: flex;
 
   .information {
     display: flex;
@@ -33,6 +35,15 @@ export const Card = styled.div`
 
   .contact p {
     padding: 0;
+  }
+
+  .image {
+    display: flex;
+
+    div {
+      font-size: 14px;
+      padding: 3px;
+    }
   }
 
   h3 {

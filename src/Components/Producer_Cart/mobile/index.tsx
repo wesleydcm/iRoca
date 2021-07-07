@@ -22,6 +22,13 @@ const ProducerCart = () => {
             </div>
           </div>
         </div>
+        <div className="image">
+          <div>X</div>
+          <div>X</div>
+          <div>X</div>
+          <div>X</div>
+          <div>X</div>
+        </div>
       </Card>
     </Container>
   );
