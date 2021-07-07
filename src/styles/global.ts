@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
+
 export const Global = createGlobalStyle`
   :root{
     --green-gradient: linear-gradient(to right,#23D65C,#55D94A);
@@ -36,6 +37,7 @@ export const Global = createGlobalStyle`
   /*SCROLL BARS: */
   .scroll{
     overflow-y: auto;
+
     ::-webkit-scrollbar {
       width: 0.8rem;
     }
@@ -47,6 +49,7 @@ export const Global = createGlobalStyle`
       border-radius: 30px;
     }
   }
+
   @media only screen and (max-width: ${`${WINDOW_SIZE_DESKTOP}px`}){
 
     .scroll{
