@@ -7,29 +7,14 @@ import ProductCardInCartHistory from "./Components/ProductCardInCartHistory/desk
 import ProductCardInCartHistoryMobile from "./Components/ProductCardInCartHistory/mobile";
 import { ReactComponent as CloseSvg } from "./assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg";
-import { IEvaluation, Image, IProduct } from "./@types";
 import { WINDOW_SIZE_DESKTOP } from "./utils";
+
+import { mockedProduct } from "./utils/mocks";
 const App: React.FC = () => {
 	const [value, setValue] = useState<string>("");
 	const [value2, setValue2] = useState<string>("");
 	const [value3, setValue3] = useState<string>("");
 	const [value4, setValue4] = useState<string>("");
-	const mockedProduct: IProduct = {
-		name: "Mussum Ipsum",
-		category: "fruit",
-		description:
-			"Mussum Ipsum, cacilds vidis litro abertis. Per aumento de cachacis, eu reclamis.",
-		userId: 1,
-		price: 2.5,
-		isOrganic: true,
-		qty: 100,
-		images: [
-			{
-				url: "http://2.bp.blogspot.com/-M1-bXKeN3Ww/TfvOP9orTpI/AAAAAAAABqg/VdN6nIOw__8/s1600/morango.png",
-			} as Image,
-		],
-		evaluations: [{} as IEvaluation],
-	};
 
 	return (
 		<>
