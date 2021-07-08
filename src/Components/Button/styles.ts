@@ -4,7 +4,7 @@ interface Props {
 	color?: string;
 }
 
-export const StyledButton = styled.input<Props>`
+export const StyledButton = styled.button<Props>`
 	width: fit-content;
 	height: 40px;
 	padding: 0 20px;
