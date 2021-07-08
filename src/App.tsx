@@ -1,24 +1,43 @@
 import React from "react";
-import { ReactComponent as ReactLogo } from "./assets/images/cart.svg";
+import Button from "./Components/Button";
+import { ReactComponent as IrocaLogo } from "./assets/images-mobile/logo.svg";
 import { useUser } from "./Providers/user";
 
-const userData = {
-  email: "oibino11@gmail.com",
-  password: "Aaaa1!",
-};
-const App = () => {
-  const { createLocalUser } = useUser();
+const App: React.FC = () => {
+  const { userController } = useUser();
+
+  const product = {
+    name: "Morango 3",
+    category: "fruit",
+    description: "",
+    userId: 2,
+    price: 99.99,
+    isOrganic: true,
+    qty: 99.99,
+    images: [
+      { link1: "https://www.imagem1.com.br.jpg" },
+      { link2: "https://www.imagem2.com.br.jpg" },
+      { link3: "https://www.imagem3.com.br.jpg" },
+      { link4: "https://www.imagem4.com.br.jpg" },
+      { link5: "https://www.imagem5.com.br.jpg" },
+    ],
+  };
+  const token = "sasd";
 
   const clicked = (): void => {
-    const localUser = createLocalUser(undefined);
-    localUser.getEvaluations(1).then((response) => console.log(response));
+    const localUser = userController(undefined);
+    localUser.createProduct(token, product).then((response) => {
+      console.log(response);
+    });
   };
 
   return (
     <>
-      <button onClick={() => clicked()}>ME CLIQUE</button>
+      <IrocaLogo />
+      <Button type="button" color="green" value="entrar" />
+      <Button type="button" value="sair" />
+      <button onClick={() => clicked()}>Click me</button>
     </>
   );
 };
-
 export default App;

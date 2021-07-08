@@ -1,39 +1,72 @@
 import UserController from "../Providers/user/controller";
 
-interface ChildrenProp {
-  children: React.ReactNode;
-}
-export interface IUserProviderProps extends ChildrenProp {}
-export interface IGeneralProviderProps extends ChildrenProp {}
-
 export interface IAdress {
-  cep: string;
+  cep?: string;
   state: string;
   city: string;
   neighborhood: string;
   street: string;
   complement?: string;
 }
+
 export interface IUser {
-  id: number;
+  info: IUserInfo;
+  token: string;
+  auth: boolean;
+}
+
+export interface IUserInfo {
+  name: string;
   email: string;
   password: string;
-  image: string;
-  name: string;
   birthDate: string;
-  auth?: boolean;
   cpf: string;
   phone: string;
+  image?: string;
+  id?: number;
+  auth?: boolean;
   address: IAdress;
+}
+
+export interface IUserUpdate {
+  id: number;
+  info?: {
+    name?: string;
+    birthDate?: string;
+    cpf?: string;
+    phone?: string;
+    image?: string;
+    id?: number;
+    auth?: boolean;
+    address?: IAdress;
+  };
+  token: string;
 }
 
 export interface IUserContext {
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
-  createLocalUser: (userData: IUser | undefined) => UserController;
+  userController: (userData: IUser | undefined) => UserController;
 }
 
 export interface ILoginData {
   email: string;
   password: string;
+}
+
+export interface IEvaluations {
+  userId: number;
+  evaluatorId: number;
+  date: string;
+  feedback: string;
+  grade: number;
+}
+
+export interface IProductUpdate {
+  name: string;
+  description?: string;
+  price: number;
+  qty: number;
+  images: string[];
+  evaluations: IEvaluations[];
 }

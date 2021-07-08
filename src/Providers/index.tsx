@@ -1,7 +1,10 @@
-import { IGeneralProviderProps } from "../@types";
 import { UserProvider } from "./user";
 
-const Providers = ({ children }: IGeneralProviderProps) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const Providers = ({ children }: Props) => {
   return <UserProvider>{children}</UserProvider>;
 };
 
