@@ -9,7 +9,9 @@ export const Wrapper = styled.div`
 	width: fit-content;
 	height: 35px;
 	border: ${({ color }) =>
-		color === "white" ? "2px solid var(--font-color)" : "2px solid var(--green400)"};
+		color === "white"
+			? "2px solid var(--font-color)"
+			: "2px solid var(--green400)"};
 	border-radius: 10px;
 	padding: 0 15px;
 	display: flex;
@@ -26,18 +28,21 @@ export const StyledInput = styled.input<Props>`
 	background: transparent;
 	margin-right: 5px;
 
-	color: ${({ color }) => ( color === "white" ? "var(--font-color)" : "var(--gray700)")};
+	color: ${({ color }) =>
+		color === "white" ? "var(--font-color)" : "var(--gray700)"};
 
 	border: none;
 	outline: none;
 	font-weight: 600;
 	font-size: 16px;
+	line-height: 24px;
 	text-transform: capitalize;
-	text-align: center;
+	text-align: left;
 	font-family: var(--poppins);
 	font-style: normal;
 
 	&::placeholder {
-		color: var(--gray300);
+		color: ${({ color }) =>
+			color === "white" ? "var(--font-color)" : "var(--gray300)"};
 	}
 `;
