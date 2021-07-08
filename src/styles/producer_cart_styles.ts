@@ -12,6 +12,11 @@ export const Container = styled.div`
     font-size: 24px;
     line-height: 36px;
   }
+
+  @media (min-width: 900px) {
+    width: 431px;
+    height: 388px;
+  }
 `;
 
 export const Card = styled.div`
@@ -65,5 +70,47 @@ export const Card = styled.div`
     line-height: 21px;
     margin-left: 21px;
     padding-top: 10px;
+  }
+
+  @media (min-width: 900px) {
+    flex-direction: column-reverse;
+
+    .information {
+      justify-content: center;
+      margin-left: 30px;
+      margin-bottom: 20px;
+      /* background-color: greenyellow; */
+    }
+
+    .image {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .image div {
+      font-size: 20px;
+      width: 30px;
+      padding-top: 5px;
+    }
+
+    .contact {
+      width: 385px;
+    }
+
+    .contact p {
+      padding-top: 5px;
+    }
+
+    h3 {
+      font-size: 18px;
+      line-height: 27px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 24px;
+      padding: 5px;
+      padding-top: 5px;
+    }
   }
 `;

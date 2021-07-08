@@ -1,6 +1,6 @@
 import { Container, Card } from "../../../styles/producer_cart_styles";
 
-const ProducerCart = () => {
+const ProducerCartMobile = () => {
   return (
     <Container>
       <div>Produtor</div>
@@ -34,4 +34,4 @@ const ProducerCart = () => {
   );
 };
 
-export default ProducerCart;
+export default ProducerCartMobile;
