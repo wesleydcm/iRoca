@@ -1,27 +1,35 @@
 import { screen, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-// import userEvent from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 import Button from "..";
 
 describe('Button "Enviar":', () => {
 	const title = 'Should "enviar button" component';
 
 	it(`${title} be rendered`, () => {
-		render(<Button type="button" color="green" value="enviar" />);
+		render(
+			<Button type="button" color="green">
+				enviar
+			</Button>,
+		);
 		const btnSendEl = screen.queryByText("enviar");
 
 		expect(btnSendEl).toBeInTheDocument();
 	});
 
 	it(`${title} has the property "color"`, () => {
-		render(<Button type="button" color="green" value="enviar" />);
+		render(
+			<Button type="button" color="green">
+				enviar
+			</Button>,
+		);
 		const btnSendEl = screen.queryByText("enviar");
 
 		expect(btnSendEl).toHaveAttribute("color");
 	});
 
 	it(`${title} hasn't the property`, () => {
-		render(<Button type="button" value="enviar" />);
+		render(<Button type="button">enviar</Button>);
 		const btnSendEl = screen.queryByText("enviar");
 
 		expect(btnSendEl).not.toHaveAttribute("color");
