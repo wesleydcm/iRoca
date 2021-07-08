@@ -5,7 +5,7 @@ const RouterComponent = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <HistoryCartMobile />
+        <HistoryCartMobile organic={true} />
       </Route>
 
       <Route exact path="/login">
