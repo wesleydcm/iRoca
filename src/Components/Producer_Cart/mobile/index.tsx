@@ -1,8 +1,15 @@
 import { Container, Card } from "../../../styles/producer_cart_styles";
+import { useHistory } from "react-router-dom";
 
 const ProducerCartMobile = () => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push("/ownerProfile/:id");
+  };
+
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <div>Produtor</div>
       <Card>
         <div className="information">

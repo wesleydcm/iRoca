@@ -16,6 +16,7 @@ export const Container = styled.div`
   @media (min-width: 900px) {
     width: 431px;
     height: 388px;
+    cursor: pointer;
   }
 `;
 

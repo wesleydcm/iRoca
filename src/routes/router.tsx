@@ -1,14 +1,10 @@
 import { Route, Switch } from "react-router";
-// import ProducerCartMobile from "../Components/Producer_Cart/mobile";
-import ProducerCartDesktop from "../Components/Producer_Cart/desktop";
 
 const RouterComponent = () => {
   return (
     <Switch>
       <Route exact path="/">
-        {/* <div>Home</div> */}
-        {/* <ProducerCartMobile /> */}
-        <ProducerCartDesktop />
+        <div>Home</div>
       </Route>
 
       <Route exact path="/login">
