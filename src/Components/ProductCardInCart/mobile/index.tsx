@@ -6,15 +6,16 @@ import { priceFormatter } from "../../../utils";
 
 interface Props {
 	item: IProduct;
+	"data-testid"?: string;
 }
 /**
  * It's the product that must be used into cart.
  * == MOBILE VERSION ==
  * @prop item - The item as "IProduct" that must be rendered.
  */
-const ProductCardInCartMobile = ({ item }: Props): JSX.Element => {
+const ProductCardInCartMobile = ({ item, ...rest }: Props): JSX.Element => {
 	return (
-		<Wrapper>
+		<Wrapper {...rest}>
 			{item.isOrganic && (
 				<figure className="organicFlag">
 					<OrganicSvg />
