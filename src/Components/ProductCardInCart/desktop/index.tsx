@@ -5,7 +5,7 @@ import { IProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 
 interface Props {
-	item: IProduct;
+  item: IProduct;
 }
 /**
  * It's the product that must be used into cart.
@@ -14,31 +14,31 @@ interface Props {
  */
 
 const ProductCardInCart = ({ item }: Props): JSX.Element => {
-	return (
-		<Wrapper>
-			{item.isOrganic && (
-				<figure className="organicFlag">
-					<OrganicSvg />
-					<figcaption>
-						{item.isOrganic ? "produto orgânico" : "produto não orgânico"}
-					</figcaption>
-				</figure>
-			)}
-			<div data-css="infoWrapper">
-				<h2>{item.name}</h2>
-				{/* <ReviewStarMobile /> */}
-				<h3>{item.description}</h3>
-			</div>
-			<figure>
-				<img src={item.images[0].url} alt={item.name} />
-				<figcaption>{item.name}</figcaption>
-			</figure>
-			<div data-css="statusWrapper">
-				<HeartSvg />
-				<span>{priceFormatter(item.price)}/kg</span>
-			</div>
-		</Wrapper>
-	);
+  return (
+    <Wrapper>
+      {item.isOrganic && (
+        <figure className="organicFlag">
+          <OrganicSvg />
+          <figcaption>
+            {item.isOrganic ? "produto orgânico" : "produto não orgânico"}
+          </figcaption>
+        </figure>
+      )}
+      <div data-css="infoWrapper">
+        <h2>{item.name}</h2>
+        {/* <ReviewStarMobile /> */}
+        <h3>{item.description}</h3>
+      </div>
+      <figure>
+        <img src={item.images[0].url} alt={item.name} />
+        <figcaption>{item.name}</figcaption>
+      </figure>
+      <div data-css="statusWrapper">
+        <HeartSvg />
+        <span>{priceFormatter(item.price)}/kg</span>
+      </div>
+    </Wrapper>
+  );
 };
 
 export default ProductCardInCart;
