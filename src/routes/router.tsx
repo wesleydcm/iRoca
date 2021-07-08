@@ -1,11 +1,10 @@
 import { Route, Switch } from "react-router";
-import HistoryCartMobile from "../Components/History_Cart/mobile";
 
 const RouterComponent = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <HistoryCartMobile organic={true} />
+        <div>Home</div>
       </Route>
 
       <Route exact path="/login">

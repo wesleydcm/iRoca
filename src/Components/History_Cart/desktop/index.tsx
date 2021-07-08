@@ -6,7 +6,7 @@ interface HistoryCartProps {
   organic: boolean;
 }
 
-const HistoryCartMobile = ({ organic }: HistoryCartProps) => {
+const HistoryCartDesktop = ({ organic }: HistoryCartProps) => {
   return (
     <Container>
       <div className="flag">
@@ -18,12 +18,14 @@ const HistoryCartMobile = ({ organic }: HistoryCartProps) => {
       </div>
 
       <Information>
-        <div className="image">
-          <img src={FruitsImage} alt="Fruit_image" />
-        </div>
-        <div className="description">
-          <p>Mussum Ipsum</p>
-          <h3>10kg</h3>
+        <div className="desktop">
+          <div className="description">
+            <p>Mussum Ipsum</p>
+            <h3>10kg</h3>
+          </div>
+          <div className="image">
+            <img src={FruitsImage} alt="Fruit_image" />
+          </div>
         </div>
         <div className="price">
           <p>R$ 3,00/kg</p>
@@ -33,4 +35,4 @@ const HistoryCartMobile = ({ organic }: HistoryCartProps) => {
   );
 };
 
-export default HistoryCartMobile;
+export default HistoryCartDesktop;

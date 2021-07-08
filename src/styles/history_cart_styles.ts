@@ -8,6 +8,11 @@ export const Container = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
 
+  @media (min-width: 900px) {
+    width: 279px;
+    height: 182px;
+  }
+
   .organic {
     opacity: 0;
   }
@@ -20,6 +25,11 @@ export const Container = styled.div`
   .flag img {
     height: 22px;
     width: 40px;
+
+    @media (min-width: 900px) {
+      height: 45px;
+      width: 68px;
+    }
   }
 `;
 
@@ -28,17 +38,36 @@ export const Information = styled.div`
   display: flex;
   justify-content: space-between;
 
+  @media (min-width: 900px) {
+    display: initial;
+  }
+
+  .desktop {
+    display: flex;
+    padding-top: 30px;
+    justify-content: space-around;
+  }
+
   .image {
     width: 75px;
     height: 100%;
     display: flex;
     align-items: center;
+
+    @media (min-width: 900px) {
+      padding-top: 10px;
+    }
   }
 
   .image img {
     height: 55px;
     width: 55px;
     border-radius: 5px;
+
+    @media (min-width: 900px) {
+      height: 66px;
+      width: 66px;
+    }
   }
 
   .description {
@@ -53,6 +82,13 @@ export const Information = styled.div`
     font-family: var(--Poppins);
     font-weight: 500;
     color: var(--gray900);
+
+    @media (min-width: 900px) {
+      font-size: 18px;
+      line-height: 25px;
+      font-family: var(--nunito);
+      font-weight: 700;
+    }
   }
 
   .description h3 {
@@ -61,6 +97,14 @@ export const Information = styled.div`
     font-size: 24px;
     line-height: 36px;
     color: var(--gray900);
+
+    @media (min-width: 900px) {
+      font-size: 32px;
+      line-height: 44px;
+      font-family: var(--nunito);
+      font-weight: bold;
+      color: var(--gray600);
+    }
   }
 
   .price {
@@ -68,6 +112,13 @@ export const Information = styled.div`
     display: flex;
     align-items: flex-end;
     padding-bottom: 5px;
+
+    @media (min-width: 900px) {
+      width: 100%;
+      height: 58px;
+      justify-content: flex-end;
+      padding-right: 13px;
+    }
   }
 
   .price p {
@@ -75,5 +126,10 @@ export const Information = styled.div`
     font-weight: 500;
     font-size: 10px;
     line-height: 15px;
+
+    @media (min-width: 900px) {
+      font-size: 16px;
+      line-height: 24px;
+    }
   }
 `;
