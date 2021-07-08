@@ -1,7 +1,7 @@
 import { screen, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import ProductCardInCart from "../desktop";
-import ProductCardInCartMobile from "../mobile";
+import ProductCardInCartHistory from "../desktop";
+import ProductCardInCartHistoryMobile from "../mobile";
 import { IEvaluation, Image, IProduct } from "../../../@types";
 
 const mockedProduct: IProduct = {
@@ -26,7 +26,7 @@ describe('Component "ProductCardInCart":', () => {
 
 	it(`${title} be rendered in a Mobile version`, () => {
 		render(
-			<ProductCardInCartMobile data-testid="mobile" item={mockedProduct} />,
+			<ProductCardInCartHistoryMobile scenery="cart" data-testid="mobile" item={mockedProduct} />,
 		);
 		const productCard = screen.getByTestId("mobile");
 
@@ -35,7 +35,7 @@ describe('Component "ProductCardInCart":', () => {
 
 	it(`${title} be rendered in a Desktop version`, () => {
 		render(
-			<ProductCardInCart data-testid="desktop" item={mockedProduct} />,
+			<ProductCardInCartHistory scenery="cart" data-testid="desktop" item={mockedProduct} />,
 		);
 		const productCard = screen.getByTestId("desktop");
 

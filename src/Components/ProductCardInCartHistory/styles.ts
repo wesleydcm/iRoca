@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
 
-export const Wrapper = styled.div`
+interface Prop {
+	scenery: "cart" | "history";
+}
+
+export const Wrapper = styled.div<Prop>`
 	width: 90%;
 	height: 95px;
 	position: relative;
@@ -33,93 +37,102 @@ export const Wrapper = styled.div`
 
 	h2,
 	h3 {
-		font-family: var(--nunito);
+		font-family: var(--poppins);
 		margin-left: 25px;
 	}
-
-	h2 {
-		font-size: 10px;
-		font-weight: 400;
-		margin-bottom: 5px;
-	}
-	h3 {
-		font-size: 9px;
-		font-weight: 300;
+	div {
+		width: 70%;
+		h2 {
+			font-size: 10px;
+			font-weight: 500;
+			margin-bottom: 5px;
+		}
+		h3 {
+			font-size: 24px;
+			font-weight: 500;
+		}
 	}
 	div[data-css="statusWrapper"] {
 		height: 100%;
+		width: 30%;
 		display: flex;
 		flex-flow: column;
 		align-items: center;
-		justify-content: space-between;
-		div:nth-child(1) {
-			width: 100px;
-			display: flex;
-			flex-flow: column;
-			align-items: flex-end;
-			justify-content: flex-start;
+		justify-content: ${({ scenery }) =>
+			scenery === "cart" ? "space-between" : "flex-end"};
+
+		button {
+			border: none;
+			align-self: flex-end;
 			svg {
-				width: 14px;
-				height: 14px;
+				width: 20px;
+				height: 20px;
 			}
 		}
 
-		div:nth-child(2) {
-			justify-self: flex-end;
-			span {
-				font-family: var(--poppins);
-				margin-left: 16px;
-				font-weight: 500;
-			}
+		span {
+			align-self: flex-end;
+			font-size: 10px;
+			font-family: var(--poppins);
+			font-weight: 500;
 		}
 	}
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
 		width: 280px;
 		height: 230px;
-		padding: 30px 20px 0;
 		flex-wrap: wrap;
+		padding: 30px 20px 15px;
+
+		.organicFlag {
+			width: 55px;
+			height: 35px;
+			left: -6px;
+			svg {
+				width: inherit;
+				height: inherit;
+			}
+		}
 
 		figure {
 			width: 66px;
 			height: 66px;
 			align-self: flex-start;
 		}
-		div[data-css="infoWrapper"] {
-			width: 150px;
-			h2,
-			h3 {
-				font-family: var(--nunito);
-				margin: 0;
-			}
 
+		h2,
+		h3 {
+			font-family: var(--nunito);
+			margin: 0;
+		}
+		div {
+			width: 70%;
 			h2 {
 				font-size: 18px;
+				font-weight: bold;
+				margin-bottom: 5px;
 			}
 			h3 {
-				font-size: 12px;
-				margin-top: 10px;
-				margin-bottom: 30px;
+				font-size: 32px;
+				font-weight: bold;
+				color: var(--gray600);
 			}
 		}
 		div[data-css="statusWrapper"] {
-			width: 100%;
 			height: unset;
+			width: 100%;
 			flex-flow: row;
-			align-items: center;
-			justify-content: space-between;
-			margin-bottom: 15px;
 			align-self: flex-end;
 
-			svg {
-				width: 25px;
-				height: 25px;
+			button {
+				svg {
+					width: 25px;
+					height: 25px;
+				}
 			}
 
-			justify-self: flex-end;
 			span {
-				font-family: var(--poppins);
-				font-weight: 500;
+				font-size: 16px;
 			}
 		}
 	}

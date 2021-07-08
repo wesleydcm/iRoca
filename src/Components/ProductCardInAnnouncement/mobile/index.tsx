@@ -9,7 +9,7 @@ interface Props {
 	"data-testid"?: string;
 }
 /**
- * It's the product that must be used into cart.
+ * It's the product that must be used into announcements.
  * == MOBILE VERSION ==
  * @prop item - The item as "IProduct" that must be rendered.
  */

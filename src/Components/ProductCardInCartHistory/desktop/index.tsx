@@ -1,5 +1,5 @@
 import { Wrapper } from "../styles";
-import { ReactComponent as HeartSvg } from "../../../assets/images-mobile/heart.svg";
+import { ReactComponent as TrashSvg } from "../../../assets/images-mobile/trash.svg";
 import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/organic_flag.svg";
 import { IProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
@@ -7,16 +7,23 @@ import { priceFormatter } from "../../../utils";
 interface Props {
 	item: IProduct;
 	"data-testid"?: string;
+	scenery: "cart" | "history";
 }
 /**
- * It's the product that must be used into cart.
- * == DESKTOP VERSION ==
+ * === DESKTOP VERSION ===
+ * It's the product that must be used into "cart" or into "history" pages.
  * @prop item - The item as "IProduct" that must be rendered.
+ * @prop scenery - Where the this component should be rendered.
  */
+const ProductCardInCartHistory = ({
+	scenery,
+	item,
+	...rest
+}: Props): JSX.Element => {
+	const drillScenery = scenery;
 
-const ProductCardInCart = ({ item, ...rest }: Props): JSX.Element => {
 	return (
-		<Wrapper {...rest}>
+		<Wrapper scenery={drillScenery} {...rest}>
 			{item.isOrganic && (
 				<figure className="organicFlag">
 					<OrganicSvg />
@@ -25,21 +32,24 @@ const ProductCardInCart = ({ item, ...rest }: Props): JSX.Element => {
 					</figcaption>
 				</figure>
 			)}
-			<div data-css="infoWrapper">
+			<div>
 				<h2>{item.name}</h2>
-				{/* <ReviewStarMobile /> */}
-				<h3>{item.description}</h3>
+				<h3>{item.qty}Kg</h3>
 			</div>
 			<figure>
 				<img src={item.images[0].url} alt={item.name} />
 				<figcaption>{item.name}</figcaption>
 			</figure>
 			<div data-css="statusWrapper">
-				<HeartSvg />
+				{scenery === "cart" && (
+					<button>
+						<TrashSvg />
+					</button>
+				)}
 				<span>{priceFormatter(item.price)}/kg</span>
 			</div>
 		</Wrapper>
 	);
 };
 
-export default ProductCardInCart;
+export default ProductCardInCartHistory;
