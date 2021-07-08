@@ -3,6 +3,7 @@ import { WINDOW_SIZE_DESKTOP } from "../utils";
 
 export const Global = createGlobalStyle`
   :root{
+    --shadow-black: rgba(0,0,0,0.4);
     --green-gradient: linear-gradient(to right,#55D94A,#13C566);
     --gray900: #222222;
     --gray700: #4d4d4d;
@@ -39,6 +40,14 @@ export const Global = createGlobalStyle`
   input[type="button"],
   input[type="submit"]{
     cursor: pointer;
+  }
+  figure > img {
+			width: inherit;
+			height: inherit;
+      border-radius: inherit;
+  }
+  figure > figcaption {
+   display: none;
   }
   /*SCROLL BARS: */
   .scroll{

@@ -1,7 +1,9 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
-import { IUserContext, IUser, IUserUpdate } from "../../@types";
+import { createContext, ReactNode, useContext, useState } from "react";
+import { IUserContext, IUser } from "../../@types";
 import { USER_LOCALSTORAGE_FLAG } from "../../utils";
 import UserController from "./controller";
+import { useProducts } from "../products";
+import { useEffect } from "react";
 
 interface Props {
   children: ReactNode;
@@ -15,15 +17,20 @@ export const UserProvider = ({ children }: Props) => {
   const defaultValue: IUser = haveUser === null ? null : JSON.parse(haveUser);
 
   const [user, setUser] = useState<IUser>(defaultValue);
+  const { products, setProducts } = useProducts();
 
-  const userController = (
-    userData: IUser | IUserUpdate | undefined
-  ): UserController => {
-    return new UserController(setUser, userData);
+  const initController = (): UserController => {
+    return new UserController(setUser, setProducts, products, user);
   };
 
+  useEffect(() => {
+    if (user !== null) {
+      localStorage.setItem(USER_LOCALSTORAGE_FLAG, JSON.stringify(user));
+    }
+  }, [user]);
+
   return (
-    <userCTX.Provider value={{ user, userController, setUser }}>
+    <userCTX.Provider value={{ user, initController, setUser }}>
       {children}
     </userCTX.Provider>
   );

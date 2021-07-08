@@ -1,24 +1,39 @@
 import { Dispatch, SetStateAction } from "react";
-import { IUser, ILoginData, IUserUpdate, IProductUpdate } from "../../@types";
+import {
+  IUser,
+  ILoginData,
+  IUserUpdate,
+  IProductUpdate,
+  IPurchase,
+  IEvaluations,
+  IProduct,
+} from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
 import { decodeToken } from "react-jwt";
+import { decode } from "querystring";
 
 class UserController {
-  private user?: IUser | IUserUpdate;
   private setUser: Dispatch<SetStateAction<IUser>>;
+  private setProducts: Dispatch<SetStateAction<IProduct[]>>;
+  private products: IProduct[];
+  private user: IUser;
 
   constructor(
     setUser: Dispatch<SetStateAction<IUser>>,
-    user?: IUser | IUserUpdate
+    setProducts: Dispatch<SetStateAction<IProduct[]>>,
+    products: IProduct[],
+    user: IUser
   ) {
-    this.user = user;
     this.setUser = setUser;
+    this.setProducts = setProducts;
+    this.products = products;
+    this.user = user;
   }
 
-  register = async () => {
+  registerUser = async (user: IUser) => {
     try {
-      const response = await api.post("/users", this.user);
+      const response = await api.post("/users", user);
       console.log(response);
       successToast("Sucesso ao criar usuário");
     } catch (e) {
@@ -41,13 +56,9 @@ class UserController {
       successToast(`Bem vindo ${userInfo.name}!`);
       this.setUser({
         token,
-        info: userInfo,
+        personalData: userInfo,
         auth: true,
       });
-      return {
-        token,
-        user: userInfo,
-      };
     } catch (e) {
       errorToast("Usuário ou senha inválidos");
     }
@@ -62,7 +73,7 @@ class UserController {
     }
   };
 
-  getPurchases = async (userId: number) => {
+  getPurchasesOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/purchases/`);
       return await response.data;
@@ -71,7 +82,7 @@ class UserController {
     }
   };
 
-  getEvaluations = async (userId: number) => {
+  getEvaluationsOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/evaluations/`);
       return await response.data;
@@ -87,10 +98,21 @@ class UserController {
       errorToast("Ocorreu algum erro no sistema");
     }
   };
-  update = async (data: IUserUpdate) => {
+  updateUser = async (data: IUserUpdate) => {
     try {
-      const response = await api.patch(`/users/${data.id}/`, data.info, {
-        headers: { Authorization: `Bearer ${data.token}` },
+      const response = await api.patch(
+        `/users/${data.id}/`,
+        data.personalData,
+        {
+          headers: { Authorization: `Bearer ${data.token}` },
+        }
+      );
+      this.setUser({
+        ...this.user,
+        personalData: {
+          ...this.user.personalData,
+          ...response.data.personalData,
+        },
       });
       successToast("Usuário atualizado com sucesso");
       return await response.data;
@@ -99,7 +121,7 @@ class UserController {
     }
   };
 
-  delete = async (userId: number) => {
+  deleteUser = async (userId: number) => {
     try {
       await api.delete(`/users/${userId}/`);
       successToast("Usuário excluído com sucesso");
@@ -108,9 +130,9 @@ class UserController {
     }
   };
 
-  //Lembrar de criar a interface de Produtos
-  createProduct = async (token: string, product: any) => {
+  createProduct = async (token: string, product: IProduct) => {
     const { sub } = decodeToken(token);
+    //se o token for valido, vai retornar um id diferente de 0
     product.userId = Number(sub) || 0;
     try {
       const response = await api.post(`/products/`, product, {
@@ -118,8 +140,8 @@ class UserController {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      successToast("Produto Criado com sucesso");
+      this.setProducts([...this.products, response.data]);
+      successToast("Produto criado com sucesso");
     } catch (e) {
       errorToast("Não foi possível criar produto");
     }
@@ -143,11 +165,83 @@ class UserController {
       const { data } = await api.patch(`/products/${productId}`, productData, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(data);
+      const newProducts = this.products.map((item) => {
+        if (item.id === data.id) {
+          return {
+            ...item,
+            ...data,
+          };
+        } else {
+          return item;
+        }
+      });
+      this.setProducts(newProducts);
       successToast("Produto atualizado com sucesso");
       return data;
     } catch (e) {
       errorToast("Não foi possível atualizar produto");
+    }
+  };
+  deleteProduct = async (productId: number, token: string) => {
+    try {
+      const { data } = await api.delete(`/products/${productId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(data);
+      const newProducts = this.products.filter((item) => item.id !== productId);
+      this.setProducts(newProducts);
+      successToast("Produto excluido com sucesso");
+      return data;
+    } catch (e) {
+      errorToast("Não foi possível excluir produto");
+    }
+  };
+
+  createPurchase = async (token: string, purchase: IPurchase) => {
+    try {
+      const { data } = await api.post(`/purchases/`, purchase, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(data);
+      successToast(
+        "Compra efetuada com sucesso, agora é só esperar o produto chegar na sua casa :)"
+      );
+      return data;
+    } catch (e) {
+      errorToast("Não foi possível concluir compra");
+    }
+  };
+
+  updatePurchase = async (
+    token: string,
+    purchaseId: number,
+    isReceived: boolean
+  ) => {
+    try {
+      const { sub } = decode(token);
+      await api.patch(
+        `/purchases/${purchaseId}`,
+        { isReceived },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      successToast("Compra atualizada com sucesso");
+      //retorna a nova lista de compras para atualizar o feed
+      return await this.getPurchasesOfUser(Number(sub));
+    } catch (e) {
+      errorToast("Não foi possível atualizar estado da compra");
+    }
+  };
+  createEvaluation = async (token: string, evaluation: IEvaluations) => {
+    try {
+      const { data } = await api.post(`/evaluations/`, evaluation, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      successToast("Avaliação enviada");
+      return data;
+    } catch (e) {
+      errorToast("Não foi possível concluir avaliação");
     }
   };
 }

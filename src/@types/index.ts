@@ -10,9 +10,9 @@ export interface IAdress {
 }
 
 export interface IUser {
-  info: IUserInfo;
+  personalData: IUserInfo;
   token: string;
-  auth: boolean;
+  auth?: boolean;
 }
 
 export interface IUserInfo {
@@ -23,21 +23,19 @@ export interface IUserInfo {
   cpf: string;
   phone: string;
   image?: string;
-  id?: number;
-  auth?: boolean;
+  id: number;
   address: IAdress;
+  favorites: number[];
 }
 
 export interface IUserUpdate {
   id: number;
-  info?: {
+  personalData?: {
     name?: string;
     birthDate?: string;
     cpf?: string;
     phone?: string;
     image?: string;
-    id?: number;
-    auth?: boolean;
     address?: IAdress;
   };
   token: string;
@@ -46,7 +44,7 @@ export interface IUserUpdate {
 export interface IUserContext {
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
-  userController: (userData: IUser | undefined) => UserController;
+  initController: () => UserController;
 }
 
 export interface ILoginData {
@@ -70,3 +68,49 @@ export interface IProductUpdate {
   images: string[];
   evaluations: IEvaluations[];
 }
+
+export interface Image {
+  url: string;
+}
+
+export interface IEvaluation {
+  userId: number;
+  evaluatorId: number;
+  date: string;
+  feedback: string;
+  grade: number;
+}
+
+export interface IProduct {
+  name: string;
+  category: string;
+  description: string;
+  userId: number;
+  price: number;
+  isOrganic: boolean;
+  qty: number;
+  images: Image[];
+  evaluations: IEvaluation[];
+  id: number;
+}
+export interface IProductContext {
+  products: IProduct[];
+  setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
+}
+export interface ICartContext {
+  cart: IProduct[];
+  setCart: React.Dispatch<React.SetStateAction<IProduct[]>>;
+}
+
+export interface IPurchase {
+  userId: number;
+  sellerId: number;
+  date: string;
+  subtotal: number;
+  delivery: number;
+  total: number;
+  isReceived: boolean;
+  products: IProduct[];
+}
+
+//quando for fazer avaliação, fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.

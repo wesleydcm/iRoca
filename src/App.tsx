@@ -1,42 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Components/Button";
-import { ReactComponent as IrocaLogo } from "./assets/images-mobile/logo.svg";
-import { useUser } from "./Providers/user";
+import MobileInputIcon from "./Components/InputIcon/mobile";
+import DesktopInputIcon from "./Components/InputIcon/desktop";
+import Input from "./Components/Input";
+import ProductCardInCartMobile from "./Components/ProductCardInCart/mobile";
+import ProductCardInCart from "./Components/ProductCardInCart/desktop";
+import { ReactComponent as CloseSvg } from "./assets/images-desktop/close.svg";
+import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg";
+import { WINDOW_SIZE_DESKTOP } from "./utils";
 
+import { mockedProduct } from "./utils/mocks";
 const App: React.FC = () => {
-  const { userController } = useUser();
+  const [value, setValue] = useState<string>("");
+  const [value2, setValue2] = useState<string>("");
+  const [value3, setValue3] = useState<string>("");
+  const [value4, setValue4] = useState<string>("");
 
-  const product = {
-    name: "Morango 3",
-    category: "fruit",
-    description: "",
-    userId: 2,
-    price: 99.99,
-    isOrganic: true,
-    qty: 99.99,
-    images: [
-      { link1: "https://www.imagem1.com.br.jpg" },
-      { link2: "https://www.imagem2.com.br.jpg" },
-      { link3: "https://www.imagem3.com.br.jpg" },
-      { link4: "https://www.imagem4.com.br.jpg" },
-      { link5: "https://www.imagem5.com.br.jpg" },
-    ],
-  };
-  const token = "sasd";
-
-  const clicked = (): void => {
-    const localUser = userController(undefined);
-    localUser.createProduct(token, product).then((response) => {
-      console.log(response);
-    });
-  };
+  const clicked = (): void => {};
 
   return (
     <>
-      <IrocaLogo />
-      <Button type="button" color="green" value="entrar" />
-      <Button type="button" value="sair" />
+      <Button color="green">entrar</Button>
+      <Button>sair</Button>
+      {window.outerWidth > 899 ? (
+        <>
+          <DesktopInputIcon
+            type="text"
+            placeholder="nome"
+            icon={CloseSvg}
+            value={value}
+            setValue={setValue}
+          />
+          <DesktopInputIcon
+            type="text"
+            placeholder="buscar"
+            icon={SearchSvg}
+            action="search"
+            color="white"
+            value={value2}
+            setValue={setValue2}
+          />
+        </>
+      ) : (
+        <>
+          <MobileInputIcon
+            type="text"
+            placeholder="nome"
+            icon={CloseSvg}
+            value={value}
+            setValue={setValue}
+          />
+          <MobileInputIcon
+            type="text"
+            placeholder="buscar"
+            icon={SearchSvg}
+            action="search"
+            color="white"
+            value={value2}
+            setValue={setValue2}
+          />
+        </>
+      )}
+      <Input
+        type="text"
+        placeholder="buscar"
+        color="green"
+        value={value3}
+        setValue={setValue3}
+      />
+      <Input
+        type="text"
+        placeholder="buscar"
+        color="white"
+        value={value4}
+        setValue={setValue4}
+      />
       <button onClick={() => clicked()}>Click me</button>
+      {window.innerWidth > WINDOW_SIZE_DESKTOP ? (
+        <ProductCardInCart item={mockedProduct} />
+      ) : (
+        <ProductCardInCartMobile item={mockedProduct} />
+      )}
     </>
   );
 };
