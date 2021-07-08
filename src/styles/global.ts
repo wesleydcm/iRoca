@@ -3,11 +3,11 @@ import { WINDOW_SIZE_DESKTOP } from "../utils";
 
 export const Global = createGlobalStyle`
   :root{
-    --green-gradient: linear-gradient(to right,#23D65C,#55D94A);
+    --green-gradient: linear-gradient(to right,#55D94A,#13C566);
     --gray900: #222222;
     --gray700: #4d4d4d;
     --gray600: #555555;
-    --gray300: #b5b5b5; 
+    --gray300: #b5b5b5;
     --white: #f0f0f0;
     --yellow: #e7fA0A;
     --green300: #4CE780;
@@ -15,9 +15,9 @@ export const Global = createGlobalStyle`
     --green600: #117841;
     --green800: #365A47;
     --red: #F56767;
-    --font-color: #fff;
+    --font-color: #FFFFFF;
     --nunito: 'Nunito', sans-serif;
-    --Poppins: 'Poppins', sans-serif;
+    --poppins: 'Poppins', sans-serif;
   }
 
   *{
@@ -25,13 +25,19 @@ export const Global = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
+
+  body{
+    background-color: var(--white);
+  }
   ul{
     list-style: none;
   }
   a{
     text-decoration: none;
   }
-  button{
+  button,
+  input[type="button"],
+  input[type="submit"]{
     cursor: pointer;
   }
   /*SCROLL BARS: */
