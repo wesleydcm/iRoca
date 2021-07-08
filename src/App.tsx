@@ -1,7 +1,8 @@
 import React from "react";
-import { ReactComponent as ReactLogo } from "./assets/images/cart.svg";
+import { ReactComponent as ReactLogo } from "./assets/images-mobile/cart.svg";
+
 const App: React.FC = () => {
-  return <ReactLogo />;
+  return <></>;
 };
 
 export default App;
