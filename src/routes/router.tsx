@@ -1,10 +1,11 @@
 import { Route, Switch } from "react-router";
+import HistoryCartMobile from "../Components/History_Cart/mobile";
 
 const RouterComponent = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <div>Home</div>
+        <HistoryCartMobile />
       </Route>
 
       <Route exact path="/login">
