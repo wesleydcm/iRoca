@@ -1,7 +1,14 @@
 import React from "react";
-import { ReactComponent as ReactLogo } from "./assets/images/cart.svg";
+import Button from "./Components/Button";
+import { ReactComponent as IrocaLogo } from "./assets/images-mobile/logo.svg";
 const App: React.FC = () => {
-  return <ReactLogo />;
+	return (
+		<>
+			<IrocaLogo />
+			<Button type="button" color="green" value="entrar" />
+			<Button type="button" value="sair" />
+		</>
+	);
 };
 
 export default App;
