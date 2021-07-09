@@ -9,6 +9,7 @@ import { ReactComponent as CloseSvg } from "./assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg";
 import { IEvaluation, Image, IProduct } from "./@types";
 import { WINDOW_SIZE_DESKTOP } from "./utils";
+import RatingStar from "./Components/reviews-stars";
 const App: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const [value2, setValue2] = useState<string>("");
