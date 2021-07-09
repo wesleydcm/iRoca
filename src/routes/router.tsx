@@ -1,4 +1,5 @@
-import { Route, Switch } from "react-router";
+import { Route, Switch } from "react-router-dom";
+import Register from "../pages/Register";
 
 const RouterComponent = () => {
   return (
@@ -12,7 +13,7 @@ const RouterComponent = () => {
       </Route>
 
       <Route exact path="/register">
-        <div>Register</div>
+        <Register />
       </Route>
 
       <Route path="/myCart">
