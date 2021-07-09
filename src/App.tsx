@@ -5,6 +5,8 @@ import DesktopInputIcon from "./Components/InputIcon/desktop";
 import Input from "./Components/Input";
 import ProductCardInCartHistory from "./Components/ProductCardInCartHistory/desktop";
 import ProductCardInCartHistoryMobile from "./Components/ProductCardInCartHistory/mobile";
+import ProductCardInAnnouncement from "./Components/ProductCardInAnnouncement/desktop";
+import ProductCardInAnnouncementMobile from "./Components/ProductCardInAnnouncement/mobile";
 import { ReactComponent as CloseSvg } from "./assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg";
 import { WINDOW_SIZE_DESKTOP } from "./utils";
@@ -76,10 +78,19 @@ const App: React.FC = () => {
 				value={value4}
 				setValue={setValue4}
 			/>
-			{window.outerWidth > WINDOW_SIZE_DESKTOP ? (
-				<ProductCardInCartHistory scenery="history" item={mockedProduct} />
+			{window.innerWidth > WINDOW_SIZE_DESKTOP ? (
+				<ProductCardInCartHistory scenery="cart" item={mockedProduct} />
 			) : (
-				<ProductCardInCartHistoryMobile scenery="cart" item={mockedProduct} />
+				<ProductCardInCartHistoryMobile
+					scenery="history"
+					item={mockedProduct}
+				/>
+			)}
+
+			{window.innerWidth > WINDOW_SIZE_DESKTOP ? (
+				<ProductCardInAnnouncement item={mockedProduct} />
+			) : (
+				<ProductCardInAnnouncementMobile item={mockedProduct} />
 			)}
 		</>
 	);
