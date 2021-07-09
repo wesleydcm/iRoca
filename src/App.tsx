@@ -12,7 +12,8 @@ import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg"
 import { WINDOW_SIZE_DESKTOP } from "./utils";
 import { useUser } from "./Providers/user";
 import RatingStar from "./Components/reviews-stars";
-import { mockedProduct } from "./utils/mocks";
+import { mockedProduct, mockedEvaluation } from "./utils/mocks";
+import EvaluationCard from "./Components/EvaluationCard";
 
 const App = () => {
   const [value, setValue] = useState<string>("");
@@ -102,6 +103,11 @@ const App = () => {
         <ProductCardInAnnouncement item={mockedProduct} />
       ) : (
         <ProductCardInAnnouncementMobile item={mockedProduct} />
+      )}
+      {window.innerWidth > WINDOW_SIZE_DESKTOP ? (
+        <EvaluationCard scenery="desktop" evaluation={mockedEvaluation} />
+      ) : (
+        <EvaluationCard scenery="mobile" evaluation={mockedEvaluation} />
       )}
     </>
   );
