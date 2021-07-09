@@ -9,7 +9,7 @@ interface Props {
 
 const cartCTX = createContext({} as ICartContext);
 
-export const cartProvider = ({ children }: Props) => {
+export const CartProvider = ({ children }: Props) => {
   const haveCart = localStorage.getItem(CART_LOCALSTORAGE_FLAG);
 
   const defaultValue: IProduct[] =
