@@ -45,10 +45,14 @@ export const Card = styled.div`
 
   .image {
     display: flex;
+    width: 132px;
+    justify-content: flex-end;
+    padding: 8px 5px 0 0;
 
-    div {
-      font-size: 14px;
-      padding: 3px;
+    @media (min-width: 900px) {
+      justify-content: flex-end;
+      width: 350px;
+      padding-top: 4px;
     }
   }
 

@@ -1,5 +1,6 @@
 import { Container, Card } from "../../../styles/producer_cart_styles";
 import { useHistory } from "react-router-dom";
+import RatingStar from "../../reviews-stars";
 
 const ProducerCartMobile = (): JSX.Element => {
   const history = useHistory();
@@ -30,11 +31,7 @@ const ProducerCartMobile = (): JSX.Element => {
           </div>
         </div>
         <div className="image">
-          <div>X</div>
-          <div>X</div>
-          <div>X</div>
-          <div>X</div>
-          <div>X</div>
+          <RatingStar />
         </div>
       </Card>
     </Container>
