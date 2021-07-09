@@ -34,6 +34,7 @@ const App: React.FC = () => {
 
   return (
     <>
+      <RatingStar />
       <Button color="green">entrar</Button>
       <Button>sair</Button>
       {window.outerWidth > 899 ? (
