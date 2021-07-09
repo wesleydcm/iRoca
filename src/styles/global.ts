@@ -27,7 +27,7 @@ export const Global = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body{
+  body, html{
     background-color: var(--white);
   }
   ul{

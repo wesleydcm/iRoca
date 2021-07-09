@@ -1,5 +1,5 @@
 import { Route, Switch } from "react-router";
-import LoginPage from "../pages/login";
+import LoginPage from "../pages/login/mobile";
 import TestsPage from "../pages/testsPage";
 const RouterComponent = () => {
   return (
