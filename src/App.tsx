@@ -3,8 +3,8 @@ import Button from "./Components/Button";
 import MobileInputIcon from "./Components/InputIcon/mobile";
 import DesktopInputIcon from "./Components/InputIcon/desktop";
 import Input from "./Components/Input";
-import ProductCardInCartMobile from "./Components/ProductCardInCart/mobile";
-import ProductCardInCart from "./Components/ProductCardInCart/desktop";
+import ProductCardInCartHistory from "./Components/ProductCardInCartHistory/desktop";
+import ProductCardInCartHistoryMobile from "./Components/ProductCardInCartHistory/mobile";
 import { ReactComponent as CloseSvg } from "./assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg";
 import { WINDOW_SIZE_DESKTOP } from "./utils";
@@ -16,7 +16,6 @@ const App: React.FC = () => {
   const [value2, setValue2] = useState<string>("");
   const [value3, setValue3] = useState<string>("");
   const [value4, setValue4] = useState<string>("");
-
   const { initController } = useUser();
 
   const clicked = (): void => {
@@ -25,9 +24,11 @@ const App: React.FC = () => {
       console.log(resp);
     });
   };
-
   return (
     <>
+      <Button color="green" onClick={clicked}>
+        Click me
+      </Button>
       <Button color="green">entrar</Button>
       <Button>sair</Button>
       {window.outerWidth > 899 ? (
@@ -83,13 +84,13 @@ const App: React.FC = () => {
         value={value4}
         setValue={setValue4}
       />
-      <button onClick={() => clicked()}>Click me</button>
-      {window.innerWidth > WINDOW_SIZE_DESKTOP ? (
-        <ProductCardInCart item={mockedProduct} />
+      {window.outerWidth > WINDOW_SIZE_DESKTOP ? (
+        <ProductCardInCartHistory scenery="history" item={mockedProduct} />
       ) : (
-        <ProductCardInCartMobile item={mockedProduct} />
+        <ProductCardInCartHistoryMobile scenery="cart" item={mockedProduct} />
       )}
     </>
   );
 };
+
 export default App;

@@ -25,6 +25,7 @@ export interface IUserInfo {
   image?: string;
   id: number;
   address: IAdress;
+  favorites: number[] | [];
 }
 
 export interface IUserUpdate {
