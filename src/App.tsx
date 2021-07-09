@@ -8,6 +8,7 @@ import ProductCardInCart from "./Components/ProductCardInCart/desktop";
 import { ReactComponent as CloseSvg } from "./assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg";
 import { WINDOW_SIZE_DESKTOP } from "./utils";
+import { useUser } from "./Providers/user";
 
 import { mockedProduct } from "./utils/mocks";
 const App: React.FC = () => {
@@ -16,7 +17,14 @@ const App: React.FC = () => {
   const [value3, setValue3] = useState<string>("");
   const [value4, setValue4] = useState<string>("");
 
-  const clicked = (): void => {};
+  const { initController } = useUser();
+
+  const clicked = (): void => {
+    const controller = initController();
+    controller.getEvaluationsOfUser(1).then((resp) => {
+      console.log(resp);
+    });
+  };
 
   return (
     <>

@@ -25,7 +25,6 @@ export interface IUserInfo {
   image?: string;
   id: number;
   address: IAdress;
-  favorites: number[];
 }
 
 export interface IUserUpdate {
@@ -113,4 +112,4 @@ export interface IPurchase {
   products: IProduct[];
 }
 
-//quando for fazer avaliação, fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.
+//quando for fazer listar avaliações , fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.
