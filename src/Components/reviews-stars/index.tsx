@@ -2,14 +2,14 @@ import React from "react";
 import Rating from "@material-ui/lab/Rating";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { useState } from "react";
+import { Container } from "./styles";
+import StarRoundedIcon from "@material-ui/icons/StarRounded";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      flexDirection: "column",
-      "& > * + *": {
-        marginTop: theme.spacing(1),
-      },
+      flexDirection: "row",
+      "& > * + *": {},
     },
   })
 );
@@ -29,15 +29,19 @@ export default function RatingStar({
   const [starsChecked, setStarsChecked] = useState<number | null>(value);
 
   return (
-    <div className={classes.root}>
+    <Container className={classes.root}>
       {readOnly ? (
-        <Rating
-          name="rating"
-          value={value}
-          precision={0.01}
-          size={starSize}
-          readOnly
-        />
+        <>
+          <p>{value.toFixed(1)}</p>
+          <Rating
+            name="rating"
+            value={value}
+            precision={0.1}
+            size={starSize}
+            icon={<StarRoundedIcon />}
+            readOnly
+          />
+        </>
       ) : (
         <Rating
           onChange={(event, newstarsChecked) => {
@@ -47,8 +51,9 @@ export default function RatingStar({
           defaultValue={0}
           precision={1}
           size={starSize}
+          icon={<StarRoundedIcon />}
         />
       )}
-    </div>
+    </Container>
   );
 }

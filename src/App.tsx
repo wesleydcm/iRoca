@@ -5,13 +5,16 @@ import DesktopInputIcon from "./Components/InputIcon/desktop";
 import Input from "./Components/Input";
 import ProductCardInCartHistory from "./Components/ProductCardInCartHistory/desktop";
 import ProductCardInCartHistoryMobile from "./Components/ProductCardInCartHistory/mobile";
+import ProductCardInAnnouncement from "./Components/ProductCardInAnnouncement/desktop";
+import ProductCardInAnnouncementMobile from "./Components/ProductCardInAnnouncement/mobile";
 import { ReactComponent as CloseSvg } from "./assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg";
 import { WINDOW_SIZE_DESKTOP } from "./utils";
 import { useUser } from "./Providers/user";
-
+import RatingStar from "./Components/reviews-stars";
 import { mockedProduct } from "./utils/mocks";
-const App: React.FC = () => {
+
+const App = () => {
   const [value, setValue] = useState<string>("");
   const [value2, setValue2] = useState<string>("");
   const [value3, setValue3] = useState<string>("");
@@ -24,11 +27,13 @@ const App: React.FC = () => {
       console.log(resp);
     });
   };
+
   return (
     <>
       <Button color="green" onClick={clicked}>
         Click me
       </Button>
+      <RatingStar />
       <Button color="green">entrar</Button>
       <Button>sair</Button>
       {window.outerWidth > 899 ? (
@@ -84,10 +89,19 @@ const App: React.FC = () => {
         value={value4}
         setValue={setValue4}
       />
-      {window.outerWidth > WINDOW_SIZE_DESKTOP ? (
-        <ProductCardInCartHistory scenery="history" item={mockedProduct} />
+      {window.innerWidth > WINDOW_SIZE_DESKTOP ? (
+        <ProductCardInCartHistory scenery="cart" item={mockedProduct} />
       ) : (
-        <ProductCardInCartHistoryMobile scenery="cart" item={mockedProduct} />
+        <ProductCardInCartHistoryMobile
+          scenery="history"
+          item={mockedProduct}
+        />
+      )}
+
+      {window.innerWidth > WINDOW_SIZE_DESKTOP ? (
+        <ProductCardInAnnouncement item={mockedProduct} />
+      ) : (
+        <ProductCardInAnnouncementMobile item={mockedProduct} />
       )}
     </>
   );
