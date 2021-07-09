@@ -6,15 +6,17 @@ import { priceFormatter } from "../../../utils";
 
 interface Props {
 	item: IProduct;
+	"data-testid"?: string;
 }
 /**
- * It's the product that must be used into cart.
- * == MOBILE VERSION ==
+ * It's the product that must be used into announcements.
+ * == DESKTOP VERSION ==
  * @prop item - The item as "IProduct" that must be rendered.
  */
-const ProductCardInCartMobile = ({ item }: Props): JSX.Element => {
+
+const ProductCardInAnnouncement = ({ item, ...rest }: Props): JSX.Element => {
 	return (
-		<Wrapper>
+		<Wrapper {...rest}>
 			{item.isOrganic && (
 				<figure className="organicFlag">
 					<OrganicSvg />
@@ -23,25 +25,21 @@ const ProductCardInCartMobile = ({ item }: Props): JSX.Element => {
 					</figcaption>
 				</figure>
 			)}
+			<div data-css="infoWrapper">
+				<h2>{item.name}</h2>
+				{/* <ReviewStarMobile /> */}
+				<h3>{item.description}</h3>
+			</div>
 			<figure>
 				<img src={item.images[0].url} alt={item.name} />
 				<figcaption>{item.name}</figcaption>
 			</figure>
-			<div>
-				<h2>{item.name}</h2>
-				<h3>{item.description}</h3>
-			</div>
 			<div data-css="statusWrapper">
-				<div>
-					{/* <ReviewStarMobile /> */}
-					<HeartSvg />
-				</div>
-				<div>
-					<span>{priceFormatter(item.price)}/kg</span>
-				</div>
+				<HeartSvg />
+				<span>{priceFormatter(item.price)}/kg</span>
 			</div>
 		</Wrapper>
 	);
 };
 
-export default ProductCardInCartMobile;
+export default ProductCardInAnnouncement;

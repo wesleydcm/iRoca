@@ -29,8 +29,4 @@ export const StyledButton = styled.button<Props>`
 				? "1px 2px 5px 2px var(--font-color)"
 				: "1px 2px 5px 2px var(--green600)"};
 	}
-
-	&:active {
-		transform: scale(0.95);
-	}
 `;
