@@ -3,6 +3,7 @@ import { ReactComponent as HeartSvg } from "../../../assets/images-mobile/heart.
 import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/organic_flag.svg";
 import { IProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
+import RatingStar from "../../reviews-stars";
 
 interface Props {
 	item: IProduct;
@@ -13,7 +14,10 @@ interface Props {
  * == MOBILE VERSION ==
  * @prop item - The item as "IProduct" that must be rendered.
  */
-const ProductCardInAnnouncementMobile = ({ item, ...rest }: Props): JSX.Element => {
+const ProductCardInAnnouncementMobile = ({
+	item,
+	...rest
+}: Props): JSX.Element => {
 	return (
 		<Wrapper {...rest}>
 			{item.isOrganic && (
@@ -34,7 +38,7 @@ const ProductCardInAnnouncementMobile = ({ item, ...rest }: Props): JSX.Element 
 			</div>
 			<div data-css="statusWrapper">
 				<div>
-					{/* <ReviewStarMobile /> */}
+					<RatingStar readOnly />
 					<HeartSvg />
 				</div>
 				<div>
