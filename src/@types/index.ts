@@ -113,4 +113,7 @@ export interface IPurchase {
   products: IProduct[];
 }
 
+export interface PageWidth {
+  pageWidth: number;
+}
 //quando for fazer listar avaliações , fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.
