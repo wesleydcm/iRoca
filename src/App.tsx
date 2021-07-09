@@ -8,16 +8,19 @@ import ProductCardInCartHistoryMobile from "./Components/ProductCardInCartHistor
 import { ReactComponent as CloseSvg } from "./assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg";
 import { WINDOW_SIZE_DESKTOP } from "./utils";
-
+import RatingStar from "./Components/reviews-stars";
 import { mockedProduct } from "./utils/mocks";
+
 const App: React.FC = () => {
 	const [value, setValue] = useState<string>("");
 	const [value2, setValue2] = useState<string>("");
 	const [value3, setValue3] = useState<string>("");
 	const [value4, setValue4] = useState<string>("");
 
+
 	return (
 		<>
+			<RatingStar />
 			<Button color="green">entrar</Button>
 			<Button>sair</Button>
 			{window.outerWidth > 899 ? (
