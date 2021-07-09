@@ -112,6 +112,12 @@ export interface IPurchase {
   isReceived: boolean;
   products: IProduct[];
 }
+export interface EvaluationData {
+  image: string;
+  name: string;
+  feedback: string;
+  grade: number;
+}
 
 export interface PageWidth {
   pageWidth: number;
