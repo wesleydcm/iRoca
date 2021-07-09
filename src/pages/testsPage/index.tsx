@@ -13,13 +13,14 @@ import { ReactComponent as SearchSvg } from "../../assets/images-desktop/search.
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
 import { useUser } from "../../Providers/user";
 import RatingStar from "../../Components/reviews-stars";
-import { mockedProduct, mockedEvaluation } from "../../utils/mocks";
+import { mockedProduct } from "../../utils/mocks";
 
 const Test = () => {
   const [value, setValue] = useState<string>("");
   const [value2, setValue2] = useState<string>("");
   const [value3, setValue3] = useState<string>("");
   const [value4, setValue4] = useState<string>("");
+
   const { initController } = useUser();
 
   const clicked = (): void => {
@@ -103,11 +104,6 @@ const Test = () => {
         <ProductCardInAnnouncement item={mockedProduct} />
       ) : (
         <ProductCardInAnnouncementMobile item={mockedProduct} />
-      )}
-      {window.innerWidth > WINDOW_SIZE_DESKTOP ? (
-        <EvaluationCard evaluation={mockedEvaluation} scenery="desktop" />
-      ) : (
-        <EvaluationCard evaluation={mockedEvaluation} scenery="mobile" />
       )}
     </>
   );
