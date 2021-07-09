@@ -22,7 +22,6 @@ export const Wrapper = styled.div`
 		position: absolute;
 		top: 0px;
 		left: -5px;
-		margin: 0;
 	}
 
 	figure {
@@ -80,11 +79,23 @@ export const Wrapper = styled.div`
 		padding: 30px 20px 0;
 		flex-wrap: wrap;
 
+		.organicFlag {
+			width: 55px;
+			height: 35px;
+			left: -6px;
+
+			svg {
+				width: inherit;
+				height: inherit;
+			}
+		}
+
 		figure {
 			width: 66px;
 			height: 66px;
 			align-self: flex-start;
 		}
+
 		div[data-css="infoWrapper"] {
 			width: 150px;
 			h2,

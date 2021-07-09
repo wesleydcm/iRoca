@@ -1,16 +1,19 @@
 import { screen, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import ProductCardInAnnouncement from "../desktop";
-import ProductCardInAnnouncementMobile from "../mobile";
-import {mockedProduct} from "../../../utils/mocks";
-
+import HistoryCard from "../desktop";
+import HistoryCardMobile from "../mobile";
+import { mockedPurchase1, mockedUser1 } from "../../../utils/mocks";
 
 describe('Component "ProductCardInCart":', () => {
 	const title = "Should this component";
 
 	it(`${title} be rendered in a Mobile version`, () => {
 		render(
-			<ProductCardInAnnouncementMobile data-testid="mobile" item={mockedProduct} />,
+			<HistoryCardMobile
+				data-testid="mobile"
+				seller={mockedUser1}
+				purchase={mockedPurchase1}
+			/>,
 		);
 		const productCard = screen.getByTestId("mobile");
 
@@ -19,7 +22,11 @@ describe('Component "ProductCardInCart":', () => {
 
 	it(`${title} be rendered in a Desktop version`, () => {
 		render(
-			<ProductCardInAnnouncement data-testid="desktop" item={mockedProduct} />,
+			<HistoryCard
+				data-testid="desktop"
+				seller={mockedUser1}
+				purchase={mockedPurchase1}
+			/>,
 		);
 		const productCard = screen.getByTestId("desktop");
 
