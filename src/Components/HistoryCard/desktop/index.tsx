@@ -12,12 +12,15 @@ interface Props {
 /**
  * It's the product that must be used into histories.
  * == DESKTOP VERSION ==
- * @prop item - The item as "IProduct" that must be rendered.
+ * @prop  {IProduct} seller - The seller that must be rendered.
+ * @prop  {IPurchase} purchase - The purchase that must be rendered.
+ * @prop {string} "data-testid?" - Only to jest tests proposal.
  */
 const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
 	return (
 		<Wrapper isReceived={purchase.isReceived} {...rest}>
 			<div data-css="seller__data">
+				<span data-css="date">{purchase.date}</span>
 				<h3>Vendedor</h3>
 				<div>
 					<span>Nome:</span>
@@ -33,7 +36,17 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
 				</div>
 				<h2>Itens</h2>
 			</div>
-			<span data-css="date">{purchase.date}</span>
+			<div data-css="purchase__data">
+				<span>Total: {priceFormatter(purchase.total)}</span>
+				<div>
+					<span>Subtotal: </span>
+					<span>{priceFormatter(purchase.subtotal)}</span>
+				</div>
+				<div>
+					<span>Frete: </span>
+					<span>{priceFormatter(purchase.delivery)}</span>
+				</div>
+			</div>
 			<ul>
 				{purchase.products.map((item: IProduct) => (
 					<li key={item.id}>
@@ -44,17 +57,6 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
 			<div data-css="isReceivedWrapper">
 				<span>Recebido?</span>
 				<CheckSvg />
-			</div>
-			<div data-css="purchase__data">
-				<div>
-					<span>Subtotal:</span>
-					<span>{priceFormatter(purchase.subtotal)}</span>
-				</div>
-				<div>
-					<span>Frete:</span>
-					<span>{priceFormatter(purchase.delivery)}</span>
-				</div>
-				<span>{priceFormatter(purchase.total)}</span>
 			</div>
 		</Wrapper>
 	);

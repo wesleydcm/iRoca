@@ -12,7 +12,9 @@ interface Props {
 /**
  * It's the product that must be used into histories.
  * == MOBILE VERSION ==
- * @prop item - The item as "IProduct" that must be rendered.
+ * @prop  {IProduct} seller - The seller that must be rendered.
+ * @prop  {IPurchase} purchase - The purchase that must be rendered.
+ * @prop {string} "data-testid?" - Only to jest tests proposal.
  */
 const HistoryCardMobile = ({
 	seller,
@@ -51,11 +53,11 @@ const HistoryCardMobile = ({
 			</div>
 			<div data-css="purchase__data">
 				<div>
-					<span>Subtotal:</span>
+					<span>Subtotal: </span>
 					<span>{priceFormatter(purchase.subtotal)}</span>
 				</div>
 				<div>
-					<span>Frete:</span>
+					<span>Frete: </span>
 					<span>{priceFormatter(purchase.delivery)}</span>
 				</div>
 				<span>{priceFormatter(purchase.total)}</span>

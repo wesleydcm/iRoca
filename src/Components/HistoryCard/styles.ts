@@ -46,8 +46,11 @@ export const Wrapper = styled.div<Props>`
 
 	ul {
 		width: 100%;
-		li {
+		li + li {
 			margin: 5px 0;
+		}
+		li:last-child {
+			margin-bottom: 15px;
 		}
 	}
 
@@ -58,6 +61,7 @@ export const Wrapper = styled.div<Props>`
 			font-weight: 600;
 			color: var(--gray700);
 			margin-right: 5px;
+			font-size: 10px;
 		}
 		svg {
 			opacity: ${({ isReceived }) => (isReceived ? 1 : 0.5)};
@@ -79,6 +83,59 @@ export const Wrapper = styled.div<Props>`
 	}
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
+		width: 960px;
+		height: fit-content;
+		border-radius: 30px;
+		padding: 40px;
 
+		span[data-css="date"] {
+			font-size: 24px;
+		}
+
+		div[data-css="seller__data"] {
+			h3,
+			div > span {
+				font-size: 14px;
+			}
+			h3 {
+				font-size: 20px;
+			}
+
+			h2 {
+				margin-top: 12px;
+				font-size: 20px;
+			}
+		}
+
+		div[data-css="purchase__data"] {
+			div > span {
+				font-size: 22px;
+			}
+			span {
+				font-size: 40px;
+			}
+		}
+		ul {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			li + li {
+				margin: unset;
+			}
+			li {
+				margin-bottom: 15px;
+			}
+		}
+
+		div[data-css="isReceivedWrapper"] {
+			margin-left: auto;
+			span {
+				font-size: 18px;
+			}
+			svg {
+				width: 65px;
+				height: 65px;
+			}
+		}
 	}
 `;
