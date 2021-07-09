@@ -112,5 +112,14 @@ export interface IPurchase {
   isReceived: boolean;
   products: IProduct[];
 }
+export interface EvaluationData {
+  image: string;
+  name: string;
+  feedback: string;
+  grade: number;
+}
 
+export interface PageWidth {
+  pageWidth: number;
+}
 //quando for fazer listar avaliações , fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.

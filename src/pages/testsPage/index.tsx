@@ -7,12 +7,13 @@ import ProductCardInCartHistory from "../../Components/ProductCardInCartHistory/
 import ProductCardInCartHistoryMobile from "../../Components/ProductCardInCartHistory/mobile";
 import ProductCardInAnnouncement from "../../Components/ProductCardInAnnouncement/desktop";
 import ProductCardInAnnouncementMobile from "../../Components/ProductCardInAnnouncement/mobile";
+import EvaluationCard from "../../Components/EvaluationCard";
 import { ReactComponent as CloseSvg } from "../../assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "../../assets/images-desktop/search.svg";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
 import { useUser } from "../../Providers/user";
 import RatingStar from "../../Components/reviews-stars";
-import { mockedProduct } from "../../utils/mocks";
+import { mockedProduct, mockedEvaluation } from "../../utils/mocks";
 
 const Test = () => {
   const [value, setValue] = useState<string>("");
@@ -102,6 +103,11 @@ const Test = () => {
         <ProductCardInAnnouncement item={mockedProduct} />
       ) : (
         <ProductCardInAnnouncementMobile item={mockedProduct} />
+      )}
+      {window.innerWidth > WINDOW_SIZE_DESKTOP ? (
+        <EvaluationCard evaluation={mockedEvaluation} scenery="desktop" />
+      ) : (
+        <EvaluationCard evaluation={mockedEvaluation} scenery="mobile" />
       )}
     </>
   );

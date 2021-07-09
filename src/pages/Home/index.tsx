@@ -1,11 +1,11 @@
 import { Container } from "./styles";
+import Loading from "../../Components/Loading";
 
 const Home = () => {
-  return (
-    <Container>
-      <div>DTeasoidjas</div>
-    </Container>
-  );
+	return (
+		<Container>
+		</Container>
+	);
 };
 
 export default Home;
