@@ -1,5 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import Register from "../pages/Register";
+import Register2 from "../pages/Register/Register2";
 
 const RouterComponent = () => {
   return (
@@ -14,6 +15,10 @@ const RouterComponent = () => {
 
       <Route exact path="/register">
         <Register />
+      </Route>
+
+      <Route exact path="/register-2">
+        <Register2 />
       </Route>
 
       <Route path="/myCart">
