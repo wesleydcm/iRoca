@@ -7,6 +7,7 @@ import ProductCardInCartHistory from "../../Components/ProductCardInCartHistory/
 import ProductCardInCartHistoryMobile from "../../Components/ProductCardInCartHistory/mobile";
 import ProductCardInAnnouncement from "../../Components/ProductCardInAnnouncement/desktop";
 import ProductCardInAnnouncementMobile from "../../Components/ProductCardInAnnouncement/mobile";
+import EvaluationCard from "../../Components/EvaluationCard";
 import { ReactComponent as CloseSvg } from "../../assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "../../assets/images-desktop/search.svg";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";

@@ -69,3 +69,10 @@ export const mockedPurchase1: IPurchase = {
 	isReceived: false,
 	products: [mockedProduct, mockedProduct, mockedProduct, mockedProduct],
 };
+
+export const mockedEvaluation = {
+  image: "https://i.imgur.com/02IXYej.png",
+  name: "Bino Amante de Morango",
+  feedback: "É o rugaldis, cacilds morangis topsis fera.",
+  grade: 4,
+};
