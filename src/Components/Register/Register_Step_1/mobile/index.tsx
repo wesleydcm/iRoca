@@ -1,16 +1,10 @@
-import {
-  Container,
-  Logo,
-  Descrition,
-  Form,
-  Footer,
-} from "../../../styles/register_styles";
-import LogoImage from "../../../assets/images-mobile/logo.svg";
-import Input from "../../Input";
-import Button from "../../Button";
+import { Container, Logo, Descrition, Form, Footer } from "./styles";
+import LogoImage from "../../../../assets/images-mobile/logo.svg";
+import Input from "../../../Input";
+import Button from "../../../Button";
 import { useState } from "react";
 
-const RegisterStep1 = () => {
+const RegisterStep1Mobile = () => {
   const [email, setEmail] = useState("");
 
   return (
@@ -72,4 +66,4 @@ const RegisterStep1 = () => {
   );
 };
 
-export default RegisterStep1;
+export default RegisterStep1Mobile;
