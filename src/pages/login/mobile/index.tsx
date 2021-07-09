@@ -6,8 +6,8 @@ import { ILoginData } from "../../../@types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../../schemas";
 import { useUser } from "../../../Providers/user";
-import { ReactComponent as LogoSVG } from "../../../assets/images-mobile/logo.svg";
 import { Link } from "react-router-dom";
+import { ReactComponent as LogoSVGmobile } from "../../../assets/images-mobile/logo.svg";
 const LoginPage = () => {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(loginSchema),
@@ -15,18 +15,20 @@ const LoginPage = () => {
 
   const { initController } = useUser();
   const login = (data: ILoginData) => {
-    console.log(data);
     const controller = initController();
     controller.login(data);
   };
 
   return (
     <Container>
-      <LogoSVG className="logo" />
-      <h1>Bem vindo ao iRoça</h1>
-      <p>
-        Venda seus produtos ou compre de produtores agrícolas de todo o Brasil
-      </p>
+      <LogoSVGmobile />
+
+      <div>
+        <h1>Bem vindo ao iRoça</h1>
+        <p>
+          Venda seus produtos ou compre de produtores agrícolas de todo o Brasil
+        </p>
+      </div>
       <form onSubmit={handleSubmit(login)}>
         <Input
           type="email"

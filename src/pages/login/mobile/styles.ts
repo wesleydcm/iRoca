@@ -3,12 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100%;
   padding: 0 7%;
-  height: 100vh;
+  min-height: 100vh;
   background: var(--green-gradient);
   color: var(--font-color);
-  position: absolute;
-  top: 0;
-  left: 0;
+  padding: 0.5rem 7% 2rem;
 
   form {
     display: flex;
@@ -19,7 +17,7 @@ export const Container = styled.div`
   }
 
   input {
-    max-width: 300px;
+    max-width: 500px;
     width: 80%;
     font-size: 1rem;
   }
@@ -49,8 +47,7 @@ export const Container = styled.div`
   }
   svg {
     display: block;
-    margin: 1rem 0 0 auto;
-    width: 26.8vw;
+    margin: 0 0 0 auto;
   }
 
   a {
@@ -66,6 +63,38 @@ export const Container = styled.div`
     height: 3px;
     background-color: var(--font-color);
     position: absolute;
-    bottom: -7px;
+    bottom: -5px;
+  }
+
+  @media only screen and (max-width: 370px) {
+    a {
+      color: var(--font-color);
+      position: relative;
+      font-size: 0.8rem;
+      margin-top: 1.3rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+    input {
+      width: 90%;
+      max-width: 300px;
+    }
+  }
+
+  @media only screen and (min-width: 525px) {
+    input {
+      align-self: flex-start;
+    }
+    button {
+      align-self: flex-start;
+    }
+    a {
+      align-self: flex-start;
+    }
   }
 `;

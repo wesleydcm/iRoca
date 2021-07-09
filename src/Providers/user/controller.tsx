@@ -81,6 +81,7 @@ class UserController {
       errorToast("Ocorreu algum erro no sistema");
     }
   };
+
   getUserOfEvaluation = async (evaluation: any) => {
     const user = await this.getUser(evaluation.avaliatorId);
     return {
@@ -88,6 +89,7 @@ class UserController {
       evaluation: evaluation,
     };
   };
+
   getEvaluationsOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/evaluations/`);
@@ -100,6 +102,7 @@ class UserController {
       errorToast("Ocorreu algum erro no sistema");
     }
   };
+
   getProductsOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/products/`);
