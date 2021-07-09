@@ -81,11 +81,21 @@ class UserController {
       errorToast("Ocorreu algum erro no sistema");
     }
   };
-
+  getUserOfEvaluation = async (evaluation: any) => {
+    const user = await this.getUser(evaluation.avaliatorId);
+    return {
+      avaliator: user,
+      evaluation: evaluation,
+    };
+  };
   getEvaluationsOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/evaluations/`);
-      return await response.data;
+      return Promise.all(
+        response.data.map((evaluation: IEvaluations) =>
+          this.getUserOfEvaluation(evaluation)
+        )
+      );
     } catch (e) {
       errorToast("Ocorreu algum erro no sistema");
     }
@@ -147,7 +157,7 @@ class UserController {
     }
   };
 
-  getSeller = async (productId: number) => {
+  getSellerOfProduct = async (productId: number) => {
     try {
       const { data } = await api.get(`/products/${productId}`);
 
@@ -156,6 +166,7 @@ class UserController {
       errorToast("Não foi possível encontrar usuário");
     }
   };
+
   updateProduct = async (
     productId: number,
     productData: IProductUpdate,
@@ -191,22 +202,23 @@ class UserController {
       const newProducts = this.products.filter((item) => item.id !== productId);
       this.setProducts(newProducts);
       successToast("Produto excluido com sucesso");
-      return data;
     } catch (e) {
       errorToast("Não foi possível excluir produto");
     }
   };
 
   createPurchase = async (token: string, purchase: IPurchase) => {
+    const { sub } = decodeToken(token);
     try {
-      const { data } = await api.post(`/purchases/`, purchase, {
+      await api.post(`/purchases/`, purchase, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(data);
+
       successToast(
         "Compra efetuada com sucesso, agora é só esperar o produto chegar na sua casa :)"
       );
-      return data;
+      //retorna uma nova lista de compras pra atualizar o feed
+      return await this.getPurchasesOfUser(Number(sub));
     } catch (e) {
       errorToast("Não foi possível concluir compra");
     }
@@ -234,6 +246,17 @@ class UserController {
     }
   };
   createEvaluation = async (token: string, evaluation: IEvaluations) => {
+    try {
+      const { data } = await api.post(`/evaluations/`, evaluation, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      successToast("Avaliação enviada");
+      return data;
+    } catch (e) {
+      errorToast("Não foi possível concluir avaliação");
+    }
+  };
+  favoriteProduct = async (token: string, evaluation: IEvaluations) => {
     try {
       const { data } = await api.post(`/evaluations/`, evaluation, {
         headers: { Authorization: `Bearer ${token}` },
