@@ -4,7 +4,7 @@ import Input from "../../../Input";
 import { useState } from "react";
 import Button from "../../../Button";
 
-const RegisterStep2Desktop = () => {
+const RegisterStep3Desktop = () => {
   const [email, setEmail] = useState("");
   return (
     <Container>
@@ -12,8 +12,8 @@ const RegisterStep2Desktop = () => {
         <div className="description">
           <h1>Bem vindo ao iRoça</h1>
           <p>
-            Precisamos dos seus dados pra fazer realizar compras ou publicar
-            anúncios
+            Que legal! Agora queremos saber mais sobre você, por favor informe
+            seus dados para concluir o seu cadastro
           </p>
         </div>
         <div className="image">
@@ -22,30 +22,37 @@ const RegisterStep2Desktop = () => {
       </Logo>
       <Form>
         <div className="input">
-          <h1>Dados Pessoais</h1>
+          <h1>Dados de Endereço</h1>
           <Input
-            placeholder={"Nome completo"}
+            placeholder={"Estado"}
             setValue={setEmail}
             type={"text"}
             value={email}
             width={260}
           />
           <Input
-            placeholder={"Data de nascimento"}
+            placeholder={"Cidade"}
             setValue={setEmail}
             type={"text"}
             value={email}
             width={260}
           />
           <Input
-            placeholder={"CPF"}
+            placeholder={"Bairro"}
             setValue={setEmail}
             type={"text"}
             value={email}
             width={260}
           />
           <Input
-            placeholder={"Telefone de contato"}
+            placeholder={"Rua"}
+            setValue={setEmail}
+            type={"text"}
+            value={email}
+            width={260}
+          />
+          <Input
+            placeholder={"Complemento"}
             setValue={setEmail}
             type={"text"}
             value={email}
@@ -53,25 +60,24 @@ const RegisterStep2Desktop = () => {
           />
         </div>
         <div className="photo">
-          <h1>Foto de Perfil</h1>
           <div className="photo-input">
             <Input
-              placeholder={"link"}
+              placeholder={"CEP"}
               setValue={setEmail}
               type={"text"}
               value={email}
               width={180}
             />
             <span>ou</span>
-            <Button width={100} color={"green"} type={"button"}>
-              Upload
+            <Button width={130} color={"green"} type={"button"}>
+              Verificar
             </Button>
           </div>
         </div>
         <div className="button">
           {" "}
-          <Button width={180} color={"green"} type={"submit"}>
-            Próximo
+          <Button width={225} color={"green"} type={"submit"}>
+            Finalizar cadastro
           </Button>
         </div>
       </Form>
@@ -79,4 +85,4 @@ const RegisterStep2Desktop = () => {
   );
 };
 
-export default RegisterStep2Desktop;
+export default RegisterStep3Desktop;
