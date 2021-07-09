@@ -1,32 +1,19 @@
 import { screen, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import ProductCardInAnnouncement from "../desktop";
+import HistoryCard from "../desktop";
 import HistoryCardMobile from "../mobile";
-import { IEvaluation, Image, IProduct } from "../../../@types";
-
-const mockedProduct: IProduct = {
-	name: "Mussum Ipsum",
-	category: "fruit",
-	description:
-		"Mussum Ipsum, cacilds vidis litro abertis. Per aumento de cachacis, eu reclamis.",
-	userId: 1,
-	price: 2.5,
-	isOrganic: true,
-	qty: 100,
-	images: [
-		{
-			url: "http://2.bp.blogspot.com/-M1-bXKeN3Ww/TfvOP9orTpI/AAAAAAAABqg/VdN6nIOw__8/s1600/morango.png",
-		} as Image,
-	],
-	evaluations: [{} as IEvaluation],
-};
+import { mockedPurchase1, mockedUser1 } from "../../../utils/mocks";
 
 describe('Component "ProductCardInCart":', () => {
 	const title = "Should this component";
 
 	it(`${title} be rendered in a Mobile version`, () => {
 		render(
-			<HistoryCardMobile data-testid="mobile" item={mockedProduct} />,
+			<HistoryCardMobile
+				data-testid="mobile"
+				seller={mockedUser1}
+				purchase={mockedPurchase1}
+			/>,
 		);
 		const productCard = screen.getByTestId("mobile");
 
@@ -35,7 +22,11 @@ describe('Component "ProductCardInCart":', () => {
 
 	it(`${title} be rendered in a Desktop version`, () => {
 		render(
-			<ProductCardInAnnouncement data-testid="desktop" item={mockedProduct} />,
+			<HistoryCard
+				data-testid="desktop"
+				seller={mockedUser1}
+				purchase={mockedPurchase1}
+			/>,
 		);
 		const productCard = screen.getByTestId("desktop");
 
