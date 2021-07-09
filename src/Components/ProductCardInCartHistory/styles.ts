@@ -6,7 +6,7 @@ interface Prop {
 }
 
 export const Wrapper = styled.div<Prop>`
-	width: 90%;
+	width: 100%;
 	height: 95px;
 	position: relative;
 	box-shadow: 0 2px 5px 2px var(--shadow-black);

@@ -1,80 +1,21 @@
-import React, { useState } from "react";
-import Button from "./Components/Button";
-import MobileInputIcon from "./Components/InputIcon/mobile";
-import DesktopInputIcon from "./Components/InputIcon/desktop";
-import Input from "./Components/Input";
-import ProductCardInCartHistory from "./Components/ProductCardInCartHistory/desktop";
+import React from "react";
 import ProductCardInCartHistoryMobile from "./Components/ProductCardInCartHistory/mobile";
-import ProductCardInAnnouncement from "./Components/ProductCardInAnnouncement/desktop";
+import ProductCardInCartHistory from "./Components/ProductCardInCartHistory/desktop";
 import ProductCardInAnnouncementMobile from "./Components/ProductCardInAnnouncement/mobile";
-import { ReactComponent as CloseSvg } from "./assets/images-desktop/close.svg";
-import { ReactComponent as SearchSvg } from "./assets/images-desktop/search.svg";
+import ProductCardInAnnouncement from "./Components/ProductCardInAnnouncement/desktop";
+import HistoryCardMobile from "./Components/HistoryCard/mobile";
+import HistoryCard from "./Components/HistoryCard/desktop";
 import { WINDOW_SIZE_DESKTOP } from "./utils";
 
-import { mockedProduct } from "./utils/mocks";
+import { mockedProduct, mockedUser1, mockedPurchase1 } from "./utils/mocks";
 const App: React.FC = () => {
-	const [value, setValue] = useState<string>("");
-	const [value2, setValue2] = useState<string>("");
-	const [value3, setValue3] = useState<string>("");
-	const [value4, setValue4] = useState<string>("");
-
 	return (
 		<>
-			<Button color="green">entrar</Button>
-			<Button>sair</Button>
-			{window.outerWidth > 899 ? (
-				<>
-					<DesktopInputIcon
-						type="text"
-						placeholder="nome"
-						icon={CloseSvg}
-						value={value}
-						setValue={setValue}
-					/>
-					<DesktopInputIcon
-						type="text"
-						placeholder="buscar"
-						icon={SearchSvg}
-						action="search"
-						color="white"
-						value={value2}
-						setValue={setValue2}
-					/>
-				</>
+			{window.innerWidth > WINDOW_SIZE_DESKTOP ? (
+				<ProductCardInAnnouncement item={mockedProduct} />
 			) : (
-				<>
-					<MobileInputIcon
-						type="text"
-						placeholder="nome"
-						icon={CloseSvg}
-						value={value}
-						setValue={setValue}
-					/>
-					<MobileInputIcon
-						type="text"
-						placeholder="buscar"
-						icon={SearchSvg}
-						action="search"
-						color="white"
-						value={value2}
-						setValue={setValue2}
-					/>
-				</>
+				<ProductCardInAnnouncementMobile item={mockedProduct} />
 			)}
-			<Input
-				type="text"
-				placeholder="buscar"
-				color="green"
-				value={value3}
-				setValue={setValue3}
-			/>
-			<Input
-				type="text"
-				placeholder="buscar"
-				color="white"
-				value={value4}
-				setValue={setValue4}
-			/>
 			{window.innerWidth > WINDOW_SIZE_DESKTOP ? (
 				<ProductCardInCartHistory scenery="cart" item={mockedProduct} />
 			) : (
@@ -85,9 +26,9 @@ const App: React.FC = () => {
 			)}
 
 			{window.innerWidth > WINDOW_SIZE_DESKTOP ? (
-				<ProductCardInAnnouncement item={mockedProduct} />
+				<HistoryCard seller={mockedUser1} purchase={mockedPurchase1} />
 			) : (
-				<ProductCardInAnnouncementMobile item={mockedProduct} />
+				<HistoryCardMobile seller={mockedUser1} purchase={mockedPurchase1} />
 			)}
 		</>
 	);
