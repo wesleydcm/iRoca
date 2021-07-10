@@ -8,7 +8,7 @@ import Vegetables2CategorySvg from "../../../assets/images-mobile/vegetables2_ca
 import OrganicSvg from "../../../assets/images-mobile/organic_category.svg";
 import HeartSvg from "../../../assets/images-mobile/heart.svg";
 import InputIconMobile from "../../../Components/InputIcon/mobile";
-import type { ICategoriesAndTypes, IProduct } from "../../../@types";
+import type { IBestProducts, ICategoriesAndTypes } from "../../../@types";
 import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
 
 interface Props {
@@ -18,7 +18,7 @@ interface Props {
 	setCategorySelected: React.Dispatch<React.SetStateAction<string>>;
 	selectedType?: string;
 	setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
-	bestProductsList: IProduct[];
+	bestProductsList: IBestProducts[];
 	categoriesAndTypes: ICategoriesAndTypes;
 }
 
@@ -92,7 +92,10 @@ const HomeMobile = ({
 			<h3>destaques</h3>
 			<ul data-css="productsWrapper">
 				{bestProductsList.map(product => (
-					<ProductCardInAnnouncementMobile key={product.id} item={product} />
+					<ProductCardInAnnouncementMobile
+						key={product.product.id}
+						item={product.product}
+					/>
 				))}
 			</ul>
 		</Wrapper>

@@ -139,3 +139,8 @@ export interface ICategoriesAndTypes {
 	ORGANICS: string;
 	COMMONS: string;
 }
+
+export interface IBestProducts {
+	product: IProduct;
+	average: number;
+}
