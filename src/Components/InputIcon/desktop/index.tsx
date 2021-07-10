@@ -24,7 +24,7 @@ const InputIconDesktop = ({
 	...rest
 }: Props): JSX.Element => {
 	return (
-		<Wrapper styles={styles}>
+		<Wrapper className="fix-width" styles={styles}>
 			<StyledInput
 				placeholder={placeholder}
 				styles={styles}

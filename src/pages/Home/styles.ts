@@ -74,7 +74,7 @@ export const Wrapper = styled.div`
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
 		padding: 60px 40px;
-		padding-left: 370px;
+		padding-left: 32vw;
 		display: flex;
 		flex-wrap: wrap;
 
@@ -82,10 +82,17 @@ export const Wrapper = styled.div`
 			width: 100%;
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
 			svg[data-css="logo"] {
-				width: 125px;
-				height: 125px;
+				width: 8.7vw;
+				height: 8.7vw;
+				max-width: 150px;
+				max-height: 150px;
 			}
+		}
+
+		.fix-width {
+			width: 45.9vw;
 		}
 
 		div[data-css="filtersContainer"],
@@ -98,12 +105,12 @@ export const Wrapper = styled.div`
 		}
 		div[data-css="filtersContainer"] {
 			width: 100%;
-			justify-content: space-around;
+			justify-content: space-between;
 			ul:nth-child(1) {
-				margin-right: 25%;
+				width: 31vw;
 			}
 			ul:nth-child(2) {
-				margin-left: 25%;
+				width: 31vw;
 			}
 		}
 
@@ -120,8 +127,10 @@ export const Wrapper = styled.div`
 		}
 
 		ul[data-css="filtersWrapper"] > li > button > img {
-			width: 135px;
-			height: 135px;
+			width: 9.5vw;
+			height: 9.5vw;
+			max-width: 150px;
+			max-height: 150px;
 		}
 		ul[data-css="filtersWrapper"]:nth-child(2)
 			> li:nth-child(3)
@@ -139,5 +148,15 @@ export const Wrapper = styled.div`
 				margin-top: 15px;
 			}
 		}
+		button {
+			&:active {
+				transform: scale(0.9);
+			}
+			transition: transform 100ms ease-out;
+			outline: none;
+		}
+	}
+	@media only screen and (min-width: 1100px) {
+		padding-left: 27vw;
 	}
 `;
