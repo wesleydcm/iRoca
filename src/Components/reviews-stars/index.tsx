@@ -26,6 +26,7 @@ export default function RatingStar({
   readOnly = false,
 }: ReviewStarProps) {
   const classes = useStyles();
+  // eslint-disable-next-line
   const [starsChecked, setStarsChecked] = useState<number | null>(value);
 
   return (
@@ -44,6 +45,7 @@ export default function RatingStar({
         </>
       ) : (
         <Rating
+          // eslint-disable-next-line
           onChange={(event, newstarsChecked) => {
             setStarsChecked(newstarsChecked);
           }}

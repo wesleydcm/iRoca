@@ -5,14 +5,19 @@ import InputIconMobile from "../../Components/InputIcon/mobile";
 import { useState } from "react";
 
 const HomeMobile = () => {
-	const [searchValue, setSearchValue] = useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>("");
 
-	return (
-		<Wrapper>
-			<LogoSvg data-css="logo" />
-			<InputIconMobile action="search" value={searchValue} setValue={setSearchValue} icon={SearchSvg}/>
-		</Wrapper>
-	);
+  return (
+    <Wrapper>
+      <LogoSvg data-css="logo" />
+      <InputIconMobile
+        action="search"
+        value={searchValue}
+        setValue={setSearchValue}
+        icon={SearchSvg}
+      />
+    </Wrapper>
+  );
 };
 
 export default HomeMobile;

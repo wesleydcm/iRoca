@@ -1,6 +1,7 @@
 import { Route, Switch } from "react-router";
 import LoginPage from "../pages/login/";
 import TestsPage from "../pages/testsPage";
+// eslint-disable-next-line
 import Home from "../pages/Home";
 import ProductPage from "../pages/productPage";
 // import MyCart from "../pages/mycart";

@@ -1,11 +1,30 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+  & > div > nav {
+    justify-content: space-between;
+
+    a {
+      width: 33%;
+    }
+    svg {
+      width: 30%;
+    }
+    span {
+      font-size: 0.8rem;
+    }
+  }
+`;
+
 export const Container = styled.div`
+  padding-bottom: 125px;
+  height: 100vh;
+
   .rec-carousel-wrapper {
     margin-bottom: 2rem;
   }
-  img {
-    height: calc(45vh - 2rem);
+  .rec-carousel-wrapper img {
+    height: calc(28vh);
     pointer-events: none;
   }
   .rec-dot {
@@ -28,73 +47,39 @@ export const Container = styled.div`
     height: 50px;
     transform: translateX(-50%);
   }
+  & > button:active {
+    transform: translateX(-50%) scale(0.98);
+  }
   .scroll {
-    max-height: 49vh;
+    height: 47vh;
     ::-webkit-scrollbar {
       width: 0;
     }
-  }
-  .info {
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--nunito);
-    width: 90%;
-    margin: 0 auto;
-    p {
-      color: var(--gray600);
-      width: 68%;
-      font-weight: 300;
-    }
-    > div {
-      color: var(--green400);
-      font-size: 1.2rem;
-      font-weight: 700;
 
-      span {
-        color: var(--gray900);
-        display: block;
-        margin: 0 auto;
-        width: fit-content;
-        font-size: 1.5rem;
-        font-weight: 600;
+    .evaluation-cards {
+      > div {
+        margin: 1.5rem auto 1rem;
+        padding-left: 1.5rem;
+        padding-bottom: 1rem;
+        padding-top: 1.5rem;
+        padding: 1.5rem 1rem 1rem 1.5rem;
+        span .MuiRating-decimal {
+          margin: 0 -3.5px;
+          color: var(--yellow);
+        }
+        .feedback {
+          margin-left: 0.5rem;
+        }
       }
     }
   }
+
   .productorCard {
     width: 90%;
     height: 250px;
     margin: 2rem auto;
     border-radius: 15px;
     background: #f00;
-  }
-
-  .avaliacoes-geral {
-    font-family: var(--nunito);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    margin: 0 auto;
-    h3 {
-      color: var(--gray900);
-      font-size: 18px;
-    }
-    & > div {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--gray900);
-      display: flex;
-      flex-direction: column-reverse;
-      align-items: flex-end;
-      p {
-        font-size: 12px;
-        margin-right: 0.5rem;
-      }
-      > div > span .MuiRating-decimal {
-        margin: 0 -2px;
-        color: var(--yellow);
-      }
-    }
   }
 
   @media only screen and (max-width: 390px) {
@@ -105,18 +90,72 @@ export const Container = styled.div`
       width: 12px;
       height: 12px;
     }
+  }
+`;
 
-    .info {
-      p {
-        font-size: 0.9rem;
-        width: 65%;
-      }
+export const GeneralEvaluation = styled.section`
+  font-family: var(--nunito);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  h3 {
+    color: var(--gray900);
+    font-size: 18px;
+  }
+  & > div {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray900);
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    p {
+      font-size: 12px;
+      margin-right: 0.5rem;
+    }
+    > div > span .MuiRating-decimal {
+      margin: 0 -2px;
+      color: var(--yellow);
+    }
+  }
+`;
+export const ProductInformation = styled.section`
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--nunito);
+  width: 90%;
+  margin: 0 auto;
+  p {
+    color: var(--gray600);
+    width: 68%;
+    font-weight: 300;
+  }
+  > div {
+    color: var(--green400);
+    font-size: 1.2rem;
+    font-weight: 700;
 
-      > div {
-        font-size: 1rem;
-        span {
-          font-size: 1.3rem;
-        }
+    span {
+      color: var(--gray900);
+      display: block;
+      margin: 0 auto;
+      width: fit-content;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+  @media only screen and (max-width: 390px) {
+    p {
+      font-size: 0.9rem;
+      width: 65%;
+    }
+
+    > div {
+      font-size: 1rem;
+      span {
+        font-size: 1.3rem;
       }
     }
   }
