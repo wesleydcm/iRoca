@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../../Components/Button";
-import DesktopInputIcon from "../../Components/InputIcon/desktop";
+import InputIconDesktop from "../../Components/InputIcon/desktop";
 import Input from "../../Components/Input";
 import ProductCardInCartHistory from "../../Components/ProductCardInCartHistory/desktop";
 import ProductCardInCartHistoryMobile from "../../Components/ProductCardInCartHistory/mobile";
@@ -39,19 +39,20 @@ const Test = () => {
 			<Button>sair</Button>
 			{window.outerWidth > 899 ? (
 				<>
-					<DesktopInputIcon
-						type="text"
+					<InputIconDesktop
+						styles={{ height: 60 }}
+						type="number"
 						placeholder="nome"
 						icon={CloseSvg}
 						value={value}
 						setValue={setValue}
 					/>
-					<DesktopInputIcon
+					<InputIconDesktop
+						styles={{ color: "white", height: 35 }}
 						type="text"
 						placeholder="buscar"
 						icon={SearchSvg}
 						action="search"
-						color="white"
 						value={value2}
 						setValue={setValue2}
 					/>
@@ -59,6 +60,7 @@ const Test = () => {
 			) : (
 				<>
 					<InputIconMobile
+						styles={{ size: 35 }}
 						action="clear"
 						placeholder="nome"
 						icon={CloseSvg}
@@ -66,10 +68,10 @@ const Test = () => {
 						setValue={setValue}
 					/>
 					<InputIconMobile
+						styles={{ color:"white", size: 35 }}
 						placeholder="buscar"
 						icon={SearchSvg}
 						action="search"
-						color="white"
 						value={value2}
 						setValue={setValue2}
 					/>
