@@ -3,9 +3,9 @@ import { StyledButton } from "./styles";
 
 interface Props extends DOMAttributes<any> {
   type?: "button" | "submit" | "reset" | undefined;
-  color?: string;
+  color?: "green" | undefined;
   children: string;
-  width: number;
+  width?: number;
 }
 
 /**

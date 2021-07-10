@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface Props {
   color?: string;
-  width: number;
+  width?: number;
 }
 
 export const StyledButton = styled.button<Props>`

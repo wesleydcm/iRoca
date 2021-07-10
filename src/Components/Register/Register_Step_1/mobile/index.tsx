@@ -9,7 +9,7 @@ const RegisterStep1Mobile = () => {
 
   return (
     <Container>
-      <Logo>
+      {/* <Logo>
         <h1>Bem vindo ao iRoça</h1>
         <img src={LogoImage} alt="logo" />
       </Logo>
@@ -33,7 +33,7 @@ const RegisterStep1Mobile = () => {
             placeholder={"Confirmação de email"}
             type={"text"}
             color={"white"}
-            setValue={setEmail}
+            // setValue={setEmail}
             value={email}
             width={250}
           />
@@ -41,7 +41,7 @@ const RegisterStep1Mobile = () => {
             placeholder={"Senha"}
             type={"text"}
             color={"white"}
-            setValue={setEmail}
+            // setValue={setEmail}
             value={email}
             width={250}
           />
@@ -49,7 +49,7 @@ const RegisterStep1Mobile = () => {
             placeholder={"Confirmação de senha"}
             type={"text"}
             color={"white"}
-            setValue={setEmail}
+            // setValue={setEmail}
             value={email}
             width={250}
           />
@@ -61,7 +61,7 @@ const RegisterStep1Mobile = () => {
       </Form>
       <Footer>
         <p>Já possui uma conta ? Entre por aqui!</p>
-      </Footer>
+      </Footer> */}
     </Container>
   );
 };

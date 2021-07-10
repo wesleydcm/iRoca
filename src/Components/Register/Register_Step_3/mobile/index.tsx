@@ -9,7 +9,7 @@ const RegisterStep2Mobile = () => {
 
   return (
     <Container>
-      <Logo>
+      {/* <Logo>
         <img src={LogoImage} alt="logo" />
         <p>
           Que legal! Agora queremos saber mais sobre você, por favor informe
@@ -81,7 +81,7 @@ const RegisterStep2Mobile = () => {
       </Form>
       <Footer>
         <p>Já possui uma conta ? Entre por aqui!</p>
-      </Footer>
+      </Footer> */}
     </Container>
   );
 };

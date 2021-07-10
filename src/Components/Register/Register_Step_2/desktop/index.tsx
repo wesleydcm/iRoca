@@ -8,7 +8,7 @@ const RegisterStep2Desktop = () => {
   const [email, setEmail] = useState("");
   return (
     <Container>
-      <Logo>
+      {/* <Logo>
         <div className="description">
           <h1>Bem vindo ao iRoça</h1>
           <p>
@@ -74,7 +74,7 @@ const RegisterStep2Desktop = () => {
             Próximo
           </Button>
         </div>
-      </Form>
+      </Form> */}
     </Container>
   );
 };

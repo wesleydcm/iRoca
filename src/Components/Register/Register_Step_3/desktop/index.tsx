@@ -8,7 +8,7 @@ const RegisterStep3Desktop = () => {
   const [email, setEmail] = useState("");
   return (
     <Container>
-      <Logo>
+      {/* <Logo>
         <div className="description">
           <h1>Bem vindo ao iRoça</h1>
           <p>
@@ -80,7 +80,7 @@ const RegisterStep3Desktop = () => {
             Finalizar cadastro
           </Button>
         </div>
-      </Form>
+      </Form> */}
     </Container>
   );
 };

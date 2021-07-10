@@ -3,6 +3,7 @@ import { ReactComponent as HeartSvg } from "../../../assets/images-mobile/heart.
 import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/organic_flag.svg";
 import { IProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
+import RatingStars from "../../RatingStars";
 
 interface Props {
 	item: IProduct;
@@ -27,7 +28,7 @@ const ProductCardInAnnouncement = ({ item, ...rest }: Props): JSX.Element => {
 			)}
 			<div data-css="infoWrapper">
 				<h2>{item.name}</h2>
-				{/* <ReviewStarMobile /> */}
+				<RatingStars readOnly />
 				<h3>{item.description}</h3>
 			</div>
 			<figure>

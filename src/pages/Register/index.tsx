@@ -3,7 +3,6 @@ import RegisterStep1Desktop from "../../Components/Register/Register_Step_1/desk
 
 const Register = () => {
   const viewPort = window.innerWidth;
-  console.log(viewPort);
 
   return (
     <>{viewPort <= 900 ? <RegisterStep1Mobile /> : <RegisterStep1Desktop />}</>

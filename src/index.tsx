@@ -9,8 +9,8 @@ import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Providers>
+    <Providers>
+      <BrowserRouter>
         <ToastContainer
           position="top-right"
           autoClose={2000}
@@ -25,8 +25,8 @@ ReactDOM.render(
         {/* Same as */}
         <Global />
         <App />
-      </Providers>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Providers>
   </React.StrictMode>,
   document.getElementById("root")
 );
