@@ -9,10 +9,9 @@ import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
 
-const Routes = () => {
+const RouterComponent = () => {
   const { pageWidth } = useWindow();
   const { pathname } = useLocation();
-
   return (
     <>
       {!["/login", "/register"].includes(pathname) &&
@@ -22,11 +21,54 @@ const Routes = () => {
         <Route exact path="/" component={TestsPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/home" component={Home} />
-        {/* <Route path="/mycart" component={MyCart} /> */}
         <Route exact path="/product/:id" component={ProductPage} />
+
+        <Route exact path="/register">
+          <div>Register</div>
+        </Route>
+
+        <Route path="/myCart">
+          <div>My Cart</div>
+        </Route>
+
+        <Route path="/checkout">
+          <div>Checkout</div>
+        </Route>
+
+        <Route exact path="/myAccount">
+          <div>My Account</div>
+        </Route>
+
+        <Route exact path="/myAccount/profile">
+          <div>My Profile</div>
+        </Route>
+
+        <Route path="/myAccount/edit">
+          <div>Edit Profile</div>
+        </Route>
+
+        <Route path="/myAccount/history">
+          <div>My Purchase History</div>
+        </Route>
+
+        <Route path="/myAccount/products">
+          <div>Register Products</div>
+        </Route>
+
+        <Route path="/myAccount/profile/product">
+          <div>Update Product</div>
+        </Route>
+
+        <Route path="/product">
+          <div>Product</div>
+        </Route>
+
+        <Route path="/ownerProfile/:id">
+          <div>Owner Profile</div>
+        </Route>
       </Switch>
     </>
   );
 };
 
-export default Routes;
+export default RouterComponent;
