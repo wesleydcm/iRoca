@@ -31,15 +31,16 @@ export const Wrapper = styled.div<Props>`
 		border: solid 2px var(--green400);
 		top: -2px;
 		left: -2px;
-		animation: grow 1s 1.5s infinite ease-out;
 	}
 
 	.logo-cont::before {
 		z-index: -1;
+		animation: grow 1s 1.5s infinite ease-out;
 	}
 
 	.logo-cont::after {
 		z-index: -2;
+		animation: grow 1s 0.8s infinite ease-out;
 	}
 
 	@keyframes grow {
