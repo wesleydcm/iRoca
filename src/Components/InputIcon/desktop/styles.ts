@@ -7,7 +7,8 @@ interface Props {
 
 export const Wrapper = styled.div<Props>`
 	min-width: 200px;
-	width: fit-content;
+	width: ${({ styles }) =>
+		styles.width ? styles.width + "px" : "fit-content"};
 	height: ${({ styles }) => styles.height + "px"};
 	border: ${({ styles }) =>
 		styles.color === "white"
@@ -20,6 +21,10 @@ export const Wrapper = styled.div<Props>`
 
 	button {
 		border: none;
+		svg {
+			width: 25px;
+			height: 25px;
+		}
 	}
 `;
 

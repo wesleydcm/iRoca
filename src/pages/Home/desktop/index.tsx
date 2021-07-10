@@ -7,90 +7,97 @@ import Vegetables1CategorySvg from "../../../assets/images-mobile/vegetables1_ca
 import Vegetables2CategorySvg from "../../../assets/images-mobile/vegetables2_category.svg";
 import OrganicSvg from "../../../assets/images-mobile/organic_category.svg";
 import HeartSvg from "../../../assets/images-mobile/heart.svg";
-import InputIconMobile from "../../../Components/InputIcon/mobile";
-import { useState } from "react";
+import InputIconDesktop from "../../../Components/InputIcon/desktop";
+import { useEffect, useState } from "react";
 import { IProduct } from "../../../@types";
 import { mockedProduct } from "../../../utils/mocks";
 import { categoriesAndTypes } from "../../../utils";
-import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
+import ProductCardInAnnouncement from "../../../Components/ProductCardInAnnouncement/desktop";
 
-const Home = () => {
+const HomeDesktop = () => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [categorySelected, setCategorySelected] = useState<string>("");
 	const [selectedType, setTypeSelected] = useState<string>("");
-
 	const [bestSellersList, setBestSellersList] = useState<IProduct[]>([
-		mockedProduct,
-		mockedProduct,
 		mockedProduct,
 	]);
 
 	const { ORGANICS, COMMONS, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
 		categoriesAndTypes;
 
+	useEffect(() => {
+		setBestSellersList([mockedProduct]);
+	}, [categorySelected, selectedType]);
+
 	return (
 		<Wrapper>
-			<LogoSvg data-css="logo" />
-			<InputIconMobile
-				action="search"
-				value={searchValue}
-				setValue={setSearchValue}
-				icon={SearchSvg}
-			/>
-
-			<ul>
-				<li>
-					<button type="button" onClick={() => setTypeSelected(COMMONS)}>
-						<img src={CommonProductsSvg} alt={COMMONS} />
-					</button>
-					<span>{COMMONS}</span>
-				</li>
-				<li>
-					<button type="button" onClick={() => setTypeSelected(ORGANICS)}>
-						<img src={OrganicSvg} alt={ORGANICS} />
-					</button>
-					<span>{ORGANICS}</span>
-				</li>
-				<li>
-					<button type="button" onClick={() => setTypeSelected(FAVORITES)}>
-						<img src={HeartSvg} alt={FAVORITES} />
-					</button>
-					<span>{FAVORITES}</span>
-				</li>
-				<li>
-					<button type="button" onClick={() => setCategorySelected(FRUIT)}>
-						<img src={FruitsCategorySvg} alt={FRUIT} />
-					</button>
-					<span>{FRUIT}</span>
-				</li>
-				<li>
-					<button
-						type="button"
-						onClick={() => setCategorySelected(VEGETABLES1)}
-					>
-						<img src={Vegetables1CategorySvg} alt={VEGETABLES1} />
-					</button>
-					<span>{VEGETABLES1}</span>
-				</li>
-				<li>
-					<button
-						type="button"
-						onClick={() => setCategorySelected(VEGETABLES2)}
-					>
-						<img src={Vegetables2CategorySvg} alt={VEGETABLES2} />
-					</button>
-					<span>{VEGETABLES2}</span>
-				</li>
-			</ul>
+			<header>
+				<InputIconDesktop
+					styles={{ width:660, height: 60 }}
+					action="search"
+					value={searchValue}
+					setValue={setSearchValue}
+					icon={SearchSvg}
+				/>
+				<LogoSvg data-css="logo" />
+			</header>
+			<div data-css="filtersContainer">
+				<ul data-css="filtersWrapper">
+					<li>
+						<button type="button" onClick={() => setTypeSelected(COMMONS)}>
+							<img src={CommonProductsSvg} alt={COMMONS} />
+						</button>
+						<span>{COMMONS}</span>
+					</li>
+					<li>
+						<button type="button" onClick={() => setTypeSelected(ORGANICS)}>
+							<img src={OrganicSvg} alt={ORGANICS} />
+						</button>
+						<span>{ORGANICS}</span>
+					</li>
+					<li>
+						<button type="button" onClick={() => setTypeSelected(FAVORITES)}>
+							<img src={HeartSvg} alt={FAVORITES} />
+						</button>
+						<span>{FAVORITES}</span>
+					</li>
+				</ul>
+				<ul data-css="filtersWrapper">
+					<li>
+						<button type="button" onClick={() => setCategorySelected(FRUIT)}>
+							<img src={FruitsCategorySvg} alt={FRUIT} />
+						</button>
+						<span>{FRUIT}</span>
+					</li>
+					<li>
+						<button
+							type="button"
+							onClick={() => setCategorySelected(VEGETABLES1)}
+						>
+							<img src={Vegetables1CategorySvg} alt={VEGETABLES1} />
+						</button>
+						<span>{VEGETABLES1}</span>
+					</li>
+					<li>
+						<button
+							type="button"
+							onClick={() => setCategorySelected(VEGETABLES2)}
+						>
+							<img src={Vegetables2CategorySvg} alt={VEGETABLES2} />
+						</button>
+						<span>{VEGETABLES2}</span>
+					</li>
+				</ul>
+			</div>
 
 			<h3>destaques</h3>
-			<ul>
+			<ul data-css="productsWrapper">
 				{bestSellersList.map(product => (
-					<ProductCardInAnnouncementMobile item={product} />
+					<ProductCardInAnnouncement key={product.id} item={product} />
 				))}
 			</ul>
 		</Wrapper>
 	);
 };
 
-export default Home;
+export default HomeDesktop;
