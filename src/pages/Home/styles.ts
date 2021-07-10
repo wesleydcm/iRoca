@@ -74,7 +74,7 @@ export const Wrapper = styled.div`
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
 		padding: 60px 40px;
-		padding-left: 370px;
+		padding-left: 27vw;
 		display: flex;
 		flex-wrap: wrap;
 
@@ -100,10 +100,10 @@ export const Wrapper = styled.div`
 			width: 100%;
 			justify-content: space-around;
 			ul:nth-child(1) {
-				margin-right: 25%;
+				margin-right: 5%;
 			}
 			ul:nth-child(2) {
-				margin-left: 25%;
+				margin-left: 5%;
 			}
 		}
 

@@ -7,6 +7,7 @@ import MenuMobile from "../Components/Menu/mobile";
 import MenuDesktop from "../Components/Menu/desktop";
 import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
+import { WINDOW_SIZE_DESKTOP } from "../utils";
 
 const Routes = () => {
   const { pageWidth } = useWindow();
@@ -15,7 +16,7 @@ const Routes = () => {
   return (
     <>
       {!["/login", "/register"].includes(pathname) &&
-        (pageWidth > 899 ? <MenuDesktop /> : <MenuMobile />)}
+        (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
 
       <Switch>
         <Route exact path="/" component={TestsPage} />
