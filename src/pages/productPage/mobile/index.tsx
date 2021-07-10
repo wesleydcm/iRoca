@@ -5,7 +5,7 @@ import {
   Wrapper,
 } from "./styles";
 import Button from "../../../Components/Button";
-import Stars from "../../../Components/reviews-stars";
+import Stars from "../../../Components/RatingStars";
 import Menu from "../../../Components/Menu/mobile";
 import EvaluationCard from "../../../Components/EvaluationCard";
 import Carousel from "react-elastic-carousel";

@@ -1,23 +1,8 @@
-import { Wrapper } from "./styles";
-import { ReactComponent as LogoSvg } from "../../assets/images-mobile/logo.svg";
-import { ReactComponent as SearchSvg } from "../../assets/images-desktop/search.svg";
-import InputIconMobile from "../../Components/InputIcon/mobile";
-import { useState } from "react";
+import HomeMobile from "./mobile";
+import HomeDesktop from "./desktop";
 
-const HomeMobile = () => {
-  const [searchValue, setSearchValue] = useState<string>("");
-
-  return (
-    <Wrapper>
-      <LogoSvg data-css="logo" />
-      <InputIconMobile
-        action="search"
-        value={searchValue}
-        setValue={setSearchValue}
-        icon={SearchSvg}
-      />
-    </Wrapper>
-  );
+const Home = () => {
+  return <>{window.innerWidth < 900 ? <HomeMobile /> : <HomeDesktop />}</>;
 };
 
-export default HomeMobile;
+export default Home;
