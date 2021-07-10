@@ -6,21 +6,30 @@ export const USER_LOCALSTORAGE_FLAG = "@iroca/user";
 export const PRODUCTS_LOCALSTORAGE_FLAG = "@iroca/products";
 export const CART_LOCALSTORAGE_FLAG = "@iroca/cart";
 
+export const categoriesAndTypes = {
+	FRUIT: "frutas",
+	VEGETABLES1: "legumes",
+	VEGETABLES2: "verduras",
+	FAVORITES: "favoritos",
+	ORGANICS: "orgânicos",
+	COMMONS: "comuns",
+};
+
 export const successToast = (message: string) => {
-  toast(message, {
-    position: "top-right",
-    type: "success",
-  });
+	toast(message, {
+		position: "top-right",
+		type: "success",
+	});
 };
 
 export const errorToast = (message: string) => {
-  toast(message, {
-    position: "top-right",
-    type: "error",
-  });
+	toast(message, {
+		position: "top-right",
+		type: "error",
+	});
 };
 export const priceFormatter = (value: number | bigint) =>
-  Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(value);
+	Intl.NumberFormat("pt-BR", {
+		style: "currency",
+		currency: "BRL",
+	}).format(value);
