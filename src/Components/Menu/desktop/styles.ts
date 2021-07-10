@@ -3,7 +3,7 @@ import menuSelected from "../../../assets/images-desktop/menu-selected-bg.svg";
 
 export const AsideContainer = styled.div`
   height: 100vh;
-  width: 318px;
+  width: 30vw;
   min-height: 660px;
   position: fixed;
   top: 0;
@@ -11,11 +11,14 @@ export const AsideContainer = styled.div`
   z-index: 500;
   display: flex;
   flex-flow: column nowrap;
-  background: var(--green-gradient);
+  background: var(--green400);
   font-family: var(--poppins);
   font-style: normal;
   align-items: center;
-  padding: 70px 0 0 0;
+
+  @media only screen and (min-width: 1100px) {
+    width: 25vw;
+  }
 `;
 
 export const MenuWrapper = styled.nav`
@@ -23,25 +26,31 @@ export const MenuWrapper = styled.nav`
   height: inherit;
   display: flex;
   flex-direction: column;
+  align-items: center;
   position: relative;
   margin: 0;
   transition: 1s;
+  padding-top: 3rem;
+  svg {
+    width: 3rem;
+  }
 
   a {
     height: 95px;
+    width: 100%;
+
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 8px 0 8px 50px;
+    justify-content: center;
     position: relative;
     z-index: 450;
     margin-right: 0px;
     transition: ease-in-out 1s;
 
     span {
-      font-size: 24px;
+      font-size: 18px;
       color: var(--font-color);
-      font-weight: 600;
+      font-weight: 400;
       display: flex;
       align-items: center;
     }
@@ -76,14 +85,14 @@ export const MenuWrapper = styled.nav`
 `;
 
 export const ButtonLogoffOrEnter = styled.button`
-  width: 318px;
-  height: 113px;
+  width: 100%;
+  height: 100px;
   position: absolute;
   bottom: 0;
   left: 0;
   background-color: var(--green300);
   font-family: var(--poppins);
-  font-size: 28px;
+  font-size: 18px;
   color: var(--font-color);
   outline: none;
   border: none;
@@ -91,6 +100,7 @@ export const ButtonLogoffOrEnter = styled.button`
   justify-content: center;
   align-content: center;
   align-items: center;
+
   svg {
     margin-left: 15px;
   }

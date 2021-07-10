@@ -40,9 +40,6 @@ export const Global = createGlobalStyle`
   input[type="button"],
   input[type="submit"]{
     cursor: pointer;
-    &:active {
-  		transform: scale(0.95);
-  	}
   }
   figure > img {
 			width: inherit;
