@@ -118,6 +118,7 @@ export interface EvaluationData {
 	feedback: string;
 	grade: number;
 }
+//quando for fazer listar avaliações , fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.
 
 export interface PageWidth {
 	pageWidth: number;
@@ -129,4 +130,12 @@ export interface IStyles {
 	height?: number;
 	color?: "green" | "white";
 }
-//quando for fazer listar avaliações , fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.
+
+export interface ICategoriesAndTypes {
+	FRUIT: string;
+	VEGETABLES1: string;
+	VEGETABLES2: string;
+	FAVORITES: string;
+	ORGANICS: string;
+	COMMONS: string;
+}
