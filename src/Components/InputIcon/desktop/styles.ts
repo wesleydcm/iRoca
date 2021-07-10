@@ -1,15 +1,16 @@
 import styled from "styled-components";
+import { IStyles } from "../../../@types";
 
 interface Props {
-	color: "green" | "white";
+	styles: IStyles;
 }
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<Props>`
 	min-width: 200px;
 	width: fit-content;
-	height: 35px;
-	border: ${({ color }) =>
-		color === "white"
+	height: ${({ styles }) => styles.height + "px"};
+	border: ${({ styles }) =>
+		styles.color === "white"
 			? "2px solid var(--font-color)"
 			: "2px solid var(--green400)"};
 	border-radius: 10px;
@@ -28,8 +29,8 @@ export const StyledInput = styled.input<Props>`
 	background: transparent;
 	margin-right: 5px;
 
-	color: ${({ color }) =>
-		color === "white" ? "var(--font-color)" : "var(--gray700)"};
+	color: ${({ styles }) =>
+		styles.color === "white" ? "var(--font-color)" : "var(--gray700)"};
 
 	border: none;
 	outline: none;
@@ -42,7 +43,7 @@ export const StyledInput = styled.input<Props>`
 	font-style: normal;
 
 	&::placeholder {
-		color: ${({ color }) =>
-			color === "white" ? "var(--font-color)" : "var(--gray300)"};
+		color: ${({ styles }) =>
+			styles.color === "white" ? "var(--font-color)" : "var(--gray300)"};
 	}
 `;

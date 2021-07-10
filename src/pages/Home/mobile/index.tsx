@@ -33,6 +33,7 @@ const HomeMobile = () => {
 		<Wrapper>
 			<LogoSvg data-css="logo" />
 			<InputIconMobile
+				styles={{ height: 35 }}
 				action="search"
 				value={searchValue}
 				setValue={setSearchValue}
