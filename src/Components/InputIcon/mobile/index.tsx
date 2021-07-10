@@ -2,9 +2,8 @@ import { Dispatch, SetStateAction } from "react";
 import { StyledInput, Wrapper } from "./styles";
 
 interface Props {
-	type: string;
-	action?: "clear" | "search";
-	placeholder: string;
+	action: "clear" | "search";
+	placeholder?: string;
 	color?: "green" | "white";
 	icon: React.FunctionComponent<
 		React.SVGProps<SVGSVGElement> & { title?: string }
@@ -13,9 +12,8 @@ interface Props {
 	setValue: Dispatch<SetStateAction<string>>;
 }
 
-const MobileInputIcon = ({
-	type,
-	action = "clear",
+const InputIconMobile = ({
+	action,
 	placeholder,
 	icon: Icon,
 	color = "green",
@@ -26,7 +24,6 @@ const MobileInputIcon = ({
 	return (
 		<Wrapper color={color}>
 			<StyledInput
-				type={type}
 				placeholder={placeholder}
 				color={color}
 				value={value}
@@ -46,4 +43,4 @@ const MobileInputIcon = ({
 	);
 };
 
-export default MobileInputIcon;
+export default InputIconMobile;
