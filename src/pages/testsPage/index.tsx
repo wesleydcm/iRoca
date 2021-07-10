@@ -11,7 +11,7 @@ import { ReactComponent as SearchSvg } from "../../assets/images-desktop/search.
 import InputIconMobile from "../../Components/InputIcon/mobile";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
 import { useUser } from "../../Providers/user";
-import RatingStar from "../../Components/reviews-stars";
+import RatingStars from "../../Components/RatingStars";
 import { mockedProduct } from "../../utils/mocks";
 
 const Test = () => {
@@ -34,7 +34,7 @@ const Test = () => {
 			<Button color="green" onClick={clicked}>
 				Click me
 			</Button>
-			<RatingStar />
+			<RatingStars />
 			<Button color="green">entrar</Button>
 			<Button>sair</Button>
 			{window.outerWidth > 899 ? (

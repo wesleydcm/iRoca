@@ -27,7 +27,7 @@ export const UserProvider = ({ children }: Props) => {
     if (user !== null) {
       localStorage.setItem(USER_LOCALSTORAGE_FLAG, JSON.stringify(user));
     }
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   return (

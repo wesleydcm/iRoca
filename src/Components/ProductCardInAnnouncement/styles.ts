@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
 
-export const Wrapper = styled.div`
-	width: 90%;
+export const Wrapper = styled.li`
+	width: 100%;
 	height: 95px;
 	position: relative;
 	box-shadow: 0 2px 5px 2px var(--shadow-black);

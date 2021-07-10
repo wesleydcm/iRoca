@@ -1,9 +1,10 @@
 import { Wrapper } from "../styles";
 import { ReactComponent as HeartSvg } from "../../../assets/images-mobile/heart.svg";
 import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/organic_flag.svg";
-import { IProduct } from "../../../@types";
+import { IEvaluation, IProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
-import RatingStar from "../../reviews-stars";
+import RatingStars from "../../RatingStars";
+import { useMemo } from "react";
 
 interface Props {
 	item: IProduct;
@@ -18,6 +19,18 @@ const ProductCardInAnnouncementMobile = ({
 	item,
 	...rest
 }: Props): JSX.Element => {
+	const evaluationsMedia = useMemo<number>(() => {
+		if (item.evaluations.length) {
+			return (
+				item.evaluations.reduce((acc: number, evaluation: IEvaluation) => {
+					// console.log("entrou no reduce!");
+					return acc + evaluation.grade;
+				}, 0) / item.evaluations.length
+			);
+		}
+		return 0;
+	}, [item.evaluations]);
+
 	return (
 		<Wrapper {...rest}>
 			{item.isOrganic && (
@@ -38,7 +51,7 @@ const ProductCardInAnnouncementMobile = ({
 			</div>
 			<div data-css="statusWrapper">
 				<div>
-					<RatingStar readOnly />
+					<RatingStars value={evaluationsMedia} readOnly />
 					<HeartSvg />
 				</div>
 				<div>
