@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const MenuContainer = styled.div`
-  height: 100px;
   width: 100%;
+  height: fit-content;
   position: fixed;
   bottom: 0;
   left: 0;

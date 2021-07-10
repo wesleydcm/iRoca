@@ -1,6 +1,6 @@
-import { Container, Card } from "../../../styles/producer_cart_styles";
+import { Container, Card } from "../styles";
 import { useHistory } from "react-router-dom";
-import RatingStar from "../../reviews-stars";
+import RatingStar from "../../RatingStars";
 
 const ProducerCartDesktop = (): JSX.Element => {
   const history = useHistory();
