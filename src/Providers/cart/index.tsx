@@ -13,12 +13,12 @@ export const CartProvider = ({ children }: Props) => {
   const haveCart = localStorage.getItem(CART_LOCALSTORAGE_FLAG);
 
   const defaultValue: IProduct[] =
-    haveCart === null ? null : JSON.parse(haveCart);
+    haveCart === null ? ([] as IProduct[]) : JSON.parse(haveCart);
 
   const [cart, setCart] = useState<IProduct[]>(defaultValue);
 
   useEffect(() => {
-    if (cart !== null) {
+    if (cart.length !== 0) {
       localStorage.setItem(CART_LOCALSTORAGE_FLAG, JSON.stringify(cart));
     }
   }, [cart]);

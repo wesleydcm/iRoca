@@ -19,7 +19,9 @@ const Home = () => {
 	const controller = initController();
 
 	useEffect(() => {
-	// seTAllProductsList(controller.getc1	6'')
+		controller.getProduct().then(response => {
+			seTAllProductsList(response)
+		});
 
 	}, [categorySelected, selectedType]);
 

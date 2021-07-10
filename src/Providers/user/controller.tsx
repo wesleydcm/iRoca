@@ -73,6 +73,15 @@ class UserController {
     }
   };
 
+  getProduct = async (productId: number | "" = "") => {
+    try {
+      const response = await api.get(`/products/${productId}`);
+      return await response.data;
+    } catch (e) {
+      errorToast("Ocorreu algum erro no sistema");
+    }
+  };
+
   getPurchasesOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/purchases/`);
