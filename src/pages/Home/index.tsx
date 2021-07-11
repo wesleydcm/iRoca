@@ -13,22 +13,23 @@ const Home = () => {
 	const [filteredProductsList, setFilteredProductsList] = useState<
 		IAveragedProduct[]
 	>([]);
-	const [allProductsList, seTAllProductsList] = useState<IProduct[]>([]);
-
+	const [allProductsList, setAllProductsList] = useState<IProduct[]>([]);
 	const { initController } = useUser();
 	const controller = initController();
 	const { pageWidth } = useWindow();
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	useEffect(() => {
 		controller.getProduct().then(response => {
-			seTAllProductsList(response);
+			setAllProductsList(response);
+			setIsLoading(false);
 		});
 		// eslint-disable-next-line
 	}, [categorySelected, selectedType]);
 
 	useEffect(() => {
 		const averagedProductsList = controller.getAllAverages(allProductsList);
-		// console.log("averagesList :>> ", averagedProductsList);
+
 		setFilteredProductsList(averagedProductsList.slice(0, 9));
 
 		// eslint-disable-next-line
@@ -51,6 +52,7 @@ const Home = () => {
 		<>
 			{pageWidth < WINDOW_SIZE_DESKTOP ? (
 				<HomeMobile
+					isLoading={isLoading}
 					searchValue={searchValue}
 					setSearchValue={setSearchValue}
 					setCategorySelected={setCategorySelected}
@@ -61,6 +63,7 @@ const Home = () => {
 				/>
 			) : (
 				<HomeDesktop
+					isLoading={isLoading}
 					searchValue={searchValue}
 					setSearchValue={setSearchValue}
 					setCategorySelected={setCategorySelected}

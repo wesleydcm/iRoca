@@ -10,6 +10,7 @@ import HeartSvg from "../../../assets/images-mobile/heart.svg";
 import InputIconDesktop from "../../../Components/InputIcon/desktop";
 import { IAveragedProduct, ICategoriesAndTypes } from "../../../@types";
 import ProductCardInAnnouncement from "../../../Components/ProductCardInAnnouncement/desktop";
+import Loading from "../../../Components/Loading";
 
 interface Props {
 	searchValue: string;
@@ -18,6 +19,7 @@ interface Props {
 	setCategorySelected: React.Dispatch<React.SetStateAction<string>>;
 	setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
 	categoriesAndTypes: ICategoriesAndTypes;
+	isLoading: boolean;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
@@ -28,6 +30,7 @@ const HomeDesktop = ({
 	setCategorySelected,
 	setTypeSelected,
 	categoriesAndTypes,
+	isLoading,
 	onClick,
 }: Props) => {
 	const { ORGANICS, COMMONS, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
@@ -98,12 +101,13 @@ const HomeDesktop = ({
 			<h3>destaques</h3>
 
 			<ul data-css="productsWrapper">
-				{filteredProductsList.map((item) => (
-					<ProductCardInAnnouncement
-						key={item.product.id}
-						item={item}
-					/>
-				))}
+				{isLoading ? (
+					<Loading size={100} />
+				) : (
+					filteredProductsList.map(item => (
+						<ProductCardInAnnouncement key={item.product.id} item={item} />
+					))
+				)}
 			</ul>
 		</Wrapper>
 	);

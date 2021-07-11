@@ -67,6 +67,11 @@ export const Wrapper = styled.div`
 	}
 
 	ul[data-css="productsWrapper"] {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 		li + li {
 			margin-top: 15px;
 		}
@@ -144,10 +149,9 @@ export const Wrapper = styled.div`
 		}
 
 		ul[data-css="productsWrapper"] {
-			display: flex;
-			flex: 1;
-			align-items: center;
 			justify-content: space-around;
+			flex-direction: row;
+
 			li + li {
 				margin-top: 0px;
 			}

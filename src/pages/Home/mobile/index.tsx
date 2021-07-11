@@ -10,6 +10,7 @@ import HeartSvg from "../../../assets/images-mobile/heart.svg";
 import InputIconMobile from "../../../Components/InputIcon/mobile";
 import type { IAveragedProduct, ICategoriesAndTypes } from "../../../@types";
 import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
+import Loading from "../../../Components/Loading";
 
 interface Props {
 	searchValue: string;
@@ -18,6 +19,7 @@ interface Props {
 	setCategorySelected: React.Dispatch<React.SetStateAction<string>>;
 	setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
 	categoriesAndTypes: ICategoriesAndTypes;
+	isLoading: boolean;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
@@ -28,6 +30,7 @@ const HomeMobile = ({
 	setSearchValue,
 	setTypeSelected,
 	categoriesAndTypes,
+	isLoading,
 	onClick,
 }: Props) => {
 	const { ORGANICS, COMMONS, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
@@ -92,12 +95,16 @@ const HomeMobile = ({
 
 			<h3>destaques</h3>
 			<ul data-css="productsWrapper">
-				{filteredProductsList.map((item) => (
-					<ProductCardInAnnouncementMobile
-						key={item.product.id}
-						item={item}
-					/>
-				))}
+				{isLoading ? (
+					<Loading size={50} />
+				) : (
+					filteredProductsList.map(item => (
+						<ProductCardInAnnouncementMobile
+							key={item.product.id}
+							item={item}
+						/>
+					))
+				)}
 			</ul>
 		</Wrapper>
 	);

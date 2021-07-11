@@ -34,7 +34,7 @@ const ProductCardInAnnouncementMobile = ({
 				<img src={product.images[0].url} alt={product.name} />
 				<figcaption>{product.name}</figcaption>
 			</figure>
-			<div className="statusWrapper">
+			<div className="infoWrapper">
 				<h2>{product.name}</h2>
 				<h3>{product.description}</h3>
 			</div>
