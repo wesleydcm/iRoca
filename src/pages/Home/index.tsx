@@ -19,17 +19,6 @@ const Home = () => {
 	const controller = initController();
 	const { pageWidth } = useWindow();
 
-	const averageAll = (productsList: IProduct[]): IAveragedProduct[] => {
-		const averagesList = productsList.map(item =>
-			controller.getEvaluationsAverage(item),
-		);
-
-		averagesList.sort(
-			(productA, productB) => productB.average - productA.average,
-		);
-		return averagesList;
-	};
-
 	useEffect(() => {
 		controller.getProduct().then(response => {
 			seTAllProductsList(response);
@@ -38,11 +27,10 @@ const Home = () => {
 	}, [categorySelected, selectedType]);
 
 	useEffect(() => {
-		if (allProductsList.length) {
-			const averagedProductsList = averageAll(allProductsList);
-			// console.log("averagesList :>> ", averagedProductsList);
-			setFilteredProductsList(averagedProductsList.slice(0, 9));
-		}
+		const averagedProductsList = controller.getAllAverages(allProductsList);
+		// console.log("averagesList :>> ", averagedProductsList);
+		setFilteredProductsList(averagedProductsList.slice(0, 9));
+
 		// eslint-disable-next-line
 	}, [allProductsList]);
 
@@ -52,7 +40,8 @@ const Home = () => {
 				product.name.includes(searchValue),
 			);
 
-			const averagedProductsList = averageAll(filteredProductsList);
+			const averagedProductsList =
+				controller.getAllAverages(filteredProductsList);
 
 			setFilteredProductsList(averagedProductsList);
 		}

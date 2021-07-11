@@ -293,6 +293,20 @@ class UserController {
 		}
 		return { product: item, average: 0 };
 	};
+
+	getAllAverages = (productsList: IProduct[]): IAveragedProduct[] => {
+		if (productsList.length) {
+			const averagesList = productsList.map(item =>
+				this.getEvaluationsAverage(item),
+			);
+
+			averagesList.sort(
+				(productA, productB) => productB.average - productA.average,
+			);
+			return averagesList;
+		}
+		return [];
+	};
 }
 
 export default UserController;

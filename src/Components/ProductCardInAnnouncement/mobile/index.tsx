@@ -19,17 +19,6 @@ const ProductCardInAnnouncementMobile = ({
 	item:{product, average},
 	...rest
 }: Props): JSX.Element => {
-	// const evaluationsMedia = useMemo<number>(() => {
-	// 	if (item.evaluations.length) {
-	// 		return (
-	// 			item.evaluations.reduce((acc: number, evaluation: IEvaluation) => {
-	// 				// console.log("entrou no reduce!");
-	// 				return acc + evaluation.grade;
-	// 			}, 0) / item.evaluations.length
-	// 		);
-	// 	}
-	// 	return 0;
-	// }, [item.evaluations]);
 
 	return (
 		<Wrapper {...rest}>
