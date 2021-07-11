@@ -1,13 +1,14 @@
 import { Wrapper } from "../styles";
 import { ReactComponent as HeartSvg } from "../../../assets/images-mobile/heart.svg";
 import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/organic_flag.svg";
-import { IAveragedProduct } from "../../../@types";
+import { ITreatedProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import RatingStars from "../../RatingStars";
 // import { useMemo } from "react";
 
 interface Props {
-	item: IAveragedProduct;
+	item: ITreatedProduct;
+	isFavorite?: boolean;
 	"data-testid"?: string;
 }
 /**
@@ -16,10 +17,10 @@ interface Props {
  * @prop item - The item as "IProduct" that must be rendered.
  */
 const ProductCardInAnnouncementMobile = ({
-	item:{product, average},
+	item: { product, average },
+	isFavorite,
 	...rest
 }: Props): JSX.Element => {
-
 	return (
 		<Wrapper {...rest}>
 			{product.isOrganic && (
@@ -41,7 +42,7 @@ const ProductCardInAnnouncementMobile = ({
 			<div className="statusWrapper">
 				<div>
 					<RatingStars value={average} readOnly />
-					<HeartSvg />
+					{isFavorite && <HeartSvg />}
 				</div>
 				<div>
 					<span>{priceFormatter(product.price)}/kg</span>

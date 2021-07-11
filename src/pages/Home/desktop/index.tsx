@@ -9,14 +9,14 @@ import Vegetables2CategorySvg from "../../../assets/images-mobile/vegetables2_ca
 import OrganicSvg from "../../../assets/images-mobile/organic_category.svg";
 import HeartSvg from "../../../assets/images-mobile/heart.svg";
 import InputIconDesktop from "../../../Components/InputIcon/desktop";
-import { IAveragedProduct, ICategoriesAndTypes } from "../../../@types";
+import { ITreatedProduct, ICategoriesAndTypes } from "../../../@types";
 import ProductCardInAnnouncement from "../../../Components/ProductCardInAnnouncement/desktop";
 import Loading from "../../../Components/Loading";
 
 interface Props {
 	searchValue: string;
 	setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-	filteredProductsList: IAveragedProduct[];
+	filteredProductsList: ITreatedProduct[];
 	setCategorySelected: React.Dispatch<React.SetStateAction<string>>;
 	selectedType: string;
 	setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
@@ -113,10 +113,14 @@ const HomeDesktop = ({
 
 			<ul data-css="productsWrapper">
 				{isLoading ? (
-					<Loading size={100} />
+					<Loading size={50} />
 				) : (
 					filteredProductsList.map(item => (
-						<ProductCardInAnnouncement key={item.product.id} item={item} />
+						<ProductCardInAnnouncement
+							key={item.product.id}
+							item={item}
+							isFavorite={item.isFavorite}
+						/>
 					))
 				)}
 			</ul>

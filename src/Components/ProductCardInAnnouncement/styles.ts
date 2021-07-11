@@ -144,6 +144,7 @@ export const Wrapper = styled.li`
 			span {
 				font-family: var(--poppins);
 				font-weight: 500;
+				margin-left: auto;
 			}
 		}
 	}

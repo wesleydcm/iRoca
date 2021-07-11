@@ -1,28 +1,44 @@
 import HomeMobile from "./mobile";
 import HomeDesktop from "./desktop";
-import { useEffect, useState } from "react";
-import type { IAveragedProduct, IProduct } from "../../@types";
+import { useEffect, useMemo, useState } from "react";
+import type { ITreatedProduct, IProduct } from "../../@types";
 import { categoriesAndTypes, WINDOW_SIZE_DESKTOP } from "../../utils";
 import { useUser } from "../../Providers/user";
 import { useWindow } from "../../Providers/window";
+import { Favorite } from "@material-ui/icons";
+
+interface IProductByID {
+	[key: number]: IProduct;
+}
 
 const Home = () => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [categorySelected, setCategorySelected] = useState<string>("");
 	const [selectedType, setTypeSelected] = useState<string>("");
 	const [filteredProductsList, setFilteredProductsList] = useState<
-		IAveragedProduct[]
+		ITreatedProduct[]
 	>([]);
 	const [allProductsList, setAllProductsList] = useState<IProduct[]>([]);
-	const { initController } = useUser();
-	const controller = initController();
-	const { pageWidth } = useWindow();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const { initController, user } = useUser();
+	const { pageWidth } = useWindow();
+	const controller = initController();
 
+	//on first load, will update the "allProductsList":
 	useEffect(() => {
 		controller.getProduct().then(response => {
 			setAllProductsList(response);
 		});
+		// eslint-disable-next-line
+	}, []);
+
+	//on every user interaction, will update the "allProductsList":
+	useEffect(() => {
+		if (!!categorySelected || !!selectedType) {
+			controller.getProduct().then(response => {
+				setAllProductsList(response);
+			});
+		}
 		// eslint-disable-next-line
 	}, [categorySelected, selectedType]);
 
@@ -31,10 +47,17 @@ const Home = () => {
 			const averagedProductsList = controller.getAllAverages(allProductsList);
 
 			setFilteredProductsList(averagedProductsList.slice(0, 9));
+			filterProducts();
 			setIsLoading(false);
 		}
-		// console.log("categorySelected - Pai :>> ", categorySelected);
 		// eslint-disable-next-line
+	}, [allProductsList]);
+
+	const productsByID: IProductByID = useMemo<IProductByID>(() => {
+		console.log("productsByID :>> ", "mount the dictionary...");
+		return allProductsList.reduce((acc, product: IProduct) => {
+			return { ...acc, [product.id]: product };
+		}, {});
 	}, [allProductsList]);
 
 	const filterProducts = (): void => {
@@ -49,9 +72,43 @@ const Home = () => {
 				controller.getAllAverages(filteredProductsList);
 
 			setFilteredProductsList(averagedProductsList);
+		} else if (!!selectedType) {
+			const { FAVORITES, ORGANICS } = categoriesAndTypes;
+
+			switch (selectedType) {
+				case FAVORITES:
+					if (user.auth) {
+						const favoritesProductsList = user.personalData.favorites.map(
+							favoriteID => productsByID[favoriteID],
+						);
+
+						const averagedProductsList = controller.getAllAverages(
+							favoritesProductsList,
+						);
+
+						averagedProductsList.forEach(
+							favoriteProduct => (favoriteProduct.isFavorite = true),
+						);
+						setFilteredProductsList(averagedProductsList);
+						// console.log("favoritesProductsList :>> ", averagedProductsList);
+					}
+
+					break;
+				case ORGANICS:
+					break;
+
+				default:
+					break;
+			}
+
+			// const averagedProductsList =
+			// 	controller.getAllAverages(filteredProductsList);
+
+			// setFilteredProductsList(averagedProductsList);
+		} else if (!!categorySelected) {
+		} else {
 		}
 	};
-	// console.log("Redenrizou!");
 
 	return (
 		<>

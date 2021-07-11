@@ -9,14 +9,14 @@ import Vegetables2CategorySvg from "../../../assets/images-mobile/vegetables2_ca
 import OrganicSvg from "../../../assets/images-mobile/organic_category.svg";
 import HeartSvg from "../../../assets/images-mobile/heart.svg";
 import InputIconMobile from "../../../Components/InputIcon/mobile";
-import type { IAveragedProduct, ICategoriesAndTypes } from "../../../@types";
+import type { ITreatedProduct, ICategoriesAndTypes } from "../../../@types";
 import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
 import Loading from "../../../Components/Loading";
 
 interface Props {
 	searchValue: string;
 	setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-	filteredProductsList: IAveragedProduct[];
+	filteredProductsList: ITreatedProduct[];
 	setCategorySelected: React.Dispatch<React.SetStateAction<string>>;
 	selectedType: string;
 	setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
@@ -113,6 +113,7 @@ const HomeMobile = ({
 						<ProductCardInAnnouncementMobile
 							key={item.product.id}
 							item={item}
+							isFavorite={item.isFavorite}
 						/>
 					))
 				)}

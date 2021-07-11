@@ -1,12 +1,13 @@
 import { Wrapper } from "../styles";
 import { ReactComponent as HeartSvg } from "../../../assets/images-mobile/heart.svg";
 import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/organic_flag.svg";
-import { IAveragedProduct } from "../../../@types";
+import { ITreatedProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import RatingStars from "../../RatingStars";
 
 interface Props {
-	item: IAveragedProduct;
+	item: ITreatedProduct;
+	isFavorite?: boolean;
 	"data-testid"?: string;
 }
 /**
@@ -17,6 +18,7 @@ interface Props {
 
 const ProductCardInAnnouncement = ({
 	item: { product, average },
+	isFavorite,
 	...rest
 }: Props): JSX.Element => {
 	return (
@@ -41,7 +43,7 @@ const ProductCardInAnnouncement = ({
 				</figure>
 			</div>
 			<div className="statusWrapper">
-				<HeartSvg />
+				{isFavorite && <HeartSvg />}
 				<span>{priceFormatter(product.price)}/kg</span>
 			</div>
 		</Wrapper>
