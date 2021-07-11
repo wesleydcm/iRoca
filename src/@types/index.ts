@@ -140,7 +140,7 @@ export interface ICategoriesAndTypes {
 	COMMONS: string;
 }
 
-export interface IBestProducts {
+export interface IAveragedProduct {
 	product: IProduct;
 	average: number;
 }

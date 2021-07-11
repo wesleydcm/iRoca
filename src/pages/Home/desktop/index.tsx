@@ -8,30 +8,27 @@ import Vegetables2CategorySvg from "../../../assets/images-mobile/vegetables2_ca
 import OrganicSvg from "../../../assets/images-mobile/organic_category.svg";
 import HeartSvg from "../../../assets/images-mobile/heart.svg";
 import InputIconDesktop from "../../../Components/InputIcon/desktop";
-import { useEffect, useState } from "react";
-import { IBestProducts, ICategoriesAndTypes, IProduct } from "../../../@types";
-import { mockedProduct } from "../../../utils/mocks";
-import { categoriesAndTypes } from "../../../utils";
+import { IAveragedProduct, ICategoriesAndTypes } from "../../../@types";
 import ProductCardInAnnouncement from "../../../Components/ProductCardInAnnouncement/desktop";
 
 interface Props {
 	searchValue: string;
 	setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-	categorySelected?: string;
+	filteredProductsList: IAveragedProduct[];
 	setCategorySelected: React.Dispatch<React.SetStateAction<string>>;
-	selectedType?: string;
 	setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
-	bestProductsList: IBestProducts[];
 	categoriesAndTypes: ICategoriesAndTypes;
+	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const HomeDesktop = ({
-	bestProductsList,
-	setCategorySelected,
 	searchValue,
 	setSearchValue,
+	filteredProductsList,
+	setCategorySelected,
 	setTypeSelected,
 	categoriesAndTypes,
+	onClick,
 }: Props) => {
 	const { ORGANICS, COMMONS, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
 		categoriesAndTypes;
@@ -45,6 +42,7 @@ const HomeDesktop = ({
 					value={searchValue}
 					setValue={setSearchValue}
 					icon={SearchSvg}
+					onClick={onClick}
 				/>
 				<LogoSvg data-css="logo" />
 			</header>
@@ -100,7 +98,7 @@ const HomeDesktop = ({
 			<h3>destaques</h3>
 
 			<ul data-css="productsWrapper">
-				{bestProductsList.map(product => (
+				{filteredProductsList.map(product => (
 					<ProductCardInAnnouncement
 						key={product.product.id}
 						item={product.product}

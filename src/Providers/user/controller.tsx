@@ -8,7 +8,7 @@ import {
 	IEvaluations,
 	IProduct,
 	IEvaluation,
-  IBestProducts,
+	IAveragedProduct,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -282,7 +282,7 @@ class UserController {
 		}
 	};
 
-	getEvaluationsAverage = (item: IProduct) : IBestProducts => {
+	getEvaluationsAverage = (item: IProduct): IAveragedProduct => {
 		if (item.evaluations.length) {
 			const average =
 				item.evaluations.reduce((acc: number, evaluation: IEvaluation) => {
