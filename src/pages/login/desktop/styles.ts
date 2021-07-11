@@ -44,6 +44,12 @@ export const Container = styled.div`
     align-self: center;
     text-align: left;
   }
+
+  @media only screen and (max-width: 1100px) {
+    a {
+      width: 40%;
+    }
+  }
   a:hover {
     text-decoration: underline;
   }

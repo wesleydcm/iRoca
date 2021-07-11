@@ -7,6 +7,8 @@ import {
   IPurchase,
   IEvaluations,
   IProduct,
+  IEvaluation,
+  IBestProducts,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -278,6 +280,18 @@ class UserController {
     } catch (e) {
       errorToast("Não foi possível concluir avaliação");
     }
+  };
+
+  getEvaluationsAverage = (item: IProduct): IBestProducts => {
+    if (item.evaluations.length) {
+      const average =
+        item.evaluations.reduce((acc: number, evaluation: IEvaluation) => {
+          return acc + evaluation.grade;
+        }, 0) / item.evaluations.length;
+
+      return { product: item, average };
+    }
+    return { product: item, average: 0 };
   };
 }
 

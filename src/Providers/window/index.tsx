@@ -19,9 +19,6 @@ export const WindowProvider = ({ children }: Props) => {
   useEffect(() => {
     window.addEventListener("resize", () => setPageWidth(window.innerWidth));
   }, []);
-  useEffect(() => {
-    console.log(pageWidth);
-  }, [pageWidth]);
 
   return (
     <WindowCTX.Provider

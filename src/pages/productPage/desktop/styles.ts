@@ -58,7 +58,31 @@ export const Container = styled.div`
     bottom: 20px;
     right: 20px;
     height: 69px;
-    width: 414px;
+    width: 270px;
+  }
+
+  .producer {
+    width: 35%;
+    position: relative;
+    font-family: var(--poppins);
+    .makeStyles-root-1 {
+      position: absolute;
+      top: 10;
+      right: 100px;
+    }
+    .information {
+      padding-top: 50px;
+      margin: 0 auto;
+      width: 95%;
+      justify-content: flex-start;
+      * {
+        word-wrap: break-word;
+        width: 95%;
+      }
+      p {
+        font-size: 0.9rem;
+      }
+    }
   }
 
   .scroll {
@@ -128,7 +152,41 @@ export const Container = styled.div`
       }
     }
   }
+
   @media only screen and (min-width: 1100px) {
     padding-left: 30vw;
+  }
+`;
+
+export const Total = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 15vh;
+  right: 2vw;
+  .total {
+    font-family: var(--nunito);
+    font-weight: 700;
+    color: var(--gray900);
+    font-size: 1.4rem;
+  }
+  .buttons {
+    border: 1px solid var(--green400);
+    font-family: var(--poppins);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+  }
+  span {
+    margin: 0.8rem 1rem;
+  }
+  button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--green400);
+    border: none;
+    background: none;
   }
 `;

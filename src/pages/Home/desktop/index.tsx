@@ -9,31 +9,38 @@ import OrganicSvg from "../../../assets/images-mobile/organic_category.svg";
 import HeartSvg from "../../../assets/images-mobile/heart.svg";
 import InputIconDesktop from "../../../Components/InputIcon/desktop";
 import { useEffect, useState } from "react";
-import { IProduct } from "../../../@types";
+import { IBestProducts, ICategoriesAndTypes, IProduct } from "../../../@types";
 import { mockedProduct } from "../../../utils/mocks";
 import { categoriesAndTypes } from "../../../utils";
 import ProductCardInAnnouncement from "../../../Components/ProductCardInAnnouncement/desktop";
 
-const HomeDesktop = () => {
-	const [searchValue, setSearchValue] = useState<string>("");
-	const [categorySelected, setCategorySelected] = useState<string>("");
-	const [selectedType, setTypeSelected] = useState<string>("");
-	const [bestSellersList, setBestSellersList] = useState<IProduct[]>([
-		mockedProduct,
-	]);
+interface Props {
+	searchValue: string;
+	setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+	categorySelected?: string;
+	setCategorySelected: React.Dispatch<React.SetStateAction<string>>;
+	selectedType?: string;
+	setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
+	bestProductsList: IBestProducts[];
+	categoriesAndTypes: ICategoriesAndTypes;
+}
 
+const HomeDesktop = ({
+	bestProductsList,
+	setCategorySelected,
+	searchValue,
+	setSearchValue,
+	setTypeSelected,
+	categoriesAndTypes,
+}: Props) => {
 	const { ORGANICS, COMMONS, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
 		categoriesAndTypes;
-
-	useEffect(() => {
-		setBestSellersList([mockedProduct]);
-	}, [categorySelected, selectedType]);
 
 	return (
 		<Wrapper>
 			<header>
 				<InputIconDesktop
-					styles={{ width:660, height: 60 }}
+					styles={{ width: 660, height: 60 }}
 					action="search"
 					value={searchValue}
 					setValue={setSearchValue}
@@ -91,9 +98,13 @@ const HomeDesktop = () => {
 			</div>
 
 			<h3>destaques</h3>
+
 			<ul data-css="productsWrapper">
-				{bestSellersList.map(product => (
-					<ProductCardInAnnouncement key={product.id} item={product} />
+				{bestProductsList.map(product => (
+					<ProductCardInAnnouncement
+						key={product.product.id}
+						item={product.product}
+					/>
 				))}
 			</ul>
 		</Wrapper>

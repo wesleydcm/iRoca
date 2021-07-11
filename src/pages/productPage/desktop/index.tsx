@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { Container, Total } from "./styles";
 import Button from "../../../Components/Button";
 import Stars from "../../../Components/RatingStars";
 import Menu from "../../../Components/Menu/desktop";
@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import { useUser } from "../../../Providers/user";
 import { useParams } from "react-router-dom";
 import { IProduct } from "../../../@types";
+import ProducerCard from "../../../Components/Producer_Cart/desktop";
+import { useCart } from "../../../Providers/cart";
+import { priceFormatter } from "../../../utils";
 
 interface Params {
   id: string;
@@ -33,10 +36,15 @@ const ProductPageComponentDesktop = () => {
 
   const param: Params = useParams();
   const { initController } = useUser();
+  const [qty, setQty] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
+  const { cart, setCart } = useCart();
 
+  const price = 2.7;
   useEffect(() => {
     const getProductData = async () => {
       const controller = initController();
+
       const productData = await controller.getProduct(Number(param.id));
 
       setProducts(productData);
@@ -46,9 +54,36 @@ const ProductPageComponentDesktop = () => {
     // eslint-disable-next-line
   }, []);
 
+  const increment = () => {
+    setQty(qty + 10);
+  };
+  const decrement = () => {
+    if (qty > 10) {
+      setQty(qty - 10);
+    }
+  };
+
+  const addToCart = () => {
+    const newProduct = { ...product, qty, totalPrice: total };
+    setCart([...cart, newProduct]);
+  };
+
+  useEffect(() => {
+    setTotal(price * qty);
+  }, [qty]);
+
   return (
     <>
       <Menu />
+
+      <Total>
+        <span className="total">{priceFormatter(total)}</span>
+        <div className="buttons">
+          <button onClick={decrement}>-</button>
+          <span>{qty}Kg</span>
+          <button onClick={increment}>+</button>
+        </div>
+      </Total>
       <Container>
         <h1>{product?.name}</h1>
         <div className="container">
@@ -56,9 +91,9 @@ const ProductPageComponentDesktop = () => {
             <img src={imageURL} alt="asd" />
             <img src={imageURL2} alt="asd" />
           </Carousel>
-          <div className="productorCard"></div>
+          <ProducerCard />
         </div>
-        <Button type="button" color="green">
+        <Button type="button" color="green" onClick={addToCart}>
           Adicionar ao carrinho
         </Button>
         <div className="scroll">
