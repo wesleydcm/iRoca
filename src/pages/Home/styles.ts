@@ -10,8 +10,8 @@ export const Wrapper = styled.div`
 	font-family: var(--poppins);
 
 	svg[data-css="logo"] {
-		width: 45px;
-		height: 45px;
+		width: 15vw;
+		height: 15vw;
 		path {
 			stroke: var(--green400);
 		}
@@ -54,8 +54,8 @@ export const Wrapper = styled.div`
 	}
 
 	ul[data-css="filtersWrapper"] > li > button > img {
-		width: 90px;
-		height: 90px;
+		width: 23vw;
+		height: 23vw;
 		border-radius: 50%;
 	}
 	ul[data-css="filtersWrapper"] > li:nth-child(3) > button > img {
@@ -86,8 +86,8 @@ export const Wrapper = styled.div`
 			svg[data-css="logo"] {
 				width: 8.7vw;
 				height: 8.7vw;
-				max-width: 150px;
-				max-height: 150px;
+				max-width: 125px;
+				max-height: 125px;
 			}
 		}
 
@@ -129,8 +129,8 @@ export const Wrapper = styled.div`
 		ul[data-css="filtersWrapper"] > li > button > img {
 			width: 9.5vw;
 			height: 9.5vw;
-			max-width: 150px;
-			max-height: 150px;
+			max-width: 125px;
+			max-height: 125px;
 		}
 		ul[data-css="filtersWrapper"]:nth-child(2)
 			> li:nth-child(3)
@@ -144,8 +144,12 @@ export const Wrapper = styled.div`
 		}
 
 		ul[data-css="productsWrapper"] {
+			display: flex;
+			flex: 1;
+			align-items: center;
+			justify-content: space-around;
 			li + li {
-				margin-top: 15px;
+				margin-top: 0px;
 			}
 		}
 		button {

@@ -98,10 +98,10 @@ const HomeDesktop = ({
 			<h3>destaques</h3>
 
 			<ul data-css="productsWrapper">
-				{filteredProductsList.map(product => (
+				{filteredProductsList.map((item) => (
 					<ProductCardInAnnouncement
-						key={product.product.id}
-						item={product.product}
+						key={item.product.id}
+						item={item}
 					/>
 				))}
 			</ul>

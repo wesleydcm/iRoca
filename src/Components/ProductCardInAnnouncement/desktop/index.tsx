@@ -1,12 +1,12 @@
 import { Wrapper } from "../styles";
 import { ReactComponent as HeartSvg } from "../../../assets/images-mobile/heart.svg";
 import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/organic_flag.svg";
-import { IProduct } from "../../../@types";
+import { IAveragedProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import RatingStars from "../../RatingStars";
 
 interface Props {
-	item: IProduct;
+	item: IAveragedProduct;
 	"data-testid"?: string;
 }
 /**
@@ -15,29 +15,34 @@ interface Props {
  * @prop item - The item as "IProduct" that must be rendered.
  */
 
-const ProductCardInAnnouncement = ({ item, ...rest }: Props): JSX.Element => {
+const ProductCardInAnnouncement = ({
+	item: { product, average },
+	...rest
+}: Props): JSX.Element => {
 	return (
 		<Wrapper {...rest}>
-			{item.isOrganic && (
+			{product.isOrganic && (
 				<figure className="organicFlag">
 					<OrganicSvg />
 					<figcaption>
-						{item.isOrganic ? "produto orgânico" : "produto não orgânico"}
+						{product.isOrganic ? "produto orgânico" : "produto não orgânico"}
 					</figcaption>
 				</figure>
 			)}
-			<div data-css="infoWrapper">
-				<h2>{item.name}</h2>
-				<RatingStars readOnly />
-				<h3>{item.description}</h3>
+			<div>
+				<div className="infoWrapper">
+					<h2>{product.name}</h2>
+					<RatingStars value={average} readOnly />
+					<h3>{product.description}</h3>
+				</div>
+				<figure>
+					<img src={product.images[0].url} alt={product.name} />
+					<figcaption>{product.name}</figcaption>
+				</figure>
 			</div>
-			<figure>
-				<img src={item.images[0].url} alt={item.name} />
-				<figcaption>{item.name}</figcaption>
-			</figure>
-			<div data-css="statusWrapper">
+			<div className="statusWrapper">
 				<HeartSvg />
-				<span>{priceFormatter(item.price)}/kg</span>
+				<span>{priceFormatter(product.price)}/kg</span>
 			</div>
 		</Wrapper>
 	);
