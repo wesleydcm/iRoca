@@ -1,6 +1,54 @@
 import styled from "styled-components";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
 
+interface Props {
+	isSelected: boolean;
+}
+
+export const LiStyled = styled.li<Props>`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: column;
+	margin-top: 15px;
+	opacity: ${({ isSelected }) => (isSelected ? 1 : 0.4)};
+	position: relative;
+	transition: opacity 500ms ease-out;
+	button {
+		border: none;
+	}
+	svg {
+		position: absolute;
+		width: 8vw;
+		height: 8.3vw;
+		top: 0;
+		right: 0;
+		transform: translate(4vw, -4vw);
+		z-index: 1;
+	}
+	span {
+		text-transform: capitalize;
+		font-weight: 600;
+		color: var(--gray700);
+		font-size: 0.75rem;
+	}
+
+	button > img {
+		width: 23vw;
+		height: 23vw;
+		border-radius: 50%;
+	}
+
+	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
+		svg {
+			position: absolute;
+			width: 2vw;
+			height: 2vw;
+			transform: translate(1vw, -1vw);
+		}
+	}
+`;
+
 export const Wrapper = styled.div`
 	width: 100%;
 	height: fit-content;
@@ -21,8 +69,7 @@ export const Wrapper = styled.div`
 		}
 	}
 
-	ul[data-css="filtersWrapper"],
-	ul[data-css="filtersWrapper"] > li {
+	ul[data-css="filtersWrapper"] {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -33,34 +80,16 @@ export const Wrapper = styled.div`
 		margin-top: 15px;
 	}
 
-	ul[data-css="filtersWrapper"] > li {
-		flex-direction: column;
-		margin-top: 15px;
-	}
-
-	ul[data-css="filtersWrapper"] > li > button {
-		border: none;
-	}
-
-	> h3,
-	ul[data-css="filtersWrapper"] > li > span {
+	> h3 {
 		text-transform: capitalize;
 		font-weight: 600;
 		color: var(--gray700);
 	}
 
-	ul[data-css="filtersWrapper"] > li > span {
-		font-size: 0.75rem;
-	}
-
-	ul[data-css="filtersWrapper"] > li > button > img {
-		width: 23vw;
-		height: 23vw;
-		border-radius: 50%;
-	}
 	ul[data-css="filtersWrapper"] > li:nth-child(3) > button > img {
 		border-radius: unset;
 	}
+
 	> h3 {
 		font-size: 1.8rem;
 		margin: 30px 0;
@@ -146,14 +175,19 @@ export const Wrapper = styled.div`
 		> h3 {
 			width: 100%;
 			font-size: 2.4rem;
+			margin: 0;
+			margin-top: 30px;
 		}
 
 		ul[data-css="productsWrapper"] {
-			justify-content: space-around;
+			align-items: flex-end;
+			justify-content: center;
 			flex-direction: row;
+			flex-wrap: wrap;
 
 			li + li {
-				margin-top: 0px;
+				margin-top: 30px;
+				justify-self: flex-start;
 			}
 		}
 		button {

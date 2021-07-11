@@ -1,5 +1,6 @@
-import { Wrapper } from "../styles";
+import { Wrapper, LiStyled } from "../styles";
 import { ReactComponent as LogoSvg } from "../../../assets/images-mobile/logo.svg";
+import { ReactComponent as CheckSvg } from "../../../assets/images-mobile/check.svg";
 import { ReactComponent as SearchSvg } from "../../../assets/images-desktop/search.svg";
 import CommonProductsSvg from "../../../assets/images-mobile/common_products.svg";
 import FruitsCategorySvg from "../../../assets/images-mobile/fruit_category.svg";
@@ -17,17 +18,21 @@ interface Props {
 	setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 	filteredProductsList: IAveragedProduct[];
 	setCategorySelected: React.Dispatch<React.SetStateAction<string>>;
+	selectedType: string;
 	setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
 	categoriesAndTypes: ICategoriesAndTypes;
+	categorySelected: string;
 	isLoading: boolean;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const HomeDesktop = ({
-	searchValue,
-	setSearchValue,
 	filteredProductsList,
 	setCategorySelected,
+	searchValue,
+	setSearchValue,
+	categorySelected,
+	selectedType,
 	setTypeSelected,
 	categoriesAndTypes,
 	isLoading,
@@ -51,33 +56,38 @@ const HomeDesktop = ({
 			</header>
 			<div data-css="filtersContainer">
 				<ul data-css="filtersWrapper">
-					<li>
+					<LiStyled isSelected={selectedType === COMMONS}>
+						{selectedType === COMMONS && <CheckSvg />}
 						<button type="button" onClick={() => setTypeSelected(COMMONS)}>
 							<img src={CommonProductsSvg} alt={COMMONS} />
 						</button>
 						<span>{COMMONS}</span>
-					</li>
-					<li>
+					</LiStyled>
+					<LiStyled isSelected={selectedType === ORGANICS}>
+						{selectedType === ORGANICS && <CheckSvg />}
 						<button type="button" onClick={() => setTypeSelected(ORGANICS)}>
 							<img src={OrganicSvg} alt={ORGANICS} />
 						</button>
 						<span>{ORGANICS}</span>
-					</li>
-					<li>
+					</LiStyled>
+					<LiStyled isSelected={selectedType === FAVORITES}>
+						{selectedType === FAVORITES && <CheckSvg />}
 						<button type="button" onClick={() => setTypeSelected(FAVORITES)}>
 							<img src={HeartSvg} alt={FAVORITES} />
 						</button>
 						<span>{FAVORITES}</span>
-					</li>
+					</LiStyled>
 				</ul>
 				<ul data-css="filtersWrapper">
-					<li>
+					<LiStyled isSelected={categorySelected === FRUIT}>
+						{categorySelected === FRUIT && <CheckSvg />}
 						<button type="button" onClick={() => setCategorySelected(FRUIT)}>
 							<img src={FruitsCategorySvg} alt={FRUIT} />
 						</button>
 						<span>{FRUIT}</span>
-					</li>
-					<li>
+					</LiStyled>
+					<LiStyled isSelected={categorySelected === VEGETABLES1}>
+						{categorySelected === VEGETABLES1 && <CheckSvg />}
 						<button
 							type="button"
 							onClick={() => setCategorySelected(VEGETABLES1)}
@@ -85,8 +95,9 @@ const HomeDesktop = ({
 							<img src={Vegetables1CategorySvg} alt={VEGETABLES1} />
 						</button>
 						<span>{VEGETABLES1}</span>
-					</li>
-					<li>
+					</LiStyled>
+					<LiStyled isSelected={categorySelected === VEGETABLES2}>
+						{categorySelected === VEGETABLES2 && <CheckSvg />}
 						<button
 							type="button"
 							onClick={() => setCategorySelected(VEGETABLES2)}
@@ -94,7 +105,7 @@ const HomeDesktop = ({
 							<img src={Vegetables2CategorySvg} alt={VEGETABLES2} />
 						</button>
 						<span>{VEGETABLES2}</span>
-					</li>
+					</LiStyled>
 				</ul>
 			</div>
 

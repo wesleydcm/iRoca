@@ -22,23 +22,27 @@ const Home = () => {
 	useEffect(() => {
 		controller.getProduct().then(response => {
 			setAllProductsList(response);
-			setIsLoading(false);
 		});
 		// eslint-disable-next-line
 	}, [categorySelected, selectedType]);
 
 	useEffect(() => {
-		const averagedProductsList = controller.getAllAverages(allProductsList);
+		if (allProductsList.length) {
+			const averagedProductsList = controller.getAllAverages(allProductsList);
 
-		setFilteredProductsList(averagedProductsList.slice(0, 9));
-
+			setFilteredProductsList(averagedProductsList.slice(0, 9));
+			setIsLoading(false);
+		}
+		// console.log("categorySelected - Pai :>> ", categorySelected);
 		// eslint-disable-next-line
 	}, [allProductsList]);
 
 	const filterProducts = (): void => {
 		if (searchValue.length >= 3) {
 			const filteredProductsList = allProductsList.filter((product: IProduct) =>
-				product.name.includes(searchValue),
+				product.name
+					.toLocaleLowerCase()
+					.includes(searchValue.toLocaleLowerCase()),
 			);
 
 			const averagedProductsList =
@@ -47,6 +51,7 @@ const Home = () => {
 			setFilteredProductsList(averagedProductsList);
 		}
 	};
+	// console.log("Redenrizou!");
 
 	return (
 		<>
@@ -55,7 +60,9 @@ const Home = () => {
 					isLoading={isLoading}
 					searchValue={searchValue}
 					setSearchValue={setSearchValue}
+					categorySelected={categorySelected}
 					setCategorySelected={setCategorySelected}
+					selectedType={selectedType}
 					setTypeSelected={setTypeSelected}
 					filteredProductsList={filteredProductsList}
 					categoriesAndTypes={categoriesAndTypes}
@@ -66,7 +73,9 @@ const Home = () => {
 					isLoading={isLoading}
 					searchValue={searchValue}
 					setSearchValue={setSearchValue}
+					categorySelected={categorySelected}
 					setCategorySelected={setCategorySelected}
+					selectedType={selectedType}
 					setTypeSelected={setTypeSelected}
 					filteredProductsList={filteredProductsList}
 					categoriesAndTypes={categoriesAndTypes}
