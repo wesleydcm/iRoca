@@ -14,7 +14,9 @@ interface IProductByID {
 const Home = () => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [categorySelected, setCategorySelected] = useState<string>("");
-	const [selectedType, setTypeSelected] = useState<string>("");
+	const [selectedType, setTypeSelected] = useState<string>(
+		categoriesAndTypes.COMMONS,
+	);
 	const [filteredProductsList, setFilteredProductsList] = useState<
 		ITreatedProduct[]
 	>([]);
@@ -77,7 +79,7 @@ const Home = () => {
 
 			switch (selectedType) {
 				case FAVORITES:
-					if (user.auth) {
+					if (user && user.auth) {
 						const favoritesProductsList = user.personalData.favorites.map(
 							favoriteID => productsByID[favoriteID],
 						);
@@ -90,11 +92,18 @@ const Home = () => {
 							favoriteProduct => (favoriteProduct.isFavorite = true),
 						);
 						setFilteredProductsList(averagedProductsList);
-						// console.log("favoritesProductsList :>> ", averagedProductsList);
 					}
 
 					break;
 				case ORGANICS:
+					const organicProducts = allProductsList.filter(
+						product => product.isOrganic,
+					);
+
+					const averagedProductsList =
+						controller.getAllAverages(organicProducts);
+
+					setFilteredProductsList(averagedProductsList);
 					break;
 
 				default:

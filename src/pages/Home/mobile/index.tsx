@@ -12,6 +12,8 @@ import InputIconMobile from "../../../Components/InputIcon/mobile";
 import type { ITreatedProduct, ICategoriesAndTypes } from "../../../@types";
 import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
 import Loading from "../../../Components/Loading";
+import { useUser } from "../../../Providers/user";
+import { errorToast } from "../../../utils";
 
 interface Props {
 	searchValue: string;
@@ -38,6 +40,7 @@ const HomeMobile = ({
 	isLoading,
 	onClick,
 }: Props) => {
+	const { user } = useUser();
 	const { ORGANICS, COMMONS, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
 		categoriesAndTypes;
 
@@ -70,7 +73,14 @@ const HomeMobile = ({
 				</LiStyled>
 				<LiStyled isSelected={selectedType === FAVORITES}>
 					{selectedType === FAVORITES && <CheckSvg />}
-					<button type="button" onClick={() => setTypeSelected(FAVORITES)}>
+					<button
+						type="button"
+						onClick={() => {
+							user && user.auth
+								? setTypeSelected(FAVORITES)
+								: errorToast("Faça seu login.");
+						}}
+					>
 						<img src={HeartSvg} alt={FAVORITES} />
 					</button>
 					<span>{FAVORITES}</span>
