@@ -3,12 +3,26 @@ import LogoImage from "../../../../assets/images-mobile/logo.svg";
 import Input from "../../../Input";
 import { useState } from "react";
 import Button from "../../../Button";
+import { useUser } from "../../../../Providers/user";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useHistory } from "react-router-dom";
+
+interface FormValues {
+  state: string;
+  city: string;
+  district: string;
+  street: string;
+  complement?: string;
+  cep?: string;
+}
 
 const RegisterStep3Desktop = () => {
   const [email, setEmail] = useState("");
   return (
     <Container>
-      {/* <Logo>
+      <Logo>
         <div className="description">
           <h1>Bem vindo ao iRoça</h1>
           <p>
@@ -80,7 +94,7 @@ const RegisterStep3Desktop = () => {
             Finalizar cadastro
           </Button>
         </div>
-      </Form> */}
+      </Form>
     </Container>
   );
 };

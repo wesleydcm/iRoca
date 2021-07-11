@@ -1,4 +1,4 @@
-import { Container, Card } from "../../../styles/producer_cart_styles";
+import { Container, Card } from "../styles";
 import { useHistory } from "react-router-dom";
 import RatingStar from "../../RatingStars";
 

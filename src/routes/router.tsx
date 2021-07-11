@@ -5,23 +5,32 @@ import Register3 from "../pages/Register/Register3";
 import TestsPage from "../pages/testsPage";
 import LoginPage from "../pages/login/mobile";
 import Home from "../pages/Home";
+import ProductPage from "../pages/productPage";
+import MenuMobile from "../Components/Menu/mobile";
+import MenuDesktop from "../Components/Menu/desktop";
+import { useWindow } from "../Providers/window";
+import { useLocation } from "react-router";
+import { WINDOW_SIZE_DESKTOP } from "../utils";
 
 const RouterComponent = () => {
+  const { pageWidth } = useWindow();
+  const { pathname } = useLocation();
   return (
     <Switch>
       <Route exact path="/" component={TestsPage} />
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/home" component={Home} />
+      <Route exact path="/product/:id" component={ProductPage} />
 
       <Route exact path="/register">
         <Register />
       </Route>
 
-      <Route exact path="/register-2">
+      <Route exact path="/register-second">
         <Register2 />
       </Route>
 
-      <Route exact path="/register-3">
+      <Route exact path="/register-third">
         <Register3 />
       </Route>
 

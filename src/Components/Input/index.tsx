@@ -11,6 +11,7 @@ interface Props {
   name?: string | undefined;
   value?: string;
   setValue?: Dispatch<SetStateAction<string>>;
+  width?: number;
 }
 
 interface FormValues {
