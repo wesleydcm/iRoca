@@ -14,6 +14,7 @@ import { useUser } from "../../../Providers/user";
 import { useParams } from "react-router-dom";
 import { IProduct } from "../../../@types";
 import Modal from "../addToCart/addToCart";
+import ProducerCard from "../../../Components/Producer_Cart/mobile";
 
 interface Params {
   id: string;
@@ -70,13 +71,15 @@ const ProductPageComponentMobile = () => {
         </Button>
         <div className="scroll">
           <ProductInformation>
-            <p>{product?.category}</p>
+            <p>
+              {!!product?.description &&
+                (product.description.length > 0 ? product.description : "pok")}
+            </p>
             <div>
               Em estoque <span>{product?.qty}kg</span>
             </div>
           </ProductInformation>
-          <div className="productorCard"></div>
-
+          <ProducerCard />
           <GeneralEvaluation>
             <h3>Avaliações</h3>
             <div>
