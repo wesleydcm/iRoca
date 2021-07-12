@@ -4,7 +4,7 @@ import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/orga
 import { ITreatedProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import RatingStars from "../../RatingStars";
-// import { useMemo } from "react";
+import { memo, useRef } from "react";
 
 interface Props {
 	item: ITreatedProduct;
@@ -14,13 +14,20 @@ interface Props {
 /**
  * It's the product that must be used into announcements.
  * == MOBILE VERSION ==
- * @prop item - The item as "IProduct" that must be rendered.
+ * @prop `item` - The item as "IProduct" that must be rendered.
+ * @prop `IsFavorite` - The flag used to display the `favicon in this card.
  */
 const ProductCardInAnnouncementMobile = ({
 	item: { product, average },
 	isFavorite,
 	...rest
 }: Props): JSX.Element => {
+	const reRendersAmount = useRef(0);
+	console.log(
+		"ProductCardInAnnouncementMobile\nreRendersAmount :>> ",
+		reRendersAmount.current++,
+	);
+
 	return (
 		<Wrapper {...rest}>
 			{product.isOrganic && (
@@ -52,4 +59,4 @@ const ProductCardInAnnouncementMobile = ({
 	);
 };
 
-export default ProductCardInAnnouncementMobile;
+export default memo(ProductCardInAnnouncementMobile);
