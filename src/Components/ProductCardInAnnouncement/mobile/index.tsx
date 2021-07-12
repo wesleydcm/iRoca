@@ -22,11 +22,11 @@ const ProductCardInAnnouncementMobile = ({
 	isFavorite,
 	...rest
 }: Props): JSX.Element => {
-	const reRendersAmount = useRef(0);
-	console.log(
-		"ProductCardInAnnouncementMobile\nreRendersAmount :>> ",
-		reRendersAmount.current++,
-	);
+	// const reRendersAmount = useRef(0);
+	// console.log(
+	// 	"ProductCardInAnnouncementMobile\nreRendersAmount :>> ",
+	// 	reRendersAmount.current++,
+	// );
 
 	return (
 		<Wrapper {...rest}>
