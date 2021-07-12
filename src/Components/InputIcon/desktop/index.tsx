@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
+import type { IStyles } from "../../../@types";
 import { StyledInput, Wrapper } from "./styles";
 
 interface Props {
-	type: string;
+	type?: string;
+	styles: IStyles;
 	action?: "search" | undefined;
-	placeholder: string;
-	color?: "green" | "white";
+	placeholder?: string;
 	icon: React.FunctionComponent<
 		React.SVGProps<SVGSVGElement> & { title?: string }
 	>;
@@ -13,22 +14,20 @@ interface Props {
 	setValue: Dispatch<SetStateAction<string>>;
 }
 
-const DesktopInputIcon = ({
-	type,
+const InputIconDesktop = ({
+	styles,
 	action,
 	placeholder,
 	icon: Icon,
-	color = "green",
 	value,
 	setValue,
 	...rest
 }: Props): JSX.Element => {
 	return (
-		<Wrapper color={color}>
+		<Wrapper className="fix-width" styles={styles}>
 			<StyledInput
-				type={type}
 				placeholder={placeholder}
-				color={color}
+				styles={styles}
 				value={value}
 				onChange={e => setValue(e.target.value)}
 				{...rest}
@@ -42,4 +41,4 @@ const DesktopInputIcon = ({
 	);
 };
 
-export default DesktopInputIcon;
+export default InputIconDesktop;

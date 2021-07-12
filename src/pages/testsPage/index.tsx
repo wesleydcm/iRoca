@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../../Components/Button";
-import MobileInputIcon from "../../Components/InputIcon/mobile";
-import DesktopInputIcon from "../../Components/InputIcon/desktop";
+import InputIconDesktop from "../../Components/InputIcon/desktop";
 import Input from "../../Components/Input";
 import ProductCardInCartHistory from "../../Components/ProductCardInCartHistory/desktop";
 import ProductCardInCartHistoryMobile from "../../Components/ProductCardInCartHistory/mobile";
@@ -9,16 +8,20 @@ import ProductCardInAnnouncement from "../../Components/ProductCardInAnnouncemen
 import ProductCardInAnnouncementMobile from "../../Components/ProductCardInAnnouncement/mobile";
 import { ReactComponent as CloseSvg } from "../../assets/images-desktop/close.svg";
 import { ReactComponent as SearchSvg } from "../../assets/images-desktop/search.svg";
+import InputIconMobile from "../../Components/InputIcon/mobile";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
 import { useUser } from "../../Providers/user";
-import RatingStar from "../../Components/reviews-stars";
+import RatingStars from "../../Components/RatingStars";
 import { mockedProduct } from "../../utils/mocks";
+import ProducerCartDesktop from "../../Components/Producer_Cart/desktop";
+import ProducerCartMobile from "../../Components/Producer_Cart/mobile";
 
 const Test = () => {
   const [value, setValue] = useState<string>("");
   const [value2, setValue2] = useState<string>("");
   const [value3, setValue3] = useState<string>("");
   const [value4, setValue4] = useState<string>("");
+
   const { initController } = useUser();
 
   const clicked = (): void => {
@@ -33,43 +36,44 @@ const Test = () => {
       <Button color="green" onClick={clicked}>
         Click me
       </Button>
-      <RatingStar />
+      <RatingStars />
       <Button color="green">entrar</Button>
       <Button>sair</Button>
       {window.outerWidth > 899 ? (
         <>
-          <DesktopInputIcon
-            type="text"
+          <InputIconDesktop
+            styles={{ height: 60 }}
+            type="number"
             placeholder="nome"
             icon={CloseSvg}
             value={value}
             setValue={setValue}
           />
-          <DesktopInputIcon
+          <InputIconDesktop
+            styles={{ color: "white", height: 35 }}
             type="text"
             placeholder="buscar"
             icon={SearchSvg}
             action="search"
-            color="white"
             value={value2}
             setValue={setValue2}
           />
         </>
       ) : (
         <>
-          <MobileInputIcon
-            type="text"
+          <InputIconMobile
+            styles={{ size: 35 }}
+            action="clear"
             placeholder="nome"
             icon={CloseSvg}
             value={value}
             setValue={setValue}
           />
-          <MobileInputIcon
-            type="text"
+          <InputIconMobile
+            styles={{ color: "white", size: 35 }}
             placeholder="buscar"
             icon={SearchSvg}
             action="search"
-            color="white"
             value={value2}
             setValue={setValue2}
           />
@@ -103,6 +107,8 @@ const Test = () => {
       ) : (
         <ProductCardInAnnouncementMobile item={mockedProduct} />
       )}
+      <ProducerCartDesktop />
+      <ProducerCartMobile />
     </>
   );
 };

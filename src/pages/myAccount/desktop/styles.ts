@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "../../Components/Button";
+import Button from "../../../Components/Button";
 
 export const NotAuthContainer = styled.div`
   display: flex;
@@ -9,26 +9,29 @@ export const BigContainer = styled.div`
   min-height: 662px;
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
+
+  flex-direction: column;
+  padding-left: 35vw;
+  padding-right: 4rem;
 `;
 
 export const ContainerButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
+
   justify-content: center;
   align-items: center;
   height: 100%;
   margin: 0 auto;
   button {
-    width: 320px;
+    width: 35%;
     height: 65px;
-    margin: 15px 0px;
+    margin: 15px 32px;
   }
 `;
 export const Title = styled.h1`
   color: var(--green400);
-  font-size: 28px;
+  font-size: 48px;
   font-family: var(--poppins);
   font-weight: 600;
   line-height: 42px;

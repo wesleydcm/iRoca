@@ -9,7 +9,7 @@ const MenuMobile = (): JSX.Element => {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push("/");
+    // history.push("/");
     /*if(isAuth){
       userLogoff()
       history.push("/");

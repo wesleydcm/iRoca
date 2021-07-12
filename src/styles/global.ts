@@ -4,7 +4,7 @@ import { WINDOW_SIZE_DESKTOP } from "../utils";
 export const Global = createGlobalStyle`
   :root{
     --shadow-black: rgba(0,0,0,0.4);
-    --green-gradient: linear-gradient(to right,#55D94A,#13C566);
+    --green-gradient: linear-gradient(to left,#55D94A,#13C566);
     --gray900: #222222;
     --gray700: #4d4d4d;
     --gray600: #555555;
@@ -27,7 +27,7 @@ export const Global = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body,html{
+  body, html{
     background-color: var(--white);
 
   }
@@ -41,9 +41,6 @@ export const Global = createGlobalStyle`
   input[type="button"],
   input[type="submit"]{
     cursor: pointer;
-    &:active {
-  		transform: scale(0.95);
-  	}
   }
   figure > img {
 			width: inherit;
