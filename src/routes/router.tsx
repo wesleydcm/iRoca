@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router";
 import LoginPage from "../pages/login/";
 import TestsPage from "../pages/testsPage";
-import MyAccountPage from "../pages/myAccount/desktop";
+import MyAccountPageComponent from "../pages/myAccount";
 import ProductPage from "../pages/productPage";
 import Home from "../pages/Home";
 import MenuMobile from "../Components/Menu/mobile";
@@ -37,7 +37,11 @@ const RouterComponent = () => {
           <div>Checkout</div>
         </Route>
 
-        <Route exact path="/myAccount" component={MyAccountPage}></Route>
+        <Route
+          exact
+          path="/myAccount"
+          component={MyAccountPageComponent}
+        ></Route>
 
         <Route exact path="/myAccount/profile">
           <div>My Profile</div>

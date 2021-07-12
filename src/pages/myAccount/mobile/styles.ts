@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "../../../Components/Button";
-
+import { NavLink } from "react-router-dom";
 export const NotAuthContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -11,6 +11,12 @@ export const BigContainer = styled.div`
   flex-wrap: wrap;
 
   flex-direction: column;
+`;
+export const Link = styled(NavLink)`
+  width: 90%;
+  height: 65px;
+  margin: 15px 0px;
+  color: white;
 `;
 
 export const ContainerButtons = styled.div`
@@ -40,7 +46,7 @@ export const Title = styled.h1`
 export const LeaveContainer = styled.div`
   display: flex;
   align-self: flex-end;
-  margin: 0 auto;
+  margin: 20px auto;
 
   @media only screen and (min-height: 670px) {
     margin: 20px auto;

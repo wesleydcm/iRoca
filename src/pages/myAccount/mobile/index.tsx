@@ -6,26 +6,35 @@ import {
   BigContainer,
   NotAuthContainer,
   NotAuthText,
+  Link,
 } from "./styles";
 
 import Button from "../../../Components/Button";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 interface MyProfileProps {
   isAuth?: boolean;
 }
-const MyAccountPage = ({ isAuth = true }: MyProfileProps) => {
-  const history = useHistory();
+const MyAccountPageMobile = ({ isAuth = true }: MyProfileProps) => {
   return (
     <>
       {isAuth ? (
         <BigContainer>
           <Title>Minha Conta</Title>
           <ContainerButtons>
-            <Button color={"green"}>Ver Perfil</Button>
-            <Button color={"green"}>Histórico de compra</Button>
-            <Button color={"green"}>Editar dados pessoais</Button>
-            <Button color={"green"}>Cadastrar produto</Button>
-          </ContainerButtons>{" "}
+            <Link to="/myAccount/profile">
+              <Button color={"green"}>Ver Perfil</Button>
+            </Link>
+            <Link to="/myAccount/history">
+              <Button color={"green"}>Histórico de compra</Button>
+            </Link>
+            <Link to="/myAccount/edit">
+              <Button color={"green"}>Editar dados pessoais</Button>
+            </Link>
+            <Link to="/myAccount/products">
+              <Button color={"green"}>Cadastrar produto</Button>
+            </Link>
+          </ContainerButtons>
+
           <LeaveContainer>
             <LeaveButton>Sair da conta</LeaveButton>
           </LeaveContainer>
@@ -48,4 +57,4 @@ const MyAccountPage = ({ isAuth = true }: MyProfileProps) => {
   );
 };
 
-export default MyAccountPage;
+export default MyAccountPageMobile;
