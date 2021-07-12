@@ -77,5 +77,27 @@ export const Form = styled.form`
     span {
       padding: 0 10px;
     }
+
+    input {
+      width: 180px;
+      padding: 0 15px;
+      border: 2px solid var(--green400);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--gray700);
+      outline: none;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      text-transform: capitalize;
+      text-align: left;
+      font-family: var(--poppins);
+      font-style: normal;
+      height: 45px;
+
+      &::placeholder {
+        color: var(--gray300);
+      }
+    }
   }
 `;

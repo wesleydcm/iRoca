@@ -20,7 +20,15 @@ interface FormValues {
 }
 
 const RegisterStep3Desktop = () => {
-  const [cepValue, setcepValue] = useState("");
+  const [cepValue, setCepValue] = useState("");
+
+  const [districtInput, setDistrickInput] = useState("");
+
+  const [cityInput, setCityInput] = useState("");
+
+  const [streetInput, setStreetInput] = useState("");
+
+  const [stateInput, setStateInput] = useState("");
 
   const { user } = useUser();
 
@@ -57,12 +65,15 @@ const RegisterStep3Desktop = () => {
   };
 
   const handleClick = () => {
-    axios.get("https://viacep.com.br/ws/18611347/json/").then((response) => {
-      console.log(cepValue);
+    axios.get(`https://viacep.com.br/ws/${cepValue}/json/`).then((response) => {
+      setStateInput(response.data.uf);
+      setCityInput(response.data.localidade);
+      setDistrickInput(response.data.bairro);
+      setStreetInput(response.data.logradouro);
     });
   };
 
-  console.log(cepValue);
+  console.log(stateInput);
 
   return (
     <Container>
@@ -87,6 +98,7 @@ const RegisterStep3Desktop = () => {
             width={260}
             name={"state"}
             register={register}
+            value={stateInput}
           />
           <p>{errors.state?.message}</p>
           <Input
@@ -95,6 +107,7 @@ const RegisterStep3Desktop = () => {
             width={260}
             name={"city"}
             register={register}
+            value={cityInput}
           />
           <p>{errors.city?.message}</p>
           <Input
@@ -103,6 +116,7 @@ const RegisterStep3Desktop = () => {
             width={260}
             name={"district"}
             register={register}
+            value={districtInput}
           />
           <p>{errors.district?.message}</p>
           <Input
@@ -111,6 +125,7 @@ const RegisterStep3Desktop = () => {
             width={260}
             name={"street"}
             register={register}
+            value={streetInput}
           />
           <p>{errors.street?.message}</p>
           <Input
@@ -124,13 +139,19 @@ const RegisterStep3Desktop = () => {
         </div>
         <div className="photo">
           <div className="photo-input">
-            <Input
+            {/* <Input
               placeholder={"CEP"}
               type={"text"}
               width={180}
               name={"cep"}
               register={register}
               setValue={setcepValue}
+               */}
+            <input
+              placeholder="CEP"
+              type="text"
+              {...register("cep")}
+              onChange={(e) => setCepValue(e.target.value)}
             />
             <span>ou</span>
             <Button

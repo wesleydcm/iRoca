@@ -1,26 +1,15 @@
 import { Container, Form, Logo } from "./styles";
 import LogoImage from "../../../../assets/images-mobile/logo.svg";
 import Input from "../../../Input";
-// import { useState } from "react";
 import Button from "../../../Button";
 import { useUser } from "../../../../Providers/user";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
-// import { mockedUser1 } from "../../../../utils/mocks";
-// import { FieldValues } from "react-hook-form";
-
-interface FormValues {
-  email: string;
-  password: string;
-  emailConfirm: string;
-  passwordConfirm: string;
-}
+import { IUser } from "../../../../@types";
 
 const RegisterStep1Desktop = () => {
-  const { user, setUser } = useUser();
-
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -48,15 +37,14 @@ const RegisterStep1Desktop = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-    user.personalData.email = data.email;
-    user.personalData.password = data.password;
-    reset();
-    history.push("/register-second");
+  const { initController } = useUser();
+  const onSubmit = (data: IUser) => {
+    const controller = initController();
+    controller.registerUser(data).then((response) => {
+      reset();
+      history.push("/register-second");
+    });
   };
-
-  // console.log("regsiter: ", user.personalData.email);
 
   return (
     <Container>
