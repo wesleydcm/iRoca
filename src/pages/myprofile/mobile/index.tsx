@@ -10,10 +10,11 @@ import { useState, useEffect } from "react";
 import RatingStar from "../../../Components/RatingStars";
 import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
 import EvaluationCard from "../../../Components/EvaluationCard";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useUser } from "../../../Providers/user";
 import Loading from "../../../Components/Loading";
 import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
+import { EDIT_PRODUCT_LOCALSTORAFE_FLAG } from "../../../utils";
 interface Evaluations {
   avaliator: IUserInfo;
   evaluation: IEvaluation;
@@ -28,7 +29,7 @@ const ProfilePageMobile = (): JSX.Element => {
   const [myProducts, setMyProducts] = useState<IProduct[]>([]);
   const { initController } = useUser();
   const controller = initController();
-
+  const history = useHistory();
   useEffect(() => {
     setLoad(true);
     controller.getUser(1).then((response) => setUser(response));
@@ -48,8 +49,6 @@ const ProfilePageMobile = (): JSX.Element => {
         }, 0)
       ) / Number(evaluation?.length);
 
-    console.log(average);
-
     setAverageEvaluation(average);
   }, [evaluation]);
 
@@ -58,11 +57,18 @@ const ProfilePageMobile = (): JSX.Element => {
     setDisplay(value);
     setLoad(false);
   };
+  const handleEditProduct = (productId: number) => {
+    localStorage.setItem(
+      EDIT_PRODUCT_LOCALSTORAFE_FLAG,
+      JSON.stringify(productId)
+    );
+    history.push("/myAccount/profile/product");
+  };
 
   return (
     <Container>
       <ContactContent>
-        <Link to="/myaccount">
+        <Link to="/myAccount">
           <ArrowToBack />
         </Link>
         <img src={user?.image} alt="user" />
@@ -104,10 +110,12 @@ const ProfilePageMobile = (): JSX.Element => {
           ) : (
             <ProductContent>
               {myProducts.map((myProduct) => (
-                <ProductCardInAnnouncementMobile
-                  item={myProduct}
-                  key={myProduct.id}
-                />
+                <button onClick={() => handleEditProduct(myProduct.id)}>
+                  <ProductCardInAnnouncementMobile
+                    item={myProduct}
+                    key={myProduct.id}
+                  />
+                </button>
               ))}
             </ProductContent>
           )}

@@ -35,6 +35,7 @@ const AppearFromCenter = keyframes`
 export const Container = styled.main`
   font-family: var(--poppins);
   padding: 60px 98px 0 calc(318px + 74px);
+  padding-left: 32vw;
   display: flex;
   position: relative;
   width: 100%;
@@ -116,6 +117,16 @@ export const ToggleRendering = styled.div<buttonActive>`
     outline: none;
     border: none;
     letter-spacing: 1px;
+    background-color: transparent;
+    &:active {
+      transform: scale(0.9);
+    }
+    span {
+      &:hover {
+        filter: brightness(0.9);
+      }
+    }
+    transition: transform 100ms ease-out;
     color: ${({ buttonActive }) =>
       buttonActive ? `var(--green400)` : `var(--gray300)`};
   }
@@ -139,9 +150,9 @@ export const EvaluationContent = styled.section`
     display: flex;
     flex-direction: row;
     position: absolute;
-    z-index: -100;
-    right: 10px;
-    top: -70px;
+    z-index: -90;
+    right: 0;
+    top: -152px;
 
     h4 {
       font-size: 1.4em;
@@ -154,8 +165,22 @@ export const ProductContent = styled.section`
   position: relative;
   animation: ${AppearFromRight} 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-flow: row wrap;
-  column-gap: 1rem;
+  column-gap: 28px;
   row-gap: 2rem;
-  justify-content: space-evenly;
+  button {
+    outline: none;
+    border: none;
+    transition: transform 100ms ease-out;
+    &:active {
+      transform: scale(0.98);
+      transition: transform 100ms ease-out;
+    }
+
+    &:hover {
+      filter: brightness(0.95);
+    }
+  }
 `;
