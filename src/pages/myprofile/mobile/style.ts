@@ -139,8 +139,22 @@ export const ProductContent = styled.section`
   width: 100%;
   position: relative;
   animation: ${AppearFromRight} 0.5s ease-in-out;
-  div {
-    width: inherit;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  button {
+    width: 100%;
+    outline: none;
+    border: none;
+    transition: transform 100ms ease-out;
+
+    &:active {
+      transform: scale(0.98);
+      transition: transform 100ms ease-out;
+    }
+
+    &:hover {
+      filter: brightness(0.95);
+    }
   }
 `;

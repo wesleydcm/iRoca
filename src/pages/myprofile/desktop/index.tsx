@@ -13,11 +13,8 @@ import EvaluationCard from "../../../Components/EvaluationCard";
 import { Link } from "react-router-dom";
 import { useUser } from "../../../Providers/user";
 import Loading from "../../../Components/Loading";
-import { IUserInfo, IEvaluation, IProduct, IUser } from "../../../@types";
-import {
-  EDIT_PRODUCT_LOCALSTORAFE_FLAG,
-  USER_LOCALSTORAGE_FLAG,
-} from "../../../utils";
+import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
+import { EDIT_PRODUCT_LOCALSTORAFE_FLAG } from "../../../utils";
 import { useHistory } from "react-router-dom";
 interface Evaluations {
   avaliator: IUserInfo;
@@ -25,11 +22,9 @@ interface Evaluations {
 }
 
 const ProfilePageDesktop = (): JSX.Element => {
-  const userData = localStorage.getItem(USER_LOCALSTORAGE_FLAG);
-  console.log(userData);
+  const { user } = useUser();
   const [display, setDisplay] = useState(true);
   const [load, setLoad] = useState(false);
-  const [user, setUser] = useState<IUserInfo>();
   const [evaluation, setEvaluation] = useState<Evaluations[]>();
   const [averageEvaluation, setAverageEvaluation] = useState<number>();
   const [myProducts, setMyProducts] = useState<IProduct[]>([]);
@@ -39,11 +34,12 @@ const ProfilePageDesktop = (): JSX.Element => {
 
   useEffect(() => {
     setLoad(true);
-    controller.getUser(user?.id).then((response) => setUser(response));
-    controller.getEvaluationsOfUser(Number(user?.id)).then((response: any) => {
-      setEvaluation(response);
-      setLoad(false);
-    });
+    controller
+      .getEvaluationsOfUser(Number(user.personalData.id))
+      .then((response: any) => {
+        setEvaluation(response);
+        setLoad(false);
+      });
     controller.getProductsOfUser(2).then((response) => setMyProducts(response));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,12 +78,12 @@ const ProfilePageDesktop = (): JSX.Element => {
         </Link>
       </h1>
       <ContactContent>
-        <img src={user?.image} alt="user" />
+        <img src={user.personalData.image} alt="user" />
         <div className="contacts">
-          <h2>{user?.name}</h2>
+          <h2>{user.personalData.name}</h2>
           <h3>Contato</h3>
-          <h4>Telefone: {user?.phone}</h4>
-          <h4>Email: {user?.email}</h4>
+          <h4>Telefone: {user.personalData.phone}</h4>
+          <h4>Email: {user.personalData.email}</h4>
         </div>
       </ContactContent>
       <ToggleRendering buttonActive={display}>
@@ -124,7 +120,7 @@ const ProfilePageDesktop = (): JSX.Element => {
           ) : (
             <ProductContent>
               {myProducts.map((myProduct) => (
-                <ul onClick={() => handleEditProduct(myProduct.id)}>
+                <button onClick={() => handleEditProduct(myProduct.id)}>
                   <ProductCardInAnnouncementMobile
                     item={{
                       product: myProduct,
@@ -132,7 +128,7 @@ const ProfilePageDesktop = (): JSX.Element => {
                     }}
                     key={myProduct.id}
                   />
-                </ul>
+                </button>
               ))}
             </ProductContent>
           )}
