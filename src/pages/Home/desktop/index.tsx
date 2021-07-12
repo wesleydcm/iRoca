@@ -1,5 +1,6 @@
-import { Wrapper } from "../styles";
+import { Wrapper, LiStyled } from "../styles";
 import { ReactComponent as LogoSvg } from "../../../assets/images-mobile/logo.svg";
+import { ReactComponent as CheckSvg } from "../../../assets/images-mobile/check.svg";
 import { ReactComponent as SearchSvg } from "../../../assets/images-desktop/search.svg";
 import CommonProductsSvg from "../../../assets/images-mobile/common_products.svg";
 import FruitsCategorySvg from "../../../assets/images-mobile/fruit_category.svg";
@@ -8,31 +9,38 @@ import Vegetables2CategorySvg from "../../../assets/images-mobile/vegetables2_ca
 import OrganicSvg from "../../../assets/images-mobile/organic_category.svg";
 import HeartSvg from "../../../assets/images-mobile/heart.svg";
 import InputIconDesktop from "../../../Components/InputIcon/desktop";
-import { useEffect, useState } from "react";
-import { IBestProducts, ICategoriesAndTypes, IProduct } from "../../../@types";
-import { mockedProduct } from "../../../utils/mocks";
-import { categoriesAndTypes } from "../../../utils";
+import { ITreatedProduct, ICategoriesAndTypes } from "../../../@types";
 import ProductCardInAnnouncement from "../../../Components/ProductCardInAnnouncement/desktop";
+import Loading from "../../../Components/Loading";
+import { useUser } from "../../../Providers/user";
+import { errorToast } from "../../../utils";
 
 interface Props {
 	searchValue: string;
 	setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-	categorySelected?: string;
+	filteredProductsList: ITreatedProduct[];
 	setCategorySelected: React.Dispatch<React.SetStateAction<string>>;
-	selectedType?: string;
+	selectedType: string;
 	setTypeSelected: React.Dispatch<React.SetStateAction<string>>;
-	bestProductsList: IBestProducts[];
 	categoriesAndTypes: ICategoriesAndTypes;
+	categorySelected: string;
+	isLoading: boolean;
+	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const HomeDesktop = ({
-	bestProductsList,
+	filteredProductsList,
 	setCategorySelected,
 	searchValue,
 	setSearchValue,
+	categorySelected,
+	selectedType,
 	setTypeSelected,
 	categoriesAndTypes,
+	isLoading,
+	onClick,
 }: Props) => {
+	const { user } = useUser();
 	const { ORGANICS, COMMONS, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
 		categoriesAndTypes;
 
@@ -45,67 +53,119 @@ const HomeDesktop = ({
 					value={searchValue}
 					setValue={setSearchValue}
 					icon={SearchSvg}
+					onClick={onClick}
 				/>
 				<LogoSvg data-css="logo" />
 			</header>
 			<div data-css="filtersContainer">
 				<ul data-css="filtersWrapper">
-					<li>
-						<button type="button" onClick={() => setTypeSelected(COMMONS)}>
+					<LiStyled isSelected={selectedType === COMMONS}>
+						{selectedType === COMMONS && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								setTypeSelected(COMMONS);
+								setSearchValue("");
+							}}
+						>
 							<img src={CommonProductsSvg} alt={COMMONS} />
 						</button>
 						<span>{COMMONS}</span>
-					</li>
-					<li>
-						<button type="button" onClick={() => setTypeSelected(ORGANICS)}>
+					</LiStyled>
+					<LiStyled isSelected={selectedType === ORGANICS}>
+						{selectedType === ORGANICS && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								setTypeSelected(ORGANICS);
+								setSearchValue("");
+							}}
+						>
 							<img src={OrganicSvg} alt={ORGANICS} />
 						</button>
 						<span>{ORGANICS}</span>
-					</li>
-					<li>
-						<button type="button" onClick={() => setTypeSelected(FAVORITES)}>
+					</LiStyled>
+					<LiStyled isSelected={selectedType === FAVORITES}>
+						{selectedType === FAVORITES && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								if (user && user.auth) {
+									setTypeSelected(FAVORITES);
+									setSearchValue("");
+								} else {
+									errorToast("Faça seu login.");
+								}
+							}}
+						>
 							<img src={HeartSvg} alt={FAVORITES} />
 						</button>
 						<span>{FAVORITES}</span>
-					</li>
+					</LiStyled>
 				</ul>
 				<ul data-css="filtersWrapper">
-					<li>
-						<button type="button" onClick={() => setCategorySelected(FRUIT)}>
+					<LiStyled isSelected={categorySelected === FRUIT}>
+						{categorySelected === FRUIT && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								categorySelected === FRUIT
+									? setCategorySelected("")
+									: setCategorySelected(FRUIT);
+								setSearchValue("");
+							}}
+						>
 							<img src={FruitsCategorySvg} alt={FRUIT} />
 						</button>
 						<span>{FRUIT}</span>
-					</li>
-					<li>
+					</LiStyled>
+					<LiStyled isSelected={categorySelected === VEGETABLES1}>
+						{categorySelected === VEGETABLES1 && <CheckSvg />}
 						<button
 							type="button"
-							onClick={() => setCategorySelected(VEGETABLES1)}
+							onClick={() => {
+								categorySelected === VEGETABLES1
+									? setCategorySelected("")
+									: setCategorySelected(VEGETABLES1);
+								setSearchValue("");
+							}}
 						>
 							<img src={Vegetables1CategorySvg} alt={VEGETABLES1} />
 						</button>
 						<span>{VEGETABLES1}</span>
-					</li>
-					<li>
+					</LiStyled>
+					<LiStyled isSelected={categorySelected === VEGETABLES2}>
+						{categorySelected === VEGETABLES2 && <CheckSvg />}
 						<button
 							type="button"
-							onClick={() => setCategorySelected(VEGETABLES2)}
+							onClick={() => {
+								categorySelected === VEGETABLES2
+									? setCategorySelected("")
+									: setCategorySelected(VEGETABLES2);
+								setSearchValue("");
+							}}
 						>
 							<img src={Vegetables2CategorySvg} alt={VEGETABLES2} />
 						</button>
 						<span>{VEGETABLES2}</span>
-					</li>
+					</LiStyled>
 				</ul>
 			</div>
 
 			<h3>destaques</h3>
 
 			<ul data-css="productsWrapper">
-				{bestProductsList.map(product => (
-					<ProductCardInAnnouncement
-						key={product.product.id}
-						item={product.product}
-					/>
-				))}
+				{isLoading ? (
+					<Loading size={100} />
+				) : (
+					filteredProductsList.map(item => (
+						<ProductCardInAnnouncement
+							key={item.product.id}
+							item={item}
+							isFavorite={item.isFavorite}
+						/>
+					))
+				)}
 			</ul>
 		</Wrapper>
 	);
