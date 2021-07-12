@@ -1,6 +1,6 @@
 import UserController from "../Providers/user/controller";
 
-export interface IAdress {
+export interface IAddress {
   cep?: string;
   state: string;
   city: string;
@@ -16,16 +16,16 @@ export interface IUser {
 }
 
 export interface IUserInfo {
-  name: string;
-  email: string;
-  password: string;
-  birthDate: string;
-  cpf: string;
-  phone: string;
-  image?: string;
-  id: number;
-  address: IAdress;
-  favorites: number[] | [];
+	name: string;
+	email: string;
+	password: string;
+	birthDate: string;
+	cpf: string;
+	phone: string;
+	image?: string;
+	id: number;
+	address: IAddress;
+	favorites: number[];
 }
 
 export interface IUserUpdate {
@@ -36,7 +36,7 @@ export interface IUserUpdate {
     cpf?: string;
     phone?: string;
     image?: string;
-    address?: IAdress;
+    address?: IAddress;
   };
   token: string;
 }
