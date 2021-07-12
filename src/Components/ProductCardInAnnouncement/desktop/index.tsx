@@ -24,10 +24,10 @@ const ProductCardInAnnouncement = ({
 	...rest
 }: Props): JSX.Element => {
 	const reRendersAmount = useRef(0);
-	// console.log(
-	// 	"ProductCardInAnnouncement\nreRendersAmount :>> ",
-	// 	reRendersAmount.current++,
-	// );
+	console.log(
+		"ProductCardInAnnouncement\nreRendersAmount :>> ",
+		reRendersAmount.current++,
+	);
 
 	return (
 		<Wrapper {...rest}>

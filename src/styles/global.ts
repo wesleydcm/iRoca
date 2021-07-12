@@ -29,6 +29,7 @@ export const Global = createGlobalStyle`
 
   body, html{
     background-color: var(--white);
+
   }
   ul{
     list-style: none;
