@@ -8,8 +8,9 @@ export interface Props {
 const Loading = ({ ...rest }: Props): JSX.Element => {
 	return (
 		<Wrapper {...rest}>
-			<div className="logo-cont">
+			<div className="loading">
 				<LogoSvg />
+				<span>Carregando...</span>
 			</div>
 		</Wrapper>
 	);

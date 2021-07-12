@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import {
+import type {
 	IUser,
 	ILoginData,
 	IUserUpdate,
@@ -8,7 +8,7 @@ import {
 	IEvaluations,
 	IProduct,
 	IEvaluation,
-  IBestProducts,
+	ITreatedProduct,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -282,7 +282,7 @@ class UserController {
 		}
 	};
 
-	getEvaluationsAverage = (item: IProduct) : IBestProducts => {
+	getEvaluationsAverage = (item: IProduct): ITreatedProduct => {
 		if (item.evaluations.length) {
 			const average =
 				item.evaluations.reduce((acc: number, evaluation: IEvaluation) => {
@@ -292,6 +292,20 @@ class UserController {
 			return { product: item, average };
 		}
 		return { product: item, average: 0 };
+	};
+
+	getAllAverages = (productsList: IProduct[]): ITreatedProduct[] => {
+		if (productsList.length) {
+			const averagesList = productsList.map(item =>
+				this.getEvaluationsAverage(item),
+			);
+
+			averagesList.sort(
+				(productA, productB) => productB.average - productA.average,
+			);
+			return averagesList;
+		}
+		return [];
 	};
 }
 
