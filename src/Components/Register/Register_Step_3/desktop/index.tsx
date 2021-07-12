@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import { IUserUpdate, IUser, IAdress } from "../../../../@types";
+import { IAdress } from "../../../../@types";
 
 interface FormValues {
   state: string;
@@ -31,7 +31,7 @@ const RegisterStep3Desktop = () => {
 
   const [stateInput, setStateInput] = useState("");
 
-  const { tempUser, setTempUser, initController, setUser } = useUser();
+  const { tempUser, setTempUser, initController } = useUser();
 
   const history = useHistory();
 
@@ -132,7 +132,7 @@ const RegisterStep3Desktop = () => {
             register={register}
             value={districtInput}
           />
-          <p>{errors.district?.message}</p>
+          <p>{errors.neighborhood?.message}</p>
           <Input
             placeholder={"Rua"}
             type={"text"}
@@ -153,14 +153,6 @@ const RegisterStep3Desktop = () => {
         </div>
         <div className="photo">
           <div className="photo-input">
-            {/* <Input
-              placeholder={"CEP"}
-              type={"text"}
-              width={180}
-              name={"cep"}
-              register={register}
-              setValue={setcepValue}
-               */}
             <input
               placeholder="CEP"
               type="text"

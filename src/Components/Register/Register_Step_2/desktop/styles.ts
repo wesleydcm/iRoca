@@ -16,7 +16,7 @@ export const Logo = styled.header`
   .description {
     h1 {
       font-family: var(--poppins);
-      font-size: 30px;
+      font-size: 28px;
       font-style: normal;
       font-weight: 500;
       line-height: 72px;
@@ -59,6 +59,9 @@ export const Form = styled.form`
   h1 {
     color: var(--gray700);
     font-size: 30px;
+    font-family: var(--poppins);
+    font-weight: 500;
+    font-size: 28px;
   }
 
   .button {
@@ -73,6 +76,12 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+
+    h1 {
+      font-family: var(--poppins);
+      font-weight: 500;
+      font-size: 28px;
+    }
 
     span {
       padding: 0 10px;

@@ -30,12 +30,12 @@ export interface IUserInfo {
 
 export interface IUserUpdate {
   id: number;
-  personalData: {
-    name: string;
-    birthDate: string;
-    cpf: string;
-    phone: string;
-    image: string;
+  personalData?: {
+    name?: string;
+    birthDate?: string;
+    cpf?: string;
+    phone?: string;
+    image?: string;
     address?: IAdress;
   };
   token: string;
@@ -115,7 +115,7 @@ export interface IPurchase {
   products: IProduct[];
 }
 export interface EvaluationData {
-  image: string;
+  image?: string;
   name: string;
   feedback: string;
   grade: number;
@@ -142,6 +142,10 @@ export interface ICategoriesAndTypes {
   COMMONS: string;
 }
 
+export interface IBestProducts {
+  product: IProduct;
+  average: number;
+}
 export interface ITreatedProduct {
   product: IProduct;
   average: number;

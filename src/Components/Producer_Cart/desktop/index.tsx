@@ -10,7 +10,7 @@ const ProducerCartDesktop = (): JSX.Element => {
   };
 
   return (
-    <Container onClick={handleClick}>
+    <Container onClick={handleClick} className="producer">
       <Card>
         <div className="information">
           <div className="name">

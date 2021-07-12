@@ -58,7 +58,9 @@ export const Form = styled.form`
 
   h1 {
     color: var(--gray700);
-    font-size: 30px;
+    font-size: 28px;
+    font-family: var(--poppins);
+    font-weight: 500;
   }
 
   .button {

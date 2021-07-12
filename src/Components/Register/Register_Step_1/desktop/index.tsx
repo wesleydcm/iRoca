@@ -7,14 +7,6 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
-import { IUser, ILoginData } from "../../../../@types";
-import { decodeToken } from "react-jwt";
-
-// interface IProps {
-//   data: {
-//     accessToken: string;
-//   } | void;
-// }
 
 interface FormValue {
   email: string;
@@ -50,8 +42,6 @@ const RegisterStep1Desktop = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  // const { initController } = useUser();
 
   const onSubmit = async (dataValue: FormValue) => {
     setTempUser({

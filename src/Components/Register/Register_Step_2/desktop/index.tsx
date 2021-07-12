@@ -105,7 +105,7 @@ const RegisterStep2Desktop = () => {
             name={"phone"}
             register={register}
           />
-          <p>{errors.telephone?.message}</p>
+          <p>{errors.phone?.message}</p>
         </div>
         <div className="photo">
           <h1>Foto de Perfil</h1>
@@ -113,14 +113,10 @@ const RegisterStep2Desktop = () => {
             <Input
               placeholder={"link"}
               type={"text"}
-              width={180}
+              width={260}
               name={"image"}
               register={register}
             />
-            <span>ou</span>
-            <Button width={100} color={"green"} type={"button"}>
-              Upload
-            </Button>
             <p>{errors.photo?.message}</p>
           </div>
         </div>

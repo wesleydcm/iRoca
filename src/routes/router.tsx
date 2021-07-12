@@ -3,7 +3,8 @@ import Register from "../pages/Register";
 import Register2 from "../pages/Register/Register2";
 import Register3 from "../pages/Register/Register3";
 import TestsPage from "../pages/testsPage";
-import LoginPage from "../pages/login/mobile";
+import MyAccountPageComponent from "../pages/myAccount";
+import ProfilePage from "../pages/myprofile";
 import Home from "../pages/Home";
 import ProductPage from "../pages/productPage";
 import MenuMobile from "../Components/Menu/mobile";
@@ -11,6 +12,7 @@ import MenuDesktop from "../Components/Menu/desktop";
 import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
+import LoginPage from "../pages/login/mobile";
 
 const RouterComponent = () => {
   const { pageWidth } = useWindow();
@@ -25,7 +27,9 @@ const RouterComponent = () => {
       <Route exact path="/register">
         <Register />
       </Route>
-
+      <Route exact path="/" component={TestsPage} />
+      <Route exact path="/home" component={Home} />
+      <Route exact path="/product/:id" component={ProductPage} />
       <Route exact path="/register-second">
         <Register2 />
       </Route>
@@ -42,13 +46,9 @@ const RouterComponent = () => {
         <div>Checkout</div>
       </Route>
 
-      <Route exact path="/myAccount">
-        <div>My Account</div>
-      </Route>
+      <Route exact path="/myAccount" component={MyAccountPageComponent}></Route>
 
-      <Route exact path="/myAccount/profile">
-        <div>My Profile</div>
-      </Route>
+      <Route exact path="/myAccount/profile" component={ProfilePage} />
 
       <Route path="/myAccount/edit">
         <div>Edit Profile</div>

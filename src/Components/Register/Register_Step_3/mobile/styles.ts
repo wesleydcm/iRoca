@@ -42,6 +42,12 @@ export const Form = styled.form`
   align-items: center;
   margin: 0 auto;
 
+  p {
+    color: var(--color-error);
+    font-size: 16px;
+    font-family: var(--poppins);
+  }
+
   h1 {
     width: 345px;
     font-size: 22px;
@@ -66,6 +72,34 @@ export const Form = styled.form`
 
   .button {
     margin-top: 15px;
+  }
+
+  input {
+    width: 310px;
+    padding: 0 15px;
+    border: 2px solid var(--white);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--white);
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: capitalize;
+    text-align: left;
+    font-family: var(--poppins);
+    font-style: normal;
+    height: 45px;
+
+    &::placeholder {
+      color: var(--white);
+    }
+  }
+
+  .cep {
+    input {
+      width: 180px;
+    }
   }
 `;
 

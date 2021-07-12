@@ -19,6 +19,7 @@ export const Global = createGlobalStyle`
     --font-color: #FFFFFF;
     --nunito: 'Nunito', sans-serif;
     --poppins: 'Poppins', sans-serif;
+    --color-error: #f53c3c;
   }
 
   *{
@@ -29,6 +30,7 @@ export const Global = createGlobalStyle`
 
   body, html{
     background-color: var(--white);
+
   }
   ul{
     list-style: none;
@@ -45,6 +47,8 @@ export const Global = createGlobalStyle`
 			width: inherit;
 			height: inherit;
       border-radius: inherit;
+      max-width: inherit;
+      max-height: inherit;
   }
   figure > figcaption {
    display: none;
