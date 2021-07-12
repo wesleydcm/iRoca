@@ -59,14 +59,26 @@ const HomeMobile = ({
 			<ul data-css="filtersWrapper">
 				<LiStyled isSelected={selectedType === COMMONS}>
 					{selectedType === COMMONS && <CheckSvg />}
-					<button type="button" onClick={() => setTypeSelected(COMMONS)}>
+					<button
+						type="button"
+						onClick={() => {
+							setTypeSelected(COMMONS);
+							setSearchValue("");
+						}}
+					>
 						<img src={CommonProductsSvg} alt={COMMONS} />
 					</button>
 					<span>{COMMONS}</span>
 				</LiStyled>
 				<LiStyled isSelected={selectedType === ORGANICS}>
 					{selectedType === ORGANICS && <CheckSvg />}
-					<button type="button" onClick={() => setTypeSelected(ORGANICS)}>
+					<button
+						type="button"
+						onClick={() => {
+							setTypeSelected(ORGANICS);
+							setSearchValue("");
+						}}
+					>
 						<img src={OrganicSvg} alt={ORGANICS} />
 					</button>
 					<span>{ORGANICS}</span>
@@ -76,9 +88,12 @@ const HomeMobile = ({
 					<button
 						type="button"
 						onClick={() => {
-							user && user.auth
-								? setTypeSelected(FAVORITES)
-								: errorToast("Faça seu login.");
+							if (user && user.auth) {
+								setTypeSelected(FAVORITES);
+								setSearchValue("");
+							} else {
+								errorToast("Faça seu login.");
+							}
 						}}
 					>
 						<img src={HeartSvg} alt={FAVORITES} />
@@ -87,7 +102,15 @@ const HomeMobile = ({
 				</LiStyled>
 				<LiStyled isSelected={categorySelected === FRUIT}>
 					{categorySelected === FRUIT && <CheckSvg />}
-					<button type="button" onClick={() => setCategorySelected(FRUIT)}>
+					<button
+						type="button"
+						onClick={() => {
+							categorySelected === FRUIT
+								? setCategorySelected("")
+								: setCategorySelected(FRUIT);
+							setSearchValue("");
+						}}
+					>
 						<img src={FruitsCategorySvg} alt={FRUIT} />
 					</button>
 					<span>{FRUIT}</span>
@@ -96,7 +119,12 @@ const HomeMobile = ({
 					{categorySelected === VEGETABLES1 && <CheckSvg />}
 					<button
 						type="button"
-						onClick={() => setCategorySelected(VEGETABLES1)}
+						onClick={() => {
+							categorySelected === VEGETABLES1
+								? setCategorySelected("")
+								: setCategorySelected(VEGETABLES1);
+							setSearchValue("");
+						}}
 					>
 						<img src={Vegetables1CategorySvg} alt={VEGETABLES1} />
 					</button>
@@ -106,7 +134,12 @@ const HomeMobile = ({
 					{categorySelected === VEGETABLES2 && <CheckSvg />}
 					<button
 						type="button"
-						onClick={() => setCategorySelected(VEGETABLES2)}
+						onClick={() => {
+							categorySelected === VEGETABLES2
+								? setCategorySelected("")
+								: setCategorySelected(VEGETABLES2);
+							setSearchValue("");
+						}}
 					>
 						<img src={Vegetables2CategorySvg} alt={VEGETABLES2} />
 					</button>

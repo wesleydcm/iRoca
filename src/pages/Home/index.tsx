@@ -5,7 +5,6 @@ import type { ITreatedProduct, IProduct } from "../../@types";
 import { categoriesAndTypes, WINDOW_SIZE_DESKTOP } from "../../utils";
 import { useUser } from "../../Providers/user";
 import { useWindow } from "../../Providers/window";
-import { Favorite } from "@material-ui/icons";
 
 interface IProductByID {
 	[key: number]: IProduct;
@@ -37,6 +36,7 @@ const Home = () => {
 	//on every user interaction, will update the "allProductsList":
 	useEffect(() => {
 		if (!!categorySelected || !!selectedType) {
+			setIsLoading(true);
 			controller.getProduct().then(response => {
 				setAllProductsList(response);
 			});
@@ -56,49 +56,53 @@ const Home = () => {
 	}, [allProductsList]);
 
 	const productsByID: IProductByID = useMemo<IProductByID>(() => {
-		console.log("productsByID :>> ", "mount the dictionary...");
+		// console.log("productsByID :>> ", "mount the dictionary...");
 		return allProductsList.reduce((acc, product: IProduct) => {
 			return { ...acc, [product.id]: product };
 		}, {});
 	}, [allProductsList]);
 
 	const filterProducts = (): void => {
-		if (searchValue.length >= 3) {
-			const filteredProductsList = allProductsList.filter((product: IProduct) =>
-				product.name
-					.toLocaleLowerCase()
-					.includes(searchValue.toLocaleLowerCase()),
-			);
+		// console.log("filterProducts :>> ", "creating the function...");
+		const { FAVORITES, ORGANICS } = categoriesAndTypes;
 
-			const averagedProductsList =
-				controller.getAllAverages(filteredProductsList);
+		if (!!searchValue.length) {
+			if (
+				!!categorySelected ||
+				selectedType === FAVORITES ||
+				selectedType === ORGANICS
+			) {
+				const filteredProductsLists = filteredProductsList.filter(
+					({ product }: ITreatedProduct) =>
+						product.name
+							.toLocaleLowerCase()
+							.includes(searchValue.toLocaleLowerCase()),
+				);
 
-			setFilteredProductsList(averagedProductsList);
-		} else if (!!selectedType) {
-			const { FAVORITES, ORGANICS } = categoriesAndTypes;
+				setFilteredProductsList(filteredProductsLists);
+			} else {
+				const filteredProductsList = allProductsList.filter(
+					(product: IProduct) =>
+						product.name
+							.toLocaleLowerCase()
+							.includes(searchValue.toLocaleLowerCase()),
+				);
 
+				const averagedProductsList =
+					controller.getAllAverages(filteredProductsList);
+
+				setFilteredProductsList(averagedProductsList);
+			}
+		} else if (!!selectedType || !!categorySelected) {
 			switch (selectedType) {
-				case FAVORITES:
-					if (user && user.auth) {
-						const favoritesProductsList = user.personalData.favorites.map(
-							favoriteID => productsByID[favoriteID],
-						);
-
-						const averagedProductsList = controller.getAllAverages(
-							favoritesProductsList,
-						);
-
-						averagedProductsList.forEach(
-							favoriteProduct => (favoriteProduct.isFavorite = true),
-						);
-						setFilteredProductsList(averagedProductsList);
-					}
-
-					break;
 				case ORGANICS:
-					const organicProducts = allProductsList.filter(
-						product => product.isOrganic,
-					);
+					const organicProducts = allProductsList.filter(product => {
+						if (!!categorySelected) {
+							return product.isOrganic && product.category === categorySelected;
+						}
+
+						return product.isOrganic;
+					});
 
 					const averagedProductsList =
 						controller.getAllAverages(organicProducts);
@@ -106,17 +110,48 @@ const Home = () => {
 					setFilteredProductsList(averagedProductsList);
 					break;
 
+				case FAVORITES:
+					if (user && user.auth) {
+						const favoritesProductsList = user.personalData.favorites.map(
+							favoriteID => productsByID[favoriteID],
+						);
+
+						const favoritesByCategory = favoritesProductsList.filter(
+							favoriteProduct => {
+								if (!!categorySelected) {
+									return favoriteProduct.category === categorySelected;
+								}
+								return favoriteProduct;
+							},
+						);
+
+						let averagedProductsList =
+							controller.getAllAverages(favoritesByCategory);
+
+						averagedProductsList.forEach(
+							favoriteProduct => (favoriteProduct.isFavorite = true),
+						);
+						setFilteredProductsList(averagedProductsList);
+					}
+					break;
+
 				default:
+					const productsByCategory = allProductsList.filter(product => {
+						if (!!categorySelected) {
+							return product.category === categorySelected;
+						}
+						return product;
+					});
+
+					const avgProductsByCategoryList =
+						controller.getAllAverages(productsByCategory);
+
+					setFilteredProductsList(avgProductsByCategoryList);
+
 					break;
 			}
-
-			// const averagedProductsList =
-			// 	controller.getAllAverages(filteredProductsList);
-
-			// setFilteredProductsList(averagedProductsList);
-		} else if (!!categorySelected) {
-		} else {
 		}
+		// eslint-disable-next-line
 	};
 
 	return (

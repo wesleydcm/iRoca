@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import {
+import type {
 	IUser,
 	ILoginData,
 	IUserUpdate,
