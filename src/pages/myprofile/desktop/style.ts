@@ -170,7 +170,7 @@ export const ProductContent = styled.section`
   flex-flow: row wrap;
   column-gap: 28px;
   row-gap: 2rem;
-  button {
+  ul {
     outline: none;
     border: none;
     transition: transform 100ms ease-out;

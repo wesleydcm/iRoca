@@ -3,7 +3,7 @@ import { WINDOW_SIZE_DESKTOP } from "../../utils";
 
 export const Wrapper = styled.li`
 	width: 100%;
-	height: 95px;
+	height: 15vh;
 	position: relative;
 	box-shadow: 0 2px 5px 2px var(--shadow-black);
 	margin-inline: auto;
@@ -14,123 +14,137 @@ export const Wrapper = styled.li`
 	flex-direction: row;
 	flex-wrap: nowrap;
 	overflow: hidden;
-	padding: 15px 15px 8px 25px;
+	padding: 3vw;
 
 	.organicFlag {
-		width: 40px;
-		height: 22px;
+		width: 10vw;
+		height: 2.5vh;
 		position: absolute;
 		top: 0px;
-		left: -5px;
+		left: -1.2vw;
 	}
 
 	figure {
-		width: 55px;
-		height: 55px;
-		border-radius: 5px;
+		width: 15vw;
+		height: 15vw;
+		border-radius: 1.2vw;
 	}
+	div.infoWrapper {
+		flex: 1;
+		h2,
+		h3 {
+			font-family: var(--nunito);
+			margin-left: 5vw;
+			max-width: 40vw;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 
-	h2,
-	h3 {
-		font-family: var(--nunito);
-		margin-left: 25px;
+		h2 {
+			font-size: 1rem;
+			font-weight: 400;
+			white-space: nowrap;
+			margin-bottom: 5px;
+		}
+		h3 {
+			font-size: 0.8rem;
+			max-height: 9vh;
+			font-weight: 300;
+		}
 	}
-
-	h2 {
-		font-size: 10px;
-		font-weight: 400;
-		margin-bottom: 5px;
-	}
-	h3 {
-		font-size: 9px;
-		font-weight: 300;
-	}
-	div[data-css="statusWrapper"] {
+	div.statusWrapper {
 		height: 100%;
 		display: flex;
 		flex-flow: column;
 		align-items: center;
 		justify-content: space-between;
+		align-self: flex-end;
 		div:nth-child(1) {
-			width: 100px;
 			display: flex;
 			flex-flow: column;
 			align-items: flex-end;
 			justify-content: flex-start;
+			align-self: flex-end;
 			svg {
-				width: 14px;
-				height: 14px;
+				width: 4vw;
+				height: 4vw;
 			}
 		}
 
 		div:nth-child(2) {
 			justify-self: flex-end;
+			align-self: flex-end;
 			span {
 				font-family: var(--poppins);
-				margin-left: 16px;
+				font-size: 0.9rem;
 				font-weight: 500;
 			}
 		}
 	}
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
-		width: 280px;
-		height: 230px;
-		padding: 30px 20px 0;
-		flex-wrap: wrap;
-
+		width: 19.5vw;
+		height: 23.3vh;
+		padding: 1vw 1vw 0.5vw;
+		flex-direction: column;
 		.organicFlag {
-			width: 55px;
-			height: 35px;
-			left: -6px;
+			width: 4.5vw;
+			height: 2.5vw;
+			left: -0.7vw;
 
 			svg {
 				width: inherit;
 				height: inherit;
 			}
 		}
+		div {
+			display: flex;
 
-		figure {
-			width: 66px;
-			height: 66px;
-			align-self: flex-start;
+			figure {
+				width: 5vw;
+				height: 5vw;
+				align-self: flex-start;
+				border-radius: 0.5vw;
+				margin-left: 10px;
+			}
+
+			div.infoWrapper {
+				display: flex;
+				flex-direction: column;
+				h2,
+				h3 {
+					margin: 0;
+				}
+
+				h2 {
+					font-size: 1.5rem;
+					margin-top: 20px;
+				}
+				h3 {
+					font-size: 1rem;
+					margin-top: 5px;
+					margin-bottom: 0.5vh;
+				}
+			}
 		}
-
-		div[data-css="infoWrapper"] {
-			width: 150px;
-			h2,
-			h3 {
-				font-family: var(--nunito);
-				margin: 0;
-			}
-
-			h2 {
-				font-size: 18px;
-			}
-			h3 {
-				font-size: 12px;
-				margin-top: 10px;
-				margin-bottom: 30px;
-			}
-		}
-		div[data-css="statusWrapper"] {
+		div.statusWrapper {
 			width: 100%;
 			height: unset;
 			flex-flow: row;
 			align-items: center;
 			justify-content: space-between;
-			margin-bottom: 15px;
 			align-self: flex-end;
 
 			svg {
-				width: 25px;
-				height: 25px;
+				width: 1.5vw;
+				height: 1.5vw;
 			}
 
 			justify-self: flex-end;
 			span {
 				font-family: var(--poppins);
 				font-weight: 500;
+				margin-left: auto;
 			}
 		}
 	}

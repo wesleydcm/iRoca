@@ -13,8 +13,11 @@ import EvaluationCard from "../../../Components/EvaluationCard";
 import { Link } from "react-router-dom";
 import { useUser } from "../../../Providers/user";
 import Loading from "../../../Components/Loading";
-import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
-import { EDIT_PRODUCT_LOCALSTORAFE_FLAG } from "../../../utils";
+import { IUserInfo, IEvaluation, IProduct, IUser } from "../../../@types";
+import {
+  EDIT_PRODUCT_LOCALSTORAFE_FLAG,
+  USER_LOCALSTORAGE_FLAG,
+} from "../../../utils";
 import { useHistory } from "react-router-dom";
 interface Evaluations {
   avaliator: IUserInfo;
@@ -22,11 +25,13 @@ interface Evaluations {
 }
 
 const ProfilePageDesktop = (): JSX.Element => {
+  const userData = localStorage.getItem(USER_LOCALSTORAGE_FLAG);
+  console.log(userData);
   const [display, setDisplay] = useState(true);
   const [load, setLoad] = useState(false);
   const [user, setUser] = useState<IUserInfo>();
   const [evaluation, setEvaluation] = useState<Evaluations[]>();
-  const [generalEvaluation, setAverageEvaluation] = useState<number>();
+  const [averageEvaluation, setAverageEvaluation] = useState<number>();
   const [myProducts, setMyProducts] = useState<IProduct[]>([]);
   const { initController } = useUser();
   const controller = initController();
@@ -34,8 +39,8 @@ const ProfilePageDesktop = (): JSX.Element => {
 
   useEffect(() => {
     setLoad(true);
-    controller.getUser(1).then((response) => setUser(response));
-    controller.getEvaluationsOfUser(1).then((response: any) => {
+    controller.getUser(user?.id).then((response) => setUser(response));
+    controller.getEvaluationsOfUser(Number(user?.id)).then((response: any) => {
       setEvaluation(response);
       setLoad(false);
     });
@@ -101,7 +106,7 @@ const ProfilePageDesktop = (): JSX.Element => {
             <EvaluationContent>
               <div className="averageEvaluation">
                 <h4>Avaliação Geral</h4>
-                <RatingStar readOnly value={generalEvaluation} />
+                <RatingStar readOnly value={averageEvaluation} />
               </div>
               {evaluation?.map((evaluation, index) => (
                 <EvaluationCard
@@ -119,12 +124,15 @@ const ProfilePageDesktop = (): JSX.Element => {
           ) : (
             <ProductContent>
               {myProducts.map((myProduct) => (
-                <button onClick={() => handleEditProduct(myProduct.id)}>
+                <ul onClick={() => handleEditProduct(myProduct.id)}>
                   <ProductCardInAnnouncementMobile
-                    item={myProduct}
+                    item={{
+                      product: myProduct,
+                      average: Number(averageEvaluation),
+                    }}
                     key={myProduct.id}
                   />
-                </button>
+                </ul>
               ))}
             </ProductContent>
           )}

@@ -12,6 +12,7 @@ interface Props {
 	>;
 	value: string;
 	setValue: Dispatch<SetStateAction<string>>;
+	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const InputIconDesktop = ({
@@ -21,6 +22,7 @@ const InputIconDesktop = ({
 	icon: Icon,
 	value,
 	setValue,
+	onClick = undefined,
 	...rest
 }: Props): JSX.Element => {
 	return (
@@ -33,7 +35,7 @@ const InputIconDesktop = ({
 				{...rest}
 			/>
 			{action === "search" && (
-				<button>
+				<button onClick={onClick}>
 					<Icon />
 				</button>
 			)}

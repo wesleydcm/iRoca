@@ -144,3 +144,8 @@ export interface IBestProducts {
   product: IProduct;
   average: number;
 }
+export interface ITreatedProduct {
+  product: IProduct;
+  average: number;
+  isFavorite?: boolean;
+}

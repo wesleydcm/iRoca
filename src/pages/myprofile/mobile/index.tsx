@@ -25,7 +25,7 @@ const ProfilePageMobile = (): JSX.Element => {
   const [load, setLoad] = useState(false);
   const [user, setUser] = useState<IUserInfo>();
   const [evaluation, setEvaluation] = useState<Evaluations[]>();
-  const [generalEvaluation, setAverageEvaluation] = useState<number>();
+  const [averageEvaluation, setAverageEvaluation] = useState<number>();
   const [myProducts, setMyProducts] = useState<IProduct[]>([]);
   const { initController } = useUser();
   const controller = initController();
@@ -92,7 +92,7 @@ const ProfilePageMobile = (): JSX.Element => {
             <EvaluationContent>
               <div>
                 <h4>Avaliação Geral</h4>
-                <RatingStar readOnly value={generalEvaluation} />
+                <RatingStar readOnly value={averageEvaluation} />
               </div>
               {evaluation?.map((evaluation, index) => (
                 <EvaluationCard
@@ -112,7 +112,10 @@ const ProfilePageMobile = (): JSX.Element => {
               {myProducts.map((myProduct) => (
                 <button onClick={() => handleEditProduct(myProduct.id)}>
                   <ProductCardInAnnouncementMobile
-                    item={myProduct}
+                    item={{
+                      product: myProduct,
+                      average: Number(averageEvaluation),
+                    }}
                     key={myProduct.id}
                   />
                 </button>
