@@ -45,6 +45,8 @@ export const Global = createGlobalStyle`
 			width: inherit;
 			height: inherit;
       border-radius: inherit;
+      max-width: inherit;
+      max-height: inherit;
   }
   figure > figcaption {
    display: none;

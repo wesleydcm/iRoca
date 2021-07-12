@@ -87,6 +87,8 @@ export const Wrapper = styled.li`
 		height: 23.3vh;
 		padding: 1vw 1vw 0.5vw;
 		flex-direction: column;
+		min-width: 325px;
+		margin: 0 1vw;
 		.organicFlag {
 			width: 4.5vw;
 			height: 2.5vw;
@@ -103,6 +105,8 @@ export const Wrapper = styled.li`
 			figure {
 				width: 5vw;
 				height: 5vw;
+				max-width: 60px;
+				max-height: 60px;
 				align-self: flex-start;
 				border-radius: 0.5vw;
 				margin-left: 10px;
