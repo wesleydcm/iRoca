@@ -1,13 +1,14 @@
 import { Container, Form, Logo } from "./styles";
 import LogoImage from "../../../../assets/images-mobile/logo.svg";
 import Input from "../../../Input";
-import { useState } from "react";
 import Button from "../../../Button";
 import { useUser } from "../../../../Providers/user";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 interface FormValues {
   state: string;
@@ -19,7 +20,50 @@ interface FormValues {
 }
 
 const RegisterStep3Desktop = () => {
-  const [email, setEmail] = useState("");
+  const [cepValue, setcepValue] = useState("");
+
+  const { user } = useUser();
+
+  const history = useHistory();
+
+  const schema = yup.object().shape({
+    state: yup.string().required("Campo obrigatório"),
+    city: yup.string().required("Campo obrigatório"),
+    district: yup.string().required("Campo obrigatório"),
+    street: yup.string().required("Campo obrigatório"),
+    complement: yup.string().required("Campo obrigatório"),
+    cep: yup.string(),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data: FormValues) => {
+    console.log(data);
+    user.personalData.address.state = data.state;
+    user.personalData.address.city = data.city;
+    user.personalData.address.neighborhood = data.district;
+    user.personalData.address.street = data.street;
+    user.personalData.address.complement = data.complement;
+    user.personalData.address.cep = data.cep;
+    reset();
+    history.push("/login");
+  };
+
+  const handleClick = () => {
+    axios.get("https://viacep.com.br/ws/18611347/json/").then((response) => {
+      console.log(cepValue);
+    });
+  };
+
+  console.log(cepValue);
+
   return (
     <Container>
       <Logo>
@@ -34,62 +78,73 @@ const RegisterStep3Desktop = () => {
           <img src={LogoImage} alt="logo" />
         </div>
       </Logo>
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <div className="input">
           <h1>Dados de Endereço</h1>
           <Input
             placeholder={"Estado"}
-            setValue={setEmail}
             type={"text"}
-            value={email}
             width={260}
+            name={"state"}
+            register={register}
           />
+          <p>{errors.state?.message}</p>
           <Input
             placeholder={"Cidade"}
-            setValue={setEmail}
             type={"text"}
-            value={email}
             width={260}
+            name={"city"}
+            register={register}
           />
+          <p>{errors.city?.message}</p>
           <Input
             placeholder={"Bairro"}
-            setValue={setEmail}
             type={"text"}
-            value={email}
             width={260}
+            name={"district"}
+            register={register}
           />
+          <p>{errors.district?.message}</p>
           <Input
             placeholder={"Rua"}
-            setValue={setEmail}
             type={"text"}
-            value={email}
             width={260}
+            name={"street"}
+            register={register}
           />
+          <p>{errors.street?.message}</p>
           <Input
             placeholder={"Complemento"}
-            setValue={setEmail}
             type={"text"}
-            value={email}
             width={260}
+            name={"complement"}
+            register={register}
           />
+          <p>{errors.complement?.message}</p>
         </div>
         <div className="photo">
           <div className="photo-input">
             <Input
               placeholder={"CEP"}
-              setValue={setEmail}
               type={"text"}
-              value={email}
               width={180}
+              name={"cep"}
+              register={register}
+              setValue={setcepValue}
             />
             <span>ou</span>
-            <Button width={130} color={"green"} type={"button"}>
+            <Button
+              width={130}
+              color={"green"}
+              type={"button"}
+              onClick={handleClick}
+            >
               Verificar
             </Button>
           </div>
+          <p>{errors.cep?.message}</p>
         </div>
         <div className="button">
-          {" "}
           <Button width={225} color={"green"} type={"submit"}>
             Finalizar cadastro
           </Button>
