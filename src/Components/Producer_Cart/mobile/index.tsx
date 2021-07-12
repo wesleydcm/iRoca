@@ -10,7 +10,7 @@ const ProducerCartMobile = (): JSX.Element => {
   };
 
   return (
-    <Container onClick={handleClick}>
+    <Container onClick={handleClick} className="productor">
       <div>Produtor</div>
       <Card>
         <div className="information">

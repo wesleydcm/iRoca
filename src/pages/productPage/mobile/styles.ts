@@ -74,12 +74,25 @@ export const Container = styled.div`
     }
   }
 
-  .productorCard {
+  .productor {
     width: 90%;
-    height: 250px;
+    position: relative;
     margin: 2rem auto;
-    border-radius: 15px;
-    background: #f00;
+    height: auto;
+    > div:nth-child(2){
+      padding: 2rem 0;
+      cursor: pointer;
+    }
+    .image {
+      height: fit-content;
+      position: absolute;
+      right: -5px;
+      top: 50px;
+      }
+      *{
+        font-family: var(--poppins);
+      }
+    }
   }
 
   @media only screen and (max-width: 390px) {
