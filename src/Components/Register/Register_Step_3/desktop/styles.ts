@@ -49,6 +49,12 @@ export const Form = styled.form`
   display: flex;
   justify-content: space-evenly;
 
+  p {
+    color: var(--color-error);
+    font-size: 14px;
+    font-family: var(--poppins);
+  }
+
   .input {
     display: flex;
     flex-direction: column;

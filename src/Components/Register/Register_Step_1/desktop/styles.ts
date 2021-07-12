@@ -54,6 +54,12 @@ export const Form = styled.form`
     flex-direction: column;
     height: 320px;
     justify-content: space-evenly;
+
+    p {
+      color: var(--color-error);
+      font-size: 14px;
+      font-family: var(--poppins);
+    }
   }
 
   h1 {
@@ -67,5 +73,11 @@ export const Form = styled.form`
     align-items: flex-end;
     height: 300px;
     margin-top: 27px;
+  }
+
+  .footer p {
+    color: var(--gray600);
+    padding-top: 15px;
+    border-bottom: 2px solid var(--gray300);
   }
 `;

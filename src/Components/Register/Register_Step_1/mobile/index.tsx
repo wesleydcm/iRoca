@@ -6,7 +6,7 @@ import { useUser } from "../../../../Providers/user";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 interface FormValue {
   email: string;
@@ -110,7 +110,9 @@ const RegisterStep1Mobile = () => {
         </Button>
       </Form>
       <Footer>
-        <p>Já possui uma conta ? Entre por aqui!</p>
+        <Link to="/login">
+          <p>Já possui uma conta ? Entre por aqui!</p>
+        </Link>
       </Footer>
     </Container>
   );

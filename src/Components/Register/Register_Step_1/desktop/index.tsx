@@ -6,7 +6,7 @@ import { useUser } from "../../../../Providers/user";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 interface FormValue {
   email: string;
@@ -102,7 +102,13 @@ const RegisterStep1Desktop = () => {
             register={register}
           />
           <p>{errors.passwordConfirm?.message}</p>
+          <div className="footer">
+            <Link to="/login">
+              <p>Já possui uma conta ? Entre por aqui!</p>
+            </Link>
+          </div>
         </div>
+
         <div className="button">
           <Button width={180} color={"green"} type={"submit"}>
             Próximo
