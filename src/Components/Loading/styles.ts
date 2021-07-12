@@ -2,14 +2,14 @@ import styled from "styled-components";
 import { Props } from ".";
 
 export const Wrapper = styled.div<Props>`
-	.logo-cont,
-	.logo-cont::before,
-	.logo-cont::after {
+	.loading,
+	.loading::before,
+	.loading::after {
 		border-radius: 50%;
 		background: var(--green400);
 	}
 
-	.logo-cont {
+	.loading {
 		width: ${({ size }) => size + "px"};
 		height: ${({ size }) => size + "px"};
 		position: relative;
@@ -17,13 +17,18 @@ export const Wrapper = styled.div<Props>`
 		align-items: center;
 		justify-content: center;
 		svg {
-			width: ${({ size }) => size * 0.7 + "px"};
-			height: ${({ size }) => size * 0.7 + "px"};
+			z-index: 1;
+			width: ${({ size }) => `${size * 0.7}px`};
+			height: ${({ size }) => `${size * 0.7}px`};
+		}
+		span {
+			position: absolute;
+			top: ${({ size }) => `${size + 20}px`};
 		}
 	}
 
-	.logo-cont::before,
-	.logo-cont::after {
+	.loading::before,
+	.loading::after {
 		content: "";
 		position: absolute;
 		width: 100%;
@@ -33,14 +38,12 @@ export const Wrapper = styled.div<Props>`
 		left: -2px;
 	}
 
-	.logo-cont::before {
-		z-index: -1;
-		animation: grow 1s 1.5s infinite ease-out;
+	.loading::before {
+		animation: grow 800ms 1.3s infinite ease-out;
 	}
 
-	.logo-cont::after {
-		z-index: -2;
-		animation: grow 1s 0.8s infinite ease-out;
+	.loading::after {
+		animation: grow 800ms 0.6s infinite ease-out;
 	}
 
 	@keyframes grow {
@@ -49,7 +52,7 @@ export const Wrapper = styled.div<Props>`
 			opacity: 1;
 		}
 		100% {
-			transform: scale(1.5);
+			transform: scale(1.4);
 			opacity: 0;
 		}
 	}
