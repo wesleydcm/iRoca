@@ -1,6 +1,7 @@
 import { Route, Switch } from "react-router";
 import LoginPage from "../pages/login/";
 import TestsPage from "../pages/testsPage";
+import MyAccountPageComponent from "../pages/myAccount";
 import ProductPage from "../pages/productPage";
 import ProfilePage from "../pages/myprofile";
 import Home from "../pages/Home";
@@ -21,6 +22,7 @@ const RouterComponent = () => {
       <Switch>
         <Route exact path="/" component={TestsPage} />
         <Route exact path="/login" component={LoginPage} />
+
         <Route exact path="/home" component={Home} />
         <Route exact path="/product/:id" component={ProductPage} />
 
@@ -36,9 +38,11 @@ const RouterComponent = () => {
           <div>Checkout</div>
         </Route>
 
-        <Route exact path="/myAccount">
-          <div>My Account</div>
-        </Route>
+        <Route
+          exact
+          path="/myAccount"
+          component={MyAccountPageComponent}
+        ></Route>
 
         <Route exact path="/myAccount/profile" component={ProfilePage} />
 
