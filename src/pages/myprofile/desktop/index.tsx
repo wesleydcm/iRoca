@@ -7,7 +7,7 @@ import {
 } from "./style";
 import { ReactComponent as ArrowToBack } from "../../../assets/images-mobile/arrow-to-back.svg";
 import { useState, useEffect } from "react";
-import RatingStar from "../../../Components/reviews-stars";
+import RatingStar from "../../../Components/RatingStars";
 import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
 import EvaluationCard from "../../../Components/EvaluationCard";
 import { Link } from "react-router-dom";

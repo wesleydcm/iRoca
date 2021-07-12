@@ -1,4 +1,4 @@
-import RatingStar from "../reviews-stars";
+import RatingStars from "../RatingStars";
 import { EvaluationData } from "../../@types";
 import { Wrapper } from "./styles";
 interface Props {
@@ -29,7 +29,7 @@ const EvaluationCard = ({
         <h3>"{evaluation.feedback}"</h3>
       </section>
       <section className="ratingStarFlag">
-        <RatingStar
+        <RatingStars
           readOnly={true}
           value={evaluation.grade}
           starSize={starSize}

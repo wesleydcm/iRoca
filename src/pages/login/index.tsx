@@ -1,8 +1,11 @@
 import Mobile from "./mobile";
 import Desktop from "./desktop";
+import { useWindow } from "../../Providers/window";
+import { WINDOW_SIZE_DESKTOP } from "../../utils";
 
 const LoginPage = () => {
-  return <>{window.innerWidth < 899 ? <Mobile /> : <Desktop />}</>;
+	const { pageWidth } = useWindow();
+	return <>{pageWidth < WINDOW_SIZE_DESKTOP ? <Mobile /> : <Desktop />}</>;
 };
 
 export default LoginPage;

@@ -1,4 +1,4 @@
-import { IEvaluation, Image, IProduct, IPurchase, IUser } from "../@types";
+import { Image, IProduct, IPurchase, IUser } from "../@types";
 
 export const mockedProduct: IProduct = {
 	name: "Mussum Ipsum",
@@ -14,7 +14,50 @@ export const mockedProduct: IProduct = {
 			url: "http://2.bp.blogspot.com/-M1-bXKeN3Ww/TfvOP9orTpI/AAAAAAAABqg/VdN6nIOw__8/s1600/morango.png",
 		} as Image,
 	],
-	evaluations: [{} as IEvaluation],
+	evaluations: [
+		{
+			userId: 1,
+			evaluatorId: 2,
+			date: "01/01/1999",
+			feedback: "asdasd",
+			grade: 5,
+		},
+		{
+			userId: 1,
+			evaluatorId: 2,
+			date: "01/01/1999",
+			feedback: "asdasd",
+			grade: 4,
+		},
+		{
+			userId: 1,
+			evaluatorId: 2,
+			date: "01/01/1999",
+			feedback: "asdasd",
+			grade: 2,
+		},
+		{
+			userId: 1,
+			evaluatorId: 2,
+			date: "01/01/1999",
+			feedback: "asdasd",
+			grade: 5,
+		},
+		{
+			userId: 1,
+			evaluatorId: 2,
+			date: "01/01/1999",
+			feedback: "asdasd",
+			grade: 5,
+		},
+		{
+			userId: 1,
+			evaluatorId: 2,
+			date: "01/01/1999",
+			feedback: "asdasd",
+			grade: 4,
+		},
+	],
 	id: 1,
 };
 
@@ -71,8 +114,8 @@ export const mockedPurchase1: IPurchase = {
 };
 
 export const mockedEvaluation = {
-  image: "https://i.imgur.com/02IXYej.png",
-  name: "Bino Amante de Morango",
-  feedback: "É o rugaldis, cacilds morangis topsis fera.",
-  grade: 4,
+	image: "https://i.imgur.com/02IXYej.png",
+	name: "Bino Amante de Morango",
+	feedback: "É o rugaldis, cacilds morangis topsis fera.",
+	grade: 4,
 };
