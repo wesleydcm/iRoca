@@ -113,7 +113,7 @@ export interface IPurchase {
   products: IProduct[];
 }
 export interface EvaluationData {
-  image: string;
+  image?: string;
   name: string;
   feedback: string;
   grade: number;

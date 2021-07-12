@@ -22,6 +22,7 @@ export const Wrapper = styled.div`
     width: 49px;
     height: 49px;
     border-radius: 50%;
+    font-size: 0px;
   }
 
   .ratingStarFlag {
@@ -59,6 +60,7 @@ export const Wrapper = styled.div`
       width: 114px;
       height: 118px;
       border-radius: 10%;
+      font-size: 0px;
     }
     .ratingStarFlag {
       top: 30px;
