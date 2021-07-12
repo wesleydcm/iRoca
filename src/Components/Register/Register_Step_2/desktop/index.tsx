@@ -9,20 +9,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 
 interface FormValues {
-  fullName: string;
+  name: string;
   birthDate: string;
   cpf: string;
-  telephone: string;
-  photo?: string;
+  phone: string;
+  image?: string;
 }
 
 const RegisterStep2Desktop = () => {
-  const { user } = useUser();
+  const { tempUser, setTempUser } = useUser();
 
   const history = useHistory();
 
   const schema = yup.object().shape({
-    fullName: yup.string().required("Campo obrigatório"),
+    name: yup.string().required("Campo obrigatório"),
     birthDate: yup
       .string()
       .required("Campo obrigatório")
@@ -31,8 +31,8 @@ const RegisterStep2Desktop = () => {
       .string()
       .required("Campo obrigatório")
       .min(12, "CPF inválido, exemplo: xxxxxxxxx-xx"),
-    telephone: yup.string().required("Campo obrigatório"),
-    photo: yup.string(),
+    phone: yup.string().required("Campo obrigatório"),
+    image: yup.string(),
   });
 
   const {
@@ -45,12 +45,14 @@ const RegisterStep2Desktop = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log(data);
-    user.personalData.name = data.fullName;
-    user.personalData.birthDate = data.birthDate;
-    user.personalData.cpf = data.cpf;
-    user.personalData.phone = data.telephone;
-    user.personalData.image = data.photo;
+    setTempUser({
+      ...tempUser,
+      name: data.name,
+      birthDate: data.birthDate,
+      cpf: data.cpf,
+      phone: data.phone,
+      image: data.image,
+    });
     reset();
     history.push("/register-third");
   };
@@ -76,7 +78,7 @@ const RegisterStep2Desktop = () => {
             placeholder={"Nome completo"}
             type={"text"}
             width={260}
-            name={"fullName"}
+            name={"name"}
             register={register}
           />
           <p>{errors.fullName?.message}</p>
@@ -100,7 +102,7 @@ const RegisterStep2Desktop = () => {
             placeholder={"Telefone de contato"}
             type={"text"}
             width={260}
-            name={"telephone"}
+            name={"phone"}
             register={register}
           />
           <p>{errors.telephone?.message}</p>
@@ -112,7 +114,7 @@ const RegisterStep2Desktop = () => {
               placeholder={"link"}
               type={"text"}
               width={180}
-              name={"photo"}
+              name={"image"}
               register={register}
             />
             <span>ou</span>

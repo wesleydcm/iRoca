@@ -9,11 +9,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { IUserUpdate, IUser, IAdress } from "../../../../@types";
 
 interface FormValues {
   state: string;
   city: string;
-  district: string;
+  neighborhood: string;
   street: string;
   complement?: string;
   cep?: string;
@@ -30,16 +31,16 @@ const RegisterStep3Desktop = () => {
 
   const [stateInput, setStateInput] = useState("");
 
-  const { user } = useUser();
+  const { tempUser, setTempUser, initController, setUser } = useUser();
 
   const history = useHistory();
 
   const schema = yup.object().shape({
     state: yup.string().required("Campo obrigatório"),
     city: yup.string().required("Campo obrigatório"),
-    district: yup.string().required("Campo obrigatório"),
+    neighborhood: yup.string().required("Campo obrigatório"),
     street: yup.string().required("Campo obrigatório"),
-    complement: yup.string().required("Campo obrigatório"),
+    complement: yup.string(),
     cep: yup.string(),
   });
 
@@ -52,16 +53,31 @@ const RegisterStep3Desktop = () => {
     resolver: yupResolver(schema),
   });
 
+  const controller = initController();
+
   const onSubmit = (data: FormValues) => {
-    console.log(data);
-    user.personalData.address.state = data.state;
-    user.personalData.address.city = data.city;
-    user.personalData.address.neighborhood = data.district;
-    user.personalData.address.street = data.street;
-    user.personalData.address.complement = data.complement;
-    user.personalData.address.cep = data.cep;
-    reset();
-    history.push("/login");
+    const address: IAdress = {
+      state: data.state,
+      city: data.city,
+      neighborhood: data.neighborhood,
+      street: data.street,
+      complement: data.complement,
+      cep: data.cep,
+    };
+    setTempUser({ ...tempUser, address });
+    controller
+      .registerUser(tempUser)
+      .then((response) => {
+        console.log(response);
+      })
+      .then(() => {
+        controller.login({
+          email: tempUser.email,
+          password: tempUser.password,
+        });
+        reset();
+        history.push("/home");
+      });
   };
 
   const handleClick = () => {
@@ -72,8 +88,6 @@ const RegisterStep3Desktop = () => {
       setStreetInput(response.data.logradouro);
     });
   };
-
-  console.log(stateInput);
 
   return (
     <Container>
@@ -114,7 +128,7 @@ const RegisterStep3Desktop = () => {
             placeholder={"Bairro"}
             type={"text"}
             width={260}
-            name={"district"}
+            name={"neighborhood"}
             register={register}
             value={districtInput}
           />

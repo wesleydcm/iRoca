@@ -7,9 +7,23 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
-import { IUser } from "../../../../@types";
+import { IUser, ILoginData } from "../../../../@types";
+import { decodeToken } from "react-jwt";
+
+// interface IProps {
+//   data: {
+//     accessToken: string;
+//   } | void;
+// }
+
+interface FormValue {
+  email: string;
+  password: string;
+}
 
 const RegisterStep1Desktop = () => {
+  const { tempUser, setTempUser } = useUser();
+
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -37,13 +51,16 @@ const RegisterStep1Desktop = () => {
     resolver: yupResolver(schema),
   });
 
-  const { initController } = useUser();
-  const onSubmit = (data: IUser) => {
-    const controller = initController();
-    controller.registerUser(data).then((response) => {
-      reset();
-      history.push("/register-second");
+  // const { initController } = useUser();
+
+  const onSubmit = async (dataValue: FormValue) => {
+    setTempUser({
+      ...tempUser,
+      email: dataValue.email,
+      password: dataValue.password,
     });
+    reset();
+    history.push("/register-second");
   };
 
   return (
