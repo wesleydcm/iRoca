@@ -20,7 +20,6 @@ export const StyledInput = styled.input`
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 24px;
-	text-transform: capitalize;
 	text-align: left;
 	font-family: var(--poppins);
 	font-style: normal;
