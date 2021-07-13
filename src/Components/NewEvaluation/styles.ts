@@ -1,24 +1,24 @@
 import styled from "styled-components";
 
 export const BlurBackground = styled.div`
-
-  position: absolute;
+position: fixed;
+  z-index: 3000;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
-
-  opacity: 0.9;
-  z-index: 2200;
   section {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2300;
-    opacity: 1 !important;
-    background-color:  #ffffff;
+
+    
+  position: absolute;
+  z-index: 3001;
+  
+  
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
     button,input {
       &:focus {
     outline: -webkit-focus-ring-color auto 0px !important; 
@@ -67,6 +67,11 @@ export const Container = styled.div`
   flex-wrap: wrap;
   overflow: hidden;
   padding: 30px;
+
+  @media only screen and (max-width: 400px) {
+    width: 100%;
+    height: 323px;
+  }
 
   input {
     width: 306px;

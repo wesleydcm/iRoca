@@ -7,19 +7,31 @@ import { useState } from "react";
 interface NewEvaluationProps {
   isOpened: boolean;
   setIsOpened: Dispatch<SetStateAction<boolean>>;
+  evaluationTarget: "product" | "producer";
+  handleSubmit: () => void;
 }
 
-const NewEvaluation = ({ isOpened, setIsOpened }: NewEvaluationProps) => {
+const NewEvaluation = ({
+  isOpened,
+  setIsOpened,
+  evaluationTarget,
+  handleSubmit,
+}: NewEvaluationProps) => {
   const [feedback, setFeedback] = useState<string>("");
   const [value, setValue] = useState<number>(0);
-  const handleSubmit = () => {};
+
   return (
     <>
       {isOpened && (
         <BlurBackground>
           <section>
             <Container>
-              <h2>Como foi a qualidade dos produtos?</h2>
+              {evaluationTarget === "product" ? (
+                <h2>Como foi a qualidade dos produtos?</h2>
+              ) : (
+                <h2>Como você avalia o produtor?</h2>
+              )}
+
               <CloseButton onClick={() => setIsOpened(false)}>X</CloseButton>
 
               <RatingStars

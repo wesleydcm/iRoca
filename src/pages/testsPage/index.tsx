@@ -21,19 +21,29 @@ const Test = () => {
   const [value4, setValue4] = useState<string>("");
 
   const { initController } = useUser();
-
+  const handleSubmit = () => {
+    //Colocar a lógica de enviar para API a avaliação aqui
+    setIsOpened(false);
+  };
   const clicked = (): void => {
     const controller = initController();
     controller.getEvaluationsOfUser(1).then((resp) => {
       console.log(resp);
     });
   };
-
+  const [isOpened, setIsOpened] = useState<boolean>(false);
+  console.log(isOpened);
   return (
     <>
-      <Button color="green" onClick={clicked}>
+      <Button color="green" onClick={() => setIsOpened(true)}>
         Click me
       </Button>
+      <NewEvaluation
+        evaluationTarget={"producer"}
+        isOpened={isOpened}
+        setIsOpened={setIsOpened}
+        handleSubmit={handleSubmit}
+      ></NewEvaluation>
       <RatingStars />
       <Button color="green">entrar</Button>
       <Button>sair</Button>

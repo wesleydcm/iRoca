@@ -50,7 +50,7 @@ const RouterComponent = () => {
 
         <Route path="/myAccount" component={MyAccountPageComponent} />
 
-        <Route exact path="/myAccount/profile:id" component={ProfilePage} />
+        <Route path="/myAccount/profile:id" component={ProfilePage} />
 
         <Route path="/myCart">
           <div>My Cart</div>

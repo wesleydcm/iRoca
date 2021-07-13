@@ -6,14 +6,14 @@ export const NotAuthContainer = styled.div`
   flex-wrap: wrap;
 `;
 export const BigContainer = styled.div`
-  min-height: 662px;
+  min-height: 682px;
   display: flex;
   flex-wrap: wrap;
 
   flex-direction: column;
 `;
 export const Link = styled(NavLink)`
-  width: 90%;
+  width: 100%;
   height: 65px;
   margin: 15px 0px;
   color: white;
@@ -31,6 +31,11 @@ export const ContainerButtons = styled.div`
     width: 320px;
     height: 65px;
     margin: 15px 0px;
+  }
+  @media only screen and (max-width: 500px) {
+    button {
+      width: 240px;
+    }
   }
 `;
 export const Title = styled.h1`

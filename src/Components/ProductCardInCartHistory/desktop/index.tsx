@@ -23,8 +23,12 @@ const ProductCardInCartHistory = ({
 }: Props): JSX.Element => {
   const drillScenery = scenery;
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const handleSubmit = () => {
+    //Colocar a lógica de enviar para API a avaliação aqui
+    setIsOpened(false);
+  };
   return (
-    <Wrapper scenery={drillScenery} {...rest}>
+    <Wrapper scenery={drillScenery} {...rest} onClick={() => setIsOpened(true)}>
       {item.isOrganic && (
         <figure className="organicFlag">
           <OrganicSvg />
@@ -48,11 +52,13 @@ const ProductCardInCartHistory = ({
           </button>
         )}
         <span>{priceFormatter(item.price)}/kg</span>
-        <NewEvaluation
-          isOpened={isOpened}
-          setIsOpened={setIsOpened}
-        ></NewEvaluation>
       </div>
+      <NewEvaluation
+        isOpened={isOpened}
+        setIsOpened={setIsOpened}
+        evaluationTarget={"product"}
+        handleSubmit={handleSubmit}
+      ></NewEvaluation>
     </Wrapper>
   );
 };
