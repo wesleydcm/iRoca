@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IAddress } from "../../../../@types";
 
 interface FormValues {
@@ -83,6 +83,14 @@ const RegisterStep2Mobile = () => {
       setStreetInput(response.data.logradouro);
     });
   };
+
+  useEffect(() => {
+    if (cepValue) {
+      if (cepValue.length) {
+        handleClick();
+      }
+    }
+  }, [cepValue]);
 
   return (
     <Container>
