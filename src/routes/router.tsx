@@ -1,16 +1,19 @@
-import { Route, Switch } from "react-router";
-import LoginPage from "../pages/login/";
+import { Route, Switch } from "react-router-dom";
+import Register from "../pages/Register";
+import Register2 from "../pages/Register/Register2";
+import Register3 from "../pages/Register/Register3";
 import TestsPage from "../pages/testsPage";
 import MyAccountPageComponent from "../pages/myAccount";
-import ProductPage from "../pages/productPage";
 import ProfilePage from "../pages/myprofile";
 import Home from "../pages/Home";
+import ProductPage from "../pages/productPage";
 import MenuMobile from "../Components/Menu/mobile";
 import MenuDesktop from "../Components/Menu/desktop";
 import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
 import UpdateProfile from "../pages/editProfile";
+import LoginPage from "../pages/login/mobile";
 
 const RouterComponent = () => {
   const { pageWidth } = useWindow();
@@ -25,12 +28,14 @@ const RouterComponent = () => {
         <Route exact path="/updateProfile" component={UpdateProfile} />
         <Route exact path="/login" component={LoginPage} />
 
+        <Route exact path="/register" component={Register} />
+
+        <Route exact path="/" component={TestsPage} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/product/:id" component={ProductPage} />
-
-        <Route exact path="/register">
-          <div>Register</div>
-        </Route>
+        <Route exact path="/register-second" component={Register2} />
+        <Route exact path="/register-third" component={Register3} />
+        <Route exact path="/myAccount/profile" component={ProfilePage} />
 
         <Route path="/myCart">
           <div>My Cart</div>
@@ -45,8 +50,6 @@ const RouterComponent = () => {
           path="/myAccount"
           component={MyAccountPageComponent}
         ></Route>
-
-        <Route exact path="/myAccount/profile" component={ProfilePage} />
 
         <Route path="/myAccount/edit">
           <div>Edit Profile</div>
