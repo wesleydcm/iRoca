@@ -5,7 +5,7 @@ interface Props {
 	isReceived: boolean;
 }
 
-export const Wrapper = styled.div<Props>`
+export const Wrapper = styled.li<Props>`
 	width: 90%;
 	height: fit-content;
 	position: relative;
@@ -27,12 +27,12 @@ export const Wrapper = styled.div<Props>`
 			color: var(--gray700);
 		}
 		h3 {
-			font-size: 11px;
+			font-size: 0.9rem;
 		}
 
 		h2 {
 			font-weight: 700;
-			font-size: 12px;
+			font-size: 1rem;
 			color: var(--green400);
 			margin-bottom: 20px;
 		}
@@ -46,8 +46,8 @@ export const Wrapper = styled.div<Props>`
 
 	ul {
 		width: 100%;
-		li + li {
-			margin: 5px 0;
+		li {
+			margin: 10px 0;
 		}
 		li:last-child {
 			margin-bottom: 15px;
@@ -74,11 +74,11 @@ export const Wrapper = styled.div<Props>`
 
 		div > span {
 			color: var(--gray700);
-			font-size: 12px;
+			font-size: 0.9rem;
 		}
 		span {
 			color: var(--green400);
-			font-size: 24px;
+			font-size: 1.6rem;
 		}
 	}
 
@@ -115,13 +115,12 @@ export const Wrapper = styled.div<Props>`
 				font-size: 40px;
 			}
 		}
+
 		ul {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-between;
-			li + li {
-				margin: unset;
-			}
+
 			li {
 				margin-bottom: 15px;
 			}

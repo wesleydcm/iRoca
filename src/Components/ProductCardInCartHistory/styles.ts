@@ -5,7 +5,7 @@ interface Prop {
 	scenery: "cart" | "history";
 }
 
-export const Wrapper = styled.div<Prop>`
+export const Wrapper = styled.li<Prop>`
 	width: 100%;
 	height: 95px;
 	position: relative;
@@ -18,7 +18,7 @@ export const Wrapper = styled.div<Prop>`
 	flex-direction: row;
 	flex-wrap: nowrap;
 	overflow: hidden;
-	padding: 15px 15px 8px 25px;
+	padding: 10px;
 
 	.organicFlag {
 		width: 40px;
@@ -43,12 +43,18 @@ export const Wrapper = styled.div<Prop>`
 	div {
 		width: 70%;
 		h2 {
-			font-size: 10px;
+			position: absolute;
+			top: 10px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			max-width: 45vw;
+			font-size: 0.9rem;
 			font-weight: 500;
 			margin-bottom: 5px;
 		}
 		h3 {
-			font-size: 24px;
+			font-size: 1.5rem;
 			font-weight: 500;
 		}
 	}
@@ -72,7 +78,7 @@ export const Wrapper = styled.div<Prop>`
 
 		span {
 			align-self: flex-end;
-			font-size: 10px;
+			font-size: 0.8rem;
 			font-family: var(--poppins);
 			font-weight: 500;
 		}
@@ -82,7 +88,7 @@ export const Wrapper = styled.div<Prop>`
 		width: 280px;
 		height: 230px;
 		flex-wrap: wrap;
-		padding: 30px 20px 15px;
+		padding: 20px;
 
 		.organicFlag {
 			width: 55px;
@@ -107,13 +113,15 @@ export const Wrapper = styled.div<Prop>`
 		}
 		div {
 			width: 70%;
+
 			h2 {
-				font-size: 18px;
+				top: 20px;
+				font-size: 1.2rem;
 				font-weight: bold;
-				margin-bottom: 5px;
+				max-width: 60%;
 			}
 			h3 {
-				font-size: 32px;
+				font-size: 2rem;
 				font-weight: bold;
 				color: var(--gray600);
 			}
