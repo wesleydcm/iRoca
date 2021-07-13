@@ -11,6 +11,7 @@ interface Props {
   name?: string | undefined;
   value?: string;
   setValue?: Dispatch<SetStateAction<string>>;
+  defaultValue?: string;
   width?: number;
 }
 
@@ -33,12 +34,14 @@ const Input = ({
   setValue,
   register = undefined,
   name = undefined,
+  defaultValue = "",
   ...rest
 }: Props): JSX.Element => {
   return register !== undefined && name !== undefined ? (
     <StyledInput
       type={type}
       placeholder={placeholder}
+      defaultValue={defaultValue}
       value={value}
       {...rest}
       {...register(name)}
@@ -46,6 +49,7 @@ const Input = ({
   ) : (
     <StyledInput
       type={type}
+      defaultValue={defaultValue}
       placeholder={placeholder}
       value={value}
       onChange={(e) => !!setValue && setValue(e.target.value)}
