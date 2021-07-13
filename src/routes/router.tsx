@@ -20,8 +20,9 @@ const RouterComponent = () => {
   const { pathname } = useLocation();
   return (
     <>
-      {!["/login", "/register"].includes(pathname) &&
-        (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
+      {!["/login", "/register", "/register-second", "/register-third"].includes(
+        pathname
+      ) && (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
 
       <Switch>
         <Route exact path="/" component={Home} />
@@ -40,6 +41,10 @@ const RouterComponent = () => {
 
         <Route path="/test-page" component={TestsPage} />
 
+        <Route path="/myAccount" component={MyAccountPageComponent} />
+
+        <Route path="/myAccount/profile" component={ProfilePage} />
+
         <Route path="/myCart">
           <div>My Cart</div>
         </Route>
@@ -47,10 +52,6 @@ const RouterComponent = () => {
         <Route path="/checkout">
           <div>Checkout</div>
         </Route>
-
-        <Route path="/myAccount" component={MyAccountPageComponent}></Route>
-
-        <Route path="/myAccount/profile" component={ProfilePage} />
 
         <Route path="/myAccount/edit">
           <div>Edit Profile</div>

@@ -1,4 +1,4 @@
-import { Container, Logo, Form, Footer } from "./styles";
+import { Container, Logo, Form } from "./styles";
 import LogoImage from "../../../../assets/images-mobile/logo.svg";
 import Input from "../../../Input";
 import Button from "../../../Button";
@@ -126,9 +126,6 @@ const RegisterStep2Mobile = () => {
           </Button>
         </div>
       </Form>
-      <Footer>
-        <p>Já possui uma conta ? Entre por aqui!</p>
-      </Footer>
     </Container>
   );
 };
