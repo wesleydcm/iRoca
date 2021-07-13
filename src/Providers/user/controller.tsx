@@ -296,8 +296,8 @@ class UserController {
         }
       });
       this.setProducts(newProducts);
-      return data;
       successToast("Avaliação enviada");
+      return data;
     } catch (e) {
       errorToast("Não foi possível concluir avaliação");
     }

@@ -35,7 +35,7 @@ export const Logo = styled.header`
 
 export const Form = styled.form`
   width: 100%;
-  height: 450px;
+  height: 510px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

@@ -19,8 +19,20 @@ const LoginPage = () => {
     controller.login(data);
   };
 
+  const Motion = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 1.5,
+      },
+    },
+  };
+
   return (
-    <Container>
+    <Container variants={Motion} initial="hidden" animate="visible">
       <LogoSVGmobile />
 
       <div>
@@ -47,7 +59,7 @@ const LoginPage = () => {
           color="white"
         />
         <Button type="submit">Entrar</Button>
-        <Link to="/login">Não possui conta ? Cadastre-se aqui!</Link>
+        <Link to="/register">Não possui conta ? Cadastre-se aqui!</Link>
       </form>
     </Container>
   );

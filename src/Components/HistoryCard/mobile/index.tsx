@@ -46,9 +46,9 @@ const HistoryCardMobile = ({
 			<span data-css="date">{purchase.date}</span>
 			<ul>
 				{purchase.products.map((item: IProduct) => (
-					<li key={item.id}>
-						<ProductCardInCartHistoryMobile scenery="history" item={item} />
-					</li>
+
+						<ProductCardInCartHistoryMobile key={item.id} scenery="history" item={item} />
+
 				))}
 			</ul>
 			<div data-css="isReceivedWrapper">

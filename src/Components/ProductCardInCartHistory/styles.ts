@@ -5,7 +5,7 @@ interface Prop {
 	scenery: "cart" | "history";
 }
 
-export const Wrapper = styled.div<Prop>`
+export const Wrapper = styled.li<Prop>`
 	width: 100%;
 	height: 95px;
 	position: relative;
@@ -18,7 +18,7 @@ export const Wrapper = styled.div<Prop>`
 	flex-direction: row;
 	flex-wrap: nowrap;
 	overflow: hidden;
-	padding: 15px 15px 8px 25px;
+	padding: 10px;
 
 	.organicFlag {
 		width: 40px;
@@ -43,12 +43,18 @@ export const Wrapper = styled.div<Prop>`
 	div {
 		width: 70%;
 		h2 {
-			font-size: 10px;
+			position: absolute;
+			top: 10px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			max-width: 45vw;
+			font-size: 0.9rem;
 			font-weight: 500;
 			margin-bottom: 5px;
 		}
 		h3 {
-			font-size: 24px;
+			font-size: 1.5rem;
 			font-weight: 500;
 		}
 	}
@@ -72,22 +78,25 @@ export const Wrapper = styled.div<Prop>`
 
 		span {
 			align-self: flex-end;
-			font-size: 10px;
+			font-size: 0.8rem;
 			font-family: var(--poppins);
 			font-weight: 500;
 		}
 	}
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
-		width: 280px;
-		height: 230px;
+		width: 260px;
+		height: 150px;
 		flex-wrap: wrap;
-		padding: 30px 20px 15px;
+		padding: 15px;
 
 		.organicFlag {
-			width: 55px;
-			height: 35px;
-			left: -6px;
+			width: 10vw;
+			height: 2.5vh;
+			position: absolute;
+			top: 0px;
+			left: -1.2vw;
+
 			svg {
 				width: inherit;
 				height: inherit;
@@ -103,17 +112,19 @@ export const Wrapper = styled.div<Prop>`
 		h2,
 		h3 {
 			font-family: var(--nunito);
-			margin: 0;
+			margin: 5px;
 		}
 		div {
 			width: 70%;
+
 			h2 {
-				font-size: 18px;
+				top: 10px;
+				font-size: 1.1rem;
 				font-weight: bold;
-				margin-bottom: 5px;
+				max-width: 60%;
 			}
 			h3 {
-				font-size: 32px;
+				font-size: 1.8rem;
 				font-weight: bold;
 				color: var(--gray600);
 			}
@@ -132,7 +143,7 @@ export const Wrapper = styled.div<Prop>`
 			}
 
 			span {
-				font-size: 16px;
+				font-size: 0.9rem;
 			}
 		}
 	}
