@@ -51,6 +51,8 @@ export interface IUserContext {
 	user: IUser;
 	setUser: React.Dispatch<React.SetStateAction<IUser>>;
 	initController: () => UserController;
+	tempUser: IUserInfo;
+	setTempUser: React.Dispatch<React.SetStateAction<IUserInfo>>;
 }
 
 export interface ILoginData {

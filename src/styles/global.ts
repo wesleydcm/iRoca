@@ -19,6 +19,7 @@ export const Global = createGlobalStyle`
     --font-color: #FFFFFF;
     --nunito: 'Nunito', sans-serif;
     --poppins: 'Poppins', sans-serif;
+    --color-error: #f53c3c;
   }
 
   *{

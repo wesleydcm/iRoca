@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const StyledInput = styled.input`
-	min-width: 200px;
-	width: fit-content;
+	width: ${({ width }) => width + "px"};
 	height: 50px;
 	padding: 0 15px;
 	border: ${({ color }) =>

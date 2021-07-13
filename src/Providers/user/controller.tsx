@@ -9,6 +9,7 @@ import type {
 	IProduct,
 	IEvaluation,
 	ITreatedProduct,
+	IUserInfo,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -33,7 +34,7 @@ class UserController {
 		this.user = user;
 	}
 
-	registerUser = async (user: IUser) => {
+	registerUser = async (user: IUser | IUserInfo) => {
 		try {
 			const response = await api.post("/users", user);
 			console.log(response);
