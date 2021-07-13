@@ -107,19 +107,19 @@ export const Form = styled.form`
   }
 `;
 
-export const Footer = styled.div`
-  width: 100%;
-  height: 90px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// export const Footer = styled.div`
+//   width: 100%;
+//   height: 90px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
 
-  p {
-    font-family: var(--poppins);
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 24px;
-    text-align: center;
-    color: var(--font-color);
-  }
-`;
+//   p {
+//     font-family: var(--poppins);
+//     font-size: 16px;
+//     font-weight: 500;
+//     line-height: 24px;
+//     text-align: center;
+//     color: var(--font-color);
+//   }
+// `;

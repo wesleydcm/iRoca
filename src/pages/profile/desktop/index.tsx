@@ -75,7 +75,7 @@ const ProfilePageDesktop = (): JSX.Element => {
       EDIT_PRODUCT_LOCALSTORAFE_FLAG,
       JSON.stringify(productId)
     );
-    history.push("/myAccount/profile/product");
+    history.push("/myAccount/profile/edit/product");
   };
   return (
     <Container>

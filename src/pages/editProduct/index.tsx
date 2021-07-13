@@ -3,37 +3,53 @@ import Input from "../../Components/Input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { editProfileSchema } from "../../schemas";
-import { IEditProfile } from "../../@types";
+import { IProduct, IProductUpdate } from "../../@types";
 import Button from "../../Components/Button";
 import AddImage from "../../assets/images-mobile/plus.svg";
 import { useUser } from "../../Providers/user";
+import { EDIT_PRODUCT_LOCALSTORAFE_FLAG } from "../../utils";
+import { useEffect, useState } from "react";
 
 const EditProduct = () => {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(editProfileSchema),
   });
   const { initController, user } = useUser();
+  const { token } = user;
+  const controller = initController();
+  const haveProductEdit = localStorage.getItem(EDIT_PRODUCT_LOCALSTORAFE_FLAG);
+  const defaultProduct: IProduct =
+    haveProductEdit === null ? null : JSON.parse(haveProductEdit);
 
-  const onSubmit = (data: IEditProfile) => {
-    console.log(data);
-    const newData = {
-      id: user.personalData.id,
-      personalData: {
-        birthDate: data.birthDate,
-        email: data.email,
-        name: data.name,
-        phone: data.phone,
-        adress: {
-          street: data.street,
-          neighborhood: data.neighborhood,
-          complement: data.complement,
-          cep: data.cep,
-        },
-      },
-      token: user.token,
+  const [editProduct, setEditProducts] = useState<IProduct>({} as IProduct);
+
+  useEffect(() => {
+    const getProductData = async () => {
+      const controller = initController();
+
+      const productData = await controller.getProduct(Number(defaultProduct));
+
+      setEditProducts(productData);
+      console.log(productData);
     };
-    const controller = initController();
-    controller.updateUser(newData);
+
+    getProductData();
+    // eslint-disable-next-line
+  }, []);
+
+  const onSubmit = (data: IProductUpdate) => {
+    console.log(data);
+
+    const productData = {
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      qty: data.qty,
+      images: data.images,
+      evaluations: data.evaluations,
+    };
+
+    controller.updateProduct(Number(defaultProduct), productData, token);
   };
 
   const toggleModal = () => {};
@@ -61,7 +77,7 @@ const EditProduct = () => {
           <h2>Informações Pessoais</h2>
           <Input
             type="text"
-            placeholder="Nome"
+            placeholder={editProduct.name}
             defaultValue={name ? name : ""}
             register={register}
             name="name"
@@ -75,7 +91,7 @@ const EditProduct = () => {
           />
           <Input
             type="text"
-            placeholder="Telefone"
+            placeholder={editProduct.name}
             register={register}
             defaultValue={phone ? phone : ""}
             name="phone"
