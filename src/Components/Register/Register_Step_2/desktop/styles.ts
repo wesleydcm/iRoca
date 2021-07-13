@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const Container = styled.div`
   width: 100vw;
@@ -43,7 +44,7 @@ export const Logo = styled.header`
   }
 `;
 
-export const Form = styled.form`
+export const Form = styled(motion.form)`
   height: 60%;
   width: 100%;
   display: flex;

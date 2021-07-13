@@ -9,6 +9,18 @@ import { useUser } from "../../../Providers/user";
 import { Link } from "react-router-dom";
 import { ReactComponent as LogoSVGdesktop } from "../../../assets/images-desktop/logo.svg";
 
+const Motion = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 1,
+    },
+  },
+};
+
 const LoginPage = () => {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(loginSchema),
@@ -21,7 +33,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Container>
+    <Container variants={Motion} initial="hidden" animate="visible">
       <Header>
         <div className="container">
           <div>
