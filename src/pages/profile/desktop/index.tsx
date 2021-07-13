@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import RatingStar from "../../../Components/RatingStars";
 import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
 import EvaluationCard from "../../../Components/EvaluationCard";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useUser } from "../../../Providers/user";
 import Loading from "../../../Components/Loading";
 import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
@@ -20,14 +20,17 @@ interface Evaluations {
   avaliator: IUserInfo;
   evaluation: IEvaluation;
 }
-
+interface Params {
+  id: string;
+}
 const ProfilePageDesktop = (): JSX.Element => {
-  const { user } = useUser();
+  const param: Params = useParams();
+  const [profile, setProfile] = useState<IUserInfo>();
   const [display, setDisplay] = useState(true);
   const [load, setLoad] = useState(false);
   const [evaluation, setEvaluation] = useState<Evaluations[]>();
   const [averageEvaluation, setAverageEvaluation] = useState<number>();
-  const [myProducts, setMyProducts] = useState<IProduct[]>([]);
+  const [profileProducts, setProfileProducts] = useState<IProduct[]>([]);
   const { initController } = useUser();
   const controller = initController();
   const history = useHistory();
@@ -35,12 +38,16 @@ const ProfilePageDesktop = (): JSX.Element => {
   useEffect(() => {
     setLoad(true);
     controller
-      .getEvaluationsOfUser(Number(user.personalData.id))
-      .then((response: any) => {
-        setEvaluation(response);
-        setLoad(false);
-      });
-    controller.getProductsOfUser(2).then((response) => setMyProducts(response));
+      .getUser(Number(param.id))
+      .then((response) => setProfile(response));
+    controller.getEvaluationsOfUser(Number(param.id)).then((response: any) => {
+      setEvaluation(response);
+      setLoad(false);
+    });
+
+    controller
+      .getProductsOfUser(Number(param.id))
+      .then((response) => setProfileProducts(response));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -78,12 +85,12 @@ const ProfilePageDesktop = (): JSX.Element => {
         </Link>
       </h1>
       <ContactContent>
-        <img src={user.personalData.image} alt="user" />
+        <img src={profile?.image} alt="user" />
         <div className="contacts">
-          <h2>{user.personalData.name}</h2>
+          <h2>{profile?.name}</h2>
           <h3>Contato</h3>
-          <h4>Telefone: {user.personalData.phone}</h4>
-          <h4>Email: {user.personalData.email}</h4>
+          <h4>Telefone: {profile?.phone}</h4>
+          <h4>Email: {profile?.email}</h4>
         </div>
       </ContactContent>
       <ToggleRendering buttonActive={display}>
@@ -119,7 +126,7 @@ const ProfilePageDesktop = (): JSX.Element => {
             </EvaluationContent>
           ) : (
             <ProductContent>
-              {myProducts.map((myProduct) => (
+              {profileProducts.map((myProduct) => (
                 <button onClick={() => handleEditProduct(myProduct.id)}>
                   <ProductCardInAnnouncementMobile
                     item={{

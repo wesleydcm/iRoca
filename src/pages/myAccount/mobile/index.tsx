@@ -11,17 +11,19 @@ import {
 
 import Button from "../../../Components/Button";
 import { NavLink } from "react-router-dom";
+import { useUser } from "../../../Providers/user";
 interface MyProfileProps {
   isAuth?: boolean;
 }
 const MyAccountPageMobile = ({ isAuth = true }: MyProfileProps) => {
+  const { user } = useUser();
   return (
     <>
       {isAuth ? (
         <BigContainer>
           <Title>Minha Conta</Title>
           <ContainerButtons>
-            <Link to="/myAccount/profile">
+            <Link to={`/myAccount/profile/${user.personalData.id}`}>
               <Button color={"green"}>Ver Perfil</Button>
             </Link>
             <Link to="/myAccount/history">

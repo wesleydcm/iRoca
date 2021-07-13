@@ -3,7 +3,7 @@ import LoginPage from "../pages/login/";
 import TestsPage from "../pages/testsPage";
 import MyAccountPageComponent from "../pages/myAccount";
 import ProductPage from "../pages/productPage";
-import ProfilePage from "../pages/myprofile";
+import ProfilePage from "../pages/profile";
 import Home from "../pages/Home";
 import MenuMobile from "../Components/Menu/mobile";
 import MenuDesktop from "../Components/Menu/desktop";
@@ -44,7 +44,7 @@ const RouterComponent = () => {
           component={MyAccountPageComponent}
         ></Route>
 
-        <Route exact path="/myAccount/profile" component={ProfilePage} />
+        <Route exact path="/myAccount/profile/:id" component={ProfilePage} />
 
         <Route path="/myAccount/edit">
           <div>Edit Profile</div>
