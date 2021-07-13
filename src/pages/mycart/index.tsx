@@ -21,8 +21,12 @@ const MyCart = () => {
   const [notAllowedPurchase, setNotAllowedPurchase] = useState<IProduct[]>([])
 
   const controller = initController();
-  controller.getProduct().then((response) => setProducts(response));
 
+  useEffect(() => {
+    controller.getProduct().then((response) => setProducts(response));
+  },[products.length])
+
+  console.log(products)  
   const history = useHistory();
 
   const subtotal = parseFloat(
@@ -34,8 +38,8 @@ const MyCart = () => {
   const total = subtotal + delivery;
   const totalFormatted = priceFormatter(total);
  
-  const x:IProduct[] = [];
-  const y:IProduct[] = [];
+  const hasStock:IProduct[] = [];
+  const noStock:IProduct[] = [];
 
   const checkStock = (): boolean => {
     const checkCart = (cart: IProduct): void => {
@@ -43,20 +47,20 @@ const MyCart = () => {
         (product: IProduct) => product.id === cart.id
       ); 
       if (stockProduct && stockProduct.qty >= cart.qty) {
-        x.push(stockProduct)
+        hasStock.push(stockProduct)
 
       } else if (stockProduct && stockProduct.qty < cart.qty) {
-        y.push(stockProduct)
+        noStock.push(stockProduct)
       }
     };
     cart.forEach(checkCart);
  
-    return y.length === 0;
+    return noStock.length === 0;
   };
 
   useEffect(() => {
-      setNotAllowedPurchase(y);
-  },[y.length])
+      setNotAllowedPurchase(noStock);
+  },[noStock.length])
 
   const updateStock = (): void => {
     const checkCart = (item: IProduct, index: number) => {

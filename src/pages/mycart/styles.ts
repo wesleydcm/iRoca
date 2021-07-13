@@ -4,7 +4,7 @@ import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
 export const Container = styled.div`
     min-width: 20rem;
     min-height: 100vh;
-    padding: 2rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,7 +57,7 @@ export const Container = styled.div`
         padding-left: 32vw;
         
         ul {
-            height: 25rem;
+            height: 28rem;
         }
         
         h1 {
@@ -77,7 +77,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-	width: 95%;
+	width: 90%;
 	height: 10rem;
 	box-shadow: 0 2px 5px 2px var(--shadow-black);
 	border-radius: 10px;
