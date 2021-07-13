@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import { IAdress } from "../../../../@types";
+import { IAddress } from "../../../../@types";
 
 interface FormValues {
   state: string;
@@ -23,7 +23,7 @@ interface FormValues {
 const RegisterStep2Mobile = () => {
   const [cepValue, setCepValue] = useState("");
 
-  const [districtInput, setDistrickInput] = useState("");
+  const [districtInput, setDistrictInput] = useState("");
 
   const [cityInput, setCityInput] = useState("");
 
@@ -56,7 +56,7 @@ const RegisterStep2Mobile = () => {
   const controller = initController();
 
   const onSubmit = (data: FormValues) => {
-    const address: IAdress = {
+    const address: IAddress = {
       state: data.state,
       city: data.city,
       neighborhood: data.neighborhood,
@@ -79,7 +79,7 @@ const RegisterStep2Mobile = () => {
     axios.get(`https://viacep.com.br/ws/${cepValue}/json/`).then((response) => {
       setStateInput(response.data.uf);
       setCityInput(response.data.localidade);
-      setDistrickInput(response.data.bairro);
+      setDistrictInput(response.data.bairro);
       setStreetInput(response.data.logradouro);
     });
   };

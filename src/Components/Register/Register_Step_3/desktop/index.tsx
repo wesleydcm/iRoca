@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import { IAdress } from "../../../../@types";
+import { IAddress } from "../../../../@types";
 
 interface FormValues {
   state: string;
@@ -56,7 +56,7 @@ const RegisterStep3Desktop = () => {
   const controller = initController();
 
   const onSubmit = (data: FormValues) => {
-    const address: IAdress = {
+    const address: IAddress = {
       state: data.state,
       city: data.city,
       neighborhood: data.neighborhood,
