@@ -5,6 +5,7 @@ import Register3 from "../pages/Register/Register3";
 import TestsPage from "../pages/testsPage";
 import MyAccountPageComponent from "../pages/myAccount";
 import ProfilePage from "../pages/profile";
+import EditProduct from "../pages/editProduct";
 import Home from "../pages/Home";
 import ProductPage from "../pages/productPage";
 import MenuMobile from "../Components/Menu/mobile";
@@ -35,8 +36,8 @@ const RouterComponent = () => {
         <Route exact path="/product/:id" component={ProductPage} />
         <Route exact path="/register-second" component={Register2} />
         <Route exact path="/register-third" component={Register3} />
-        <Route exact path="/myAccount/profile:id" component={ProfilePage} />
-
+        <Route exact path="/myAccount/profile/:id" component={ProfilePage} />
+        <Route path="/myAccount/profile/edit/product" component={EditProduct} />
         <Route path="/myCart">
           <div>My Cart</div>
         </Route>
@@ -61,10 +62,6 @@ const RouterComponent = () => {
 
         <Route path="/myAccount/products">
           <div>Register Products</div>
-        </Route>
-
-        <Route path="/myAccount/profile/product">
-          <div>Update Product</div>
         </Route>
 
         <Route path="/product">
