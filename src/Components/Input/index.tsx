@@ -42,6 +42,7 @@ const Input = ({
       value={value}
       {...rest}
       {...register(name)}
+      color={color}
     />
   ) : (
     <StyledInput
