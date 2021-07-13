@@ -5,6 +5,7 @@ import { ITreatedProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import RatingStars from "../../RatingStars";
 import { memo, useRef } from "react";
+import { useHistory } from "react-router-dom";
 
 interface Props {
 	item: ITreatedProduct;
@@ -28,8 +29,15 @@ const ProductCardInAnnouncementMobile = ({
 		reRendersAmount.current++,
 	);
 
+	const history = useHistory();
+
 	return (
-		<Wrapper {...rest}>
+		<Wrapper
+			onClick={() => {
+				history.push(`/product/${product.id}`);
+			}}
+			{...rest}
+		>
 			{product.isOrganic && (
 				<figure className="organicFlag">
 					<OrganicSvg />
