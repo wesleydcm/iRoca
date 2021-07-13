@@ -22,18 +22,6 @@ export const Container = styled.div`
       color: var(--gray600);
       font-size: 2rem;
     }
-    input {
-      margin-top: 2rem;
-      color: var(--gray900);
-    }
-    input::placeholder {
-      color: var(--gray600);
-      transition: transform 0.5s;
-    }
-    input:hover::placeholder {
-      transform: translate(10px);
-      transition: transform 0.5s;
-    }
   }
 
   a {
@@ -43,6 +31,28 @@ export const Container = styled.div`
     width: 50%;
     align-self: center;
     text-align: left;
+  }
+
+  input {
+    width: 280px;
+    padding: 0 15px;
+    border: 2px solid var(--white);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--white);
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: capitalize;
+    text-align: left;
+    font-family: var(--poppins);
+    font-style: normal;
+    height: 50px;
+
+    &::placeholder {
+      color: var(--white);
+    }
   }
 
   @media only screen and (max-width: 1100px) {
