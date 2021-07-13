@@ -7,11 +7,27 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 interface FormValue {
   email: string;
   password: string;
 }
+
+const Motion = {
+  hidden: {
+    x: "100vw",
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "tween",
+      duration: 0.7,
+    },
+  },
+};
 
 const RegisterStep1Mobile = () => {
   const { tempUser, setTempUser } = useUser();
@@ -55,65 +71,67 @@ const RegisterStep1Mobile = () => {
 
   return (
     <Container>
-      <Logo>
-        <h1>Bem vindo ao iRoça</h1>
-        <img src={LogoImage} alt="logo" />
-      </Logo>
-      <Descrition>
-        <p>
-          Vamos começar com o seu cadastro ! Por favor informe seus dados que
-          vão ser usados para acessar a sua conta posteriormente
-        </p>
-      </Descrition>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <div className="input">
-          <Input
-            placeholder={"Email"}
-            type={"text"}
-            color={"white"}
-            register={register}
-            name={"email"}
-            width={250}
-          />
-          <p>{errors.email?.message}</p>
-          <Input
-            placeholder={"Confirmação de email"}
-            type={"text"}
-            color={"green"}
-            register={register}
-            name={"emailConfirm"}
-            width={250}
-          />
-          <p>{errors.emailConfirm?.message}</p>
-          <Input
-            placeholder={"Senha"}
-            type={"text"}
-            color={"white"}
-            register={register}
-            name={"password"}
-            width={250}
-          />
-          <p>{errors.email?.message}</p>
-          <Input
-            placeholder={"Confirmação de senha"}
-            type={"text"}
-            color={"white"}
-            register={register}
-            name={"passwordConfirm"}
-            width={250}
-          />
-          <p>{errors.passwordConfirm?.message}</p>
-        </div>
+      <motion.div variants={Motion} initial="hidden" animate="visible">
+        <Logo>
+          <h1>Bem vindo ao iRoça</h1>
+          <img src={LogoImage} alt="logo" />
+        </Logo>
+        <Descrition>
+          <p>
+            Vamos começar com o seu cadastro ! Por favor informe seus dados que
+            vão ser usados para acessar a sua conta posteriormente
+          </p>
+        </Descrition>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <div className="input">
+            <Input
+              placeholder={"Email"}
+              type={"text"}
+              color={"white"}
+              register={register}
+              name={"email"}
+              width={250}
+            />
+            <p>{errors.email?.message}</p>
+            <Input
+              placeholder={"Confirmação de email"}
+              type={"text"}
+              color={"green"}
+              register={register}
+              name={"emailConfirm"}
+              width={250}
+            />
+            <p>{errors.emailConfirm?.message}</p>
+            <Input
+              placeholder={"Senha"}
+              type={"text"}
+              color={"white"}
+              register={register}
+              name={"password"}
+              width={250}
+            />
+            <p>{errors.email?.message}</p>
+            <Input
+              placeholder={"Confirmação de senha"}
+              type={"text"}
+              color={"white"}
+              register={register}
+              name={"passwordConfirm"}
+              width={250}
+            />
+            <p>{errors.passwordConfirm?.message}</p>
+          </div>
 
-        <Button type={"submit"} width={155}>
-          Próximo
-        </Button>
-      </Form>
-      <Footer>
-        <Link to="/login">
-          <p>Já possui uma conta ? Entre por aqui!</p>
-        </Link>
-      </Footer>
+          <Button type={"submit"} width={155}>
+            Próximo
+          </Button>
+        </Form>
+        <Footer>
+          <Link to="/login">
+            <p>Já possui uma conta ? Entre por aqui!</p>
+          </Link>
+        </Footer>
+      </motion.div>
     </Container>
   );
 };

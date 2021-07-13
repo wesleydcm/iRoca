@@ -72,7 +72,7 @@ export const Form = styled.form`
   .photo-input {
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    justify-content: center;
 
     span {
       color: var(--font-color);
