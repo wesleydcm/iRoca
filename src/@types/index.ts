@@ -16,16 +16,16 @@ export interface IUser {
 }
 
 export interface IUserInfo {
-	name: string;
-	email: string;
-	password: string;
-	birthDate: string;
-	cpf: string;
-	phone: string;
-	image?: string;
-	id: number;
-	address: IAddress;
-	favorites: number[];
+  name: string;
+  email: string;
+  password: string;
+  birthDate: string;
+  cpf: string;
+  phone: string;
+  image?: string;
+  id: number;
+  address: IAddress;
+  favorites: number[];
 }
 
 export interface IUserUpdate {
@@ -148,4 +148,15 @@ export interface ITreatedProduct {
   product: IProduct;
   average: number;
   isFavorite?: boolean;
+}
+export interface IEditProfile {
+  name?: string;
+  birthDate?: string;
+  phone?: string;
+  email?: string;
+  cep?: string;
+  city?: string;
+  neighborhood?: string;
+  street?: string;
+  complement?: string;
 }

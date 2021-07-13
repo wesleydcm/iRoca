@@ -10,6 +10,7 @@ import MenuDesktop from "../Components/Menu/desktop";
 import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
+import UpdateProfile from "../pages/editProfile";
 
 const RouterComponent = () => {
   const { pageWidth } = useWindow();
@@ -21,6 +22,7 @@ const RouterComponent = () => {
 
       <Switch>
         <Route exact path="/" component={TestsPage} />
+        <Route exact path="/updateProfile" component={UpdateProfile} />
         <Route exact path="/login" component={LoginPage} />
 
         <Route exact path="/home" component={Home} />
