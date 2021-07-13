@@ -14,7 +14,14 @@ const EvaluationCard = ({
   return (
     <Wrapper>
       <figure>
-        <img src={evaluation.image} alt="evaluatorPhoto" />
+        <img
+          src={
+            evaluation.image
+              ? evaluation.image
+              : "https://i.imgur.com/02IXYej.png"
+          }
+          alt={evaluation.name}
+        />
         <figcaption>{evaluation.name}</figcaption>
       </figure>
       <section className="feedback">

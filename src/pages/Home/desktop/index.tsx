@@ -44,6 +44,8 @@ const HomeDesktop = ({
 	const { ORGANICS, COMMONS, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
 		categoriesAndTypes;
 
+	// console.log("filteredProductsList  - Desktop :>> ", filteredProductsList);
+
 	return (
 		<Wrapper>
 			<header>
