@@ -85,7 +85,6 @@ export const Wrapper = styled.li<Props>`
 	}
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
-		width: 960px;
 		height: fit-content;
 		border-radius: 30px;
 		padding: 40px;
@@ -95,13 +94,6 @@ export const Wrapper = styled.li<Props>`
 		}
 
 		div[data-css="seller__data"] {
-			h3,
-			div > span {
-				font-size: 14px;
-			}
-			h3 {
-				font-size: 20px;
-			}
 
 			h2 {
 				margin-top: 12px;
@@ -111,10 +103,10 @@ export const Wrapper = styled.li<Props>`
 
 		div[data-css="purchase__data"] {
 			div > span {
-				font-size: 22px;
+				font-size: 1.2rem;
 			}
 			span {
-				font-size: 40px;
+				font-size: 1.8rem;
 			}
 		}
 
@@ -131,11 +123,11 @@ export const Wrapper = styled.li<Props>`
 		div[data-css="isReceivedWrapper"] {
 			margin-left: auto;
 			span {
-				font-size: 18px;
+				font-size: 1rem;
 			}
 			svg {
-				width: 65px;
-				height: 65px;
+				width: 50px;
+				height: 50px;
 			}
 		}
 	}

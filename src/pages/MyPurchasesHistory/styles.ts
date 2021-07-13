@@ -33,6 +33,26 @@ export const Wrapper = styled.div`
 	}
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		> h2 {
+			font-weight: bold;
+			color: var(--green400);
+			margin-bottom: 10px;
+			padding-left: 40px;
+			margin-bottom: 20px;
+			align-self: flex-start;
+			font-size: 2rem;
+		}
+
+		ul {
+			li {
+				margin-bottom: 3vh;
+			}
+		}
 	}
 
 	@media only screen and (min-width: 1100px) {

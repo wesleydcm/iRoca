@@ -85,15 +85,18 @@ export const Wrapper = styled.li<Prop>`
 	}
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
-		width: 280px;
-		height: 230px;
+		width: 260px;
+		height: 150px;
 		flex-wrap: wrap;
-		padding: 20px;
+		padding: 15px;
 
 		.organicFlag {
-			width: 55px;
-			height: 35px;
-			left: -6px;
+			width: 10vw;
+			height: 2.5vh;
+			position: absolute;
+			top: 0px;
+			left: -1.2vw;
+
 			svg {
 				width: inherit;
 				height: inherit;
@@ -109,19 +112,19 @@ export const Wrapper = styled.li<Prop>`
 		h2,
 		h3 {
 			font-family: var(--nunito);
-			margin: 0;
+			margin: 5px;
 		}
 		div {
 			width: 70%;
 
 			h2 {
-				top: 20px;
-				font-size: 1.2rem;
+				top: 10px;
+				font-size: 1.1rem;
 				font-weight: bold;
 				max-width: 60%;
 			}
 			h3 {
-				font-size: 2rem;
+				font-size: 1.8rem;
 				font-weight: bold;
 				color: var(--gray600);
 			}
@@ -140,7 +143,7 @@ export const Wrapper = styled.li<Prop>`
 			}
 
 			span {
-				font-size: 16px;
+				font-size: 0.9rem;
 			}
 		}
 	}
