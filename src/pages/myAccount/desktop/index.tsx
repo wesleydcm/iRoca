@@ -17,7 +17,7 @@ const MyAccountPageDesktop = ({ isAuth = true }: MyProfileProps) => {
 
   return (
     <>
-      {isAuth ? (
+      {user && user.auth ? (
         <BigContainer>
           <Title>Minha Conta</Title>
           <ContainerButtons>
