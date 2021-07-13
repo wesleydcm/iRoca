@@ -103,6 +103,7 @@ export const mockedUser2: IUser = {
 };
 
 export const mockedPurchase1: IPurchase = {
+	id: 1,
 	userId: 1,
 	sellerId: 2,
 	date: "05/06/2021",

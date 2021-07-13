@@ -1,6 +1,12 @@
 import UserController from "../Providers/user/controller";
 
-export interface IAdress {
+export interface IPurchaseSeller {
+  name: string;
+  email: string;
+  phone: string;
+}
+
+export interface IAddress {
   cep?: string;
   state: string;
   city: string;
@@ -24,7 +30,7 @@ export interface IUserInfo {
   phone: string;
   image?: string;
   id: number;
-  address: IAdress;
+  address: IAddress;
   favorites: number[] | [];
 }
 
@@ -36,7 +42,7 @@ export interface IUserUpdate {
     cpf?: string;
     phone?: string;
     image?: string;
-    address?: IAdress;
+    address?: IAddress;
   };
   token: string;
 }
@@ -57,6 +63,13 @@ export interface ILoginData {
 export interface IEvaluations {
   userId: number;
   evaluatorId: number;
+  date: string;
+  feedback: string;
+  grade: number;
+}
+export interface IProductEvaluation {
+  userId: number;
+  productId: number;
   date: string;
   feedback: string;
   grade: number;
@@ -92,7 +105,7 @@ export interface IProduct {
   isOrganic: boolean;
   qty: number;
   images: Image[];
-  evaluations: IEvaluation[];
+  evaluations?: IEvaluation[];
   id: number;
 }
 export interface IProductContext {
@@ -105,6 +118,7 @@ export interface ICartContext {
 }
 
 export interface IPurchase {
+  id: number;
   userId: number;
   sellerId: number;
   date: string;
@@ -114,6 +128,12 @@ export interface IPurchase {
   isReceived: boolean;
   products: IProduct[];
 }
+
+export interface ITreatedPurchase {
+  purchase: IPurchase;
+  seller: IPurchaseSeller;
+}
+
 export interface EvaluationData {
   image?: string;
   name: string;
@@ -146,6 +166,7 @@ export interface IBestProducts {
   product: IProduct;
   average: number;
 }
+
 export interface ITreatedProduct {
   product: IProduct;
   average: number;

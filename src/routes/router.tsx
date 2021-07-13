@@ -11,9 +11,9 @@ import MenuMobile from "../Components/Menu/mobile";
 import MenuDesktop from "../Components/Menu/desktop";
 import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
-import { WINDOW_SIZE_DESKTOP } from "../utils";
 import UpdateProfile from "../pages/editProfile";
-import LoginPage from "../pages/login/mobile";
+import LoginPage from "../pages/login";
+import { WINDOW_SIZE_DESKTOP } from "../utils";
 
 const RouterComponent = () => {
   const { pageWidth } = useWindow();
@@ -78,5 +78,4 @@ const RouterComponent = () => {
     </>
   );
 };
-
 export default RouterComponent;

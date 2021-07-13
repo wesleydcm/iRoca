@@ -10,6 +10,7 @@ import type {
   IEvaluation,
   ITreatedProduct,
   IUserInfo,
+  IProductEvaluation,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -260,13 +261,43 @@ class UserController {
       errorToast("Não foi possível atualizar estado da compra");
     }
   };
-  createEvaluation = async (token: string, evaluation: IEvaluations) => {
+  createProductorEvaluation = async (
+    token: string,
+    evaluation: IEvaluations
+  ) => {
     try {
       const { data } = await api.post(`/evaluations/`, evaluation, {
         headers: { Authorization: `Bearer ${token}` },
       });
       successToast("Avaliação enviada");
       return data;
+    } catch (e) {
+      errorToast("Não foi possível concluir avaliação");
+    }
+  };
+  createProductEvaluation = async (
+    token: string,
+    evaluation: IProductEvaluation
+  ) => {
+    try {
+      const { evaluations } = await this.getProduct(evaluation.productId);
+      const { data } = await api.patch(
+        `/products/${evaluation.productId}`,
+        [...evaluations, evaluation],
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      const newProducts = this.products.map((item) => {
+        if (item.id === data.id) {
+          return data;
+        } else {
+          return item;
+        }
+      });
+      this.setProducts(newProducts);
+      return data;
+      successToast("Avaliação enviada");
     } catch (e) {
       errorToast("Não foi possível concluir avaliação");
     }
@@ -284,7 +315,7 @@ class UserController {
   };
 
   getEvaluationsAverage = (item: IProduct): ITreatedProduct => {
-    if (item.evaluations.length) {
+    if (item.evaluations && item.evaluations.length) {
       const average =
         item.evaluations.reduce((acc: number, evaluation: IEvaluation) => {
           return acc + evaluation.grade;
