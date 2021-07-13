@@ -10,7 +10,7 @@ import { useUser } from "../../Providers/user";
 import { EDIT_PRODUCT_LOCALSTORAFE_FLAG } from "../../utils";
 import { useEffect, useState } from "react";
 
-const EditProduct = () => {
+const UpdateProduct = () => {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(editProfileSchema),
   });
@@ -150,4 +150,4 @@ const EditProduct = () => {
   );
 };
 
-export default EditProduct;
+export default UpdateProduct;
