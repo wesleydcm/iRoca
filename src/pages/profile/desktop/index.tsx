@@ -40,6 +40,7 @@ const ProfilePageDesktop = (): JSX.Element => {
     controller
       .getUser(Number(param.id))
       .then((response) => setProfile(response));
+
     controller.getEvaluationsOfUser(Number(param.id)).then((response: any) => {
       setEvaluation(response);
       setLoad(false);
