@@ -1,6 +1,6 @@
 import UserController from "../Providers/user/controller";
 
-export interface IAddress {
+export interface IAdress {
   cep?: string;
   state: string;
   city: string;
@@ -16,16 +16,16 @@ export interface IUser {
 }
 
 export interface IUserInfo {
-	name: string;
-	email: string;
-	password: string;
-	birthDate: string;
-	cpf: string;
-	phone: string;
-	image?: string;
-	id: number;
-	address: IAddress;
-	favorites: number[];
+  name: string;
+  email: string;
+  password: string;
+  birthDate: string;
+  cpf: string;
+  phone: string;
+  image?: string;
+  id?: number;
+  address: IAdress;
+  favorites: number[] | [];
 }
 
 export interface IUserUpdate {
@@ -36,7 +36,7 @@ export interface IUserUpdate {
     cpf?: string;
     phone?: string;
     image?: string;
-    address?: IAddress;
+    address?: IAdress;
   };
   token: string;
 }
@@ -45,6 +45,8 @@ export interface IUserContext {
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
   initController: () => UserController;
+  tempUser: IUserInfo;
+  setTempUser: React.Dispatch<React.SetStateAction<IUserInfo>>;
 }
 
 export interface ILoginData {

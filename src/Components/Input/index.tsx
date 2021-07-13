@@ -11,12 +11,25 @@ interface Props {
   name?: string | undefined;
   value?: string;
   setValue?: Dispatch<SetStateAction<string>>;
+  width?: number;
 }
+
+// interface FormValues {
+//   email: string;
+//   // password: string;
+//   // emailConfirm: string;
+//   // passwordConfirm: string;
+// }
+
+/**
+	@param width define the component width 
+*/
 
 const Input = ({
   type,
   placeholder,
   value,
+  color,
   setValue,
   register = undefined,
   name = undefined,
