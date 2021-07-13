@@ -10,17 +10,22 @@ import { useState, useEffect } from "react";
 import RatingStar from "../../../Components/RatingStars";
 import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
 import EvaluationCard from "../../../Components/EvaluationCard";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { useUser } from "../../../Providers/user";
 import Loading from "../../../Components/Loading";
 import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
 import { EDIT_PRODUCT_LOCALSTORAFE_FLAG } from "../../../utils";
+
 interface Evaluations {
   avaliator: IUserInfo;
   evaluation: IEvaluation;
 }
+interface Params {
+  id: string;
+}
 
 const ProfilePageMobile = (): JSX.Element => {
+  const param: Params = useParams();
   const [display, setDisplay] = useState(true);
   const [load, setLoad] = useState(false);
   const [user, setUser] = useState<IUserInfo>();
@@ -32,12 +37,14 @@ const ProfilePageMobile = (): JSX.Element => {
   const history = useHistory();
   useEffect(() => {
     setLoad(true);
-    controller.getUser(1).then((response) => setUser(response));
-    controller.getEvaluationsOfUser(1).then((response: any) => {
+    controller.getUser(Number(param.id)).then((response) => setUser(response));
+    controller.getEvaluationsOfUser(Number(param.id)).then((response: any) => {
       setEvaluation(response);
       setLoad(false);
     });
-    controller.getProductsOfUser(2).then((response) => setMyProducts(response));
+    controller
+      .getProductsOfUser(Number(param.id))
+      .then((response) => setMyProducts(response));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

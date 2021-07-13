@@ -4,20 +4,27 @@ import Register2 from "../pages/Register/Register2";
 import Register3 from "../pages/Register/Register3";
 import TestsPage from "../pages/testsPage";
 import MyAccountPageComponent from "../pages/myAccount";
-import ProfilePage from "../pages/myprofile";
+import ProfilePage from "../pages/profile";
 import Home from "../pages/Home";
 import ProductPage from "../pages/productPage";
 import MenuMobile from "../Components/Menu/mobile";
 import MenuDesktop from "../Components/Menu/desktop";
 import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
+import UpdateProfile from "../pages/editProfile";
+import LoginPage from "../pages/login";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
 import MyPurchasesHistory from "../pages/MyPurchasesHistory";
-import LoginPage from "../pages/login/mobile";
+import { useUser } from "../Providers/user";
 
 const RouterComponent = () => {
   const { pageWidth } = useWindow();
   const { pathname } = useLocation();
+  const { user } = useUser();
+
+  // const auth = ["/myaccount"];
+  // const rest = ["/login", "/register", "/register-second", "/register-third"];
+
   return (
     <>
       {!["/login", "/register", "/register-second", "/register-third"].includes(
@@ -43,7 +50,7 @@ const RouterComponent = () => {
 
         <Route path="/myAccount" component={MyAccountPageComponent} />
 
-        <Route path="/myAccount/profile" component={ProfilePage} />
+        <Route exact path="/myAccount/profile:id" component={ProfilePage} />
 
         <Route path="/myCart">
           <div>My Cart</div>
@@ -55,6 +62,10 @@ const RouterComponent = () => {
 
         <Route path="/myAccount/edit">
           <div>Edit Profile</div>
+        </Route>
+
+        <Route path="/myAccount/history">
+          <div>My Purchase History</div>
         </Route>
 
         <Route path="/myAccount/products">

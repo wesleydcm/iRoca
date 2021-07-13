@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 export const NotAuthContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-left: 27vw;
 `;
 export const BigContainer = styled.div`
   min-height: 662px;
