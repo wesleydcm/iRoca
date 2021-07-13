@@ -4,6 +4,8 @@ import type {
   ILoginData,
   IUserUpdate,
   IProductUpdate,
+  IProductUpdatePurchase,
+  NewProduct,
   IPurchase,
   IEvaluations,
   IProduct,
@@ -154,7 +156,7 @@ class UserController {
     }
   };
 
-  createProduct = async (token: string, product: IProduct) => {
+  createProduct = async (token: string, product: NewProduct) => {
     const { sub } = decodeToken(token);
     //se o token for valido, vai retornar um id diferente de 0
     product.userId = Number(sub) || 0;
@@ -235,7 +237,7 @@ class UserController {
       //retorna uma nova lista de compras pra atualizar o feed
       return await this.getPurchasesOfUser(Number(sub));
     } catch (e) {
-      errorToast("Não foi possível concluir a compra");
+      //errorToast("Não foi possível concluir a compra");
     }
   };
 
@@ -311,7 +313,7 @@ class UserController {
 
   updateStock = async (
     productId: number,
-    productData: IProductUpdate,
+    productData: IProductUpdatePurchase,
     token: string
   ) => {
     try {

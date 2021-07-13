@@ -61,21 +61,12 @@ export interface IEvaluations {
 }
 
 export interface IProductUpdate {
-<<<<<<< HEAD
-	name?: string;
-	description?: string;
-	price?: number;
-	qty?: number;
-	images?: string[];
-	evaluations?: IEvaluations[];
-=======
   name: string;
   description?: string;
   price: number;
   qty: number;
   images: string[];
   evaluations: IEvaluations[];
->>>>>>> 0b302952757bcc9c91226248b3c6c6a09d678dfc
 }
 
 export interface Image {
@@ -101,6 +92,17 @@ export interface IProduct {
   images: Image[];
   evaluations: IEvaluation[];
   id: number;
+}
+
+export interface NewProduct {
+  userId: number;
+  name: string;
+  category: string;
+  description: string;
+  price: number;
+  isOrganic: boolean;
+  qty: number;
+  images: Image[];
 }
 
 export interface IProductContext {
@@ -160,4 +162,12 @@ export interface ITreatedProduct {
   isFavorite?: boolean;
 }
 
+export interface IProductUpdatePurchase {
+  name?: string;
+  description?: string;
+  price?: number;
+  qty: number;
+  images?: string[];
+  evaluations?: IEvaluations[];
+}
 

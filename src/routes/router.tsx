@@ -8,6 +8,7 @@ import Home from "../pages/Home";
 import MenuMobile from "../Components/Menu/mobile";
 import MenuDesktop from "../Components/Menu/desktop";
 import MyCart from "../pages/mycart";
+import CreateProductPage from "../pages/createproduct"
 import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
@@ -26,7 +27,8 @@ const RouterComponent = () => {
 
         <Route exact path="/home" component={Home} />
         <Route exact path="/product/:id" component={ProductPage} />
-        <Route exact path="/myCart" component={MyCart} />
+        <Route exact path="/mycart" component={MyCart} />
+        <Route path="/myaccount/products" component={CreateProductPage} />
 
         <Route exact path="/register">
           <div>Register</div>
@@ -52,11 +54,7 @@ const RouterComponent = () => {
           <div>My Purchase History</div>
         </Route>
 
-        <Route path="/myAccount/products">
-          <div>Register Products</div>
-        </Route>
-
-        <Route path="/myAccount/profile/product">
+         <Route path="/myAccount/profile/product">
           <div>Update Product</div>
         </Route>
 
@@ -67,6 +65,8 @@ const RouterComponent = () => {
         <Route path="/ownerProfile/:id">
           <div>Owner Profile</div>
         </Route>
+
+        <Route path="*" component={Home} />
       </Switch>
     </>
   );

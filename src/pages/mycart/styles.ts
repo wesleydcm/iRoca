@@ -4,12 +4,13 @@ import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
 export const Container = styled.div`
     min-width: 20rem;
     min-height: 100vh;
-    padding: 1rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: var(--gray900);
     font-family: var(--nunito);
+    margin-bottom: 70px;
 
     h1 {
         color: var(--green400);
@@ -18,15 +19,13 @@ export const Container = styled.div`
     }
 
     ul {
-        height: 14rem;
+        height: 35vh;
         overflow-y: scroll;
         margin: 1rem 0;
-        padding: 0 0.8rem;
+        padding: 0.2rem;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        width: 95%;
+        flex-direction: column;
+        width: 100%;
         margin: 0 1rem;
         li + li {
         margin-top: 1rem;
@@ -34,7 +33,7 @@ export const Container = styled.div`
     }
 
     .last {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
 
     p {
@@ -52,12 +51,22 @@ export const Container = styled.div`
         color: var(--green400);
         font-size: 1.2rem;
     }
+
+    @media only screen and (min-width: 375px) {
+        ul {
+            height: 42vh;
+        }
+  	}
     
     @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
         padding-left: 32vw;
         
         ul {
-            height: 28rem;
+            height: 55vh;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
         }
         
         h1 {
@@ -77,14 +86,14 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-	width: 90%;
-	height: 10rem;
+	width: 100%;
+	height: 9.5rem;
 	box-shadow: 0 2px 5px 2px var(--shadow-black);
 	border-radius: 10px;
     padding: 1rem;
 	display: flex;
     flex-direction: column;
-    margin-top: 2rem;
+    margin-top: 1rem;
 
     h2 {
         padding-bottom: 0.5rem;
@@ -97,10 +106,18 @@ export const Wrapper = styled.div`
     }
 
     Button {
-        margin: 0.5rem 0;
+        margin: 0.3rem 0;
         align-self: center;
         font-family: var(--nunito);
     }
+
+    @media only screen and (min-width: 375px) {
+        Button {
+        width: 8rem;
+        height: 4rem; 
+        font-size: 1rem;
+    }
+  	}
 
     @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
         display: flex;
@@ -125,6 +142,9 @@ export const Wrapper = styled.div`
 
         Button {
             margin-right: 2rem;
+            width: 10rem;
+            height: 3rem; 
+            font-size: 1.5rem;
         }
 	}
 `;
