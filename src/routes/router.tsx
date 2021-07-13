@@ -4,7 +4,7 @@ import Register2 from "../pages/Register/Register2";
 import Register3 from "../pages/Register/Register3";
 import TestsPage from "../pages/testsPage";
 import MyAccountPageComponent from "../pages/myAccount";
-import ProfilePage from "../pages/myprofile";
+import ProfilePage from "../pages/profile";
 import Home from "../pages/Home";
 import ProductPage from "../pages/productPage";
 import MenuMobile from "../Components/Menu/mobile";
@@ -35,7 +35,7 @@ const RouterComponent = () => {
         <Route exact path="/product/:id" component={ProductPage} />
         <Route exact path="/register-second" component={Register2} />
         <Route exact path="/register-third" component={Register3} />
-        <Route exact path="/myAccount/profile" component={ProfilePage} />
+        <Route exact path="/myAccount/profile:id" component={ProfilePage} />
 
         <Route path="/myCart">
           <div>My Cart</div>
