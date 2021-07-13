@@ -16,6 +16,22 @@ interface FormValues {
   image?: string;
 }
 
+const Motion = {
+  hidden: {
+    x: "100vw",
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "tween",
+      delay: 0.2,
+      duration: 1,
+    },
+  },
+};
+
 const RegisterStep2Desktop = () => {
   const { tempUser, setTempUser } = useUser();
 
@@ -71,7 +87,12 @@ const RegisterStep2Desktop = () => {
           <img src={LogoImage} alt="logo" />
         </div>
       </Logo>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        variants={Motion}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="input">
           <h1>Dados Pessoais</h1>
           <Input

@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 
 interface FormValues {
   name: string;
@@ -15,6 +16,21 @@ interface FormValues {
   phone: string;
   image?: string;
 }
+
+const Motion = {
+  hidden: {
+    x: "100vw",
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "tween",
+      duration: 0.7,
+    },
+  },
+};
 
 const RegisterStep2Mobile = () => {
   const { tempUser, setTempUser } = useUser();
@@ -59,73 +75,75 @@ const RegisterStep2Mobile = () => {
 
   return (
     <Container>
-      <Logo>
-        <img src={LogoImage} alt="logo" />
-        <p>
-          Precisamos dos seus dados pra fazer realizar compras e publicar
-          anúncios
-        </p>
-      </Logo>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Dados Pessoais</h1>
-        <div className="input">
-          <Input
-            placeholder={"Nome completo"}
-            type={"text"}
-            color={"white"}
-            name={"name"}
-            register={register}
-            width={310}
-          />
-          <p>{errors.fullName?.message}</p>
-          <Input
-            placeholder={"Data de nascimento"}
-            type={"text"}
-            color={"white"}
-            name={"birthDate"}
-            register={register}
-            width={310}
-          />
-          <p>{errors.birthDate?.message}</p>
-          <Input
-            placeholder={"CPF"}
-            type={"text"}
-            color={"white"}
-            name={"cpf"}
-            register={register}
-            width={310}
-          />
-          <p>{errors.cpf?.message}</p>
-          <Input
-            placeholder={"Telefone para contato"}
-            type={"text"}
-            color={"white"}
-            name={"phone"}
-            register={register}
-            width={310}
-          />
-          <p>{errors.phone?.message}</p>
-        </div>
-        <div className="photo">
-          <h1>Foto de perfil</h1>
-          <div className="photo-input">
+      <motion.div variants={Motion} initial="hidden" animate="visible">
+        <Logo>
+          <img src={LogoImage} alt="logo" />
+          <p>
+            Precisamos dos seus dados pra fazer realizar compras e publicar
+            anúncios
+          </p>
+        </Logo>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <h1>Dados Pessoais</h1>
+          <div className="input">
             <Input
-              placeholder={"link"}
+              placeholder={"Nome completo"}
               type={"text"}
               color={"white"}
-              name={"image"}
+              name={"name"}
               register={register}
-              width={150}
+              width={310}
             />
-            <p>{errors.photo?.message}</p>
+            <p>{errors.fullName?.message}</p>
+            <Input
+              placeholder={"Data de nascimento"}
+              type={"text"}
+              color={"white"}
+              name={"birthDate"}
+              register={register}
+              width={310}
+            />
+            <p>{errors.birthDate?.message}</p>
+            <Input
+              placeholder={"CPF"}
+              type={"text"}
+              color={"white"}
+              name={"cpf"}
+              register={register}
+              width={310}
+            />
+            <p>{errors.cpf?.message}</p>
+            <Input
+              placeholder={"Telefone para contato"}
+              type={"text"}
+              color={"white"}
+              name={"phone"}
+              register={register}
+              width={310}
+            />
+            <p>{errors.phone?.message}</p>
           </div>
-        </div>
-        <div className="button">
-          <Button type={"submit"} width={155}>
-            Próximo
-          </Button>
-        </div>
-      </Form>
+          <div className="photo">
+            <h1>Foto de perfil</h1>
+            <div className="photo-input">
+              <Input
+                placeholder={"link"}
+                type={"text"}
+                color={"white"}
+                name={"image"}
+                register={register}
+                width={150}
+              />
+              <p>{errors.photo?.message}</p>
+            </div>
+          </div>
+          <div className="button">
+            <Button type={"submit"} width={155}>
+              Próximo
+            </Button>
+          </div>
+        </Form>
+      </motion.div>
     </Container>
   );
 };
