@@ -57,7 +57,7 @@ const LoginPage = () => {
             Entrar
           </Button>
         </div>
-        <Link to="/login">
+        <Link to="/register">
           Ainda não possui uma conta ? Pode se registrar clicando aqui
         </Link>
       </form>

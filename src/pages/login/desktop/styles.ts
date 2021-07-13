@@ -17,6 +17,8 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 37vh;
+    justify-content: space-around;
     h2 {
       align-self: flex-start;
       color: var(--gray600);
@@ -36,10 +38,10 @@ export const Container = styled.div`
   input {
     width: 280px;
     padding: 0 15px;
-    border: 2px solid var(--white);
+    border: 2px solid var(--green300);
     border-radius: 10px;
     background: transparent;
-    color: var(--white);
+    color: var(--gray300);
     outline: none;
     font-weight: 500;
     font-size: 16px;
@@ -51,7 +53,7 @@ export const Container = styled.div`
     height: 50px;
 
     &::placeholder {
-      color: var(--white);
+      color: var(--grey300);
     }
   }
 
