@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import {
+import type {
   IUser,
   ILoginData,
   IUserUpdate,
@@ -7,6 +7,8 @@ import {
   IPurchase,
   IEvaluations,
   IProduct,
+  IEvaluation,
+  ITreatedProduct,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -73,6 +75,15 @@ class UserController {
     }
   };
 
+  getProduct = async (productId: number | "" = "") => {
+    try {
+      const response = await api.get(`/products/${productId}`);
+      return await response.data;
+    } catch (e) {
+      errorToast("Ocorreu algum erro no sistema");
+    }
+  };
+
   getPurchasesOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/purchases/`);
@@ -81,6 +92,7 @@ class UserController {
       errorToast("Ocorreu algum erro no sistema");
     }
   };
+
   getUserOfEvaluation = async (evaluation: any) => {
     const user = await this.getUser(evaluation.avaliatorId);
     return {
@@ -88,6 +100,7 @@ class UserController {
       evaluation: evaluation,
     };
   };
+
   getEvaluationsOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/evaluations/`);
@@ -100,6 +113,7 @@ class UserController {
       errorToast("Ocorreu algum erro no sistema");
     }
   };
+
   getProductsOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/products/`);
@@ -193,6 +207,7 @@ class UserController {
       errorToast("Não foi possível atualizar produto");
     }
   };
+
   deleteProduct = async (productId: number, token: string) => {
     try {
       const { data } = await api.delete(`/products/${productId}`, {
@@ -203,7 +218,7 @@ class UserController {
       this.setProducts(newProducts);
       successToast("Produto excluido com sucesso");
     } catch (e) {
-      errorToast("Não foi possível excluir produto");
+      errorToast("Não foi possível excluir o produto");
     }
   };
 
@@ -215,12 +230,12 @@ class UserController {
       });
 
       successToast(
-        "Compra efetuada com sucesso, agora é só esperar o produto chegar na sua casa :)"
+        "Compra efetuada com sucesso, agora é só esperar o(s) produto(s) chegar(em) na sua casa :)"
       );
       //retorna uma nova lista de compras pra atualizar o feed
       return await this.getPurchasesOfUser(Number(sub));
     } catch (e) {
-      errorToast("Não foi possível concluir compra");
+      errorToast("Não foi possível concluir a compra");
     }
   };
 
@@ -267,6 +282,60 @@ class UserController {
       errorToast("Não foi possível concluir avaliação");
     }
   };
+
+  getEvaluationsAverage = (item: IProduct): ITreatedProduct => {
+    if (item.evaluations.length) {
+      const average =
+        item.evaluations.reduce((acc: number, evaluation: IEvaluation) => {
+          return acc + evaluation.grade;
+        }, 0) / item.evaluations.length;
+
+      return { product: item, average };
+    }
+    return { product: item, average: 0 };
+  };
+
+  getAllAverages = (productsList: IProduct[]): ITreatedProduct[] => {
+    if (productsList.length) {
+      const averagesList = productsList.map((item) =>
+        this.getEvaluationsAverage(item)
+      );
+
+      averagesList.sort(
+        (productA, productB) => productB.average - productA.average
+      );
+      return averagesList;
+    }
+    return [];
+  };
+
+  updateStock = async (
+    productId: number,
+    productData: IProductUpdate,
+    token: string
+  ) => {
+    try {
+      const { data } = await api.patch(`/products/${productId}`, productData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const newProducts = this.products.map((item) => {
+        if (item.id === data.id) {
+          return {
+            ...item,
+            ...data,
+          };
+        } else {
+          return item;
+        }
+      });
+      this.setProducts(newProducts);
+      return data;
+    } catch (e) {
+      //errorToast("Não foi possível atualizar produto");
+    }
+  };
+
+
 }
 
 export default UserController;

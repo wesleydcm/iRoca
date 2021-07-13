@@ -9,7 +9,7 @@ const MenuMobile = (): JSX.Element => {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push("/");
+    // history.push("/");
     /*if(isAuth){
       userLogoff()
       history.push("/");
@@ -25,7 +25,7 @@ const MenuMobile = (): JSX.Element => {
           <Anounciments />
           <span>Anúncios</span>
         </NavLink>
-        <NavLink to="/cart" activeClassName="selected" data-testid="linkToCart">
+        <NavLink to="/mycart" activeClassName="selected" data-testid="linkToCart">
           <Cart />
           <span>Carrinho</span>
         </NavLink>

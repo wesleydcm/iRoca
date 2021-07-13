@@ -1,49 +1,50 @@
 import { Dispatch, SetStateAction } from "react";
+import type { IStyles } from "../../../@types";
 import { StyledInput, Wrapper } from "./styles";
 
 interface Props {
-	type: string;
-	action?: "clear" | "search";
-	placeholder: string;
-	color?: "green" | "white";
-	icon: React.FunctionComponent<
-		React.SVGProps<SVGSVGElement> & { title?: string }
-	>;
-	value: string;
-	setValue: Dispatch<SetStateAction<string>>;
+  type?: string;
+  styles: IStyles;
+  action: "clear" | "search";
+  placeholder?: string;
+  icon: React.FunctionComponent<
+    React.SVGProps<SVGSVGElement> & { title?: string }
+  >;
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-const MobileInputIcon = ({
-	type,
-	action = "clear",
-	placeholder,
-	icon: Icon,
-	color = "green",
-	value,
-	setValue,
-	...rest
+const InputIconMobile = ({
+  styles,
+  action,
+  placeholder,
+  icon: Icon,
+  value,
+  setValue,
+  onClick = undefined,
+  ...rest
 }: Props): JSX.Element => {
-	return (
-		<Wrapper color={color}>
-			<StyledInput
-				type={type}
-				placeholder={placeholder}
-				color={color}
-				value={value}
-				onChange={e => setValue(e.target.value)}
-				{...rest}
-			/>
-			{action === "clear" ? (
-				<button onClick={() => setValue("")}>
-					{!!value.length && <Icon />}
-				</button>
-			) : (
-				<button>
-					<Icon />
-				</button>
-			)}
-		</Wrapper>
-	);
+  return (
+    <Wrapper styles={styles}>
+      <StyledInput
+        placeholder={placeholder}
+        styles={styles}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        {...rest}
+      />
+      {action === "clear" ? (
+        <button onClick={() => setValue("")}>
+          {!!value.length && <Icon />}
+        </button>
+      ) : (
+        <button onClick={onClick}>
+          <Icon />
+        </button>
+      )}
+    </Wrapper>
+  );
 };
 
-export default MobileInputIcon;
+export default InputIconMobile;

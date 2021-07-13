@@ -25,7 +25,7 @@ const MenuDesktop = (): JSX.Element => {
           <Anounciments />
           <span>Anúncios</span>
         </NavLink>
-        <NavLink to="/cart" activeClassName="selected" data-testid="linkToCart">
+        <NavLink to="/mycart" activeClassName="selected" data-testid="linkToCart">
           <Cart />
           <span>Carrinho</span>
         </NavLink>
@@ -33,11 +33,11 @@ const MenuDesktop = (): JSX.Element => {
           <MyAccount />
           <span>Minha Conta</span>
         </NavLink>
+        <ButtonLogoffOrEnter onClick={() => handleClick()}>
+          <span>Sair da Conta</span> <ExitSvg />
+          {/*isAuth?<span>Sair da Conta<span> <ExitSvg />:<span>Entrar</><EnterSvg/>*/}
+        </ButtonLogoffOrEnter>
       </MenuWrapper>
-      <ButtonLogoffOrEnter onClick={() => handleClick()}>
-        <span>Sair da Conta</span> <ExitSvg />
-        {/*isAuth?<span>Sair da Conta<span> <ExitSvg />:<span>Entrar</><EnterSvg/>*/}
-      </ButtonLogoffOrEnter>
     </AsideContainer>
   );
 };
