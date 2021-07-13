@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
 
-interface Props {}
-
-export const LiStyled = styled.li<Props>`
+export const LiStyled = styled.li`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -14,9 +12,25 @@ export const LiStyled = styled.li<Props>`
 `;
 
 export const Wrapper = styled.div`
-	width: 100%;
 	height: fit-content;
 	margin-inline: auto;
+	padding: 15px;
+	padding-bottom: 120px;
+
+	> h2 {
+		font-family: var(--poppins);
+		font-weight: 600;
+		color: var(--green400);
+		margin-bottom: 10px;
+		margin-left: 20px;
+		font-size: 1.5rem;
+	}
+
+	ul {
+		li {
+			margin-bottom: 10px;
+		}
+	}
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
 	}

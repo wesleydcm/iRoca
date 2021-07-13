@@ -26,8 +26,8 @@ export const Wrapper = styled.li<Props>`
 			font-weight: 600;
 			color: var(--gray700);
 		}
-		h3 {
-			font-size: 0.9rem;
+		span {
+			font-size: 0.8rem;
 		}
 
 		h2 {
@@ -38,8 +38,10 @@ export const Wrapper = styled.li<Props>`
 		}
 	}
 	span[data-css="date"] {
+		position: absolute;
+		right: 20px;
 		font-weight: 600;
-		font-size: 14px;
+		font-size: 0.8rem;
 		color: var(--green400);
 		align-self: flex-start;
 	}
