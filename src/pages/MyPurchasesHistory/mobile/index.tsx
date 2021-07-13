@@ -1,19 +1,29 @@
-import type { IPurchase, IUser } from "../../../@types";
-import HistoryCard from "../../../Components/HistoryCard/desktop";
+// import { useRef } from "react";
+import type { ITreatedPurchase } from "../../../@types";
+import HistoryCard from "../../../Components/HistoryCard/mobile";
 import { Wrapper } from "../styles";
 
 interface Props {
-	purchasesList: IPurchase[];
+	treatedPurchasesList: ITreatedPurchase[];
 }
 
-const MyPurchasesHistoryMobile = ({ purchasesList }: Props) => {
+const MyPurchasesHistoryMobile = ({ treatedPurchasesList }: Props) => {
+	// const ref = useRef(0);
+	// console.log(ref.current++);
+
 	return (
 		<Wrapper>
 			<h2>Histórico de compras</h2>
 			<ul>
-				{purchasesList.map(item => (
-					<HistoryCard key={item.id} purchase={item} seller={{} as IUser} />
-				))}
+				{treatedPurchasesList.map(({ purchase, seller }) => {
+					return (
+						<HistoryCard
+							key={purchase.id}
+							purchase={purchase}
+							seller={seller}
+						/>
+					);
+				})}
 			</ul>
 		</Wrapper>
 	);

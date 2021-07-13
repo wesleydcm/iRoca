@@ -1,15 +1,22 @@
+import { useEffect, useMemo, useState } from "react";
+import type {
+	IPurchase,
+	IPurchaseSeller,
+	ITreatedPurchase,
+} from "../../@types";
 import { useUser } from "../../Providers/user";
 import { useWindow } from "../../Providers/window";
 import { errorToast, WINDOW_SIZE_DESKTOP } from "../../utils";
 import MyPurchasesHistoryMobile from "./mobile";
 import MyPurchasesHistoryDesktop from "./desktop";
-import { IPurchase, IPurchaseSeller, ITreatedPurchase } from "../../@types";
-import { useEffect, useMemo, useState } from "react";
+import Loading from "../../Components/Loading";
 
-interface Props {}
-
-const MyPurchasesHistory = ({}: Props) => {
+const MyPurchasesHistory = (): JSX.Element => {
 	const [purchasesList, setPurchasesList] = useState<IPurchase[]>([]);
+	const [treatedPurchasesList, setTreatedPurchasesList] = useState<
+		ITreatedPurchase[]
+	>([]);
+	const [isLoading, setIsLoading] = useState(true);
 	const { user, initController } = useUser();
 	const { pageWidth } = useWindow();
 	const controller = initController();
@@ -17,13 +24,53 @@ const MyPurchasesHistory = ({}: Props) => {
 	useEffect(() => {
 		controller
 			.getPurchasesOfUser(user.personalData.id)
-			.then(response => {
+			.then((response: IPurchase[]) => {
 				hasUniqueSeller(response);
 				setPurchasesList(response);
 			})
-			.catch(error => errorToast(error));
+			.catch(() =>
+				errorToast(
+					`${user.personalData.name}, houve um erro ao tentar buscar suas compras.`,
+				),
+			);
 		// eslint-disable-next-line
 	}, []);
+
+	const treatPurchasesList = useMemo(async (): Promise<ITreatedPurchase[]> => {
+		if (!!purchasesList.length) {
+			const result: ITreatedPurchase[] = [];
+			const { sellerId } = purchasesList[0];
+			const seller = await controller.getUser(sellerId);
+			const sellerInfo: IPurchaseSeller = {
+				name: seller.name,
+				email: seller.email,
+				phone: seller.phone,
+			};
+
+			for (let i = 0; i < purchasesList.length; i++) {
+				const treatedPurchase: ITreatedPurchase = {} as ITreatedPurchase;
+				treatedPurchase.purchase = purchasesList[i];
+				treatedPurchase.seller = sellerInfo;
+
+				result.push(treatedPurchase);
+			}
+
+			return result;
+		}
+		return [];
+		// eslint-disable-next-line
+	}, [purchasesList]);
+
+	useEffect(() => {
+		if (!!purchasesList.length) {
+			const getTreatedPurchasesList = async () => {
+				const treatedPurchasesList = await treatPurchasesList;
+				setTreatedPurchasesList(treatedPurchasesList);
+				setIsLoading(false);
+			};
+			getTreatedPurchasesList();
+		}
+	}, [treatPurchasesList]);
 
 	const hasUniqueSeller = (purchasesList: IPurchase[] | undefined): void => {
 		if (!!purchasesList && purchasesList.length) {
@@ -37,49 +84,16 @@ const MyPurchasesHistory = ({}: Props) => {
 		}
 	};
 
-	const treatPurchasesList = (
-		purchasesList: IPurchase[],
-	): ITreatedPurchase[] => {
-		if (!!purchasesList && purchasesList.length) {
-			const result: ITreatedPurchase[] = [];
-			const { sellerId } = purchasesList[0];
-
-			purchasesList.forEach(purchase => {
-				const treatedPurchase: ITreatedPurchase = {} as ITreatedPurchase;
-				treatedPurchase.purchase = purchase;
-
-				controller.getUser(sellerId).then((response: IPurchaseSeller) => {
-					treatedPurchase.seller = {
-						id: response.id,
-						name: response.name,
-						cpf: response.cpf,
-						email: response.email,
-						phone: response.phone,
-					};
-				});
-
-				result.push(treatedPurchase);
-			});
-
-			return result;
-		}
-		return [];
-	};
-
-	const treatedPurchasesList = useMemo(() => {
-		console.log(`raw purchasesList:>>`, purchasesList);
-
-		return treatPurchasesList(purchasesList);
-	}, [purchasesList]);
-
-	console.log(`treatedPurchasesList`, treatedPurchasesList);
-
 	return (
 		<>
-			{pageWidth < WINDOW_SIZE_DESKTOP ? (
-				<MyPurchasesHistoryMobile purchasesList={[]} />
+			{isLoading ? (
+				<Loading size={50} />
+			) : !!treatedPurchasesList.length && pageWidth < WINDOW_SIZE_DESKTOP ? (
+				<MyPurchasesHistoryMobile treatedPurchasesList={treatedPurchasesList} />
 			) : (
-				<MyPurchasesHistoryDesktop />
+				<MyPurchasesHistoryDesktop
+					treatedPurchasesList={treatedPurchasesList}
+				/>
 			)}
 		</>
 	);

@@ -1,9 +1,7 @@
 import UserController from "../Providers/user/controller";
 
 export interface IPurchaseSeller {
-	id: number;
 	name: string;
-	cpf: string;
 	email: string;
 	phone: string;
 }
