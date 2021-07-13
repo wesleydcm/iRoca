@@ -13,7 +13,7 @@ import RatingStars from "../../Components/RatingStars";
 import { mockedProduct } from "../../utils/mocks";
 import ProducerCartDesktop from "../../Components/Producer_Cart/desktop";
 import ProducerCartMobile from "../../Components/Producer_Cart/mobile";
-
+import NewEvaluation from "../../Components/NewEvaluation";
 const Test = () => {
   const [value, setValue] = useState<string>("");
   const [value2, setValue2] = useState<string>("");
