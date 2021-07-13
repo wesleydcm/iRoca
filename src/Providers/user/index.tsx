@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { IUserContext, IUser } from "../../@types";
+import { IUserContext, IUser, IUserInfo } from "../../@types";
 import { USER_LOCALSTORAGE_FLAG } from "../../utils";
 import UserController from "./controller";
 import { useProducts } from "../products";
@@ -18,6 +18,7 @@ export const UserProvider = ({ children }: Props) => {
 
   const [user, setUser] = useState<IUser>(defaultValue);
   const { products, setProducts } = useProducts();
+  const [tempUser, setTempUser] = useState<IUserInfo>({} as IUserInfo);
 
   const initController = (): UserController => {
     return new UserController(setUser, setProducts, products, user);
@@ -31,7 +32,9 @@ export const UserProvider = ({ children }: Props) => {
   }, [user]);
 
   return (
-    <userCTX.Provider value={{ user, initController, setUser }}>
+    <userCTX.Provider
+      value={{ user, initController, setUser, setTempUser, tempUser }}
+    >
       {children}
     </userCTX.Provider>
   );

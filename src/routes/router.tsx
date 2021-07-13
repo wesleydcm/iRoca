@@ -1,34 +1,56 @@
-import { Route, Switch } from "react-router";
-import LoginPage from "../pages/login/";
+import { Route, Switch } from "react-router-dom";
+import Register from "../pages/Register";
+import Register2 from "../pages/Register/Register2";
+import Register3 from "../pages/Register/Register3";
 import TestsPage from "../pages/testsPage";
 import MyAccountPageComponent from "../pages/myAccount";
-import ProductPage from "../pages/productPage";
-import ProfilePage from "../pages/myprofile";
+import ProfilePage from "../pages/profile";
 import Home from "../pages/Home";
+import ProductPage from "../pages/productPage";
 import MenuMobile from "../Components/Menu/mobile";
 import MenuDesktop from "../Components/Menu/desktop";
 import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
+import UpdateProfile from "../pages/editProfile";
+import LoginPage from "../pages/login";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
+import MyPurchasesHistory from "../pages/MyPurchasesHistory";
+import { useUser } from "../Providers/user";
 
 const RouterComponent = () => {
   const { pageWidth } = useWindow();
   const { pathname } = useLocation();
+  const { user } = useUser();
+
+  // const auth = ["/myaccount"];
+  // const rest = ["/login", "/register", "/register-second", "/register-third"];
+
   return (
     <>
-      {!["/login", "/register"].includes(pathname) &&
-        (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
+      {!["/login", "/register", "/register-second", "/register-third"].includes(
+        pathname
+      ) && (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
 
       <Switch>
-        <Route exact path="/" component={TestsPage} />
-        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/" component={Home} />
 
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/product/:id" component={ProductPage} />
+        <Route path="/login" component={LoginPage} />
 
-        <Route exact path="/register">
-          <div>Register</div>
-        </Route>
+        <Route path="/product/:id" component={ProductPage} />
+
+        <Route path="/mypurchaseshistory" component={MyPurchasesHistory} />
+
+        <Route path="/register" component={Register} />
+
+        <Route path="/register-second" component={Register2} />
+
+        <Route path="/register-third" component={Register3} />
+
+        <Route path="/test-page" component={TestsPage} />
+
+        <Route path="/myAccount" component={MyAccountPageComponent} />
+
+        <Route exact path="/myAccount/profile:id" component={ProfilePage} />
 
         <Route path="/myCart">
           <div>My Cart</div>
@@ -37,14 +59,6 @@ const RouterComponent = () => {
         <Route path="/checkout">
           <div>Checkout</div>
         </Route>
-
-        <Route
-          exact
-          path="/myAccount"
-          component={MyAccountPageComponent}
-        ></Route>
-
-        <Route exact path="/myAccount/profile" component={ProfilePage} />
 
         <Route path="/myAccount/edit">
           <div>Edit Profile</div>
@@ -62,10 +76,6 @@ const RouterComponent = () => {
           <div>Update Product</div>
         </Route>
 
-        <Route path="/product">
-          <div>Product</div>
-        </Route>
-
         <Route path="/ownerProfile/:id">
           <div>Owner Profile</div>
         </Route>
@@ -73,5 +83,4 @@ const RouterComponent = () => {
     </>
   );
 };
-
 export default RouterComponent;
