@@ -20,8 +20,9 @@ const RouterComponent = () => {
   const { pathname } = useLocation();
   return (
     <>
-      {!["/login", "/register"].includes(pathname) &&
-        (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
+      {!["/login", "/register", "/register-second", "/register-third"].includes(
+        pathname
+      ) && (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
 
       <Switch>
         <Route exact path="/" component={Home} />
