@@ -13,6 +13,22 @@ interface FormValue {
   password: string;
 }
 
+const Motion = {
+  hidden: {
+    y: -100,
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "tween",
+      delay: 0.2,
+      duration: 1,
+    },
+  },
+};
+
 const RegisterStep1Desktop = () => {
   const { tempUser, setTempUser } = useUser();
 
@@ -54,7 +70,7 @@ const RegisterStep1Desktop = () => {
   };
 
   return (
-    <Container>
+    <Container variants={Motion} initial="hidden" animate="visible">
       <Logo>
         <div className="description">
           <h1>Bem vindo ao iRoça</h1>

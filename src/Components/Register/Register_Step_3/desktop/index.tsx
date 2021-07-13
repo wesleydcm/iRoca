@@ -20,6 +20,22 @@ interface FormValues {
   cep?: string;
 }
 
+const Motion = {
+  hidden: {
+    x: "100vw",
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "tween",
+      delay: 0.2,
+      duration: 1,
+    },
+  },
+};
+
 const RegisterStep3Desktop = () => {
   const [cepValue, setCepValue] = useState("");
 
@@ -111,7 +127,12 @@ const RegisterStep3Desktop = () => {
           <img src={LogoImage} alt="logo" />
         </div>
       </Logo>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        variants={Motion}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="input">
           <h1>Dados de Endereço</h1>
           <Input

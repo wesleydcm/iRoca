@@ -22,9 +22,6 @@ const RouterComponent = () => {
   const { pathname } = useLocation();
   const { user } = useUser();
 
-  // const auth = ["/myaccount"];
-  // const rest = ["/login", "/register", "/register-second", "/register-third"];
-
   return (
     <>
       {!["/login", "/register", "/register-second", "/register-third"].includes(
