@@ -14,6 +14,7 @@ import type {
   IUserInfo,
   IProductEvaluation,
   INewPurchase,
+  EvaluationData,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -344,6 +345,29 @@ class UserController {
       return averagesList;
     }
     return [];
+  };
+  getEvaluationData = async (
+    evaluation: IEvaluation
+  ): Promise<EvaluationData> => {
+    const userData = await this.getUser(evaluation.evaluatorId);
+    return {
+      image: !!userData.image
+        ? userData.image !== ""
+          ? userData.image
+          : "https://jpimg.com.br/uploads/2017/04/1356121060-stenio-garcia-ira-retornar-como-o-bino-de-carga-pesada.png"
+        : "https://jpimg.com.br/uploads/2017/04/1356121060-stenio-garcia-ira-retornar-como-o-bino-de-carga-pesada.png",
+      name: userData.name,
+      feedback: !!evaluation.feedback ? evaluation.feedback : "...",
+      grade: evaluation.grade,
+    };
+  };
+
+  getAllEvaluationsData = async (evaluations: IEvaluation[]) => {
+    return Promise.all(
+      evaluations.map((item: IEvaluation) => {
+        return this.getEvaluationData(item);
+      })
+    );
   };
 
   updateStock = async (

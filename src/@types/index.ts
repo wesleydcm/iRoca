@@ -159,9 +159,9 @@ export interface ITreatedPurchase {
 
 export interface EvaluationData {
   image?: string;
-  name: string;
-  feedback: string;
-  grade: number;
+  name?: string;
+  feedback?: string;
+  grade?: number;
 }
 //quando for fazer listar avaliações , fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.
 

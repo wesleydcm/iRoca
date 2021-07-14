@@ -8,7 +8,7 @@ import Button from "../../../Components/Button";
 import Stars from "../../../Components/RatingStars";
 import Menu from "../../../Components/Menu/mobile";
 import EvaluationCard from "../../../Components/EvaluationCard";
-//import Carousel from "react-elastic-carousel";
+import Carousel from "react-elastic-carousel";
 import { useEffect, useState } from "react";
 import { useUser } from "../../../Providers/user";
 import { useParams } from "react-router-dom";
@@ -25,14 +25,14 @@ const ProductPageComponentMobile = () => {
   const imageURL2 =
     "https://image.freepik.com/vector-gratis/mercado-linea-caja-carton-frutas-verduras-entrega-alimentos-frescos-tienda-comestibles_24640-64229.jpg";
 
-  const evaluation = {
-    name: "Bino Ferreira 2",
+  const defaultEvaluation = {
+    name: "Anonymus",
     image: imageURL2,
-    feedback: "Avaliação 333 lm",
+    feedback: ``,
     grade: 2,
   };
-
   const [product, setProducts] = useState<IProduct>({} as IProduct);
+  const [average, setAverage] = useState<number>(0);
 
   const param: Params = useParams();
   const { initController } = useUser();
@@ -41,9 +41,16 @@ const ProductPageComponentMobile = () => {
   useEffect(() => {
     const getProductData = async () => {
       const controller = initController();
-      //const productData = await controller.getProduct(Number(param.id));
 
-      //setProducts(productData);
+      const productData = await controller.getProduct(Number(param.id));
+      const Average = await controller.getEvaluationsAverage(productData);
+      setAverage(Average.average);
+
+      const newEvaluations = await controller.getAllEvaluationsData(
+        productData.evaluations
+      );
+      productData.evaluations = newEvaluations;
+      setProducts(productData);
     };
 
     getProductData();
@@ -62,10 +69,15 @@ const ProductPageComponentMobile = () => {
         <Modal product={product} toggleModal={toggleModal} />
       )}
       <Container>
-       {/* <Carousel itemsToShow={1} isRTL={false} showArrows={false}>
-          <img src={imageURL} alt="asd" />
-          <img src={imageURL2} alt="asd" />
-      </Carousel>*/}
+        <Carousel itemsToShow={1} isRTL={false} showArrows={true}>
+          {!!product.images ? (
+            product.images.map((obj, index) => {
+              return <img src={`${obj.url}`} alt={product.name} key={index} />;
+            })
+          ) : (
+            <img src={`${imageURL2}`} alt={product.name} />
+          )}
+        </Carousel>
         <Button type="button" color="green" onClick={toggleModal}>
           Adicionar ao carrinho
         </Button>
@@ -83,16 +95,22 @@ const ProductPageComponentMobile = () => {
           <GeneralEvaluation>
             <h3>Avaliações</h3>
             <div>
-              <Stars readOnly={true} value={2.4} />
+              <Stars readOnly={true} value={average} />
               <span>Avaliação geral</span>
             </div>
           </GeneralEvaluation>
           <div className="evaluation-cards">
-            <EvaluationCard scenery="mobile" evaluation={evaluation} />
-            <EvaluationCard scenery="mobile" evaluation={evaluation} />
-            <EvaluationCard scenery="mobile" evaluation={evaluation} />
-            <EvaluationCard scenery="mobile" evaluation={evaluation} />
-            <EvaluationCard scenery="mobile" evaluation={evaluation} />
+            {!!product &&
+              !!product.evaluations &&
+              product.evaluations.map((item, index) => {
+                return (
+                  <EvaluationCard
+                    scenery="desktop"
+                    evaluation={item || defaultEvaluation}
+                    key={index}
+                  />
+                );
+              })}
           </div>
         </div>
       </Container>
