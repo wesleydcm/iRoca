@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   width: 100%;
   height: 100vh;
 
@@ -17,22 +18,12 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 37vh;
+    justify-content: space-around;
     h2 {
       align-self: flex-start;
       color: var(--gray600);
       font-size: 2rem;
-    }
-    input {
-      margin-top: 2rem;
-      color: var(--gray900);
-    }
-    input::placeholder {
-      color: var(--gray600);
-      transition: transform 0.5s;
-    }
-    input:hover::placeholder {
-      transform: translate(10px);
-      transition: transform 0.5s;
     }
   }
 
@@ -43,6 +34,28 @@ export const Container = styled.div`
     width: 50%;
     align-self: center;
     text-align: left;
+  }
+
+  input {
+    width: 280px;
+    padding: 0 15px;
+    border: 2px solid var(--green300);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--gray300);
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: capitalize;
+    text-align: left;
+    font-family: var(--poppins);
+    font-style: normal;
+    height: 50px;
+
+    &::placeholder {
+      color: var(--grey300);
+    }
   }
 
   @media only screen and (max-width: 1100px) {

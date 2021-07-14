@@ -4,24 +4,23 @@ import { ReactComponent as Cart } from "../../../assets/images-mobile/cart.svg";
 import { ReactComponent as MyAccount } from "../../../assets/images-mobile/my_account.svg";
 import { ReactComponent as ExitSvg } from "../../../assets/images-desktop/bx_bx-exit.svg";
 import { NavLink, useHistory } from "react-router-dom";
+import { useUser } from "../../../Providers/user";
 
 const MenuDesktop = (): JSX.Element => {
   const history = useHistory();
 
-  const handleClick = () => {
+  const { user } = useUser();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    user.auth = false;
     history.push("/");
-    /*if(isAuth){
-      userLogoff()
-      history.push("/");
-    }else{
-      history.push("/login")
-    }*/
   };
 
   return (
     <AsideContainer>
       <MenuWrapper>
-        <NavLink to="/home" activeClassName="selected">
+        <NavLink exact to="/" activeClassName="selected">
           <Anounciments />
           <span>Anúncios</span>
         </NavLink>
@@ -33,7 +32,7 @@ const MenuDesktop = (): JSX.Element => {
           <MyAccount />
           <span>Minha Conta</span>
         </NavLink>
-        <ButtonLogoffOrEnter onClick={() => handleClick()}>
+        <ButtonLogoffOrEnter onClick={() => handleLogout()}>
           <span>Sair da Conta</span> <ExitSvg />
           {/*isAuth?<span>Sair da Conta<span> <ExitSvg />:<span>Entrar</><EnterSvg/>*/}
         </ButtonLogoffOrEnter>

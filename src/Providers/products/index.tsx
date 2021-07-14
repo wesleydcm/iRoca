@@ -13,7 +13,7 @@ export const ProductsProvider = ({ children }: Props) => {
   const haveProducts = localStorage.getItem(PRODUCTS_LOCALSTORAGE_FLAG);
 
   const defaultValue: IProduct[] =
-    haveProducts === null ? null : JSON.parse(haveProducts);
+    haveProducts === null ? [] : JSON.parse(haveProducts);
 
   const [products, setProducts] = useState<IProduct[]>(defaultValue);
 

@@ -8,20 +8,33 @@ import {
   NotAuthText,
   Link,
 } from "./styles";
+import { useHistory } from "react-router-dom";
+import { useUser } from "../../../Providers/user";
 
 import Button from "../../../Components/Button";
 import { NavLink } from "react-router-dom";
+
 interface MyProfileProps {
   isAuth?: boolean;
 }
 const MyAccountPageMobile = ({ isAuth = true }: MyProfileProps) => {
+  const history = useHistory();
+
+  const { user } = useUser();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    user.auth = false;
+    history.push("/");
+  };
+
   return (
     <>
-      {isAuth ? (
+      {user && user.auth ? (
         <BigContainer>
           <Title>Minha Conta</Title>
           <ContainerButtons>
-            <Link to="/myAccount/profile">
+            <Link to={`/myAccount/profile/${user.personalData.id}`}>
               <Button color={"green"}>Ver Perfil</Button>
             </Link>
             <Link to="/myAccount/history">
@@ -36,7 +49,9 @@ const MyAccountPageMobile = ({ isAuth = true }: MyProfileProps) => {
           </ContainerButtons>
 
           <LeaveContainer>
-            <LeaveButton>Sair da conta</LeaveButton>
+            <LeaveButton onClick={() => handleLogout()}>
+              Sair da conta
+            </LeaveButton>
           </LeaveContainer>
         </BigContainer>
       ) : (

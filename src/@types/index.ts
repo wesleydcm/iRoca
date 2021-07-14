@@ -1,5 +1,11 @@
 import UserController from "../Providers/user/controller";
 
+export interface IPurchaseSeller {
+  name: string;
+  email: string;
+  phone: string;
+}
+
 export interface IAddress {
   cep?: string;
   state: string;
@@ -16,16 +22,16 @@ export interface IUser {
 }
 
 export interface IUserInfo {
-	name: string;
-	email: string;
-	password: string;
-	birthDate: string;
-	cpf: string;
-	phone: string;
-	image?: string;
-	id: number;
-	address: IAddress;
-	favorites: number[];
+  name: string;
+  email: string;
+  password: string;
+  birthDate: string;
+  cpf: string;
+  phone: string;
+  image?: string;
+  id: number;
+  address: IAddress;
+  favorites: number[] | [];
 }
 
 export interface IUserUpdate {
@@ -45,6 +51,8 @@ export interface IUserContext {
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
   initController: () => UserController;
+  tempUser: IUserInfo;
+  setTempUser: React.Dispatch<React.SetStateAction<IUserInfo>>;
 }
 
 export interface ILoginData {
@@ -55,6 +63,13 @@ export interface ILoginData {
 export interface IEvaluations {
   userId: number;
   evaluatorId: number;
+  date: string;
+  feedback: string;
+  grade: number;
+}
+export interface IProductEvaluation {
+  userId: number;
+  productId: number;
   date: string;
   feedback: string;
   grade: number;
@@ -90,7 +105,7 @@ export interface IProduct {
   isOrganic: boolean;
   qty: number;
   images: Image[];
-  evaluations: IEvaluation[];
+  evaluations?: IEvaluation[];
   id: number;
 }
 
@@ -103,6 +118,7 @@ export interface NewProduct {
   isOrganic: boolean;
   qty: number;
   images: Image[];
+  evaluations: IEvaluation[];
 }
 
 export interface IProductContext {
@@ -115,6 +131,7 @@ export interface ICartContext {
 }
 
 export interface IPurchase {
+  id?: number;
   userId: number;
   sellerId: number;
   date: string;
@@ -124,6 +141,12 @@ export interface IPurchase {
   isReceived: boolean;
   products: IProduct[];
 }
+
+export interface ITreatedPurchase {
+  purchase: IPurchase;
+  seller: IPurchaseSeller;
+}
+
 export interface EvaluationData {
   image?: string;
   name: string;
@@ -156,6 +179,7 @@ export interface IBestProducts {
   product: IProduct;
   average: number;
 }
+
 export interface ITreatedProduct {
   product: IProduct;
   average: number;
@@ -171,3 +195,14 @@ export interface IProductUpdatePurchase {
   evaluations?: IEvaluations[];
 }
 
+export interface IEditProfile {
+  name?: string;
+  birthDate?: string;
+  phone?: string;
+  email?: string;
+  cep?: string;
+  city?: string;
+  neighborhood?: string;
+  street?: string;
+  complement?: string;
+}

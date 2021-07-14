@@ -11,6 +11,8 @@ import type {
   IProduct,
   IEvaluation,
   ITreatedProduct,
+  IUserInfo,
+  IProductEvaluation,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -35,7 +37,7 @@ class UserController {
     this.user = user;
   }
 
-  registerUser = async (user: IUser) => {
+  registerUser = async (user: IUser | IUserInfo) => {
     try {
       const response = await api.post("/users", user);
       console.log(response);
@@ -169,7 +171,7 @@ class UserController {
       this.setProducts([...this.products, response.data]);
       successToast("Produto criado com sucesso");
     } catch (e) {
-      errorToast("Não foi possível criar produto");
+      errorToast("Não foi possível criar produto"); console.log(e)
     }
   };
 
@@ -262,11 +264,41 @@ class UserController {
       errorToast("Não foi possível atualizar estado da compra");
     }
   };
-  createEvaluation = async (token: string, evaluation: IEvaluations) => {
+  createProductorEvaluation = async (
+    token: string,
+    evaluation: IEvaluations
+  ) => {
     try {
       const { data } = await api.post(`/evaluations/`, evaluation, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      successToast("Avaliação enviada");
+      return data;
+    } catch (e) {
+      errorToast("Não foi possível concluir avaliação");
+    }
+  };
+  createProductEvaluation = async (
+    token: string,
+    evaluation: IProductEvaluation
+  ) => {
+    try {
+      const { evaluations } = await this.getProduct(evaluation.productId);
+      const { data } = await api.patch(
+        `/products/${evaluation.productId}`,
+        [...evaluations, evaluation],
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      const newProducts = this.products.map((item) => {
+        if (item.id === data.id) {
+          return data;
+        } else {
+          return item;
+        }
+      });
+      this.setProducts(newProducts);
       successToast("Avaliação enviada");
       return data;
     } catch (e) {
@@ -286,7 +318,7 @@ class UserController {
   };
 
   getEvaluationsAverage = (item: IProduct): ITreatedProduct => {
-    if (item.evaluations.length) {
+    if (item.evaluations && item.evaluations.length) {
       const average =
         item.evaluations.reduce((acc: number, evaluation: IEvaluation) => {
           return acc + evaluation.grade;

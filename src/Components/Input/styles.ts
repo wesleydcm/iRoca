@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const StyledInput = styled.input`
-	min-width: 120px;
-	width: fit-content;
+	width: ${({ width }) => width + "px"};
 	height: 50px;
 	padding: 0 15px;
 	border: ${({ color }) =>
@@ -20,7 +19,6 @@ export const StyledInput = styled.input`
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 24px;
-	text-transform: capitalize;
 	text-align: left;
 	font-family: var(--poppins);
 	font-style: normal;

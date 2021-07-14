@@ -1,11 +1,13 @@
+// import { useRef } from "react";
+import { memo } from "react";
 import { Wrapper } from "../styles";
-import { IProduct, IPurchase, IUser } from "../../../@types";
+import { IProduct, IPurchase, IPurchaseSeller } from "../../../@types";
 import ProductCardInCartHistoryMobile from "../../ProductCardInCartHistory/mobile";
 import { ReactComponent as CheckSvg } from "../../../assets/images-mobile/check.svg";
 import { priceFormatter } from "../../../utils";
 
 interface Props {
-	seller: IUser;
+	seller: IPurchaseSeller;
 	purchase: IPurchase;
 	"data-testid"?: string;
 }
@@ -21,30 +23,32 @@ const HistoryCardMobile = ({
 	purchase,
 	...rest
 }: Props): JSX.Element => {
+	// const ref = useRef(0);
+	// console.log(ref.current++);
 	return (
 		<Wrapper isReceived={purchase.isReceived} {...rest}>
 			<div data-css="seller__data">
 				<h3>Vendedor</h3>
 				<div>
 					<span>Nome:</span>
-					<span>{seller.personalData.name}</span>
+					<span>{seller.name}</span>
 				</div>
 				<div>
 					<span>Telefone:</span>
-					<span>{seller.personalData.phone}</span>
+					<span>{seller.phone}</span>
 				</div>
 				<div>
 					<span>E-mail:</span>
-					<span>{seller.personalData.email}</span>
+					<span>{seller.email}</span>
 				</div>
 				<h2>Itens</h2>
 			</div>
 			<span data-css="date">{purchase.date}</span>
 			<ul>
 				{purchase.products.map((item: IProduct) => (
-					<li key={item.id}>
-						<ProductCardInCartHistoryMobile scenery="history" item={item} />
-					</li>
+
+						<ProductCardInCartHistoryMobile key={item.id} scenery="history" item={item} />
+
 				))}
 			</ul>
 			<div data-css="isReceivedWrapper">
@@ -66,4 +70,4 @@ const HistoryCardMobile = ({
 	);
 };
 
-export default HistoryCardMobile;
+export default memo(HistoryCardMobile);

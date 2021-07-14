@@ -11,28 +11,46 @@ interface Props {
   name?: string | undefined;
   value?: string;
   setValue?: Dispatch<SetStateAction<string>>;
+  defaultValue?: string;
+  width?: number;
 }
+
+// interface FormValues {
+//   email: string;
+//   // password: string;
+//   // emailConfirm: string;
+//   // passwordConfirm: string;
+// }
+
+/**
+	@param width define the component width 
+*/
 
 const Input = ({
   type,
   placeholder,
   value,
+  color,
   setValue,
   register = undefined,
   name = undefined,
+  defaultValue = "",
   ...rest
 }: Props): JSX.Element => {
   return register !== undefined && name !== undefined ? (
     <StyledInput
       type={type}
       placeholder={placeholder}
+      defaultValue={defaultValue}
       value={value}
       {...rest}
       {...register(name)}
+      color={color}
     />
   ) : (
     <StyledInput
       type={type}
+      defaultValue={defaultValue}
       placeholder={placeholder}
       value={value}
       onChange={(e) => !!setValue && setValue(e.target.value)}

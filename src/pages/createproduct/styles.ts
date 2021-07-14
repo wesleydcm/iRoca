@@ -21,6 +21,29 @@ export const Container = styled.div`
     margin-top: 1rem;
   }
 
+  .error {
+      position: relative;
+      p {
+          color:var(--gray900);
+          font-size: 1.2rem;
+          margin-bottom: 0.3rem;
+      }
+      span {
+          position: absolute;
+          color: red;
+          left:0.5rem;
+          top:0.5rem;
+          font-weight:600;
+      }
+  }
+
+  h2 {
+        color: var(--green400);
+        font-size: 1.7rem;
+        font-family: var(--nunito);
+        margin-bottom: 0.5rem;
+    }
+
   @media only screen and (min-width: 370px) {
     h1 {
       font-size: 2rem;
@@ -29,6 +52,12 @@ export const Container = styled.div`
 
   @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
     padding-left: 32vw;
+
+    .error {
+        span {
+            top:2.5rem;
+        }
+    }
   }
 `;
 
@@ -76,15 +105,20 @@ export const NameAndCategory = styled.div`
     }
 
     @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        justify-content: flex-start;
+
         input {
-            width: 42vw;
-            height: 2.5rem;
+            width: 28vw;
+            height: 3.5rem;
             font-size: 1rem;
+            margin-right: 10vw;
         }
 
         select {
-            width: 42vw;
-            height: 2.5rem;
+            width: 15vw;
+            height: 3.5rem;
             font-size: 1rem;
         } 
     }
@@ -110,21 +144,48 @@ export const Description = styled.div`
 
 export const DescriptionPriceAndStock = styled.div`
     @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
-        input {
-            width: 86vw;
-            height: 5rem;
-            font-size: 1rem;
+        display: flex;
+        margin-bottom: 1rem;
+        
+        .description {
+            input {
+                width: 30vw;
+                height: 10rem;
+                font-size: 1rem;
+            }
+        }
+
+        .price-and-qty {
+            margin-left: 8vw;
+                input {
+                    width: 15vw;
+                    height: 3.5rem;
+                    font-size: 1rem;
+                    margin-bottom: 1rem;                : ;
+                }
         }
     }
 `;
 
 export const Organic = styled.div`
     @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
-        input {
-            width: 86vw;
-            height: 5rem;
-            font-size: 1rem;
+        display: flex;
+        justify-content: flex-start;
+
+        div.switch {
+        width: 20vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--green400);
+        margin-top: 2rem;
+        
+        span {
+            font-family: var(--nunito);
+            font-weight:600;
+            font-size: 1.7rem;
         }
+    }
     }
 `;
 
@@ -216,6 +277,26 @@ export const Images = styled.div`
             font-size: 1rem;
         }
     }
+
+    @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
+        display: flex;
+        justify-content: flex-start;
+
+        .img {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .img + .img {
+            margin-left: 8vw;
+        }
+
+        input {
+            width: 22vw;
+            height: 3.5rem;
+            font-size: 1rem;
+        }
+    }
 `;
 
 export const Send = styled.div`
@@ -225,6 +306,18 @@ export const Send = styled.div`
         font-size: 0.9rem;
         width: 8rem;
         margin-top: 1rem;
+    }
+
+    @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
+        justify-content: center;
+        margin-left: 28vw;
+        margin-top: -4vw;
+
+        button {
+        font-size: 1.2rem;
+        width: 12vw;
+        height: 4rem;
+        }
     }
  
 `;

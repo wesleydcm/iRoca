@@ -1,7 +1,5 @@
 import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
 import { useWindow } from "../../Providers/window";
-import MenuMobile from "../../Components/Menu/mobile";
-import MenuDesktop from "../../Components/Menu/desktop";
 import { useUser } from "../../Providers/user";
 import ProductCardInCartHistoryMobile from "../../Components/ProductCardInCartHistory/mobile";
 import ProductCardInCartHistory from "../../Components/ProductCardInCartHistory/desktop";

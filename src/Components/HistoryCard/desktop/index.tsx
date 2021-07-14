@@ -1,11 +1,12 @@
 import { Wrapper } from "../styles";
-import { IProduct, IPurchase, IUser } from "../../../@types";
+import { IProduct, IPurchase, IPurchaseSeller } from "../../../@types";
 import ProductCardInCartHistoryMobile from "../../ProductCardInCartHistory/mobile";
 import { ReactComponent as CheckSvg } from "../../../assets/images-mobile/check.svg";
 import { priceFormatter } from "../../../utils";
+import { memo } from "react";
 
 interface Props {
-	seller: IUser;
+	seller: IPurchaseSeller;
 	purchase: IPurchase;
 	"data-testid"?: string;
 }
@@ -24,15 +25,15 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
 				<h3>Vendedor</h3>
 				<div>
 					<span>Nome:</span>
-					<span>{seller.personalData.name}</span>
+					<span>{seller.name}</span>
 				</div>
 				<div>
 					<span>Telefone:</span>
-					<span>{seller.personalData.phone}</span>
+					<span>{seller.phone}</span>
 				</div>
 				<div>
 					<span>E-mail:</span>
-					<span>{seller.personalData.email}</span>
+					<span>{seller.email}</span>
 				</div>
 				<h2>Itens</h2>
 			</div>
@@ -49,9 +50,11 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
 			</div>
 			<ul>
 				{purchase.products.map((item: IProduct) => (
-					<li key={item.id}>
-						<ProductCardInCartHistoryMobile scenery="history" item={item} />
-					</li>
+					<ProductCardInCartHistoryMobile
+						key={item.id}
+						scenery="history"
+						item={item}
+					/>
 				))}
 			</ul>
 			<div data-css="isReceivedWrapper">
@@ -62,4 +65,4 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
 	);
 };
 
-export default HistoryCard;
+export default memo(HistoryCard);

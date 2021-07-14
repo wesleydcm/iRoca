@@ -24,10 +24,10 @@ import ProductSwitch from "../../Components/Switch";
 
 interface Data {
   name: string;
-  //category: string;
+  category: string;
   description: string;
-  price: number;
-  qty: number;
+  price: string;
+  qty: string;
   imageOne: string;
   imageTwo: string;
   imageThree: string;
@@ -35,7 +35,12 @@ interface Data {
 }
 
 const CreateProductPage = () => {
-  const { register, handleSubmit, reset, } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(createProductSchema),
   });
 
@@ -52,248 +57,290 @@ const CreateProductPage = () => {
     const newProduct: NewProduct = {
       userId: user.personalData.id,
       name: data.name,
-      category: data.name,
+      category: data.category,
       description: data.description,
-      price: data.price,
+      price: Number(data.price),
       isOrganic: state.checkedA,
-      qty: data.qty,
+      qty: Number(data.qty),
       images: [
         { url: data.imageOne },
         { url: data.imageTwo },
         { url: data.imageThree },
         { url: data.imageFour },
       ],
+      evaluations: [],
     };
-    console.log(data)
-    console.log(newProduct)
+
+    console.log(newProduct);
     controller.createProduct(user.token, newProduct);
     reset();
     history.push("/myaccount");
   };
 
   const { pageWidth } = useWindow();
-  
- 
-  return (
-    <Container>
-      <h1>Cadastrar produto</h1>
 
-      <form onSubmit={handleSubmit(createProduct)}>
-        <NameAndCategory>
-          <Input
-            type="text"
-            name="name"
-            register={register}
-            placeholder="Produto"
-            data-testid="createProduct"
-            color="green"
-          />
-          {/* <select
-            {...register("category")}
-            data-testid="createProduct"
-            color="green"
-          >
-            <option>Categoria</option>
-            <option value="fruits">Frutas</option>
-            <option value="vegetables">Verduras</option>
-            <option value="legumes">Legumes</option>
-          </select> */}
-        </NameAndCategory>
+  if (pageWidth < WINDOW_SIZE_DESKTOP) {
+    return (
+      <Container>
+        <h1>Cadastrar produto</h1>
 
-        <Description>
-          <Input
-            type="text"
-            name="description"
-            register={register}
-            placeholder="Descrição"
-            data-testid="createProduct"
-            color="green"
-          />
-        </Description>
+        <form onSubmit={handleSubmit(createProduct)}>
+          <NameAndCategory>
+            <div className="error">
+              <span>{errors.name?.message}</span>
+              <Input
+                type="text"
+                name="name"
+                register={register}
+                placeholder="Produto"
+                data-testid="createProduct"
+                color="green"
+              />
+            </div>
+            <select
+              {...register("category")}
+              data-testid="createProduct"
+              color="green"
+            >
+              <option value="frutas">Frutas</option>
+              <option value="verduras">Verduras</option>
+              <option value="legumes">Legumes</option>
+            </select>
+          </NameAndCategory>
 
-        <PriceAndOrganic>
-          <Input
-            type="number"
-            name="price"
-            register={register}
-            placeholder="Preço por Kg"
-            data-testid="createProduct"
-            color="green"
-          />
-           {/* <div className="switch">
-             <ProductSwitch state={state} setState={setState}/>
-           </div> */}
-        </PriceAndOrganic>
+          <Description>
+            <div className="error">
+              <span>{errors.description?.message}</span>
+              <Input
+                type="text"
+                name="description"
+                register={register}
+                placeholder="Descrição"
+                data-testid="createProduct"
+                color="green"
+              />
+            </div>
+          </Description>
 
-        <Stock>
-          <Input
-            type="number"
-            name="qty"
-            register={register}
-            placeholder="Quantidade em estoque (Kg)"
-            data-testid="createProduct"
-            color="green"
-          />
-        </Stock>
-
-        <Images>
-          <h2>Imagens</h2>
-          <Input
-            type="name"
-            name="imageOne"
-            register={register}
-            placeholder="Link da imagem"
-            data-testid="createProduct"
-            color="green"
-          />
-          <Input
-            type="name"
-            name="imageTwo"
-            register={register}
-            placeholder="Link da imagem"
-            data-testid="createProduct"
-            color="green"
-          />
-          <Input
-            type="name"
-            name="imageThree"
-            register={register}
-            placeholder="Link da imagem"
-            data-testid="createProduct"
-            color="green"
-          />
-          <Input
-            type="name"
-            name="imageFour"
-            register={register}
-            placeholder="Link da imagem"
-            data-testid="createProduct"
-            color="green"
-          />
-        </Images>
-
-        <Send>
-          <Button color="green" type="submit">
-            Cadastrar
-          </Button>
-        </Send>
-      </form>
-    </Container>
-  );
-};
-
-export default CreateProductPage;
-
-/*
-<Container>
-      <h1>Cadastrar produto</h1>
-
-      <form onSubmit={handleSubmit(createProduct)}>
-        <NameAndCategory>
-          <Input
-            type="text"
-            name="name"
-            register={register}
-            placeholder="Nome"
-            data-testid="createProduct"
-            color="green"
-          />
-          <select
-            name="category"
-            //register={register}
-            data-testid="createProduct"
-            color="green"
-          >
-            <option>Categoria</option>
-            <option value="fruits">Frutas</option>
-            <option value="vegetables">Verduras</option>
-            <option value="legumes">Legumes</option>
-          </select>
-        </NameAndCategory>
-
-        <DescriptionPriceAndStock>
-          <Input
-            type="text"
-            name="description"
-            register={register}
-            placeholder="Descrição"
-            data-testid="createProduct"
-            color="green"
-          />
-          <div>
-            <Input
+          <PriceAndOrganic>
+            <div className="error">
+              <span>{errors.price?.message}</span>
+              <Input
                 type="number"
                 name="price"
                 register={register}
                 placeholder="Preço por Kg"
                 data-testid="createProduct"
                 color="green"
-            />
-            <Input
+              />
+            </div>
+            <div className="switch">
+              <ProductSwitch state={state} setState={setState} />
+            </div>
+          </PriceAndOrganic>
+
+          <Stock>
+            <div className="error">
+              <span>{errors.qty?.message}</span>
+              <Input
                 type="number"
                 name="qty"
                 register={register}
                 placeholder="Quantidade em estoque (Kg)"
                 data-testid="createProduct"
                 color="green"
-            />
-          </div>
-        </DescriptionPriceAndStock>
+              />
+            </div>
+          </Stock>
 
-        <Images>
-          <h2>Imagens</h2>
-          <Input
-            type="name"
-            name="url"
-            register={register}
-            placeholder="Link da imagem"
-            data-testid="createProduct"
-            color="green"
-          />
-          <Input
-            type="name"
-            name="url"
-            register={register}
-            placeholder="Link da imagem"
-            data-testid="createProduct"
-            color="green"
-          />
-          <Input
-            type="name"
-            name="url"
-            register={register}
-            placeholder="Link da imagem"
-            data-testid="createProduct"
-            color="green"
-          />
-          <Input
-            type="name"
-            name="url"
-            register={register}
-            placeholder="Link da imagem"
-            data-testid="createProduct"
-            color="green"
-          />
-        </Images>
-
-        <Organic>
+          <Images>
+            <h2>Imagens</h2>
             <Input
-            type="text"
-            name="isOrganic"
-            register={register}
-            placeholder="Orgânico?"
-            data-testid="createProduct"
-            color="green"
+              type="name"
+              name="imageOne"
+              register={register}
+              placeholder="Link da imagem"
+              data-testid="createProduct"
+              color="green"
             />
-        </Organic>
+            <Input
+              type="name"
+              name="imageTwo"
+              register={register}
+              placeholder="Link da imagem"
+              data-testid="createProduct"
+              color="green"
+            />
+            <Input
+              type="name"
+              name="imageThree"
+              register={register}
+              placeholder="Link da imagem"
+              data-testid="createProduct"
+              color="green"
+            />
+            <Input
+              type="name"
+              name="imageFour"
+              register={register}
+              placeholder="Link da imagem"
+              data-testid="createProduct"
+              color="green"
+            />
+          </Images>
 
-        <Send>
-          <Button color="green" type="submit">
-            Cadastrar
-          </Button>
-        </Send>
-      </form>
-    </Container>;
+          <Send>
+            <Button color="green" type="submit">
+              Cadastrar
+            </Button>
+          </Send>
+        </form>
+      </Container>
+    );
+  } else {
+    return (
+      <Container>
+        <h1>Cadastrar produto</h1>
 
+        <form onSubmit={handleSubmit(createProduct)}>
+          <NameAndCategory>
+            <div className="error">
+              <p>Produto</p>
+              <span>{errors.name?.message}</span>
+              <Input
+                type="text"
+                name="name"
+                register={register}
+                placeholder=""
+                data-testid="createProduct"
+                color="green"
+              />
+            </div>
+            <div className="error">
+              <p>Categoria</p>
+              <span>{errors.category?.message}</span>
+              <select
+                {...register("category")}
+                data-testid="createProduct"
+                color="green"
+              >
+                <option value="frutas">Frutas</option>
+                <option value="vegetais">Verduras</option>
+                <option value="legumes">Legumes</option>
+              </select>
+            </div>
+          </NameAndCategory>
 
-*/
+          <DescriptionPriceAndStock>
+            <div className="description">
+              <div className="error">
+                  <p>Descrição</p>
+                  <span>{errors.description?.message}</span>
+                  <Input
+                    type="text"
+                    name="description"
+                    register={register}
+                    placeholder=""
+                    data-testid="createProduct"
+                    color="green"
+                  />
+                </div>
+              </div>
+            <div className="price-and-qty">
+              <div className="error">
+                <p>Preço por Kg</p>
+                <span>{errors.price?.message}</span>
+                <Input
+                  type="number"
+                  name="price"
+                  register={register}
+                  placeholder=""
+                  data-testid="createProduct"
+                  color="green"
+                />
+              </div>
+              <div className="error">
+                <p>Quantidade em estoque (Kg)</p>
+                <span>{errors.qty?.message}</span>
+                <Input
+                  type="number"
+                  name="qty"
+                  register={register}
+                  placeholder=""
+                  data-testid="createProduct"
+                  color="green"
+                />
+              </div>
+            </div>
+          </DescriptionPriceAndStock>
+
+          <h2>Imagens</h2>
+          <Images>
+            <div className="img">
+              <div className="error">
+                <p>Link</p>
+                <Input
+                  type="name"
+                  name="url"
+                  register={register}
+                  placeholder=""
+                  data-testid="createProduct"
+                  color="green"
+                />
+              </div>
+              <div className="error">
+                <p>Link</p>
+                <Input
+                  type="name"
+                  name="url"
+                  register={register}
+                  placeholder=""
+                  data-testid="createProduct"
+                  color="green"
+                />
+              </div>
+            </div>
+            <div className="img">
+              <div className="error">
+                <p>Link</p>
+                <Input
+                  type="name"
+                  name="url"
+                  register={register}
+                  placeholder=""
+                  data-testid="createProduct"
+                  color="green"
+                />
+              </div>
+              <div className="error">
+                <p>Link</p>
+                <Input
+                  type="name"
+                  name="url"
+                  register={register}
+                  placeholder=""
+                  data-testid="createProduct"
+                  color="green"
+                />
+              </div>
+            </div>
+          </Images>
+
+          <Organic>
+            <div className="switch">
+              <ProductSwitch state={state} setState={setState} />
+            </div>
+          </Organic>
+
+          <Send>
+            <Button color="green" type="submit">
+              Cadastrar
+            </Button>
+          </Send>
+        </form>
+      </Container>
+    );
+  }
+};
+
+export default CreateProductPage;

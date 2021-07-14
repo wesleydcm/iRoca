@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 interface Props {
   color?: string;
+  width?: number;
 }
 
 export const StyledButton = styled.button<Props>`
-  width: fit-content;
+  width: ${({ width }) => width + "px"};
   height: 40px;
   padding: 0 20px;
 
@@ -26,7 +27,7 @@ export const StyledButton = styled.button<Props>`
   &:hover {
     box-shadow: ${({ color }) =>
       !!color
-        ? "3px 3px 6px -3px var(--gray900)"
+        ? "1px 2px 5px 2px var(--font-color)"
         : "1px 2px 5px 2px var(--green600)"};
   }
 `;
