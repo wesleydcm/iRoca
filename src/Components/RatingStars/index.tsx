@@ -1,7 +1,6 @@
 import Rating from "@material-ui/lab/Rating";
 import { Dispatch, SetStateAction } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { useState, useEffect } from "react";
 import { Container } from "./styles";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
 

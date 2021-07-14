@@ -6,13 +6,11 @@ import { priceFormatter } from "../../../utils";
 import { memo } from "react";
 import DialogModal from "../../Modal";
 import { useUser } from "../../../Providers/user";
-import { Dispatch } from "react";
 
 interface Props {
 	seller: IPurchaseSeller;
 	purchase: IPurchase;
 	"data-testid"?: string;
-	setIsToRefresh: Dispatch<React.SetStateAction<boolean>>;
 }
 /**
  * It's the product that must be used into histories.

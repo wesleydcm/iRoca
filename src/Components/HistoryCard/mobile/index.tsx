@@ -1,5 +1,5 @@
 // import { useRef } from "react";
-import { Dispatch, memo } from "react";
+import { memo } from "react";
 import { Wrapper } from "../styles";
 import { IProduct, IPurchase, IPurchaseSeller } from "../../../@types";
 import ProductCardInCartHistoryMobile from "../../ProductCardInCartHistory/mobile";
@@ -12,7 +12,6 @@ interface Props {
 	seller: IPurchaseSeller;
 	purchase: IPurchase;
 	"data-testid"?: string;
-	setIsToRefresh: Dispatch<React.SetStateAction<boolean>>;
 }
 /**
  * It's the product that must be used into histories.

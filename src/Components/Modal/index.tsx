@@ -3,7 +3,6 @@ import Button from "../../Components/Button";
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
 import { Wrapper, StyledDialog } from "./styles";
-import { string } from "yup/lib/locale";
 
 interface Props {
 	title: string;

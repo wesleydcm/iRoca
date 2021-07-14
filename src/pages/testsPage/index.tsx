@@ -8,7 +8,7 @@ import { ReactComponent as CloseSvg } from "../../assets/images-desktop/close.sv
 import { ReactComponent as SearchSvg } from "../../assets/images-desktop/search.svg";
 import InputIconMobile from "../../Components/InputIcon/mobile";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
-import { useUser } from "../../Providers/user";
+// import { useUser } from "../../Providers/user";
 import RatingStars from "../../Components/RatingStars";
 import { mockedProduct } from "../../utils/mocks";
 import ProducerCartDesktop from "../../Components/Producer_Cart/desktop";
@@ -20,17 +20,17 @@ const Test = () => {
   const [value3, setValue3] = useState<string>("");
   const [value4, setValue4] = useState<string>("");
 
-  const { initController } = useUser();
+  // const { initController } = useUser();
   const handleSubmit = () => {
     //Colocar a lógica de enviar para API a avaliação aqui
     setIsOpened(false);
   };
-  const clicked = (): void => {
-    const controller = initController();
-    controller.getEvaluationsOfUser(1).then((resp) => {
-      console.log(resp);
-    });
-  };
+  // const clicked = (): void => {
+  //   const controller = initController();
+  //   controller.getEvaluationsOfUser(1).then((resp) => {
+  //     console.log(resp);
+  //   });
+  // };
   const [isOpened, setIsOpened] = useState<boolean>(false);
   console.log(isOpened);
   return (

@@ -73,6 +73,7 @@ const MyPurchasesHistory = (): JSX.Element => {
 			};
 			getTreatedPurchasesList();
 		}
+		// eslint-disable-next-line
 	}, [treatPurchasesList]);
 
 	if (!user) {
