@@ -42,19 +42,19 @@ export const Container = styled(motion.div)`
     border: 2px solid var(--green300);
     border-radius: 10px;
     background: transparent;
-    color: var(--gray300);
+    color: var(--gray600);
     outline: none;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    text-transform: capitalize;
     text-align: left;
     font-family: var(--poppins);
     font-style: normal;
     height: 50px;
+    text-transform: lowercase;
 
     &::placeholder {
-      color: var(--grey300);
+      color: var(--grey300) !important;
     }
   }
 

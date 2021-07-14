@@ -69,6 +69,11 @@ const RegisterStep2Desktop = () => {
       phone: data.phone,
       image: data.image,
     });
+
+    if (tempUser.image === "") {
+      tempUser.image = "https://i.imgur.com/a13ketP.png";
+    }
+
     reset();
     history.push("/register-third");
   };

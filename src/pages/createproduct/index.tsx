@@ -71,7 +71,25 @@ const CreateProductPage = () => {
       evaluations: [],
     };
 
-    console.log(newProduct);
+    const hasImage = newProduct.images.find((image) => image.url !== "");
+
+    if (hasImage === undefined) {
+      if (newProduct.category === "frutas") {
+        newProduct.images[0] = {
+          url: "https://i.imgur.com/mpSdjxN.png",
+        };
+      }
+      if (newProduct.category === "vegetais") {
+        newProduct.images[0] = {
+          url: "https://i.imgur.com/ePV8RUi.png",
+        };
+      }
+      if (newProduct.category === "legumes") {
+        newProduct.images[0] = {
+          url: "https://i.imgur.com/dajV9Qi.png",
+        };
+      }
+    }
     controller.createProduct(user.token, newProduct);
     reset();
     history.push("/myaccount");
@@ -281,7 +299,7 @@ const CreateProductPage = () => {
                 <p>Link</p>
                 <Input
                   type="name"
-                  name="url"
+                  name="imageOne"
                   register={register}
                   placeholder=""
                   data-testid="createProduct"
@@ -292,7 +310,7 @@ const CreateProductPage = () => {
                 <p>Link</p>
                 <Input
                   type="name"
-                  name="url"
+                  name="imageTwo"
                   register={register}
                   placeholder=""
                   data-testid="createProduct"
@@ -305,7 +323,7 @@ const CreateProductPage = () => {
                 <p>Link</p>
                 <Input
                   type="name"
-                  name="url"
+                  name="imageThree"
                   register={register}
                   placeholder=""
                   data-testid="createProduct"
@@ -316,7 +334,7 @@ const CreateProductPage = () => {
                 <p>Link</p>
                 <Input
                   type="name"
-                  name="url"
+                  name="imageFour"
                   register={register}
                   placeholder=""
                   data-testid="createProduct"
