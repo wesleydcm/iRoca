@@ -3,7 +3,7 @@ import Button from "../../../Components/Button";
 import Stars from "../../../Components/RatingStars";
 import Menu from "../../../Components/Menu/desktop";
 import EvaluationCard from "../../../Components/EvaluationCard";
-import Carousel from "react-elastic-carousel";
+//import Carousel from "react-elastic-carousel";
 import { useEffect, useState } from "react";
 import { useUser } from "../../../Providers/user";
 import { useParams } from "react-router-dom";
@@ -45,9 +45,9 @@ const ProductPageComponentDesktop = () => {
     const getProductData = async () => {
       const controller = initController();
 
-      const productData = await controller.getProduct(Number(param.id));
+      //const productData = await controller.getProduct(Number(param.id));
 
-      setProducts(productData);
+     // setProducts(productData);
     };
 
     getProductData();
@@ -87,10 +87,10 @@ const ProductPageComponentDesktop = () => {
       <Container>
         <h1>{product?.name}</h1>
         <div className="container">
-          <Carousel itemsToShow={1} isRTL={false} showArrows={true}>
+         {/* <Carousel itemsToShow={1} isRTL={false} showArrows={true}>
             <img src={imageURL} alt="asd" />
             <img src={imageURL2} alt="asd" />
-          </Carousel>
+  </Carousel>*/}
           <ProducerCard />
         </div>
         <Button type="button" color="green" onClick={addToCart}>

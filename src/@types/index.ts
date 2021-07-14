@@ -108,6 +108,19 @@ export interface IProduct {
   evaluations?: IEvaluation[];
   id: number;
 }
+
+export interface NewProduct {
+  userId: number;
+  name: string;
+  category: string;
+  description: string;
+  price: number;
+  isOrganic: boolean;
+  qty: number;
+  images: Image[];
+  evaluations: IEvaluation[];
+}
+
 export interface IProductContext {
   products: IProduct[];
   setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
@@ -118,7 +131,7 @@ export interface ICartContext {
 }
 
 export interface IPurchase {
-  id: number;
+  id?: number;
   userId: number;
   sellerId: number;
   date: string;
@@ -172,6 +185,16 @@ export interface ITreatedProduct {
   average: number;
   isFavorite?: boolean;
 }
+
+export interface IProductUpdatePurchase {
+  name?: string;
+  description?: string;
+  price?: number;
+  qty: number;
+  images?: string[];
+  evaluations?: IEvaluations[];
+}
+
 export interface IEditProfile {
   name?: string;
   birthDate?: string;

@@ -9,28 +9,26 @@ export const BigContainer = styled.div`
   min-height: 662px;
   display: flex;
   flex-wrap: wrap;
-
   flex-direction: column;
+
 `;
 export const Link = styled(NavLink)`
-  width: 90%;
+//  width: 90%;
   height: 65px;
-  margin: 15px 0px;
+  margin: 10px 0px;
   color: white;
 `;
 
 export const ContainerButtons = styled.div`
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
-  margin: 0 auto;
   button {
-    width: 320px;
-    height: 65px;
-    margin: 15px 0px;
+    width: 18rem;
+    height: 4rem;
+    margin: 1rem 0;
   }
 `;
 export const Title = styled.h1`

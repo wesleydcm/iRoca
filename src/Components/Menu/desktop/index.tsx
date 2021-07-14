@@ -24,7 +24,7 @@ const MenuDesktop = (): JSX.Element => {
           <Anounciments />
           <span>Anúncios</span>
         </NavLink>
-        <NavLink to="/cart" activeClassName="selected" data-testid="linkToCart">
+        <NavLink to="/mycart" activeClassName="selected" data-testid="linkToCart">
           <Cart />
           <span>Carrinho</span>
         </NavLink>

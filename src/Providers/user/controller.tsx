@@ -4,6 +4,8 @@ import type {
   ILoginData,
   IUserUpdate,
   IProductUpdate,
+  IProductUpdatePurchase,
+  NewProduct,
   IPurchase,
   IEvaluations,
   IProduct,
@@ -156,7 +158,7 @@ class UserController {
     }
   };
 
-  createProduct = async (token: string, product: IProduct) => {
+  createProduct = async (token: string, product: NewProduct) => {
     const { sub } = decodeToken(token);
     //se o token for valido, vai retornar um id diferente de 0
     product.userId = Number(sub) || 0;
@@ -169,7 +171,7 @@ class UserController {
       this.setProducts([...this.products, response.data]);
       successToast("Produto criado com sucesso");
     } catch (e) {
-      errorToast("Não foi possível criar produto");
+      errorToast("Não foi possível criar produto"); console.log(e)
     }
   };
 
@@ -209,6 +211,7 @@ class UserController {
       errorToast("Não foi possível atualizar produto");
     }
   };
+
   deleteProduct = async (productId: number, token: string) => {
     try {
       const { data } = await api.delete(`/products/${productId}`, {
@@ -219,7 +222,7 @@ class UserController {
       this.setProducts(newProducts);
       successToast("Produto excluido com sucesso");
     } catch (e) {
-      errorToast("Não foi possível excluir produto");
+      errorToast("Não foi possível excluir o produto");
     }
   };
 
@@ -231,12 +234,12 @@ class UserController {
       });
 
       successToast(
-        "Compra efetuada com sucesso, agora é só esperar o produto chegar na sua casa :)"
+        "Compra efetuada com sucesso, agora é só esperar o(s) produto(s) chegar(em) na sua casa :)"
       );
       //retorna uma nova lista de compras pra atualizar o feed
       return await this.getPurchasesOfUser(Number(sub));
     } catch (e) {
-      errorToast("Não foi possível concluir compra");
+      //errorToast("Não foi possível concluir a compra");
     }
   };
 
@@ -339,6 +342,34 @@ class UserController {
     }
     return [];
   };
+
+  updateStock = async (
+    productId: number,
+    productData: IProductUpdatePurchase,
+    token: string
+  ) => {
+    try {
+      const { data } = await api.patch(`/products/${productId}`, productData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const newProducts = this.products.map((item) => {
+        if (item.id === data.id) {
+          return {
+            ...item,
+            ...data,
+          };
+        } else {
+          return item;
+        }
+      });
+      this.setProducts(newProducts);
+      return data;
+    } catch (e) {
+      //errorToast("Não foi possível atualizar produto");
+    }
+  };
+
+
 }
 
 export default UserController;

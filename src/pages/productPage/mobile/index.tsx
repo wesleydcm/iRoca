@@ -8,7 +8,7 @@ import Button from "../../../Components/Button";
 import Stars from "../../../Components/RatingStars";
 import Menu from "../../../Components/Menu/mobile";
 import EvaluationCard from "../../../Components/EvaluationCard";
-import Carousel from "react-elastic-carousel";
+//import Carousel from "react-elastic-carousel";
 import { useEffect, useState } from "react";
 import { useUser } from "../../../Providers/user";
 import { useParams } from "react-router-dom";
@@ -41,9 +41,9 @@ const ProductPageComponentMobile = () => {
   useEffect(() => {
     const getProductData = async () => {
       const controller = initController();
-      const productData = await controller.getProduct(Number(param.id));
+      //const productData = await controller.getProduct(Number(param.id));
 
-      setProducts(productData);
+      //setProducts(productData);
     };
 
     getProductData();
@@ -62,10 +62,10 @@ const ProductPageComponentMobile = () => {
         <Modal product={product} toggleModal={toggleModal} />
       )}
       <Container>
-        <Carousel itemsToShow={1} isRTL={false} showArrows={false}>
+       {/* <Carousel itemsToShow={1} isRTL={false} showArrows={false}>
           <img src={imageURL} alt="asd" />
           <img src={imageURL2} alt="asd" />
-        </Carousel>
+      </Carousel>*/}
         <Button type="button" color="green" onClick={toggleModal}>
           Adicionar ao carrinho
         </Button>
