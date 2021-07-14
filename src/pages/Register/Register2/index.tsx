@@ -3,7 +3,6 @@ import RegisterStep2Desktop from "../../../components/Register/Register_Step_2/d
 
 const Registe2 = () => {
   const viewPort = window.innerWidth;
-  console.log(viewPort);
 
   return (
     <>{viewPort <= 900 ? <RegisterStep2Mobile /> : <RegisterStep2Desktop />}</>

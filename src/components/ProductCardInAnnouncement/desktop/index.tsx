@@ -51,7 +51,7 @@ const ProductCardInAnnouncement = ({
           </figcaption>
         </figure>
       )}
-      <div>
+      <div className="description">
         <div className="infoWrapper">
           <h2>{product.name}</h2>
           <RatingStars value={average} readOnly />

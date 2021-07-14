@@ -51,7 +51,7 @@ export const Card = styled.div`
 
     @media (min-width: 900px) {
       justify-content: flex-end;
-      width: 350px;
+      width: 17vw;
       padding-top: 4px;
     }
   }
