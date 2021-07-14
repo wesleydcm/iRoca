@@ -1,4 +1,4 @@
-import UserController from "../Providers/user/controller";
+import UserController from "../providers/user/controller";
 
 export interface IPurchaseSeller {
   name: string;

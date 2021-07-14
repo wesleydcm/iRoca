@@ -6,8 +6,8 @@ import {
   NotAuthText,
   Link,
 } from "./styles";
-import { useUser } from "../../../Providers/user";
-import Button from "../../../Components/Button";
+import { useUser } from "../../../providers/user";
+import Button from "../../../components/Button";
 import { NavLink } from "react-router-dom";
 
 interface MyProfileProps {
@@ -22,7 +22,7 @@ const MyAccountPageDesktop = ({ isAuth = true }: MyProfileProps) => {
         <BigContainer>
           <Title>Minha Conta</Title>
           <ContainerButtons>
-            <Link to={`/myAccount/profile/${user.personalData.id}`}>
+            <Link to={`/profile/${user.personalData.id}`}>
               <Button color={"green"}>Ver Perfil</Button>
             </Link>
             <Link to="/mypurchaseshistory">

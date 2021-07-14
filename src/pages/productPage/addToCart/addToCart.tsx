@@ -1,9 +1,9 @@
 import { Container, Modal, InputPlusMinus } from "./styles";
-import Button from "../../../Components/Button";
+import Button from "../../../components/Button";
 import { IoMdCloseCircle } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { priceFormatter } from "../../../utils/";
-import { useCart } from "../../../Providers/cart";
+import { useCart } from "../../../providers/cart";
 import { IProduct } from "../../../@types";
 
 interface Props {

@@ -4,17 +4,17 @@ import {
   ProductInformation,
   Wrapper,
 } from "./styles";
-import Button from "../../../Components/Button";
-import Stars from "../../../Components/RatingStars";
-import Menu from "../../../Components/Menu/mobile";
-import EvaluationCard from "../../../Components/EvaluationCard";
+import Button from "../../../components/Button";
+import Stars from "../../../components/RatingStars";
+import Menu from "../../../components/Menu/mobile";
+import EvaluationCard from "../../../components/EvaluationCard";
 import Carousel from "react-elastic-carousel";
 import { useEffect, useState } from "react";
-import { useUser } from "../../../Providers/user";
+import { useUser } from "../../../providers/user";
 import { useParams } from "react-router-dom";
 import { IProduct } from "../../../@types";
 import Modal from "../addToCart/addToCart";
-import ProducerCard from "../../../Components/Producer_Cart/mobile";
+import ProducerCard from "../../../components/Producer_Cart/mobile";
 
 interface Params {
   id: string;
@@ -91,7 +91,7 @@ const ProductPageComponentMobile = () => {
               Em estoque <span>{product?.qty}kg</span>
             </div>
           </ProductInformation>
-          <ProducerCard />
+          <ProducerCard producerId={product.userId} />
           <GeneralEvaluation>
             <h3>Avaliações</h3>
             <div>

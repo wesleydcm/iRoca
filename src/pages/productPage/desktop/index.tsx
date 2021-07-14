@@ -1,15 +1,15 @@
 import { Container, Total } from "./styles";
-import Button from "../../../Components/Button";
-import Stars from "../../../Components/RatingStars";
-import Menu from "../../../Components/Menu/desktop";
-import EvaluationCard from "../../../Components/EvaluationCard";
+import Button from "../../../components/Button";
+import Stars from "../../../components/RatingStars";
+import Menu from "../../../components/Menu/desktop";
+import EvaluationCard from "../../../components/EvaluationCard";
 import Carousel from "react-elastic-carousel";
 import { useEffect, useState } from "react";
-import { useUser } from "../../../Providers/user";
+import { useUser } from "../../../providers/user";
 import { useParams } from "react-router-dom";
 import { IProduct } from "../../../@types";
-import ProducerCard from "../../../Components/Producer_Cart/desktop";
-import { useCart } from "../../../Providers/cart";
+import ProducerCard from "../../../components/Producer_Cart/desktop";
+import { useCart } from "../../../providers/cart";
 import { priceFormatter } from "../../../utils";
 
 interface Params {
@@ -62,18 +62,21 @@ const ProductPageComponentDesktop = () => {
     setQty(qty + 10);
   };
   const decrement = () => {
-    if (qty > 10) {
+    if (qty >= 10) {
       setQty(qty - 10);
     }
   };
 
   const addToCart = () => {
-    const newProduct = { ...product, qty, totalPrice: total };
-    setCart([...cart, newProduct]);
+    if (total !== 0) {
+      const newProduct = { ...product, qty, totalPrice: total };
+      setCart([...cart, newProduct]);
+    }
   };
 
   useEffect(() => {
     setTotal(price * qty);
+    // eslint-disable-next-line
   }, [qty]);
 
   return (
@@ -102,7 +105,7 @@ const ProductPageComponentDesktop = () => {
               <img src={`${imageURL2}`} alt={product.name} />
             )}
           </Carousel>
-          <ProducerCard />
+          <ProducerCard producerId={product.userId} />
         </div>
         <Button type="button" color="green" onClick={addToCart}>
           Adicionar ao carrinho

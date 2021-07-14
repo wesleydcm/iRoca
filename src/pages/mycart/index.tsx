@@ -1,10 +1,10 @@
 import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
-import { useWindow } from "../../Providers/window";
-import { useUser } from "../../Providers/user";
-import ProductCardInCartHistoryMobile from "../../Components/ProductCardInCartHistory/mobile";
-import ProductCardInCartHistory from "../../Components/ProductCardInCartHistory/desktop";
-import { useCart } from "../../Providers/cart";
-import Button from "../../Components/Button";
+import { useWindow } from "../../providers/window";
+import { useUser } from "../../providers/user";
+import ProductCardInCartHistoryMobile from "../../components/ProductCardInCartHistory/mobile";
+import ProductCardInCartHistory from "../../components/ProductCardInCartHistory/desktop";
+import { useCart } from "../../providers/cart";
+import Button from "../../components/Button";
 import { priceFormatter } from "../../utils/index";
 import { Container, Wrapper } from "./styles";
 import { NavLink, useHistory } from "react-router-dom";
@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 const MyCart = () => {
   const { user, initController } = useUser();
   const { cart, setCart } = useCart();
-
+  console.log(cart)
   const [products, setProducts] = useState<IProduct[]>([]);
   const [notAllowedPurchase, setNotAllowedPurchase] = useState<IProduct[]>([]);
   const [shippingValue, setShippingValue] = useState<number>(0);
@@ -145,8 +145,8 @@ const MyCart = () => {
           };
 
           controller.createPurchase(user.token, purchase);
-          // setCart([]);
-          //history.push("/home");
+          setCart([]);
+          history.push("/");
         });
       } else {
       }
@@ -163,7 +163,7 @@ const MyCart = () => {
         <h1>Carrinho</h1>
         {cart.length ? (
           <>
-            <ul>
+            <ul className="scroll"> 
               {cart.map((elem) => (
                 <ProductCardInCartHistoryMobile
                   scenery="cart"
@@ -192,7 +192,7 @@ const MyCart = () => {
         ) : (
           <>
             <p>Seu carrinho está vazio. Que tal irmos às compras?</p>
-            <NavLink to="/home">
+            <NavLink to="/">
               <span>Deseja voltar aos anúncios? Só clicar aqui.</span>
             </NavLink>
           </>
@@ -205,7 +205,7 @@ const MyCart = () => {
         <h1>Carrinho</h1>
         {cart.length ? (
           <>
-            <ul>
+            <ul className="scroll">
               {cart.map((elem) => (
                 <ProductCardInCartHistory
                   scenery="cart"
@@ -234,7 +234,7 @@ const MyCart = () => {
         ) : (
           <>
             <p>Seu carrinho está vazio. Que tal irmos às compras?</p>
-            <NavLink to="/home">
+            <NavLink to="/">
               <span>Deseja voltar aos anúncios? Só clicar aqui.</span>
             </NavLink>
           </>

@@ -5,7 +5,7 @@ export const WINDOW_SIZE_DESKTOP = 900;
 export const USER_LOCALSTORAGE_FLAG = "@iroca/user";
 export const PRODUCTS_LOCALSTORAGE_FLAG = "@iroca/products";
 export const CART_LOCALSTORAGE_FLAG = "@iroca/cart";
-export const EDIT_PRODUCT_LOCALSTORAFE_FLAG = "@iroca/editproduct";
+export const EDIT_PRODUCT_LOCALSTORAGE_FLAG = "@iroca/editproduct";
 
 export const categoriesAndTypes = {
   FRUIT: "frutas",
@@ -34,3 +34,8 @@ export const priceFormatter = (value: number | bigint) =>
     style: "currency",
     currency: "BRL",
   }).format(value);
+
+export const FEEDBACK_MESSAGES = {
+  WITHOUT_PRODUCTS: "Sem produtos cadastrados por enquanto.",
+  WITHOUT_EVALUATION: "Produtor ainda não foi avaliado.",
+};

@@ -34,12 +34,12 @@ const AppearFromCenter = keyframes`
 `;
 export const Container = styled.main`
   font-family: var(--poppins);
-  padding: 60px 98px 0 calc(318px + 74px);
+  padding: 60px 98px 50px calc(318px + 74px);
   padding-left: 32vw;
   display: flex;
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -160,8 +160,9 @@ export const EvaluationContent = styled.section`
     }
   }
 `;
-export const ProductContent = styled.section`
+export const ProductContent = styled.ul`
   width: 100%;
+  flex-grow: auto;
   position: relative;
   animation: ${AppearFromRight} 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
   display: flex;
@@ -170,7 +171,11 @@ export const ProductContent = styled.section`
   flex-flow: row wrap;
   column-gap: 28px;
   row-gap: 2rem;
-  button {
+  h2 {
+    margin: auto;
+    color: var(--gray900);
+  }
+  li {
     outline: none;
     border: none;
     transition: transform 100ms ease-out;
