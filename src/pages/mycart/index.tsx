@@ -1,4 +1,4 @@
-import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
+import { CART_LOCALSTORAGE_FLAG, WINDOW_SIZE_DESKTOP } from "../../utils/index";
 import { useWindow } from "../../providers/window";
 import { useUser } from "../../providers/user";
 import ProductCardInCartHistoryMobile from "../../components/ProductCardInCartHistory/mobile";
@@ -10,21 +10,27 @@ import { Container, Wrapper } from "./styles";
 import { NavLink, useHistory } from "react-router-dom";
 import {
   IProduct,
-  IPurchase,
   IUserInfo,
   IProductUpdatePurchase,
   INewPurchase,
   IProuctCart,
 } from "../../@types";
 import { useEffect, useState } from "react";
+import Modal from "./Modal/modal"; 
 
 const MyCart = () => {
   const { user, initController } = useUser();
   const { cart, setCart } = useCart();
-  console.log(cart);
+  
   const [products, setProducts] = useState<IProduct[]>([]);
   const [notAllowedPurchase, setNotAllowedPurchase] = useState<IProduct[]>([]);
   const [shippingValue, setShippingValue] = useState<number>(0);
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const toggleModal = () => {
+    setOpenModal(!openModal);
+  };
 
   const controller = initController();
 
@@ -84,29 +90,28 @@ const MyCart = () => {
   const total = subtotal + delivery;
   const totalFormatted = priceFormatter(total);
 
-  const hasStock: IProduct[] = [];
   const noStock: IProduct[] = [];
 
   const checkStock = (): boolean => {
+
     const checkCart = (cart: IProuctCart): void => {
       const stockProduct: any = products.find(
         (product: IProduct) => product.id === cart.product.id
       );
-      if (stockProduct && stockProduct.qty >= cart.product.qty) {
-        hasStock.push(stockProduct);
-      } else if (stockProduct && stockProduct.qty < cart.product.qty) {
+      if (stockProduct && stockProduct.qty < cart.product.qty) {
         noStock.push(stockProduct);
       }
     };
     cart.forEach(checkCart);
-
     return noStock.length === 0;
   };
 
   useEffect(() => {
     setNotAllowedPurchase(noStock);
     //eslint-disable-next-line
-  }, [noStock.length]);
+  }, [checkStock()]);
+
+  console.log(notAllowedPurchase)
 
   const updateStock = (): void => {
     const checkCart = (item: IProuctCart, index: number) => {
@@ -147,9 +152,11 @@ const MyCart = () => {
 
           controller.createPurchase(user.token, purchase);
           setCart([]);
-          history.push("/");
+          localStorage.removeItem(CART_LOCALSTORAGE_FLAG);
+          toggleModal();
         });
       } else {
+        toggleModal();
       }
     } else {
       history.push("/login");
@@ -161,6 +168,12 @@ const MyCart = () => {
   if (pageWidth < WINDOW_SIZE_DESKTOP) {
     return (
       <Container>
+        {openModal === true && (
+        <Modal
+          product={notAllowedPurchase}
+          toggleModal={toggleModal}
+        />
+      )}
         <h1>Carrinho</h1>
         {cart.length > 0 ? (
           <>
@@ -203,6 +216,12 @@ const MyCart = () => {
   } else {
     return (
       <Container>
+        {openModal === true && (
+        <Modal
+          product={notAllowedPurchase}
+          toggleModal={toggleModal}
+        />
+        )}
         <h1>Carrinho</h1>
         {cart.length ? (
           <>

@@ -69,6 +69,7 @@ const ProductPageComponentDesktop = () => {
 
   const addToCart = () => {
     const newProduct = { product: { ...product, qty }, totalPrice: total };
+    if (newProduct.product.qty > 0) {
     console.log(newProduct);
     if (cart.length > 0) {
       const haveProductInCart = cart.filter(
@@ -111,7 +112,7 @@ const ProductPageComponentDesktop = () => {
           totalPrice: newProduct.totalPrice,
         },
       ]);
-    }
+    }}
   };
 
   useEffect(() => {

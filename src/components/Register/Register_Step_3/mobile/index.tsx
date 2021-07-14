@@ -87,7 +87,7 @@ const RegisterStep2Mobile = () => {
         password: tempUser.password,
       });
       reset();
-      history.push("/home");
+      history.push("/");
     });
   };
 
