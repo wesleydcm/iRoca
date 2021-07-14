@@ -34,6 +34,7 @@ const ProductCardInCartHistoryMobile = ({
         setIsOpened={setIsOpened}
         evaluationTarget={"product"}
         handleSubmit={handleSubmit}
+        item={item}
       ></NewEvaluation>
       <Wrapper
         scenery={drillScenery}
