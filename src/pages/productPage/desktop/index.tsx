@@ -3,7 +3,7 @@ import Button from "../../../Components/Button";
 import Stars from "../../../Components/RatingStars";
 import Menu from "../../../Components/Menu/desktop";
 import EvaluationCard from "../../../Components/EvaluationCard";
-//import Carousel from "react-elastic-carousel";
+import Carousel from "react-elastic-carousel";
 import { useEffect, useState } from "react";
 import { useUser } from "../../../Providers/user";
 import { useParams } from "react-router-dom";
@@ -21,18 +21,15 @@ const ProductPageComponentDesktop = () => {
   const imageURL2 =
     "https://image.freepik.com/vector-gratis/mercado-linea-caja-carton-frutas-verduras-entrega-alimentos-frescos-tienda-comestibles_24640-64229.jpg";
 
-  const evaluation = {
-    name: "Bino Ferreira 2",
+  const defaultEvaluation = {
+    name: "Anonymus",
     image: imageURL2,
-    feedback: `Lorem ipsum dolor sit, amet consectetur
-    adipisicing elit. Eius, dignissimos accusantium perspiciatis alias
-    recusandae consequatur neque nesciunt cum? Totam tempore iste labore
-    repellendus, consectetur cupiditate nisi ad praesentium quibusdam
-    quisquam.`,
+    feedback: ``,
     grade: 2,
   };
 
   const [product, setProducts] = useState<IProduct>({} as IProduct);
+  const [average, setAverage] = useState<number>(0);
 
   const param: Params = useParams();
   const { initController } = useUser();
@@ -40,14 +37,21 @@ const ProductPageComponentDesktop = () => {
   const [total, setTotal] = useState<number>(0);
   const { cart, setCart } = useCart();
 
-  const price = 2.7;
+  const price = product?.price || 0;
+
   useEffect(() => {
     const getProductData = async () => {
       const controller = initController();
 
-      //const productData = await controller.getProduct(Number(param.id));
+      const productData = await controller.getProduct(Number(param.id));
+      const Average = await controller.getEvaluationsAverage(productData);
+      setAverage(Average.average);
 
-     // setProducts(productData);
+      const newEvaluations = await controller.getAllEvaluationsData(
+        productData.evaluations
+      );
+      productData.evaluations = newEvaluations;
+      setProducts(productData);
     };
 
     getProductData();
@@ -87,10 +91,17 @@ const ProductPageComponentDesktop = () => {
       <Container>
         <h1>{product?.name}</h1>
         <div className="container">
-         {/* <Carousel itemsToShow={1} isRTL={false} showArrows={true}>
-            <img src={imageURL} alt="asd" />
-            <img src={imageURL2} alt="asd" />
-  </Carousel>*/}
+          <Carousel itemsToShow={1} isRTL={false} showArrows={true}>
+            {!!product.images ? (
+              product.images.map((obj, index) => {
+                return (
+                  <img src={`${obj.url}`} alt={product.name} key={index} />
+                );
+              })
+            ) : (
+              <img src={`${imageURL2}`} alt={product.name} />
+            )}
+          </Carousel>
           <ProducerCard />
         </div>
         <Button type="button" color="green" onClick={addToCart}>
@@ -100,28 +111,28 @@ const ProductPageComponentDesktop = () => {
           <div className="qty">
             Em estoque <span>{product?.qty}kg</span>
           </div>
-          <p>
-            {product?.description} Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Eius, dignissimos accusantium perspiciatis alias
-            recusandae consequatur neque nesciunt cum? Totam tempore iste labore
-            repellendus, consectetur cupiditate nisi ad praesentium quibusdam
-            quisquam.
-          </p>
+          <p>{product?.description}</p>
 
           <div className="general-evaluation">
             <h3>Avaliações</h3>
             <div>
-              <Stars readOnly={true} value={2.4} />
+              <Stars readOnly={true} value={average} />
               <span>Avaliação geral</span>
             </div>
           </div>
 
           <div className="evaluation-cards">
-            <EvaluationCard scenery="desktop" evaluation={evaluation} />
-            <EvaluationCard scenery="desktop" evaluation={evaluation} />
-            <EvaluationCard scenery="desktop" evaluation={evaluation} />
-            <EvaluationCard scenery="desktop" evaluation={evaluation} />
-            <EvaluationCard scenery="desktop" evaluation={evaluation} />
+            {!!product &&
+              !!product.evaluations &&
+              product.evaluations.map((item, index) => {
+                return (
+                  <EvaluationCard
+                    scenery="desktop"
+                    evaluation={item || defaultEvaluation}
+                    key={index}
+                  />
+                );
+              })}
           </div>
         </div>
       </Container>
