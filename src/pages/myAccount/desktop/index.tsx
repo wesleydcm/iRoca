@@ -6,8 +6,8 @@ import {
   NotAuthText,
   Link,
 } from "./styles";
-import { useUser } from "../../../Providers/user";
-import Button from "../../../Components/Button";
+import { useUser } from "../../../providers/user";
+import Button from "../../../components/Button";
 import { NavLink } from "react-router-dom";
 interface MyProfileProps {
   isAuth?: boolean;

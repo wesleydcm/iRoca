@@ -7,12 +7,12 @@ import {
 } from "./style";
 import { ReactComponent as ArrowToBack } from "../../../assets/images-mobile/arrow-to-back.svg";
 import { useState, useEffect } from "react";
-import RatingStar from "../../../Components/RatingStars";
-import ProductCardInAnnouncementMobile from "../../../Components/ProductCardInAnnouncement/mobile";
-import EvaluationCard from "../../../Components/EvaluationCard";
+import RatingStar from "../../../components/RatingStars";
+import ProductCardInAnnouncementMobile from "../../../components/ProductCardInAnnouncement/mobile";
+import EvaluationCard from "../../../components/EvaluationCard";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { useUser } from "../../../Providers/user";
-import Loading from "../../../Components/Loading";
+import { useUser } from "../../../providers/user";
+import Loading from "../../../components/Loading";
 import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
 import {
   EDIT_PRODUCT_LOCALSTORAFE_FLAG,

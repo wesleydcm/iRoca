@@ -1,12 +1,12 @@
 import { Container, Form, Box } from "./styles";
-import Input from "../../Components/Input";
+import Input from "../../components/Input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { editProfileSchema } from "../../schemas";
 import { IProduct, IProductUpdate } from "../../@types";
-import Button from "../../Components/Button";
+import Button from "../../components/Button";
 import AddImage from "../../assets/images-mobile/plus.svg";
-import { useUser } from "../../Providers/user";
+import { useUser } from "../../providers/user";
 import { EDIT_PRODUCT_LOCALSTORAFE_FLAG } from "../../utils";
 import { useEffect, useState } from "react";
 

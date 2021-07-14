@@ -4,7 +4,7 @@ import { ReactComponent as Cart } from "../../../assets/images-mobile/cart.svg";
 import { ReactComponent as MyAccount } from "../../../assets/images-mobile/my_account.svg";
 import { ReactComponent as ExitSvg } from "../../../assets/images-desktop/bx_bx-exit.svg";
 import { NavLink, useHistory } from "react-router-dom";
-import { useUser } from "../../../Providers/user";
+import { useUser } from "../../../providers/user";
 
 const MenuDesktop = (): JSX.Element => {
   const history = useHistory();

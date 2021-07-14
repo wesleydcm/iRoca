@@ -9,9 +9,9 @@ import {
   Link,
 } from "./styles";
 import { useHistory } from "react-router-dom";
-import { useUser } from "../../../Providers/user";
+import { useUser } from "../../../providers/user";
 
-import Button from "../../../Components/Button";
+import Button from "../../../components/Button";
 import { NavLink } from "react-router-dom";
 
 interface MyProfileProps {

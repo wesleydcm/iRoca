@@ -7,12 +7,12 @@ import {
 } from "./style";
 import { ReactComponent as ArrowToBack } from "../../../assets/images-mobile/arrow-to-back.svg";
 import { useState, useEffect } from "react";
-import RatingStar from "../../../Components/RatingStars";
-import ProductCardInAnnouncement from "../../../Components/ProductCardInAnnouncement/desktop";
-import EvaluationCard from "../../../Components/EvaluationCard";
+import RatingStar from "../../../components/RatingStars";
+import ProductCardInAnnouncement from "../../../components/ProductCardInAnnouncement/desktop";
+import EvaluationCard from "../../../components/EvaluationCard";
 import { Link, useParams } from "react-router-dom";
-import { useUser } from "../../../Providers/user";
-import Loading from "../../../Components/Loading";
+import { useUser } from "../../../providers/user";
+import Loading from "../../../components/Loading";
 import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
 import {
   EDIT_PRODUCT_LOCALSTORAFE_FLAG,
@@ -119,7 +119,6 @@ const ProfilePageDesktop = (): JSX.Element => {
                 <h4>Avaliação Geral</h4>
                 <RatingStar readOnly value={averageEvaluation} />
               </div>
-              {console.log(evaluation)}
               {evaluation.length ? (
                 evaluation?.map((evaluation, index) => (
                   <EvaluationCard
@@ -134,9 +133,7 @@ const ProfilePageDesktop = (): JSX.Element => {
                   />
                 ))
               ) : (
-                <h2 style={{ margin: "auto" }}>
-                  {FEEDBACK_MESSAGES.WITHOUT_EVALUATION}
-                </h2>
+                <h2>{FEEDBACK_MESSAGES.WITHOUT_EVALUATION}</h2>
               )}
             </EvaluationContent>
           ) : (

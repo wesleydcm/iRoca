@@ -8,11 +8,11 @@ import Vegetables1CategorySvg from "../../../assets/images-mobile/vegetables1_ca
 import Vegetables2CategorySvg from "../../../assets/images-mobile/vegetables2_category.svg";
 import OrganicSvg from "../../../assets/images-mobile/organic_category.svg";
 import HeartSvg from "../../../assets/images-mobile/heart.svg";
-import InputIconDesktop from "../../../Components/InputIcon/desktop";
+import InputIconDesktop from "../../../components/InputIcon/desktop";
 import { ITreatedProduct, ICategoriesAndTypes } from "../../../@types";
-import ProductCardInAnnouncement from "../../../Components/ProductCardInAnnouncement/desktop";
-import Loading from "../../../Components/Loading";
-import { useUser } from "../../../Providers/user";
+import ProductCardInAnnouncement from "../../../components/ProductCardInAnnouncement/desktop";
+import Loading from "../../../components/Loading";
+import { useUser } from "../../../providers/user";
 import { errorToast } from "../../../utils";
 
 interface Props {
