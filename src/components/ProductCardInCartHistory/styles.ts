@@ -7,7 +7,7 @@ interface Prop {
 
 export const Wrapper = styled.li<Prop>`
 	width: 100%;
-	height: 95px;
+	min-height: 95px;
 	position: relative;
 	box-shadow: 0 2px 5px 2px var(--shadow-black);
 	margin-inline: auto;

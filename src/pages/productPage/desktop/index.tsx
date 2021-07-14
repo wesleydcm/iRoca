@@ -62,38 +62,44 @@ const ProductPageComponentDesktop = () => {
     setQty(qty + 10);
   };
   const decrement = () => {
-    if (qty > 10) {
+    if (qty >= 10) {
       setQty(qty - 10);
     }
   };
 
   const addToCart = () => {
     const newProduct = { product: { ...product, qty }, totalPrice: total };
+    console.log(newProduct);
     if (cart.length > 0) {
-      const haveProductInCart = cart.filter((item) => {
-        if (item.product.id === newProduct.product.id) {
-          const newQty = item.product.qty + newProduct.product.qty;
-          const totalPrice = newProduct.totalPrice;
-
-          return {
-            totalPrice,
-            product: {
-              ...item,
-              qty: newQty,
-            },
-          };
-        }
-      });
-      console.log(haveProductInCart);
+      const haveProductInCart = cart.filter(
+        (item) => item.product.id === newProduct.product.id
+      );
       if (haveProductInCart.length > 0) {
+        const newProduct2 = {
+          totalPrice: haveProductInCart[0].totalPrice + newProduct.totalPrice,
+          product: {
+            ...haveProductInCart[0].product,
+            qty: haveProductInCart[0].product.qty + newProduct.product.qty,
+          },
+        };
         const newCart = cart.map((item) => {
-          if (item.product.id === haveProductInCart[0].product.id) {
-            return haveProductInCart[0];
+          if (item.product.id === newProduct2.product.id) {
+            return newProduct2;
           } else {
             return item;
           }
         });
         setCart(newCart);
+      } else {
+        setCart([
+          ...cart,
+          {
+            product: {
+              ...newProduct.product,
+            },
+            totalPrice: newProduct.totalPrice,
+          },
+        ]);
       }
     } else {
       setCart([
@@ -101,7 +107,6 @@ const ProductPageComponentDesktop = () => {
         {
           product: {
             ...newProduct.product,
-            qty,
           },
           totalPrice: newProduct.totalPrice,
         },
@@ -111,6 +116,7 @@ const ProductPageComponentDesktop = () => {
 
   useEffect(() => {
     setTotal(price * qty);
+    // eslint-disable-next-line
   }, [qty]);
 
   return (
