@@ -56,14 +56,16 @@ export const Wrapper = styled.li<Props>`
 		}
 	}
 
-	div[data-css="isReceivedWrapper"] {
+	button[data-css="isReceivedWrapper"] {
 		display: flex;
 		align-items: center;
+		border: none;
+font-family: var(--poppins);
 		span {
 			font-weight: 600;
 			color: var(--gray700);
 			margin-right: 5px;
-			font-size: 10px;
+			font-size: 0.8rem;
 		}
 		svg {
 			opacity: ${({ isReceived }) => (isReceived ? 1 : 0.5)};

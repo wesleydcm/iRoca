@@ -50,7 +50,7 @@ const HomeDesktop = ({
 		<Wrapper>
 			<header>
 				<InputIconDesktop
-					styles={{ width: 660, height: 60 }}
+					styles={{ width: 660, height: "7vh" }}
 					action="search"
 					value={searchValue}
 					setValue={setSearchValue}

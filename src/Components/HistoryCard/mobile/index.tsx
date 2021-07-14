@@ -5,6 +5,8 @@ import { IProduct, IPurchase, IPurchaseSeller } from "../../../@types";
 import ProductCardInCartHistoryMobile from "../../ProductCardInCartHistory/mobile";
 import { ReactComponent as CheckSvg } from "../../../assets/images-mobile/check.svg";
 import { priceFormatter } from "../../../utils";
+import DialogModal from "../../Modal";
+import { useUser } from "../../../Providers/user";
 
 interface Props {
 	seller: IPurchaseSeller;
@@ -25,6 +27,18 @@ const HistoryCardMobile = ({
 }: Props): JSX.Element => {
 	// const ref = useRef(0);
 	// console.log(ref.current++);
+
+	const { user, initController } = useUser();
+	const controller = initController();
+
+	const action = () => {
+		console.log("ação :>> ");
+		controller.updatePurchase(user.token, purchase.id, true).then(response => {
+			console.log("response:>> ", response);
+			purchase.isReceived = true;
+		});
+	};
+
 	return (
 		<Wrapper isReceived={purchase.isReceived} {...rest}>
 			<div data-css="seller__data">
@@ -46,15 +60,22 @@ const HistoryCardMobile = ({
 			<span data-css="date">{purchase.date}</span>
 			<ul>
 				{purchase.products.map((item: IProduct) => (
-
-						<ProductCardInCartHistoryMobile key={item.id} scenery="history" item={item} />
-
+					<ProductCardInCartHistoryMobile
+						key={item.id}
+						scenery="history"
+						item={item}
+					/>
 				))}
 			</ul>
-			<div data-css="isReceivedWrapper">
+			<DialogModal
+				title="entrega"
+				message="Sua compra foi entregue?"
+				action={action}
+				dataCss="isReceivedWrapper"
+			>
 				<span>Recebido?</span>
 				<CheckSvg />
-			</div>
+			</DialogModal>
 			<div data-css="purchase__data">
 				<div>
 					<span>Subtotal: </span>

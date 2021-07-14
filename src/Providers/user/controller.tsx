@@ -5,7 +5,6 @@ import type {
   IUserUpdate,
   IProductUpdate,
   IProductUpdatePurchase,
-  NewProduct,
   IPurchase,
   IEvaluations,
   IProduct,
@@ -91,7 +90,7 @@ class UserController {
   getPurchasesOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/purchases/`);
-      return await response.data;
+      return response.data;
     } catch (e) {
       errorToast("Ocorreu algum erro no sistema");
     }
@@ -158,7 +157,7 @@ class UserController {
     }
   };
 
-  createProduct = async (token: string, product: NewProduct) => {
+  createProduct = async (token: string, product: IProduct) => {
     const { sub } = decodeToken(token);
     //se o token for valido, vai retornar um id diferente de 0
     product.userId = Number(sub) || 0;
@@ -171,7 +170,7 @@ class UserController {
       this.setProducts([...this.products, response.data]);
       successToast("Produto criado com sucesso");
     } catch (e) {
-      errorToast("Não foi possível criar produto"); console.log(e)
+      errorToast("Não foi possível criar produto");
     }
   };
 
@@ -234,12 +233,12 @@ class UserController {
       });
 
       successToast(
-        "Compra efetuada com sucesso, agora é só esperar o(s) produto(s) chegar(em) na sua casa :)"
+        "Compra efetuada com sucesso, agora é só esperar o produto chegar na sua casa :)"
       );
       //retorna uma nova lista de compras pra atualizar o feed
       return await this.getPurchasesOfUser(Number(sub));
     } catch (e) {
-      //errorToast("Não foi possível concluir a compra");
+      errorToast("Não foi possível concluir compra");
     }
   };
 
@@ -257,9 +256,11 @@ class UserController {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      successToast("Compra atualizada com sucesso");
+      successToast("Dados salvos!");
       //retorna a nova lista de compras para atualizar o feed
-      return await this.getPurchasesOfUser(Number(sub));
+      const newList = await this.getPurchasesOfUser(Number(sub));
+      console.log("newList :>> ", newList);
+      return newList;
     } catch (e) {
       errorToast("Não foi possível atualizar estado da compra");
     }
@@ -368,8 +369,6 @@ class UserController {
       //errorToast("Não foi possível atualizar produto");
     }
   };
-
-
 }
 
 export default UserController;

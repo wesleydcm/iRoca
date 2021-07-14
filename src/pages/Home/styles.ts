@@ -118,8 +118,8 @@ export const Wrapper = styled.div`
 			justify-content: space-between;
 			align-items: center;
 			svg[data-css="logo"] {
-				width: 8.7vw;
-				height: 8.7vw;
+				width: 6vw;
+				height: 6vw;
 				max-width: 125px;
 				max-height: 125px;
 			}
@@ -161,8 +161,8 @@ export const Wrapper = styled.div`
 		}
 
 		ul[data-css="filtersWrapper"] > li > button > img {
-			width: 9.5vw;
-			height: 9.5vw;
+			width: 6vw;
+			height: 6vw;
 			max-width: 125px;
 			max-height: 125px;
 		}
