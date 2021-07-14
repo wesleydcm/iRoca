@@ -62,18 +62,21 @@ const ProductPageComponentDesktop = () => {
     setQty(qty + 10);
   };
   const decrement = () => {
-    if (qty > 10) {
+    if (qty >= 10) {
       setQty(qty - 10);
     }
   };
 
   const addToCart = () => {
-    const newProduct = { ...product, qty, totalPrice: total };
-    setCart([...cart, newProduct]);
+    if (total !== 0) {
+      const newProduct = { ...product, qty, totalPrice: total };
+      setCart([...cart, newProduct]);
+    }
   };
 
   useEffect(() => {
     setTotal(price * qty);
+    // eslint-disable-next-line
   }, [qty]);
 
   return (
