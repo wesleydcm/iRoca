@@ -161,7 +161,7 @@ export const DescriptionPriceAndStock = styled.div`
                     width: 15vw;
                     height: 3.5rem;
                     font-size: 1rem;
-                    margin-bottom: 1rem;                : ;
+                    margin-bottom: 1rem;   
                 }
         }
     }

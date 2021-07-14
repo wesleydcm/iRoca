@@ -20,10 +20,16 @@ import { useEffect, useState } from "react";
 const MyCart = () => {
   const { user, initController } = useUser();
   const { cart, setCart } = useCart();
-  console.log(cart)
+
   const [products, setProducts] = useState<IProduct[]>([]);
   const [notAllowedPurchase, setNotAllowedPurchase] = useState<IProduct[]>([]);
   const [shippingValue, setShippingValue] = useState<number>(0);
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const toggleModal = () => {
+    setOpenModal(!openModal);
+  };
 
   const controller = initController();
 
@@ -37,7 +43,7 @@ const MyCart = () => {
   const calcShipping = (): void => {
     if (user !== null) {
       const subtotalQty = parseFloat(
-        cart.reduce((product, acc) => acc.qty + product, 0).toFixed(2)
+        cart.reduce((acc, product) => product.qty + acc, 0).toFixed(2)
       );
       const productPurchaseId: number = cart[0].id;
       let seller: IUserInfo = {} as IUserInfo;
@@ -74,7 +80,7 @@ const MyCart = () => {
   }, [cart]);
 
   const subtotal = parseFloat(
-    cart.reduce((product, acc) => acc.price + product, 0).toFixed(2)
+    cart.reduce((acc, product) => product.price + acc, 0).toFixed(2)
   );
   const subtotalFormatted = priceFormatter(subtotal);
 
