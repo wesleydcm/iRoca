@@ -10,6 +10,7 @@ import { errorToast, WINDOW_SIZE_DESKTOP } from "../../utils";
 import MyPurchasesHistoryMobile from "./mobile";
 import MyPurchasesHistoryDesktop from "./desktop";
 import Loading from "../../Components/Loading";
+import { Redirect } from "react-router-dom";
 
 const MyPurchasesHistory = (): JSX.Element => {
 	const [purchasesList, setPurchasesList] = useState<IPurchase[]>([]);
@@ -22,22 +23,24 @@ const MyPurchasesHistory = (): JSX.Element => {
 	const controller = initController();
 
 	useEffect(() => {
-		controller
-			.getPurchasesOfUser(user.personalData.id)
-			.then((response: IPurchase[]) => {
-				hasUniqueSeller(response);
-				setPurchasesList(response);
-			})
-			.catch(() =>
-				errorToast(
-					`${user.personalData.name}, houve um erro ao tentar buscar suas compras.`,
-				),
-			);
+		if (user && user.auth) {
+			controller
+				.getPurchasesOfUser(user.personalData.id)
+				.then((response: IPurchase[]) => {
+					hasUniqueSeller(response);
+					setPurchasesList(response);
+				})
+				.catch(() =>
+					errorToast(
+						`${user.personalData.name}, houve um erro ao tentar buscar suas compras.`,
+					),
+				);
+		}
 		// eslint-disable-next-line
 	}, []);
 
 	const treatPurchasesList = useMemo(async (): Promise<ITreatedPurchase[]> => {
-		if (!!purchasesList.length) {
+		if (user && user.auth && !!purchasesList.length) {
 			const result: ITreatedPurchase[] = [];
 			const { sellerId } = purchasesList[0];
 			const seller = await controller.getUser(sellerId);
@@ -62,7 +65,7 @@ const MyPurchasesHistory = (): JSX.Element => {
 	}, [purchasesList]);
 
 	useEffect(() => {
-		if (!!purchasesList.length) {
+		if (user && user.auth && !!purchasesList.length) {
 			const getTreatedPurchasesList = async () => {
 				const treatedPurchasesList = await treatPurchasesList;
 				setTreatedPurchasesList(treatedPurchasesList);
@@ -72,6 +75,13 @@ const MyPurchasesHistory = (): JSX.Element => {
 		}
 	}, [treatPurchasesList]);
 
+	if (!user) {
+		return (
+			<>
+				<Redirect to="/" />
+			</>
+		);
+	}
 	const hasUniqueSeller = (purchasesList: IPurchase[] | undefined): void => {
 		if (!!purchasesList && purchasesList.length) {
 			const sellerId = purchasesList[0].sellerId;
