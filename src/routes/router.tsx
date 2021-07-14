@@ -48,13 +48,9 @@ const RouterComponent = () => {
 
         <Route exact path="/myaccount/products" component={CreateProductPage} />
 
+        <Route path="/myAccount/profile" component={ProfilePage} />
+
         <Route path="/myAccount/edit" component={EditProfile} />
-        <Route path="/editProfile">
-          <div>Edit Profile</div>
-        </Route>
-        <Route path="/checkout">
-          <div>Checkout</div>
-        </Route>
       </Switch>
     </>
   );
