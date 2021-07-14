@@ -15,6 +15,7 @@ import MyCart from "../pages/mycart";
 import CreateProductPage from "../pages/createproduct";
 import { useLocation } from "react-router";
 import LoginPage from "../pages/login";
+import EditProfile from "../pages/editProfile";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
 import MyPurchasesHistory from "../pages/MyPurchasesHistory";
 
@@ -38,6 +39,7 @@ const RouterComponent = () => {
         <Route path="/test-page" component={TestsPage} />
         <Route exact path="/myaccount" component={MyAccountPageComponent} />
         <Route exact path="/profile/:id" component={ProfilePage} />
+
         <Route
           path="/myaccount/profile/update-product/:id"
           component={UpdateProduct}
@@ -46,12 +48,12 @@ const RouterComponent = () => {
 
         <Route exact path="/myaccount/products" component={CreateProductPage} />
 
+        <Route path="/myAccount/edit" component={EditProfile} />
+        <Route path="/editProfile">
+          <div>Edit Profile</div>
+        </Route>
         <Route path="/checkout">
           <div>Checkout</div>
-        </Route>
-
-        <Route path="/myAccount/edit">
-          <div>Edit Profile</div>
         </Route>
       </Switch>
     </>

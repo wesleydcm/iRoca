@@ -14,13 +14,14 @@ import {
   IUserInfo,
   IProductUpdatePurchase,
   INewPurchase,
+  IProuctCart,
 } from "../../@types";
 import { useEffect, useState } from "react";
 
 const MyCart = () => {
   const { user, initController } = useUser();
   const { cart, setCart } = useCart();
-  console.log(cart)
+  console.log(cart);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [notAllowedPurchase, setNotAllowedPurchase] = useState<IProduct[]>([]);
   const [shippingValue, setShippingValue] = useState<number>(0);
@@ -35,11 +36,11 @@ const MyCart = () => {
   const history = useHistory();
 
   const calcShipping = (): void => {
-    if (user !== null) {
+    if (user !== null && cart.length > 0) {
       const subtotalQty = parseFloat(
-        cart.reduce((product, acc) => acc.qty + product, 0).toFixed(2)
+        cart.reduce((acc, product) => acc + product.product.qty, 0).toFixed(2)
       );
-      const productPurchaseId: number = cart[0].id;
+      const productPurchaseId: number = cart[0].product.id;
       let seller: IUserInfo = {} as IUserInfo;
       controller.getSellerOfProduct(productPurchaseId).then((response) => {
         seller = response;
@@ -74,7 +75,7 @@ const MyCart = () => {
   }, [cart]);
 
   const subtotal = parseFloat(
-    cart.reduce((product, acc) => acc.price + product, 0).toFixed(2)
+    cart.reduce((acc, product) => acc + product.totalPrice, 0).toFixed(2)
   );
   const subtotalFormatted = priceFormatter(subtotal);
 
@@ -87,13 +88,13 @@ const MyCart = () => {
   const noStock: IProduct[] = [];
 
   const checkStock = (): boolean => {
-    const checkCart = (cart: IProduct): void => {
+    const checkCart = (cart: IProuctCart): void => {
       const stockProduct: any = products.find(
-        (product: IProduct) => product.id === cart.id
+        (product: IProduct) => product.id === cart.product.id
       );
-      if (stockProduct && stockProduct.qty >= cart.qty) {
+      if (stockProduct && stockProduct.qty >= cart.product.qty) {
         hasStock.push(stockProduct);
-      } else if (stockProduct && stockProduct.qty < cart.qty) {
+      } else if (stockProduct && stockProduct.qty < cart.product.qty) {
         noStock.push(stockProduct);
       }
     };
@@ -108,12 +109,12 @@ const MyCart = () => {
   }, [noStock.length]);
 
   const updateStock = (): void => {
-    const checkCart = (item: IProduct, index: number) => {
+    const checkCart = (item: IProuctCart, index: number) => {
       const findedProduct: any = products.find(
-        (product: IProduct) => product.id === item.id
+        (product: IProduct) => product.id === item.product.id
       );
       let newQty: number = 0;
-      newQty = findedProduct.qty - item.qty;
+      newQty = findedProduct.qty - item.product.qty;
       const updatedProduct: IProductUpdatePurchase = { qty: newQty };
       controller.updateStock(findedProduct.id, updatedProduct, user.token);
     };
@@ -128,7 +129,7 @@ const MyCart = () => {
 
         const myId: number = user.personalData.id;
         const date: string = new Date().toDateString();
-        const productPurchaseId: number = cart[0].id;
+        const productPurchaseId: number = cart[0].product.id;
         let seller: IUserInfo = {} as IUserInfo;
 
         controller.getSellerOfProduct(productPurchaseId).then((response) => {
@@ -161,14 +162,14 @@ const MyCart = () => {
     return (
       <Container>
         <h1>Carrinho</h1>
-        {cart.length ? (
+        {cart.length > 0 ? (
           <>
-            <ul className="scroll"> 
+            <ul className="scroll">
               {cart.map((elem) => (
                 <ProductCardInCartHistoryMobile
                   scenery="cart"
-                  key={elem.id}
-                  item={elem}
+                  key={elem.product.id}
+                  item={elem.product}
                 />
               ))}
             </ul>
@@ -209,8 +210,8 @@ const MyCart = () => {
               {cart.map((elem) => (
                 <ProductCardInCartHistory
                   scenery="cart"
-                  key={elem.id}
-                  item={elem}
+                  key={elem.product.id}
+                  item={elem.product}
                 />
               ))}
             </ul>
