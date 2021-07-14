@@ -28,7 +28,7 @@ const MenuDesktop = (): JSX.Element => {
           <Cart />
           <span>Carrinho</span>
         </NavLink>
-        <NavLink to="/myaccount" activeClassName="selected">
+        <NavLink to="/myAccount" activeClassName="selected">
           <MyAccount />
           <span>Minha Conta</span>
         </NavLink>

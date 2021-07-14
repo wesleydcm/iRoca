@@ -33,9 +33,12 @@ const RouterComponent = () => {
         <Route path="/register-second" component={Register2} />
         <Route path="/register-third" component={Register3} />
         <Route path="/test-page" component={TestsPage} />
-        <Route path="/myAccount" component={MyAccountPageComponent} />
+        <Route exact path="/myAccount" component={MyAccountPageComponent} />
         <Route path="/myAccount/profile/:id" component={ProfilePage} />
-        <Route path="/myAccount/update-product/:id" component={UpdateProduct} />
+        <Route
+          path="/myAccount/profile/update-product"
+          component={UpdateProduct}
+        />
         <Route path="/myCart">
           <div>My Cart</div>
         </Route>
