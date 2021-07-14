@@ -18,7 +18,7 @@ export const Container = styled.div`
         margin-bottom: 1rem;
     }
 
-    ul {
+    ul.scroll {
         height: 35vh;
         overflow-y: scroll;
         margin: 1rem 0;
@@ -51,14 +51,14 @@ export const Container = styled.div`
 
     @media only screen and (min-width: 375px) {
         ul {
-            height: 42vh;
+            height: 50vh;
         }
   	}
     
     @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
         padding-left: 32vw;
         
-        ul {
+        ul.scroll {
             height: 55vh;
             display: flex;
             flex-direction: row;
