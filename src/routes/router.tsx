@@ -2,7 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import Register from "../pages/Register";
 import Register2 from "../pages/Register/Register2";
 import Register3 from "../pages/Register/Register3";
-import TestsPage from "../pages/testsPage";
+
 import MyAccountPageComponent from "../pages/myAccount";
 import ProfilePage from "../pages/profile";
 import UpdateProduct from "../pages/editProduct";
@@ -36,7 +36,7 @@ const RouterComponent = () => {
         <Route path="/register" component={Register} />
         <Route path="/register-second" component={Register2} />
         <Route path="/register-third" component={Register3} />
-        <Route path="/test-page" component={TestsPage} />
+
         <Route exact path="/myaccount" component={MyAccountPageComponent} />
         <Route exact path="/profile/:id" component={ProfilePage} />
 

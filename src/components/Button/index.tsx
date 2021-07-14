@@ -6,6 +6,7 @@ interface Props extends DOMAttributes<any> {
   color?: "green" | undefined;
   children: string;
   width?: number;
+  disabled?: boolean;
 }
 
 /**

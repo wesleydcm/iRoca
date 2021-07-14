@@ -28,38 +28,44 @@ const ProductCardInCartHistory = ({
     setIsOpened(false);
   };
   return (
-    <Wrapper scenery={drillScenery} {...rest} onClick={() => setIsOpened(true)}>
-      {item.isOrganic && (
-        <figure className="organicFlag">
-          <OrganicSvg />
-          <figcaption>
-            {item.isOrganic ? "produto orgânico" : "produto não orgânico"}
-          </figcaption>
-        </figure>
-      )}
-      <div>
-        <h2>{item.name}</h2>
-        <h3>{item.qty}Kg</h3>
-      </div>
-      <figure>
-        <img src={item.images[0].url} alt={item.name} />
-        <figcaption>{item.name}</figcaption>
-      </figure>
-      <div data-css="statusWrapper">
-        {scenery === "cart" && (
-          <button>
-            <TrashSvg />
-          </button>
-        )}
-        <span>{priceFormatter(item.price)}/kg</span>
-      </div>
+    <>
       <NewEvaluation
         isOpened={isOpened}
         setIsOpened={setIsOpened}
         evaluationTarget={"product"}
         handleSubmit={handleSubmit}
       ></NewEvaluation>
-    </Wrapper>
+      <Wrapper
+        scenery={drillScenery}
+        {...rest}
+        onClick={() => setIsOpened(true)}
+      >
+        {item.isOrganic && (
+          <figure className="organicFlag">
+            <OrganicSvg />
+            <figcaption>
+              {item.isOrganic ? "produto orgânico" : "produto não orgânico"}
+            </figcaption>
+          </figure>
+        )}
+        <div>
+          <h2>{item.name}</h2>
+          <h3>{item.qty}Kg</h3>
+        </div>
+        <figure>
+          <img src={item.images[0].url} alt={item.name} />
+          <figcaption>{item.name}</figcaption>
+        </figure>
+        <div data-css="statusWrapper">
+          {scenery === "cart" && (
+            <button>
+              <TrashSvg />
+            </button>
+          )}
+          <span>{priceFormatter(item.price)}/kg</span>
+        </div>
+      </Wrapper>
+    </>
   );
 };
 
