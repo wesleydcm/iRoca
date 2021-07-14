@@ -5,14 +5,15 @@ import type {
   IUserUpdate,
   IProductUpdate,
   IProductUpdatePurchase,
-  NewProduct,
   IPurchase,
   IEvaluations,
   IProduct,
+  NewProduct,
   IEvaluation,
   ITreatedProduct,
   IUserInfo,
   IProductEvaluation,
+  INewPurchase,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -91,7 +92,7 @@ class UserController {
   getPurchasesOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/purchases/`);
-      return await response.data;
+      return response.data;
     } catch (e) {
       errorToast("Ocorreu algum erro no sistema");
     }
@@ -171,7 +172,7 @@ class UserController {
       this.setProducts([...this.products, response.data]);
       successToast("Produto criado com sucesso");
     } catch (e) {
-      errorToast("Não foi possível criar produto"); console.log(e)
+      errorToast("Não foi possível criar produto");
     }
   };
 
@@ -226,7 +227,7 @@ class UserController {
     }
   };
 
-  createPurchase = async (token: string, purchase: IPurchase) => {
+  createPurchase = async (token: string, purchase: INewPurchase) => {
     const { sub } = decodeToken(token);
     try {
       await api.post(`/purchases/`, purchase, {
@@ -234,12 +235,12 @@ class UserController {
       });
 
       successToast(
-        "Compra efetuada com sucesso, agora é só esperar o(s) produto(s) chegar(em) na sua casa :)"
+        "Compra efetuada com sucesso, agora é só esperar o produto chegar na sua casa :)"
       );
       //retorna uma nova lista de compras pra atualizar o feed
       return await this.getPurchasesOfUser(Number(sub));
     } catch (e) {
-      //errorToast("Não foi possível concluir a compra");
+      errorToast("Não foi possível concluir compra");
     }
   };
 
@@ -257,9 +258,11 @@ class UserController {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      successToast("Compra atualizada com sucesso");
+      successToast("Dados salvos!");
       //retorna a nova lista de compras para atualizar o feed
-      return await this.getPurchasesOfUser(Number(sub));
+      const newList = await this.getPurchasesOfUser(Number(sub));
+      console.log("newList :>> ", newList);
+      return newList;
     } catch (e) {
       errorToast("Não foi possível atualizar estado da compra");
     }
@@ -368,8 +371,6 @@ class UserController {
       //errorToast("Não foi possível atualizar produto");
     }
   };
-
-
 }
 
 export default UserController;

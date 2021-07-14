@@ -13,6 +13,7 @@ import {
   IPurchase,
   IUserInfo,
   IProductUpdatePurchase,
+  INewPurchase,
 } from "../../@types";
 import { useEffect, useState } from "react";
 
@@ -70,7 +71,7 @@ const MyCart = () => {
   useEffect(() => {
     calcShipping();
     //eslint-disable-next-line
-  }, [cart])
+  }, [cart]);
 
   const subtotal = parseFloat(
     cart.reduce((product, acc) => acc.price + product, 0).toFixed(2)
@@ -132,7 +133,7 @@ const MyCart = () => {
 
         controller.getSellerOfProduct(productPurchaseId).then((response) => {
           seller = response;
-          const purchase: IPurchase = {
+          const purchase: INewPurchase = {
             userId: myId,
             sellerId: seller.id,
             date: date,
@@ -178,8 +179,7 @@ const MyCart = () => {
                   <h3>Frete: {deliveryFormatted}</h3>
                 ) : (
                   <h3>
-                    Frete: será calculado quando você
-                    entrar na sua conta.
+                    Frete: será calculado quando você entrar na sua conta.
                   </h3>
                 )}
                 <h2>Total: {totalFormatted}</h2>
@@ -221,8 +221,7 @@ const MyCart = () => {
                   <h3>Frete: {deliveryFormatted}</h3>
                 ) : (
                   <h3>
-                    Frete: será calculado quando você
-                    entrar na sua conta.
+                    Frete: será calculado quando você entrar na sua conta.
                   </h3>
                 )}
                 <h2>Total: {totalFormatted}</h2>

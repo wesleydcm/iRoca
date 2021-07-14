@@ -31,7 +31,7 @@ export interface IUserInfo {
   image?: string;
   id: number;
   address: IAddress;
-  favorites: number[] | [];
+  favorites: number[];
 }
 
 export interface IUserUpdate {
@@ -131,7 +131,17 @@ export interface ICartContext {
 }
 
 export interface IPurchase {
-  id?: number;
+  id: number;
+  userId: number;
+  sellerId: number;
+  date: string;
+  subtotal: number;
+  delivery: number;
+  total: number;
+  isReceived: boolean;
+  products: IProduct[];
+}
+export interface INewPurchase {
   userId: number;
   sellerId: number;
   date: string;
@@ -162,7 +172,7 @@ export interface PageWidth {
 export interface IStyles {
   size?: number;
   width?: number;
-  height?: number;
+  height?: number | string;
   color?: "green" | "white";
 }
 
