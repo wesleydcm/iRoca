@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import App from "./App";
 import { Global } from "./styles/global";
-import Providers from "./Providers/";
+import Providers from "./providers";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { BrowserRouter } from "react-router-dom";
