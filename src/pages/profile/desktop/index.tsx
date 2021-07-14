@@ -15,7 +15,7 @@ import { useUser } from "../../../providers/user";
 import Loading from "../../../components/Loading";
 import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
 import {
-  EDIT_PRODUCT_LOCALSTORAFE_FLAG,
+  EDIT_PRODUCT_LOCALSTORAGE_FLAG,
   FEEDBACK_MESSAGES,
 } from "../../../utils";
 import { useHistory } from "react-router-dom";
@@ -75,12 +75,12 @@ const ProfilePageDesktop = (): JSX.Element => {
 
   const handleEditProduct = (productId: number) => {
     localStorage.setItem(
-      EDIT_PRODUCT_LOCALSTORAFE_FLAG,
+      EDIT_PRODUCT_LOCALSTORAGE_FLAG,
       JSON.stringify(productId)
     );
 
-    user.personalData.id !== Number(param.id)
-      ? history.push("/myaccount/profile/update-product")
+    user.personalData.id === Number(param.id)
+      ? history.push(`/myaccount/profile/update-product/${productId}`)
       : history.push(`/product/${productId}`);
   };
 

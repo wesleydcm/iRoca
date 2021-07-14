@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   padding-bottom: 130px;
   padding-top: 45px;
+  padding-bottom: 130px;
 
   h1 {
     font-weight: 600;
@@ -33,6 +34,9 @@ export const Container = styled.div`
       transform: translateY(-50%);
       cursor: pointer;
     }
+  }
+  @media only screen and (min-width: 900px) {
+    padding-left: 25vw;
   }
 `;
 

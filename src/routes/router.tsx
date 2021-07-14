@@ -36,7 +36,7 @@ const RouterComponent = () => {
         <Route exact path="/myaccount" component={MyAccountPageComponent} />
         <Route exact path="/profile/:id" component={ProfilePage} />
         <Route
-          path="/myaccount/profile/update-product"
+          path="/myaccount/profile/update-product/:id"
           component={UpdateProduct}
         />
         <Route path="/myCart">

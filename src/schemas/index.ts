@@ -15,3 +15,14 @@ export const editProfileSchema = yup.object().shape({
   street: yup.string(),
   complement: yup.string(),
 });
+export const editProductSchema = yup.object().shape({
+  name: yup.string(),
+  description: yup.string(),
+  price: yup.number(),
+  qty: yup.number(),
+  images: yup.array().of(
+    yup.object().shape({
+      url: yup.string(),
+    })
+  ),
+});

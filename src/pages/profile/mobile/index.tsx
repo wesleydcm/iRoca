@@ -15,7 +15,7 @@ import { useUser } from "../../../providers/user";
 import Loading from "../../../components/Loading";
 import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
 import {
-  EDIT_PRODUCT_LOCALSTORAFE_FLAG,
+  EDIT_PRODUCT_LOCALSTORAGE_FLAG,
   FEEDBACK_MESSAGES,
 } from "../../../utils";
 
@@ -29,9 +29,10 @@ interface Params {
 
 const ProfilePageMobile = (): JSX.Element => {
   const param: Params = useParams();
+  const { user } = useUser();
   const [display, setDisplay] = useState(true);
   const [load, setLoad] = useState(false);
-  const [user, setUser] = useState<IUserInfo>();
+  const [profile, setProfile] = useState<IUserInfo>();
   const [evaluation, setEvaluation] = useState<Evaluations[]>([]);
   const [averageEvaluation, setAverageEvaluation] = useState<number>();
   const [profileProducts, setProfileProducts] = useState<IProduct[]>([]);
@@ -40,7 +41,9 @@ const ProfilePageMobile = (): JSX.Element => {
   const history = useHistory();
   useEffect(() => {
     setLoad(true);
-    controller.getUser(Number(param.id)).then((response) => setUser(response));
+    controller
+      .getUser(Number(param.id))
+      .then((response) => setProfile(response));
     controller.getEvaluationsOfUser(Number(param.id)).then((response: any) => {
       setEvaluation(response);
       setLoad(false);
@@ -69,10 +72,12 @@ const ProfilePageMobile = (): JSX.Element => {
   };
   const handleEditProduct = (productId: number) => {
     localStorage.setItem(
-      EDIT_PRODUCT_LOCALSTORAFE_FLAG,
+      EDIT_PRODUCT_LOCALSTORAGE_FLAG,
       JSON.stringify(productId)
     );
-    history.push("/myaccount/profile/update-product");
+    user.personalData.id === Number(param.id)
+      ? history.push(`/myaccount/profile/update-product/${productId}`)
+      : history.push(`/product/${productId}`);
   };
 
   return (
@@ -81,10 +86,10 @@ const ProfilePageMobile = (): JSX.Element => {
         <Link to="/myAccount">
           <ArrowToBack />
         </Link>
-        <img src={user?.image} alt="user" />
-        <h2>{user?.name}</h2>
-        <h4>{user?.phone}</h4>
-        <h4>{user?.email}</h4>
+        <img src={profile?.image} alt="user" />
+        <h2>{profile?.name}</h2>
+        <h4>{profile?.phone}</h4>
+        <h4>{profile?.email}</h4>
       </ContactContent>
       <ToggleRendering buttonActive={display}>
         <button onClick={() => handleToggle(true)}>
