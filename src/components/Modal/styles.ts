@@ -11,7 +11,8 @@ export const StyledDialog = styled(Dialog)`
 		max-width: unset;
 		/* max-height: unset; */
 		div {
-			min-width: 40vw;
+			/* min-width: 40vw; */
+			min-width: ${() => (window.innerWidth > 900 ? "40vw" : "60vw")};
 			height: fit-content;
 			min-height: 100px;
 
@@ -19,10 +20,10 @@ export const StyledDialog = styled(Dialog)`
 			p {
 				padding-left: 2vw;
 				margin-top: 2vh;
+				font-family: var(--nunito);
 			}
 
 			h2 {
-				font-family: var(--nunito);
 				color: var(--green600);
 				font-size: 1.5rem;
 				text-transform: capitalize;
