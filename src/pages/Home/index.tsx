@@ -3,8 +3,8 @@ import HomeDesktop from "./desktop";
 import { useEffect, useMemo, useState } from "react";
 import type { ITreatedProduct, IProduct } from "../../@types";
 import { categoriesAndTypes, WINDOW_SIZE_DESKTOP } from "../../utils";
-import { useUser } from "../../Providers/user";
-import { useWindow } from "../../Providers/window";
+import { useUser } from "../../providers/user";
+import { useWindow } from "../../providers/window";
 
 interface IProductByID {
   [key: number]: IProduct;

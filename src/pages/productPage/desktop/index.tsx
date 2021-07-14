@@ -91,7 +91,7 @@ const ProductPageComponentDesktop = () => {
             <img src={imageURL} alt="asd" />
             <img src={imageURL2} alt="asd" />
           </Carousel>
-          <ProducerCard />
+          <ProducerCard producerId={product.userId} />
         </div>
         <Button type="button" color="green" onClick={addToCart}>
           Adicionar ao carrinho

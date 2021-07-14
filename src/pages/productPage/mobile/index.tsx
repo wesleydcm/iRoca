@@ -79,7 +79,7 @@ const ProductPageComponentMobile = () => {
               Em estoque <span>{product?.qty}kg</span>
             </div>
           </ProductInformation>
-          <ProducerCard />
+          <ProducerCard producerId={product.userId} />
           <GeneralEvaluation>
             <h3>Avaliações</h3>
             <div>

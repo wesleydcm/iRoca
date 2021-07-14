@@ -8,9 +8,9 @@ import ProfilePage from "../pages/profile";
 import UpdateProduct from "../pages/editProduct";
 import Home from "../pages/Home";
 import ProductPage from "../pages/productPage";
-import MenuMobile from "../Components/Menu/mobile";
-import MenuDesktop from "../Components/Menu/desktop";
-import { useWindow } from "../Providers/window";
+import MenuMobile from "../components/Menu/mobile";
+import MenuDesktop from "../components/Menu/desktop";
+import { useWindow } from "../providers/window";
 import { useLocation } from "react-router";
 import LoginPage from "../pages/login";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
@@ -33,10 +33,10 @@ const RouterComponent = () => {
         <Route path="/register-second" component={Register2} />
         <Route path="/register-third" component={Register3} />
         <Route path="/test-page" component={TestsPage} />
-        <Route exact path="/myAccount" component={MyAccountPageComponent} />
-        <Route path="/myAccount/profile/:id" component={ProfilePage} />
+        <Route exact path="/myaccount" component={MyAccountPageComponent} />
+        <Route exact path="/profile/:id" component={ProfilePage} />
         <Route
-          path="/myAccount/profile/update-product"
+          path="/myaccount/profile/update-product"
           component={UpdateProduct}
         />
         <Route path="/myCart">

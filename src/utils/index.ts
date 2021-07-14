@@ -34,3 +34,8 @@ export const priceFormatter = (value: number | bigint) =>
     style: "currency",
     currency: "BRL",
   }).format(value);
+
+export const FEEDBACK_MESSAGES = {
+  WITHOUT_PRODUCTS: "Sem produtos cadastrados por enquanto.",
+  WITHOUT_EVALUATION: "Produtor ainda não foi avaliado.",
+};

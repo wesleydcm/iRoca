@@ -14,7 +14,10 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { useUser } from "../../../Providers/user";
 import Loading from "../../../Components/Loading";
 import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
-import { EDIT_PRODUCT_LOCALSTORAFE_FLAG } from "../../../utils";
+import {
+  EDIT_PRODUCT_LOCALSTORAFE_FLAG,
+  FEEDBACK_MESSAGES,
+} from "../../../utils";
 
 interface Evaluations {
   avaliator: IUserInfo;
@@ -29,9 +32,9 @@ const ProfilePageMobile = (): JSX.Element => {
   const [display, setDisplay] = useState(true);
   const [load, setLoad] = useState(false);
   const [user, setUser] = useState<IUserInfo>();
-  const [evaluation, setEvaluation] = useState<Evaluations[]>();
+  const [evaluation, setEvaluation] = useState<Evaluations[]>([]);
   const [averageEvaluation, setAverageEvaluation] = useState<number>();
-  const [myProducts, setMyProducts] = useState<IProduct[]>([]);
+  const [profileProducts, setProfileProducts] = useState<IProduct[]>([]);
   const { initController } = useUser();
   const controller = initController();
   const history = useHistory();
@@ -44,7 +47,7 @@ const ProfilePageMobile = (): JSX.Element => {
     });
     controller
       .getProductsOfUser(Number(param.id))
-      .then((response) => setMyProducts(response));
+      .then((response) => setProfileProducts(response));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -69,7 +72,7 @@ const ProfilePageMobile = (): JSX.Element => {
       EDIT_PRODUCT_LOCALSTORAFE_FLAG,
       JSON.stringify(productId)
     );
-    history.push("/myAccount/profile/product");
+    history.push("/myaccount/profile/update-product");
   };
 
   return (
@@ -101,32 +104,40 @@ const ProfilePageMobile = (): JSX.Element => {
                 <h4>Avaliação Geral</h4>
                 <RatingStar readOnly value={averageEvaluation} />
               </div>
-              {evaluation?.map((evaluation, index) => (
-                <EvaluationCard
-                  evaluation={{
-                    name: evaluation.avaliator.name,
-                    image: evaluation.avaliator.image,
-                    grade: evaluation.evaluation.grade,
-                    feedback: evaluation.evaluation.feedback,
-                  }}
-                  scenery="mobile"
-                  key={index}
-                />
-              ))}
+              {evaluation.length ? (
+                evaluation?.map((evaluation, index) => (
+                  <EvaluationCard
+                    evaluation={{
+                      name: evaluation.avaliator.name,
+                      image: evaluation.avaliator.image,
+                      grade: evaluation.evaluation.grade,
+                      feedback: evaluation.evaluation.feedback,
+                    }}
+                    scenery="mobile"
+                    key={index}
+                  />
+                ))
+              ) : (
+                <h2>{FEEDBACK_MESSAGES.WITHOUT_EVALUATION}</h2>
+              )}
             </EvaluationContent>
           ) : (
             <ProductContent>
-              {myProducts.map((myProduct) => (
-                <button onClick={() => handleEditProduct(myProduct.id)}>
+              {profileProducts.length ? (
+                profileProducts.map((myProduct) => (
                   <ProductCardInAnnouncementMobile
                     item={{
                       product: myProduct,
                       average: Number(averageEvaluation),
                     }}
                     key={myProduct.id}
+                    editProduct={handleEditProduct}
+                    ownerProducter={true}
                   />
-                </button>
-              ))}
+                ))
+              ) : (
+                <h2>{FEEDBACK_MESSAGES.WITHOUT_PRODUCTS}</h2>
+              )}
             </ProductContent>
           )}
         </>
