@@ -25,7 +25,7 @@ const MyAccountPageDesktop = ({ isAuth = true }: MyProfileProps) => {
             <Link to={`/profile/${user.personalData.id}`}>
               <Button color={"green"}>Ver Perfil</Button>
             </Link>
-            <Link to="/myAccount/history">
+            <Link to="/mypurchaseshistory">
               <Button color={"green"}>Histórico de compra</Button>
             </Link>
             <Link to="/myAccount/edit">

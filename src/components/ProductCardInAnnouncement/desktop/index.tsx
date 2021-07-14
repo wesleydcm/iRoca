@@ -4,7 +4,7 @@ import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/orga
 import { ITreatedProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import RatingStars from "../../RatingStars";
-import { memo, useRef } from "react";
+import { memo } from "react";
 import { useHistory } from "react-router-dom";
 
 interface Props {
@@ -26,11 +26,11 @@ const ProductCardInAnnouncement = ({
   isFavorite,
   ...rest
 }: Props): JSX.Element => {
-  const reRendersAmount = useRef(0);
-  console.log(
-    "ProductCardInAnnouncement\nreRendersAmount :>> ",
-    reRendersAmount.current++
-  );
+  // const reRendersAmount = useRef(0);
+  // console.log(
+  //   "ProductCardInAnnouncement\nreRendersAmount :>> ",
+  //   reRendersAmount.current++
+  // );
   const history = useHistory();
   const { ownerProducter, editProduct } = { ...rest };
 
