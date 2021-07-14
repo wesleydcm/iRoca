@@ -94,7 +94,7 @@ const RegisterStep3Desktop = () => {
 					password: tempUser.password,
 				});
 				reset();
-				history.push("/home");
+				history.push("/");
 			});
 	};
 

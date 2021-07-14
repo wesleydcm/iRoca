@@ -104,7 +104,7 @@ const RegisterStep1Desktop = () => {
           <p>{errors.emailConfirm?.message}</p>
           <Input
             placeholder={"Senha"}
-            type={"text"}
+            type={"password"}
             width={260}
             name={"password"}
             register={register}
@@ -112,7 +112,7 @@ const RegisterStep1Desktop = () => {
           <p>{errors.email?.message}</p>
           <Input
             placeholder={"Confirmação de senha"}
-            type={"text"}
+            type={"password"}
             width={260}
             name={"passwordConfirm"}
             register={register}

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createContext, ReactNode, useContext, useState } from "react";
-import { IProduct, ICartContext, IProuctCart } from "../../@types";
+import { ICartContext, IProuctCart } from "../../@types";
 import { CART_LOCALSTORAGE_FLAG } from "../../utils";
 
 interface Props {

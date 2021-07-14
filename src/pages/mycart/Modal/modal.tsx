@@ -10,29 +10,45 @@ interface Props {
 }
 
 const AddToCartComponent = ({ toggleModal, product }: Props) => {
+  
   const history = useHistory();
+
+  const goToAnnoucements = () => {
+    toggleModal();
+    history.push("/")
+  }
 
   return (
     <Container>
       <div className="bg"></div>
       <Modal>
-        <div className="information">
+        {product.length ? (
+         <div className="informationNo">
           <p>
-            A compra não foi finalizada porque não há estoque suficiente dos
-            itens abaixo:
+            A compra não foi finalizada porque não há estoque suficiente do(s)
+            produto(s) abaixo:
           </p>
           <ul>
             {product.map((elem) => {
               return (
                 <li key={elem.id}>
-                  Estoque de {elem.name}: {elem.qty} kg.
+                  {elem.name} - Estoque atual: {elem.qty} kg
                 </li>
               );
             })}
           </ul>
-        </div>
+        </div>)
+        : 
+        (
+         <div className="informationYes">
+          <p>
+            Compra realizada sucesso. Voltar para Anúncios?
+          </p>
+         </div>
+        )}
+
         <div className="btn">
-          <Button color="green" onClick={() => history.push("/")}>
+          <Button color="green" onClick={goToAnnoucements}>
             Voltar
           </Button>
         </div>
@@ -43,16 +59,3 @@ const AddToCartComponent = ({ toggleModal, product }: Props) => {
 };
 
 export default AddToCartComponent;
-
-/*
-
-  const increment = () => {
-    setQty(qty + 10);
-  };
-  const decrement = () => {
-    if (qty > 10) {
-      setQty(qty - 10);
-    }
-  };
-
-*/
