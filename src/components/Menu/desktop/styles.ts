@@ -83,7 +83,8 @@ export const MenuWrapper = styled.nav`
 		}
 	}
 
-	button[data-css="exit-button"] {
+	button[data-css="exit-button"],
+	button[data-css="login-button"] {
 		width: 100%;
 		height: 100px;
 		position: absolute;
@@ -104,6 +105,11 @@ export const MenuWrapper = styled.nav`
 		}
 		&:hover {
 			filter: brightness(0.9);
+		}
+	}
+	button[data-css="login-button"] {
+		svg {
+			margin-right: 15px;
 		}
 	}
 `;

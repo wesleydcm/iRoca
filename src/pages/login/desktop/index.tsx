@@ -61,7 +61,7 @@ const LoginPage = () => {
 						color="green"
 					/>
 					<Input
-						type="text"
+						type="password"
 						name="password"
 						register={register}
 						placeholder="Senha"
