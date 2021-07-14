@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "../../../Components/Button";
+import Button from "../../../components/Button";
 import { NavLink } from "react-router-dom";
 export const NotAuthContainer = styled.div`
   display: flex;

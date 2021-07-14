@@ -140,7 +140,7 @@ export const Container = styled.div`
       > div {
         padding-left: 2rem;
         width: 95%;
-        padding-top: 3.8rem;
+        padding-top: 3.5rem;
         padding-bottom: 1.5rem;
 
         h3 {
