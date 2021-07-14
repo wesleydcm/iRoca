@@ -4,6 +4,7 @@ import ProductCardInCartHistoryMobile from "../../ProductCardInCartHistory/mobil
 import { ReactComponent as CheckSvg } from "../../../assets/images-mobile/check.svg";
 import { priceFormatter } from "../../../utils";
 import { memo } from "react";
+import DialogModal from "../../Modal";
 
 interface Props {
 	seller: IPurchaseSeller;
@@ -18,6 +19,10 @@ interface Props {
  * @prop {string} "data-testid?" - Only to jest tests proposal.
  */
 const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
+	const action = () => {
+		console.log("ação :>> ");
+	};
+
 	return (
 		<Wrapper isReceived={purchase.isReceived} {...rest}>
 			<div data-css="seller__data">
@@ -57,10 +62,16 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
 					/>
 				))}
 			</ul>
-			<div data-css="isReceivedWrapper">
+
+			<DialogModal
+				title="entrega"
+				message="Sua compra foi entregue?"
+				action={action}
+				dataCss="isReceivedWrapper"
+			>
 				<span>Recebido?</span>
 				<CheckSvg />
-			</div>
+			</DialogModal>
 		</Wrapper>
 	);
 };
