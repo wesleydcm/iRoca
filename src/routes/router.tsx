@@ -51,23 +51,8 @@ const RouterComponent = () => {
 
         <Route exact path="/myaccount/products" component={CreateProductPage} />
 
-        <Route path="/register-third">
-          <Register3 />
-        </Route>
-
-        <Route path="/checkout">
-          <div>Checkout</div>
-        </Route>
-
         <Route path="/myAccount/profile" component={ProfilePage} />
 
-        <Route path="/myAccount/edit">
-          <div>Edit Profile</div>
-        </Route>
-
-        <Route path="/ownerProfile/:id">
-          <div>Owner Profile</div>
-        </Route>
       </Switch>
     </>
   );
