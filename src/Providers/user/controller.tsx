@@ -8,6 +8,7 @@ import type {
   IPurchase,
   IEvaluations,
   IProduct,
+  NewProduct,
   IEvaluation,
   ITreatedProduct,
   IUserInfo,
@@ -157,7 +158,7 @@ class UserController {
     }
   };
 
-  createProduct = async (token: string, product: IProduct) => {
+  createProduct = async (token: string, product: NewProduct) => {
     const { sub } = decodeToken(token);
     //se o token for valido, vai retornar um id diferente de 0
     product.userId = Number(sub) || 0;

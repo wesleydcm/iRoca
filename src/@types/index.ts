@@ -106,7 +106,19 @@ export interface IProduct {
   qty: number;
   images: Image[];
   evaluations?: IEvaluation[];
-  id?: number;
+  id: number;
+}
+
+export interface NewProduct {
+  userId: number;
+  name: string;
+  category: string;
+  description: string;
+  price: number;
+  isOrganic: boolean;
+  qty: number;
+  images: Image[];
+  evaluations: IEvaluation[];
 }
 
 export interface IProductContext {
@@ -119,7 +131,7 @@ export interface ICartContext {
 }
 
 export interface IPurchase {
-  id?: number;
+  id: number;
   userId: number;
   sellerId: number;
   date: string;
