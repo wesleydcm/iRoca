@@ -60,6 +60,7 @@ export const Title = styled.h1`
 	font-size: 1.9rem;
 	font-weight: 600;
 	margin-top: 5vh;
+	margin-left: 8vw;
 `;
 
 export const LeaveContainer = styled.div`

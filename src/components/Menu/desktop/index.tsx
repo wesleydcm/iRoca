@@ -6,6 +6,7 @@ import { ReactComponent as ExitSvg } from "../../../assets/images-desktop/bx_bx-
 import { NavLink, useHistory } from "react-router-dom";
 import { useUser } from "../../../providers/user";
 import DialogModal from "../../Modal";
+import { successToast } from "../../../utils";
 
 const MenuDesktop = (): JSX.Element => {
 	const history = useHistory();
@@ -14,8 +15,10 @@ const MenuDesktop = (): JSX.Element => {
 
 	const handleLogout = () => {
 		localStorage.clear();
-		user.auth = false;
 		history.push("/");
+		successToast(`Até a próxima, ${user.personalData.name}!`);
+		user.auth = false;
+		user.token = "";
 	};
 
 	return (
@@ -37,10 +40,27 @@ const MenuDesktop = (): JSX.Element => {
 					<MyAccount />
 					<span>Minha Conta</span>
 				</NavLink>
-
-				<DialogModal action={handleLogout} title="sair" message="deseja realmente sair?" dataCss="exit-button">
-					<span>Sair da Conta</span> <ExitSvg />
-				</DialogModal>
+				{user && user.auth ? (
+					<DialogModal
+						action={handleLogout}
+						title="sair"
+						message="deseja realmente sair?"
+						dataCss="exit-button"
+					>
+						<span>Sair da Conta</span> <ExitSvg />
+					</DialogModal>
+				) : (
+					<button
+						type="button"
+						data-css="login-button"
+						onClick={() => {
+							history.push("/login");
+						}}
+					>
+						<ExitSvg />
+						<span>Entrar</span>
+					</button>
+				)}
 			</MenuWrapper>
 		</AsideContainer>
 	);
