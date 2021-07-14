@@ -141,6 +141,16 @@ export interface IPurchase {
   isReceived: boolean;
   products: IProduct[];
 }
+export interface INewPurchase {
+  userId: number;
+  sellerId: number;
+  date: string;
+  subtotal: number;
+  delivery: number;
+  total: number;
+  isReceived: boolean;
+  products: IProduct[];
+}
 
 export interface ITreatedPurchase {
   purchase: IPurchase;

@@ -13,6 +13,7 @@ import type {
   ITreatedProduct,
   IUserInfo,
   IProductEvaluation,
+  INewPurchase,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -226,7 +227,7 @@ class UserController {
     }
   };
 
-  createPurchase = async (token: string, purchase: IPurchase) => {
+  createPurchase = async (token: string, purchase: INewPurchase) => {
     const { sub } = decodeToken(token);
     try {
       await api.post(`/purchases/`, purchase, {
