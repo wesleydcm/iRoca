@@ -4,6 +4,19 @@ export const loginSchema = yup.object().shape({
   email: yup.string().required("Necessário preencher o campo de email"),
   password: yup.string().required("Necessário preencher o campo de senha"),
 });
+
+export const createProductSchema = yup.object().shape({
+  name: yup.string().required("Informe o nome"),
+  category: yup.string().required("Escolha a categoria"),
+  description: yup.string().required("Descreva o produto"),
+  price: yup.string().required("Informe o preço"),
+  qty: yup.string().required("Informe o estoque"),
+  imageOne: yup.string(),
+  imageTwo: yup.string(),
+  imageThree: yup.string(),
+  imageFour: yup.string(),
+});
+  
 export const editProfileSchema = yup.object().shape({
   name: yup.string(),
   birthDate: yup.string(),

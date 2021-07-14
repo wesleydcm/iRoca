@@ -4,13 +4,17 @@ import type {
   ILoginData,
   IUserUpdate,
   IProductUpdate,
+  IProductUpdatePurchase,
   IPurchase,
   IEvaluations,
   IProduct,
+  NewProduct,
   IEvaluation,
   ITreatedProduct,
   IUserInfo,
   IProductEvaluation,
+  INewPurchase,
+  EvaluationData,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -89,7 +93,7 @@ class UserController {
   getPurchasesOfUser = async (userId: number) => {
     try {
       const response = await api.get(`/users/${userId}/purchases/`);
-      return await response.data;
+      return response.data;
     } catch (e) {
       errorToast("Ocorreu algum erro no sistema");
     }
@@ -156,7 +160,7 @@ class UserController {
     }
   };
 
-  createProduct = async (token: string, product: IProduct) => {
+  createProduct = async (token: string, product: NewProduct) => {
     const { sub } = decodeToken(token);
     //se o token for valido, vai retornar um id diferente de 0
     product.userId = Number(sub) || 0;
@@ -209,6 +213,7 @@ class UserController {
       errorToast("Não foi possível atualizar produto");
     }
   };
+
   deleteProduct = async (productId: number, token: string) => {
     try {
       const { data } = await api.delete(`/products/${productId}`, {
@@ -219,11 +224,11 @@ class UserController {
       this.setProducts(newProducts);
       successToast("Produto excluido com sucesso");
     } catch (e) {
-      errorToast("Não foi possível excluir produto");
+      errorToast("Não foi possível excluir o produto");
     }
   };
 
-  createPurchase = async (token: string, purchase: IPurchase) => {
+  createPurchase = async (token: string, purchase: INewPurchase) => {
     const { sub } = decodeToken(token);
     try {
       await api.post(`/purchases/`, purchase, {
@@ -254,9 +259,11 @@ class UserController {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      successToast("Compra atualizada com sucesso");
+      successToast("Dados salvos!");
       //retorna a nova lista de compras para atualizar o feed
-      return await this.getPurchasesOfUser(Number(sub));
+      const newList = await this.getPurchasesOfUser(Number(sub));
+      console.log("newList :>> ", newList);
+      return newList;
     } catch (e) {
       errorToast("Não foi possível atualizar estado da compra");
     }
@@ -338,6 +345,55 @@ class UserController {
       return averagesList;
     }
     return [];
+  };
+  getEvaluationData = async (
+    evaluation: IEvaluation
+  ): Promise<EvaluationData> => {
+    const userData = await this.getUser(evaluation.evaluatorId);
+    return {
+      image: !!userData.image
+        ? userData.image !== ""
+          ? userData.image
+          : "https://jpimg.com.br/uploads/2017/04/1356121060-stenio-garcia-ira-retornar-como-o-bino-de-carga-pesada.png"
+        : "https://jpimg.com.br/uploads/2017/04/1356121060-stenio-garcia-ira-retornar-como-o-bino-de-carga-pesada.png",
+      name: userData.name,
+      feedback: !!evaluation.feedback ? evaluation.feedback : "...",
+      grade: evaluation.grade,
+    };
+  };
+
+  getAllEvaluationsData = async (evaluations: IEvaluation[]) => {
+    return Promise.all(
+      evaluations.map((item: IEvaluation) => {
+        return this.getEvaluationData(item);
+      })
+    );
+  };
+
+  updateStock = async (
+    productId: number,
+    productData: IProductUpdatePurchase,
+    token: string
+  ) => {
+    try {
+      const { data } = await api.patch(`/products/${productId}`, productData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const newProducts = this.products.map((item) => {
+        if (item.id === data.id) {
+          return {
+            ...item,
+            ...data,
+          };
+        } else {
+          return item;
+        }
+      });
+      this.setProducts(newProducts);
+      return data;
+    } catch (e) {
+      //errorToast("Não foi possível atualizar produto");
+    }
   };
 }
 

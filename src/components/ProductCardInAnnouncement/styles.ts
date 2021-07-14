@@ -84,7 +84,8 @@ export const Wrapper = styled.li`
 
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
 		width: 19.5vw;
-		height: 23.3vh;
+		height: 28vh;
+		max-height: 230px;
 		padding: 1vw 1vw 0.5vw;
 		flex-direction: column;
 		min-width: 325px;

@@ -15,15 +15,8 @@ interface Props {
   width?: number;
 }
 
-// interface FormValues {
-//   email: string;
-//   // password: string;
-//   // emailConfirm: string;
-//   // passwordConfirm: string;
-// }
-
 /**
-	@param width define the component width 
+	@param width define the component width
 */
 
 const Input = ({

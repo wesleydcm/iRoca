@@ -9,7 +9,8 @@ export const Wrapper = styled.div<Props>`
 	min-width: 200px;
 	width: ${({ styles }) =>
 		styles.width ? styles.width + "px" : "fit-content"};
-	height: ${({ styles }) => styles.height + "px"};
+	height: ${({ styles }) =>
+		typeof styles.height === "number" ? styles.height + "px" : styles.height};
 	border: ${({ styles }) =>
 		styles.color === "white"
 			? "2px solid var(--font-color)"

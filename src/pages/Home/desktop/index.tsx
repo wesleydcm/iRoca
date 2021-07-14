@@ -46,6 +46,7 @@ const HomeDesktop = ({
 
   // console.log("filteredProductsList  - Desktop :>> ", filteredProductsList);
 
+<<<<<<< HEAD
   return (
     <Wrapper>
       <header>
@@ -153,6 +154,115 @@ const HomeDesktop = ({
           </LiStyled>
         </ul>
       </div>
+=======
+	return (
+		<Wrapper>
+			<header>
+				<InputIconDesktop
+					styles={{ width: 660, height: "7vh" }}
+					action="search"
+					value={searchValue}
+					setValue={setSearchValue}
+					icon={SearchSvg}
+					onClick={onClick}
+				/>
+				<LogoSvg data-css="logo" />
+			</header>
+			<div data-css="filtersContainer">
+				<ul data-css="filtersWrapper">
+					<LiStyled isSelected={selectedType === COMMONS}>
+						{selectedType === COMMONS && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								setTypeSelected(COMMONS);
+								setSearchValue("");
+							}}
+						>
+							<img src={CommonProductsSvg} alt={COMMONS} />
+						</button>
+						<span>{COMMONS}</span>
+					</LiStyled>
+					<LiStyled isSelected={selectedType === ORGANICS}>
+						{selectedType === ORGANICS && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								setTypeSelected(ORGANICS);
+								setSearchValue("");
+							}}
+						>
+							<img src={OrganicSvg} alt={ORGANICS} />
+						</button>
+						<span>{ORGANICS}</span>
+					</LiStyled>
+					<LiStyled isSelected={selectedType === FAVORITES}>
+						{selectedType === FAVORITES && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								if (user && user.auth) {
+									setTypeSelected(FAVORITES);
+									setSearchValue("");
+								} else {
+									errorToast("Faça seu login.");
+								}
+							}}
+						>
+							<img src={HeartSvg} alt={FAVORITES} />
+						</button>
+						<span>{FAVORITES}</span>
+					</LiStyled>
+				</ul>
+				<ul data-css="filtersWrapper">
+					<LiStyled isSelected={categorySelected === FRUIT}>
+						{categorySelected === FRUIT && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								categorySelected === FRUIT
+									? setCategorySelected("")
+									: setCategorySelected(FRUIT);
+								setSearchValue("");
+							}}
+						>
+							<img src={FruitsCategorySvg} alt={FRUIT} />
+						</button>
+						<span>{FRUIT}</span>
+					</LiStyled>
+					<LiStyled isSelected={categorySelected === VEGETABLES1}>
+						{categorySelected === VEGETABLES1 && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								categorySelected === VEGETABLES1
+									? setCategorySelected("")
+									: setCategorySelected(VEGETABLES1);
+								setSearchValue("");
+							}}
+						>
+							<img src={Vegetables1CategorySvg} alt={VEGETABLES1} />
+						</button>
+						<span>{VEGETABLES1}</span>
+					</LiStyled>
+					<LiStyled isSelected={categorySelected === VEGETABLES2}>
+						{categorySelected === VEGETABLES2 && <CheckSvg />}
+						<button
+							type="button"
+							onClick={() => {
+								categorySelected === VEGETABLES2
+									? setCategorySelected("")
+									: setCategorySelected(VEGETABLES2);
+								setSearchValue("");
+							}}
+						>
+							<img src={Vegetables2CategorySvg} alt={VEGETABLES2} />
+						</button>
+						<span>{VEGETABLES2}</span>
+					</LiStyled>
+				</ul>
+			</div>
+>>>>>>> developer
 
       <h3>destaques</h3>
 

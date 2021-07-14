@@ -9,6 +9,7 @@ import {
 import { useUser } from "../../../providers/user";
 import Button from "../../../components/Button";
 import { NavLink } from "react-router-dom";
+
 interface MyProfileProps {
   isAuth?: boolean;
 }

@@ -11,6 +11,8 @@ import ProductPage from "../pages/productPage";
 import MenuMobile from "../components/Menu/mobile";
 import MenuDesktop from "../components/Menu/desktop";
 import { useWindow } from "../providers/window";
+import MyCart from "../pages/mycart";
+import CreateProductPage from "../pages/createproduct";
 import { useLocation } from "react-router";
 import LoginPage from "../pages/login";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
@@ -21,8 +23,9 @@ const RouterComponent = () => {
   const { pathname } = useLocation();
   return (
     <>
-      {!["/login", "/register"].includes(pathname) &&
-        (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
+      {!["/login", "/register", "/register-second", "/register-third"].includes(
+        pathname
+      ) && (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
 
       <Switch>
         <Route exact path="/" component={Home} />
@@ -39,20 +42,16 @@ const RouterComponent = () => {
           path="/myaccount/profile/update-product/:id"
           component={UpdateProduct}
         />
-        <Route path="/myCart">
-          <div>My Cart</div>
-        </Route>
+        <Route path="/mycart" component={MyCart} />
+
+        <Route exact path="/myaccount/products" component={CreateProductPage} />
+
         <Route path="/checkout">
           <div>Checkout</div>
         </Route>
+
         <Route path="/myAccount/edit">
           <div>Edit Profile</div>
-        </Route>
-        <Route path="/myAccount/products">
-          <div>Register Products</div>
-        </Route>
-        <Route path="/ownerProfile/:id">
-          <div>Owner Profile</div>
         </Route>
       </Switch>
     </>

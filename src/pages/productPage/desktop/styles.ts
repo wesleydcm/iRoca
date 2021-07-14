@@ -87,8 +87,8 @@ export const Container = styled.div`
 
   .scroll {
     height: 45vh;
-    width: 57%;
-
+    width: 60%;
+    padding-right: 1rem;
     .qty {
       font-size: 1.7rem;
       font-family: var(--nunito);

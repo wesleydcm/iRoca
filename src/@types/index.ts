@@ -31,7 +31,7 @@ export interface IUserInfo {
   image?: string;
   id: number;
   address: IAddress;
-  favorites: number[] | [];
+  favorites: number[];
 }
 
 export interface IUserUpdate {
@@ -108,6 +108,19 @@ export interface IProduct {
   evaluations?: IEvaluation[];
   id: number;
 }
+
+export interface NewProduct {
+  userId: number;
+  name: string;
+  category: string;
+  description: string;
+  price: number;
+  isOrganic: boolean;
+  qty: number;
+  images: Image[];
+  evaluations: IEvaluation[];
+}
+
 export interface IProductContext {
   products: IProduct[];
   setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
@@ -128,6 +141,16 @@ export interface IPurchase {
   isReceived: boolean;
   products: IProduct[];
 }
+export interface INewPurchase {
+  userId: number;
+  sellerId: number;
+  date: string;
+  subtotal: number;
+  delivery: number;
+  total: number;
+  isReceived: boolean;
+  products: IProduct[];
+}
 
 export interface ITreatedPurchase {
   purchase: IPurchase;
@@ -136,9 +159,9 @@ export interface ITreatedPurchase {
 
 export interface EvaluationData {
   image?: string;
-  name: string;
-  feedback: string;
-  grade: number;
+  name?: string;
+  feedback?: string;
+  grade?: number;
 }
 //quando for fazer listar avaliações , fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.
 
@@ -149,7 +172,7 @@ export interface PageWidth {
 export interface IStyles {
   size?: number;
   width?: number;
-  height?: number;
+  height?: number | string;
   color?: "green" | "white";
 }
 
@@ -172,6 +195,16 @@ export interface ITreatedProduct {
   average: number;
   isFavorite?: boolean;
 }
+
+export interface IProductUpdatePurchase {
+  name?: string;
+  description?: string;
+  price?: number;
+  qty: number;
+  images?: string[];
+  evaluations?: IEvaluations[];
+}
+
 export interface IEditProfile {
   name?: string;
   birthDate?: string;

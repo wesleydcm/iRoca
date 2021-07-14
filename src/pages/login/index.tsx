@@ -2,7 +2,6 @@ import Mobile from "./mobile";
 import Desktop from "./desktop";
 import { useWindow } from "../../providers/window";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
-import React, { BaseSyntheticEvent } from "react";
 
 const LoginPage = () => {
   const { pageWidth } = useWindow();

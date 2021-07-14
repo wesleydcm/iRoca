@@ -72,7 +72,7 @@ const Home = () => {
         personalData: { favorites },
       } = user;
 
-      // treatedProduct.isFavorite = favorites.includes(treatedProduct.product.id);
+      treatedProduct.isFavorite = favorites.includes(treatedProduct.product.id);
 
       return treatedProduct;
     }
