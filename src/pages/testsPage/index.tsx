@@ -8,21 +8,12 @@ import { ReactComponent as CloseSvg } from "../../assets/images-desktop/close.sv
 import { ReactComponent as SearchSvg } from "../../assets/images-desktop/search.svg";
 import InputIconMobile from "../../components/InputIcon/mobile";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
-<<<<<<< HEAD
-import { useUser } from "../../providers/user";
+// import { useUser } from "../../Providers/user";
 import RatingStars from "../../components/RatingStars";
 import { mockedProduct } from "../../utils/mocks";
 import ProducerCartDesktop from "../../components/Producer_Cart/desktop";
 import ProducerCartMobile from "../../components/Producer_Cart/mobile";
-
-=======
-// import { useUser } from "../../Providers/user";
-import RatingStars from "../../Components/RatingStars";
-import { mockedProduct } from "../../utils/mocks";
-import ProducerCartDesktop from "../../Components/Producer_Cart/desktop";
-import ProducerCartMobile from "../../Components/Producer_Cart/mobile";
-import NewEvaluation from "../../Components/NewEvaluation";
->>>>>>> developer
+import NewEvaluation from "../../components/NewEvaluation";
 const Test = () => {
   const [value, setValue] = useState<string>("");
   const [value2, setValue2] = useState<string>("");

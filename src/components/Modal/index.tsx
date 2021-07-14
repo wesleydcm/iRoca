@@ -1,24 +1,24 @@
 import { Ref, forwardRef, ReactElement, useState, ReactNode } from "react";
-import Button from "../../Components/Button";
+import Button from "../../components/Button";
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
 import { Wrapper, StyledDialog } from "./styles";
 
 interface Props {
-	title: string;
-	message: string;
-	options?: string[];
-	action: () => void;
-	children: ReactNode;
-	dataCss?: string;
-	"data-testid"?: string;
+  title: string;
+  message: string;
+  options?: string[];
+  action: () => void;
+  children: ReactNode;
+  dataCss?: string;
+  "data-testid"?: string;
 }
 
 const Transition = forwardRef(function Transition(
-	props: TransitionProps & { children?: ReactElement<any, any> },
-	ref: Ref<unknown>,
+  props: TransitionProps & { children?: ReactElement<any, any> },
+  ref: Ref<unknown>
 ) {
-	return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 /**
@@ -33,48 +33,48 @@ const Transition = forwardRef(function Transition(
  */
 
 const DialogModal = ({
-	title,
-	message,
-	action,
-	children,
-	options = ["sim", "não"],
-	dataCss,
-	...rest
+  title,
+  message,
+  action,
+  children,
+  options = ["sim", "não"],
+  dataCss,
+  ...rest
 }: Props): JSX.Element => {
-	const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
-	const handleClose = () => {
-		action();
-		setOpen(false);
-	};
+  const handleClose = () => {
+    action();
+    setOpen(false);
+  };
 
-	return (
-		<Wrapper {...rest}>
-			<button data-css={dataCss} onClick={() => setOpen(true)}>
-				{children}
-			</button>
+  return (
+    <Wrapper {...rest}>
+      <button data-css={dataCss} onClick={() => setOpen(true)}>
+        {children}
+      </button>
 
-			<StyledDialog
-				open={open}
-				TransitionComponent={Transition}
-				keepMounted
-				onClose={handleClose}
-				aria-labelledby={title}
-				aria-describedby={message}
-			>
-				<h2>{title}</h2>
+      <StyledDialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby={title}
+        aria-describedby={message}
+      >
+        <h2>{title}</h2>
 
-				<p>{message}</p>
+        <p>{message}</p>
 
-				<div data-css="navigation">
-					<Button onClick={handleClose} color="green">
-						{options[0]}
-					</Button>
-					<Button onClick={() => setOpen(false)}>{options[1]}</Button>
-				</div>
-			</StyledDialog>
-		</Wrapper>
-	);
+        <div data-css="navigation">
+          <Button onClick={handleClose} color="green">
+            {options[0]}
+          </Button>
+          <Button onClick={() => setOpen(false)}>{options[1]}</Button>
+        </div>
+      </StyledDialog>
+    </Wrapper>
+  );
 };
 
 export default DialogModal;

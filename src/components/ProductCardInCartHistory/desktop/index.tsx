@@ -4,7 +4,7 @@ import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/orga
 import { IProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import { useState } from "react";
-import NewEvaluation from "../../../Components/NewEvaluation";
+import NewEvaluation from "../../../components/NewEvaluation";
 interface Props {
   item: IProduct;
   "data-testid"?: string;
