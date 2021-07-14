@@ -49,6 +49,7 @@ const NewEvaluation = ({
   const [producerRating, setProducerRating] = useState<number>(0);
   const [firstEvaluation, setFirstEvaluation] = useState<boolean>(false);
   const { user, initController } = useUser();
+
   const handleFirstEvaluation = () => {
     setFirstEvaluation(true);
     submitProductEvaluation();
@@ -60,9 +61,21 @@ const NewEvaluation = ({
       productId: item.id,
       date: new Date().toDateString(),
       feedback: feedbackProduct,
-      grade: producerRating,
+      grade: productRating,
     };
     controller.createProductEvaluation(user.token, newProductEvaluation);
+  };
+
+  const submitProducerEvaluation = () => {
+    const controller = initController();
+    const NewProducerEvaluation: IEvaluation = {
+      userId: item.userId,
+      evaluatorId: user.personalData.id,
+      date: new Date().toDateString(),
+      feedback: feedbackProducer,
+      grade: producerRating,
+    };
+    controller.createProductorEvaluation(user.token, NewProducerEvaluation);
   };
   return (
     <>
@@ -120,7 +133,7 @@ const NewEvaluation = ({
                 ></input>
                 <Button
                   color={"green"}
-                  onClick={() => handleSubmit(feedbackProducer)}
+                  onClick={submitProducerEvaluation}
                   disabled={!producerRating}
                 >
                   Enviar avaliação
