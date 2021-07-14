@@ -3,7 +3,7 @@ import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
 
 export const Container = styled.div`
     min-width: 20rem;
-    min-height: 100vh;
+    height: 100vh;
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -27,12 +27,9 @@ export const Container = styled.div`
         flex-direction: column;
         width: 100%;
         margin: 0 1rem;
-        li + li {
-        margin-top: 1rem;
-        }
     }
 
-    .last {
+    li {
         margin-bottom: 1rem;
     }
 
@@ -67,10 +64,15 @@ export const Container = styled.div`
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: space-around;
+            margin-bottom: 2rem;
+        }
+
+        li {
+            margin: 1rem;
         }
         
         h1 {
-            margin: 2rem 0;
+            margin: 1rem 0;
             font-size: 2.5rem;
         }
 
@@ -87,7 +89,7 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
 	width: 100%;
-	height: 9.5rem;
+	height: 11rem;
 	box-shadow: 0 2px 5px 2px var(--shadow-black);
 	border-radius: 10px;
     padding: 1rem;
