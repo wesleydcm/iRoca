@@ -10,17 +10,17 @@ import {
   Images,
   Send,
 } from "./styles";
-import Input from "../../Components/Input";
-import Button from "../../Components/Button";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { NewProduct } from "../../@types";
 import { createProductSchema } from "../../schemas/index";
-import { useUser } from "../../Providers/user";
+import { useUser } from "../../providers/user";
 import { useHistory } from "react-router-dom";
 import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
-import { useWindow } from "../../Providers/window";
-import ProductSwitch from "../../Components/Switch";
+import { useWindow } from "../../providers/window";
+import ProductSwitch from "../../components/Switch";
 
 interface Data {
   name: string;
@@ -234,18 +234,18 @@ const CreateProductPage = () => {
           <DescriptionPriceAndStock>
             <div className="description">
               <div className="error">
-                  <p>Descrição</p>
-                  <span>{errors.description?.message}</span>
-                  <Input
-                    type="text"
-                    name="description"
-                    register={register}
-                    placeholder=""
-                    data-testid="createProduct"
-                    color="green"
-                  />
-                </div>
+                <p>Descrição</p>
+                <span>{errors.description?.message}</span>
+                <Input
+                  type="text"
+                  name="description"
+                  register={register}
+                  placeholder=""
+                  data-testid="createProduct"
+                  color="green"
+                />
               </div>
+            </div>
             <div className="price-and-qty">
               <div className="error">
                 <p>Preço por Kg</p>

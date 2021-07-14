@@ -34,7 +34,7 @@ const AppearFromCenter = keyframes`
 `;
 export const Container = styled.main`
   font-family: var(--poppins);
-  padding: 38px 24px;
+  padding: 38px 24px 120px;
   display: flex;
   position: relative;
   width: 100%;
@@ -137,15 +137,13 @@ export const EvaluationContent = styled.section`
 `;
 export const ProductContent = styled.section`
   width: 100%;
+  flex-grow: auto;
   position: relative;
   animation: ${AppearFromRight} 0.5s ease-in-out;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  button {
-    width: 100%;
-    outline: none;
-    border: none;
+  li {
     transition: transform 100ms ease-out;
 
     &:active {

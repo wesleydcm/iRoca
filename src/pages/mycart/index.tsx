@@ -1,10 +1,10 @@
 import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
-import { useWindow } from "../../Providers/window";
-import { useUser } from "../../Providers/user";
-import ProductCardInCartHistoryMobile from "../../Components/ProductCardInCartHistory/mobile";
-import ProductCardInCartHistory from "../../Components/ProductCardInCartHistory/desktop";
-import { useCart } from "../../Providers/cart";
-import Button from "../../Components/Button";
+import { useWindow } from "../../providers/window";
+import { useUser } from "../../providers/user";
+import ProductCardInCartHistoryMobile from "../../components/ProductCardInCartHistory/mobile";
+import ProductCardInCartHistory from "../../components/ProductCardInCartHistory/desktop";
+import { useCart } from "../../providers/cart";
+import Button from "../../components/Button";
 import { priceFormatter } from "../../utils/index";
 import { Container, Wrapper } from "./styles";
 import { NavLink, useHistory } from "react-router-dom";

@@ -1,22 +1,23 @@
 import { Container } from "./styles";
-import Input from "../../../Components/Input";
-import Button from "../../../Components/Button";
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
 import { useForm } from "react-hook-form";
 import { ILoginData } from "../../../@types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../../schemas";
-import { useUser } from "../../../Providers/user";
-import { Link } from "react-router-dom";
+import { useUser } from "../../../providers/user";
+import { Link, useHistory } from "react-router-dom";
 import { ReactComponent as LogoSVGmobile } from "../../../assets/images-mobile/logo.svg";
 const LoginPage = () => {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(loginSchema),
   });
-
+  const history = useHistory();
   const { initController } = useUser();
   const login = (data: ILoginData) => {
     const controller = initController();
     controller.login(data);
+    history.push("/");
   };
 
   const Motion = {
