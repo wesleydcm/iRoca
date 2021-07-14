@@ -5,11 +5,14 @@ import { ReactComponent as CheckSvg } from "../../../assets/images-mobile/check.
 import { priceFormatter } from "../../../utils";
 import { memo } from "react";
 import DialogModal from "../../Modal";
+import { useUser } from "../../../Providers/user";
+import { Dispatch } from "react";
 
 interface Props {
 	seller: IPurchaseSeller;
 	purchase: IPurchase;
 	"data-testid"?: string;
+	setIsToRefresh: Dispatch<React.SetStateAction<boolean>>;
 }
 /**
  * It's the product that must be used into histories.
@@ -19,8 +22,15 @@ interface Props {
  * @prop {string} "data-testid?" - Only to jest tests proposal.
  */
 const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
+	const { user, initController } = useUser();
+	const controller = initController();
+
 	const action = () => {
 		console.log("ação :>> ");
+		controller.updatePurchase(user.token, purchase.id, true).then(response => {
+			console.log("response:>> ", response);
+			purchase.isReceived = true;
+		});
 	};
 
 	return (
