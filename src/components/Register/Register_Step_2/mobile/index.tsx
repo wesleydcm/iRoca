@@ -71,7 +71,7 @@ const RegisterStep2Mobile = () => {
     });
 
     if (tempUser.image === "") {
-      tempUser.image = "https://i.imgur.com/a13ketP.png";
+      tempUser.image = "https://i.imgur.com/ac5JjOM.png";
     }
 
     reset();

@@ -100,15 +100,6 @@ const RegisterStep2Mobile = () => {
     });
   }, []);
 
-  // const handleClick = () => {
-  //   axios.get(`https://viacep.com.br/ws/${cepValue}/json/`).then((response) => {
-  //     setStateInput(response.data.uf);
-  //     setCityInput(response.data.localidade);
-  //     setDistrictInput(response.data.bairro);
-  //     setStreetInput(response.data.logradouro);
-  //   });
-  // };
-
   useEffect(() => {
     if (cepValue.length === 9) {
       console.log("cepValue :>> ", cepValue);
