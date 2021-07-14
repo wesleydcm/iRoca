@@ -14,6 +14,7 @@ import CreateProductPage from "../pages/createproduct";
 import { useWindow } from "../Providers/window";
 import { useLocation } from "react-router";
 import LoginPage from "../pages/login";
+import EditProfile from "../pages/editProfile";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
 import MyPurchasesHistory from "../pages/MyPurchasesHistory";
 
@@ -61,10 +62,7 @@ const RouterComponent = () => {
 
         <Route path="/myAccount/profile" component={ProfilePage} />
 
-        <Route path="/myAccount/edit">
-          <div>Edit Profile</div>
-        </Route>
-
+        <Route path="/myAccount/edit" component={EditProfile} />
         <Route path="/ownerProfile/:id">
           <div>Owner Profile</div>
         </Route>

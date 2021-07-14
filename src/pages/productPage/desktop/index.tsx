@@ -68,8 +68,45 @@ const ProductPageComponentDesktop = () => {
   };
 
   const addToCart = () => {
-    const newProduct = { ...product, qty, totalPrice: total };
-    setCart([...cart, newProduct]);
+    const newProduct = { product: { ...product, qty }, totalPrice: total };
+    if (cart.length > 0) {
+      const haveProductInCart = cart.filter((item) => {
+        if (item.product.id === newProduct.product.id) {
+          const newQty = item.product.qty + newProduct.product.qty;
+          const totalPrice = newProduct.totalPrice;
+
+          return {
+            totalPrice,
+            product: {
+              ...item,
+              qty: newQty,
+            },
+          };
+        }
+      });
+      console.log(haveProductInCart);
+      if (haveProductInCart.length > 0) {
+        const newCart = cart.map((item) => {
+          if (item.product.id === haveProductInCart[0].product.id) {
+            return haveProductInCart[0];
+          } else {
+            return item;
+          }
+        });
+        setCart(newCart);
+      }
+    } else {
+      setCart([
+        ...cart,
+        {
+          product: {
+            ...newProduct.product,
+            qty,
+          },
+          totalPrice: newProduct.totalPrice,
+        },
+      ]);
+    }
   };
 
   useEffect(() => {

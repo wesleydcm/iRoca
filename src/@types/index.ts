@@ -126,8 +126,8 @@ export interface IProductContext {
   setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
 }
 export interface ICartContext {
-  cart: IProduct[];
-  setCart: React.Dispatch<React.SetStateAction<IProduct[]>>;
+  cart: IProuctCart[];
+  setCart: React.Dispatch<React.SetStateAction<IProuctCart[]>>;
 }
 
 export interface IPurchase {
@@ -149,7 +149,11 @@ export interface INewPurchase {
   delivery: number;
   total: number;
   isReceived: boolean;
-  products: IProduct[];
+  products: IProuctCart[];
+}
+export interface IProuctCart {
+  product: IProduct;
+  totalPrice: number;
 }
 
 export interface ITreatedPurchase {

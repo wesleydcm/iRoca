@@ -9,13 +9,14 @@ import { IProduct } from "../../../@types";
 interface Props {
   toggleModal: () => void;
   product: IProduct;
+  Price: number;
 }
 
-const AddToCartComponent = ({ toggleModal, product }: Props) => {
+const AddToCartComponent = ({ toggleModal, product, Price }: Props) => {
   const [qty, setQty] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const { setCart, cart } = useCart();
-  const price = 2.7;
+  const price = Price;
 
   const increment = () => {
     setQty(qty + 10);
@@ -28,7 +29,7 @@ const AddToCartComponent = ({ toggleModal, product }: Props) => {
 
   const addToCart = () => {
     const newProduct = { ...product, qty, totalPrice: total };
-    setCart([...cart, newProduct]);
+    // setCart([...cart, newProduct]);
   };
 
   useEffect(() => {
