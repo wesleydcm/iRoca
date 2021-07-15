@@ -19,6 +19,7 @@ const MenuDesktop = (): JSX.Element => {
 		successToast(`Até a próxima, ${user.personalData.name}!`);
 		user.auth = false;
 		user.token = "";
+		console.log(user)
 	};
 
 	return (

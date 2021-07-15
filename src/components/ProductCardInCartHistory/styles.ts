@@ -21,12 +21,11 @@ export const Wrapper = styled.li<Prop>`
 	padding: 10px;
 
 	.organicFlag {
-		width: 40px;
-		height: 22px;
+		width: 10vw;
+		height: 2.5vh;
 		position: absolute;
 		top: 0px;
-		left: -5px;
-		margin: 0;
+		left: -1.2vw;
 	}
 
 	figure {
@@ -91,11 +90,9 @@ export const Wrapper = styled.li<Prop>`
 		padding: 15px;
 
 		.organicFlag {
-			width: 10vw;
-			height: 2.5vh;
-			position: absolute;
-			top: 0px;
-			left: -1.2vw;
+			width: 4.5vw;
+			height: 2.5vw;
+			left: -0.7vw;
 
 			svg {
 				width: inherit;
