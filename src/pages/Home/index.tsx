@@ -71,7 +71,7 @@ const Home = () => {
 			const {
 				personalData: { favorites },
 			} = user;
-    console.log('user :>> ', user.personalData);
+			// console.log('user :>> ', user.personalData);
 
 			treatedProduct.isFavorite = favorites.includes(treatedProduct.product.id);
 
