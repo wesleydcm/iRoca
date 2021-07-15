@@ -105,9 +105,7 @@ const NewEvaluation = ({
                 >
                   Enviar avaliação
                 </Button>
-                <SkipButton onClick={() => setFirstEvaluation(true)}>
-                  Pular
-                </SkipButton>
+                <SkipButton onClick={handleFirstEvaluation}>Pular</SkipButton>
               </Container>
             </section>
           ) : (
