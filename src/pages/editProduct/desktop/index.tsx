@@ -1,4 +1,4 @@
-import { Container, Form, Box } from "./styles";
+import { Container, Form, Box, DeleteButton } from "./styles";
 import Input from "../../../components/Input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -33,7 +33,7 @@ const UpdateProductDesktop = () => {
     resolver: yupResolver(editProfileSchema),
   });
   const { initController, user } = useUser();
-  const { token } = user;
+  const { token, personalData } = user;
   const controller = initController();
 
   const [editProduct, setEditProducts] = useState<IProduct | undefined>(
@@ -69,10 +69,14 @@ const UpdateProductDesktop = () => {
         { url: data.imageFour },
       ],
     };
-
     controller
       .updateProduct(Number(param.id), productData, token)
       .then(() => history.push(`/product/${Number(param.id)}`));
+  };
+  const handleDelectProduct = () => {
+    controller
+      .deleteProduct(Number(param.id), token)
+      .then(() => history.push(`/profile/${personalData.id}`));
   };
 
   if (editProduct !== undefined) {
@@ -142,10 +146,10 @@ const UpdateProductDesktop = () => {
               </div>
             </div>
 
-            <h2>Imagens</h2>
+            <h2>Imagens (jpg, png)</h2>
 
             <div className="boxLink">
-              <label htmlFor="imageOne">Link imagem 1:</label>
+              <label htmlFor="imageOne">Imagem 1:</label>
               <Input
                 type="text"
                 placeholder="link url imagem 1"
@@ -157,7 +161,7 @@ const UpdateProductDesktop = () => {
               />
             </div>
             <div className="boxLink">
-              <label htmlFor="imageTwo">Link imagem 2:</label>
+              <label htmlFor="imageTwo">Imagem 2:</label>
               <Input
                 type="text"
                 placeholder="link url imagem 2"
@@ -169,7 +173,7 @@ const UpdateProductDesktop = () => {
               />
             </div>
             <div className="boxLink">
-              <label htmlFor="imageThree">Link imagem 3:</label>
+              <label htmlFor="imageThree">Imagem 3:</label>
               <Input
                 type="text"
                 placeholder="link url imagem 3"
@@ -181,7 +185,7 @@ const UpdateProductDesktop = () => {
               />
             </div>
             <div className="boxLink">
-              <label htmlFor="imageFour">Link imagem 4:</label>
+              <label htmlFor="imageFour">Imagem 4:</label>
               <Input
                 type="text"
                 placeholder="link url imagem 4"
@@ -197,6 +201,11 @@ const UpdateProductDesktop = () => {
             Salvar
           </Button>
         </Form>
+        <div className="divDelete">
+          <DeleteButton onClick={() => handleDelectProduct()}>
+            Excluir
+          </DeleteButton>
+        </div>
       </Container>
     );
   }

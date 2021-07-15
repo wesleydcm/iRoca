@@ -1,4 +1,4 @@
-import { Container, Form, Box } from "./styles";
+import { Container, Form, Box, DeleteButton } from "./styles";
 import Input from "../../../components/Input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -34,7 +34,7 @@ const UpdateProductMobile = () => {
     resolver: yupResolver(editProfileSchema),
   });
   const { initController, user } = useUser();
-  const { token } = user;
+  const { token, personalData } = user;
   const controller = initController();
 
   const [editProduct, setEditProducts] = useState<IProduct | undefined>(
@@ -52,9 +52,9 @@ const UpdateProductMobile = () => {
     funcCallBack();
   }, [funcCallBack]);
 
-  useEffect(() => {
+  /*  useEffect(() => {
     console.log(editProduct);
-  }, [editProduct]);
+  }, [editProduct]); */
 
   const onSubmit = (data: Data) => {
     const productData: IProductUpdate = {
@@ -72,6 +72,12 @@ const UpdateProductMobile = () => {
     controller
       .updateProduct(Number(param.id), productData, token)
       .then(() => history.push(`/product/${Number(param.id)}`));
+  };
+
+  const handleDelectProduct = () => {
+    controller
+      .deleteProduct(Number(param.id), token)
+      .then(() => history.push(`/profile/${personalData.id}`));
   };
 
   if (editProduct !== undefined) {
@@ -165,6 +171,11 @@ const UpdateProductMobile = () => {
             Salvar
           </Button>
         </Form>
+        <div className="divDelete">
+          <DeleteButton onClick={() => handleDelectProduct()}>
+            Excluir
+          </DeleteButton>
+        </div>
       </Container>
     );
   }
