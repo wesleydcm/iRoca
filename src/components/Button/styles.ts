@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const StyledButton = styled.button<Props>`
-	width: ${({ width }) => width + "px"};
+	width: ${({ width }) => width && width + "px"};
 	height: 40px;
 	padding: 0 20px;
 
@@ -14,7 +14,7 @@ export const StyledButton = styled.button<Props>`
 		!!color ? "var(--green-gradient)" : "var(--font-color)"};
 
 	color: ${({ color }) => (!!color ? "var(--font-color)" : "var(--green400)")};
-	border: ${({ color }) => (!!color ? "none": "2px solid var(--green400)")};
+	border: ${({ color }) => (!!color ? "none" : "2px solid var(--green400)")};
 	border-radius: 7px;
 	font-weight: ${({ color }) => (!!color ? 600 : 500)};
 	font-size: 18px;

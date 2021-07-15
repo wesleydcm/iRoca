@@ -69,6 +69,11 @@ const RegisterStep2Mobile = () => {
       phone: data.phone,
       image: data.image,
     });
+
+    if (tempUser.image === "") {
+      tempUser.image = "https://i.imgur.com/ac5JjOM.png";
+    }
+
     reset();
     history.push("/register-third");
   };

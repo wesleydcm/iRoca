@@ -95,7 +95,7 @@ const RegisterStep1Mobile = () => {
             <p>{errors.email?.message}</p>
             <Input
               placeholder={"Confirmação de email"}
-              type={"text"}
+              type={"password"}
               color={"green"}
               register={register}
               name={"emailConfirm"}
@@ -104,7 +104,7 @@ const RegisterStep1Mobile = () => {
             <p>{errors.emailConfirm?.message}</p>
             <Input
               placeholder={"Senha"}
-              type={"text"}
+              type={"password"}
               color={"white"}
               register={register}
               name={"password"}

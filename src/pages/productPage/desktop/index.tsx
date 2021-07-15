@@ -62,18 +62,62 @@ const ProductPageComponentDesktop = () => {
     setQty(qty + 10);
   };
   const decrement = () => {
-    if (qty > 10) {
+    if (qty >= 10) {
       setQty(qty - 10);
     }
   };
 
   const addToCart = () => {
-    const newProduct = { ...product, qty, totalPrice: total };
-    setCart([...cart, newProduct]);
+    const newProduct = { product: { ...product, qty }, totalPrice: total };
+    if (newProduct.product.qty > 0) {
+    console.log(newProduct);
+    if (cart.length > 0) {
+      const haveProductInCart = cart.filter(
+        (item) => item.product.id === newProduct.product.id
+      );
+      if (haveProductInCart.length > 0) {
+        const newProduct2 = {
+          totalPrice: haveProductInCart[0].totalPrice + newProduct.totalPrice,
+          product: {
+            ...haveProductInCart[0].product,
+            qty: haveProductInCart[0].product.qty + newProduct.product.qty,
+          },
+        };
+        const newCart = cart.map((item) => {
+          if (item.product.id === newProduct2.product.id) {
+            return newProduct2;
+          } else {
+            return item;
+          }
+        });
+        setCart(newCart);
+      } else {
+        setCart([
+          ...cart,
+          {
+            product: {
+              ...newProduct.product,
+            },
+            totalPrice: newProduct.totalPrice,
+          },
+        ]);
+      }
+    } else {
+      setCart([
+        ...cart,
+        {
+          product: {
+            ...newProduct.product,
+          },
+          totalPrice: newProduct.totalPrice,
+        },
+      ]);
+    }}
   };
 
   useEffect(() => {
     setTotal(price * qty);
+    // eslint-disable-next-line
   }, [qty]);
 
   return (

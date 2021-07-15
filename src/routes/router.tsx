@@ -2,7 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import Register from "../pages/Register";
 import Register2 from "../pages/Register/Register2";
 import Register3 from "../pages/Register/Register3";
-import TestsPage from "../pages/testsPage";
+
 import MyAccountPageComponent from "../pages/myAccount";
 import ProfilePage from "../pages/profile";
 import UpdateProduct from "../pages/editProduct";
@@ -15,6 +15,7 @@ import MyCart from "../pages/mycart";
 import CreateProductPage from "../pages/createproduct";
 import { useLocation } from "react-router";
 import LoginPage from "../pages/login";
+import EditProfile from "../pages/editProfile";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
 import MyPurchasesHistory from "../pages/MyPurchasesHistory";
 
@@ -35,9 +36,10 @@ const RouterComponent = () => {
         <Route path="/register" component={Register} />
         <Route path="/register-second" component={Register2} />
         <Route path="/register-third" component={Register3} />
-        <Route path="/test-page" component={TestsPage} />
+
         <Route exact path="/myaccount" component={MyAccountPageComponent} />
         <Route exact path="/profile/:id" component={ProfilePage} />
+
         <Route
           path="/myaccount/profile/update-product/:id"
           component={UpdateProduct}
@@ -46,13 +48,9 @@ const RouterComponent = () => {
 
         <Route exact path="/myaccount/products" component={CreateProductPage} />
 
-        <Route path="/checkout">
-          <div>Checkout</div>
-        </Route>
+        <Route path="/myAccount/profile" component={ProfilePage} />
 
-        <Route path="/myAccount/edit">
-          <div>Edit Profile</div>
-        </Route>
+        <Route path="/myAccount/edit" component={EditProfile} />
       </Switch>
     </>
   );

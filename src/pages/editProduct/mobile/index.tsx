@@ -7,10 +7,9 @@ import { IProduct, IProductUpdate } from "../../../@types";
 import Button from "../../../components/Button";
 import { useUser } from "../../../providers/user";
 import { useCallback, useEffect, useState } from "react";
-import { priceFormatter } from "../../../utils/";
+/* import { priceFormatter } from "../../../utils/"; */
 import { useHistory, useParams } from "react-router-dom";
 import Loading from "../../../components/Loading";
-import { toast } from "react-toastify";
 import { FaEdit } from "react-icons/fa";
 
 interface Params {
@@ -46,6 +45,7 @@ const UpdateProductMobile = () => {
     controller.getProduct(Number(param.id)).then((response) => {
       setEditProducts(response);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

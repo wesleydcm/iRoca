@@ -78,7 +78,7 @@ export const Form = styled.form`
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    text-transform: capitalize;
+    text-transform: lowercase;
     text-align: left;
     font-family: var(--poppins);
     font-style: normal;

@@ -44,6 +44,7 @@ const UpdateProductDesktop = () => {
     controller.getProduct(Number(param.id)).then((response) => {
       setEditProducts(response);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

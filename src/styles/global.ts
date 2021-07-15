@@ -58,14 +58,15 @@ export const Global = createGlobalStyle`
     overflow-y: auto;
 
     ::-webkit-scrollbar {
-      width: 0.8rem;
+      width: 0.5rem;
     }
     ::-webkit-scrollbar-track {
       box-shadow: inset 0 0 5px var(--gray300);
     }
     ::-webkit-scrollbar-thumb {
-      border: 1px solid var(--gray600);
+      border: 1px solid var(--green300);
       border-radius: 30px;
+      background: var(--green300);
     }
   }
 

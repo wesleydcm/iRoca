@@ -87,7 +87,7 @@ const RegisterStep2Mobile = () => {
         password: tempUser.password,
       });
       reset();
-      history.push("/home");
+      history.push("/");
     });
   };
 
@@ -99,15 +99,6 @@ const RegisterStep2Mobile = () => {
       setStreetInput(response.data.logradouro);
     });
   }, []);
-
-  // const handleClick = () => {
-  //   axios.get(`https://viacep.com.br/ws/${cepValue}/json/`).then((response) => {
-  //     setStateInput(response.data.uf);
-  //     setCityInput(response.data.localidade);
-  //     setDistrictInput(response.data.bairro);
-  //     setStreetInput(response.data.logradouro);
-  //   });
-  // };
 
   useEffect(() => {
     if (cepValue.length === 9) {

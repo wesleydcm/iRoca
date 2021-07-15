@@ -66,10 +66,14 @@ const ProductPageComponentMobile = () => {
     <Wrapper>
       <Menu />
       {openModal === true && (
-        <Modal product={product} toggleModal={toggleModal} />
+        <Modal
+          product={product}
+          toggleModal={toggleModal}
+          Price={product ? product.price : 0}
+        />
       )}
       <Container>
-        <Carousel itemsToShow={1} isRTL={false} showArrows={true}>
+        <Carousel itemsToShow={1} isRTL={false} showArrows={false}>
           {!!product.images ? (
             product.images.map((obj, index) => {
               return <img src={`${obj.url}`} alt={product.name} key={index} />;

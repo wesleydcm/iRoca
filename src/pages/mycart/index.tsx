@@ -1,4 +1,4 @@
-import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
+import { CART_LOCALSTORAGE_FLAG, WINDOW_SIZE_DESKTOP } from "../../utils/index";
 import { useWindow } from "../../providers/window";
 import { useUser } from "../../providers/user";
 import ProductCardInCartHistoryMobile from "../../components/ProductCardInCartHistory/mobile";
@@ -10,20 +10,27 @@ import { Container, Wrapper } from "./styles";
 import { NavLink, useHistory } from "react-router-dom";
 import {
   IProduct,
-  IPurchase,
   IUserInfo,
   IProductUpdatePurchase,
   INewPurchase,
+  IProuctCart,
 } from "../../@types";
 import { useEffect, useState } from "react";
+import Modal from "./Modal/modal"; 
 
 const MyCart = () => {
   const { user, initController } = useUser();
   const { cart, setCart } = useCart();
-
+  
   const [products, setProducts] = useState<IProduct[]>([]);
   const [notAllowedPurchase, setNotAllowedPurchase] = useState<IProduct[]>([]);
   const [shippingValue, setShippingValue] = useState<number>(0);
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const toggleModal = () => {
+    setOpenModal(!openModal);
+  };
 
   const controller = initController();
 
@@ -35,11 +42,11 @@ const MyCart = () => {
   const history = useHistory();
 
   const calcShipping = (): void => {
-    if (user !== null) {
+    if (user !== null && cart.length > 0) {
       const subtotalQty = parseFloat(
-        cart.reduce((product, acc) => acc.qty + product, 0).toFixed(2)
+        cart.reduce((acc, product) => acc + product.product.qty, 0).toFixed(2)
       );
-      const productPurchaseId: number = cart[0].id;
+      const productPurchaseId: number = cart[0].product.id;
       let seller: IUserInfo = {} as IUserInfo;
       controller.getSellerOfProduct(productPurchaseId).then((response) => {
         seller = response;
@@ -74,7 +81,7 @@ const MyCart = () => {
   }, [cart]);
 
   const subtotal = parseFloat(
-    cart.reduce((product, acc) => acc.price + product, 0).toFixed(2)
+    cart.reduce((acc, product) => acc + product.totalPrice, 0).toFixed(2)
   );
   const subtotalFormatted = priceFormatter(subtotal);
 
@@ -83,37 +90,36 @@ const MyCart = () => {
   const total = subtotal + delivery;
   const totalFormatted = priceFormatter(total);
 
-  const hasStock: IProduct[] = [];
   const noStock: IProduct[] = [];
 
   const checkStock = (): boolean => {
-    const checkCart = (cart: IProduct): void => {
+
+    const checkCart = (cart: IProuctCart): void => {
       const stockProduct: any = products.find(
-        (product: IProduct) => product.id === cart.id
+        (product: IProduct) => product.id === cart.product.id
       );
-      if (stockProduct && stockProduct.qty >= cart.qty) {
-        hasStock.push(stockProduct);
-      } else if (stockProduct && stockProduct.qty < cart.qty) {
+      if (stockProduct && stockProduct.qty < cart.product.qty) {
         noStock.push(stockProduct);
       }
     };
     cart.forEach(checkCart);
-
     return noStock.length === 0;
   };
 
   useEffect(() => {
     setNotAllowedPurchase(noStock);
     //eslint-disable-next-line
-  }, [noStock.length]);
+  }, [checkStock()]);
+
+  console.log(notAllowedPurchase)
 
   const updateStock = (): void => {
-    const checkCart = (item: IProduct, index: number) => {
+    const checkCart = (item: IProuctCart, index: number) => {
       const findedProduct: any = products.find(
-        (product: IProduct) => product.id === item.id
+        (product: IProduct) => product.id === item.product.id
       );
       let newQty: number = 0;
-      newQty = findedProduct.qty - item.qty;
+      newQty = findedProduct.qty - item.product.qty;
       const updatedProduct: IProductUpdatePurchase = { qty: newQty };
       controller.updateStock(findedProduct.id, updatedProduct, user.token);
     };
@@ -128,7 +134,7 @@ const MyCart = () => {
 
         const myId: number = user.personalData.id;
         const date: string = new Date().toDateString();
-        const productPurchaseId: number = cart[0].id;
+        const productPurchaseId: number = cart[0].product.id;
         let seller: IUserInfo = {} as IUserInfo;
 
         controller.getSellerOfProduct(productPurchaseId).then((response) => {
@@ -145,10 +151,12 @@ const MyCart = () => {
           };
 
           controller.createPurchase(user.token, purchase);
-          // setCart([]);
-          //history.push("/home");
+          setCart([]);
+          localStorage.removeItem(CART_LOCALSTORAGE_FLAG);
+          toggleModal();
         });
       } else {
+        toggleModal();
       }
     } else {
       history.push("/login");
@@ -160,15 +168,21 @@ const MyCart = () => {
   if (pageWidth < WINDOW_SIZE_DESKTOP) {
     return (
       <Container>
+        {openModal === true && (
+        <Modal
+          product={notAllowedPurchase}
+          toggleModal={toggleModal}
+        />
+      )}
         <h1>Carrinho</h1>
-        {cart.length ? (
+        {cart.length > 0 ? (
           <>
-            <ul>
+            <ul className="scroll">
               {cart.map((elem) => (
                 <ProductCardInCartHistoryMobile
                   scenery="cart"
-                  key={elem.id}
-                  item={elem}
+                  key={elem.product.id}
+                  item={elem.product}
                 />
               ))}
             </ul>
@@ -192,7 +206,7 @@ const MyCart = () => {
         ) : (
           <>
             <p>Seu carrinho está vazio. Que tal irmos às compras?</p>
-            <NavLink to="/home">
+            <NavLink to="/">
               <span>Deseja voltar aos anúncios? Só clicar aqui.</span>
             </NavLink>
           </>
@@ -202,15 +216,21 @@ const MyCart = () => {
   } else {
     return (
       <Container>
+        {openModal === true && (
+        <Modal
+          product={notAllowedPurchase}
+          toggleModal={toggleModal}
+        />
+        )}
         <h1>Carrinho</h1>
         {cart.length ? (
           <>
-            <ul>
+            <ul className="scroll">
               {cart.map((elem) => (
                 <ProductCardInCartHistory
                   scenery="cart"
-                  key={elem.id}
-                  item={elem}
+                  key={elem.product.id}
+                  item={elem.product}
                 />
               ))}
             </ul>
@@ -234,7 +254,7 @@ const MyCart = () => {
         ) : (
           <>
             <p>Seu carrinho está vazio. Que tal irmos às compras?</p>
-            <NavLink to="/home">
+            <NavLink to="/">
               <span>Deseja voltar aos anúncios? Só clicar aqui.</span>
             </NavLink>
           </>

@@ -162,6 +162,24 @@ export const DescriptionPriceAndStock = styled.div`
         height: 3.5rem;
         font-size: 1rem;
         margin-bottom: 1rem;
+
+        .description {
+          input {
+            width: 30vw;
+            height: 10rem;
+            font-size: 1rem;
+          }
+        }
+
+        .price-and-qty {
+          margin-left: 8vw;
+          input {
+            width: 15vw;
+            height: 3.5rem;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+          }
+        }
       }
     }
   }
