@@ -11,6 +11,7 @@ import { IProduct } from "../../../@types";
 import ProducerCard from "../../../components/Producer_Cart/desktop";
 import { useCart } from "../../../providers/cart";
 import { priceFormatter } from "../../../utils";
+import userEvent from "@testing-library/user-event";
 
 interface Params {
   id: string;
@@ -32,7 +33,7 @@ const ProductPageComponentDesktop = () => {
   const [average, setAverage] = useState<number>(0);
 
   const param: Params = useParams();
-  const { initController } = useUser();
+  const { initController, user } = useUser();
   const [qty, setQty] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const { cart, setCart } = useCart();
@@ -70,27 +71,40 @@ const ProductPageComponentDesktop = () => {
   const addToCart = () => {
     const newProduct = { product: { ...product, qty }, totalPrice: total };
     if (newProduct.product.qty > 0) {
-    console.log(newProduct);
-    if (cart.length > 0) {
-      const haveProductInCart = cart.filter(
-        (item) => item.product.id === newProduct.product.id
-      );
-      if (haveProductInCart.length > 0) {
-        const newProduct2 = {
-          totalPrice: haveProductInCart[0].totalPrice + newProduct.totalPrice,
-          product: {
-            ...haveProductInCart[0].product,
-            qty: haveProductInCart[0].product.qty + newProduct.product.qty,
-          },
-        };
-        const newCart = cart.map((item) => {
-          if (item.product.id === newProduct2.product.id) {
-            return newProduct2;
+      if (cart.length > 0) {
+        if (newProduct.product.userId === cart[0].product.userId) {
+          const haveProductInCart = cart.filter(
+            (item) => item.product.id === newProduct.product.id
+          );
+          if (haveProductInCart.length > 0) {
+            const newProduct2 = {
+              totalPrice:
+                haveProductInCart[0].totalPrice + newProduct.totalPrice,
+              product: {
+                ...haveProductInCart[0].product,
+                qty: haveProductInCart[0].product.qty + newProduct.product.qty,
+              },
+            };
+            const newCart = cart.map((item) => {
+              if (item.product.id === newProduct2.product.id) {
+                return newProduct2;
+              } else {
+                return item;
+              }
+            });
+            setCart(newCart);
           } else {
-            return item;
+            setCart([
+              ...cart,
+              {
+                product: {
+                  ...newProduct.product,
+                },
+                totalPrice: newProduct.totalPrice,
+              },
+            ]);
           }
-        });
-        setCart(newCart);
+        }
       } else {
         setCart([
           ...cart,
@@ -102,17 +116,7 @@ const ProductPageComponentDesktop = () => {
           },
         ]);
       }
-    } else {
-      setCart([
-        ...cart,
-        {
-          product: {
-            ...newProduct.product,
-          },
-          totalPrice: newProduct.totalPrice,
-        },
-      ]);
-    }}
+    }
   };
 
   useEffect(() => {
