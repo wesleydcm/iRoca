@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import { IProduct } from "../../../@types";
 import Modal from "../addToCart/addToCart";
 import ProducerCard from "../../../components/Producer_Cart/mobile";
+import { ReactComponent as HeartSVG } from "../../../assets/images-mobile/heart.svg";
 
 interface Params {
   id: string;
@@ -35,13 +36,14 @@ const ProductPageComponentMobile = () => {
   const [average, setAverage] = useState<number>(0);
 
   const param: Params = useParams();
-  const { initController } = useUser();
+  const { initController, user } = useUser();
   const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const controller = initController();
 
   useEffect(() => {
     const getProductData = async () => {
-      const controller = initController();
-
+    
       const productData = await controller.getProduct(Number(param.id));
       const Average = await controller.getEvaluationsAverage(productData);
       setAverage(Average.average);
@@ -62,7 +64,22 @@ const ProductPageComponentMobile = () => {
     setOpenModal(!openModal);
   };
 
+  const addFavorites = () => {
+
+    const {favorites} = user.personalData
+
+    const favoriteProduct = {
+      id:user.personalData.id,
+      personalData:{
+        favorites:[...favorites, product.id]
+      },
+      token: user.token
+    }
+    controller.handleFavorite(favoriteProduct)
+  }
+
   const price = product?.price || 0;
+  
   return (
     <Wrapper>
       <Menu />
@@ -96,6 +113,13 @@ const ProductPageComponentMobile = () => {
               Em estoque <span>{product?.qty}kg</span>
             </div>
           </ProductInformation>
+          <div className="favorite">
+            {(user !== null && user.auth) &&
+              (!user.personalData.favorites.includes(product.id) &&
+              <button onClick={addFavorites}>Classificar como favorito<HeartSVG/></button>
+              )
+            }
+          </div>
           <ProducerCard producerId={product.userId} average={average} />
           <GeneralEvaluation>
             <h3>Avaliações</h3>

@@ -95,6 +95,28 @@ export const Container = styled.div`
       font-family: var(--poppins);
     }
   }
+  .favorite{
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+
+      button {
+        width: 80vw;
+        height: 40px;
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: var(--green400);
+        border: none;
+        background: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+      svg {
+        width: 8vw;
+        height: 8vw;
+	    }
+  }
 
   @media only screen and (max-width: 390px) {
     > button {

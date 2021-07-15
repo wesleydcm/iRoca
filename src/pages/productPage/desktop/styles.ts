@@ -55,8 +55,8 @@ export const Container = styled.div`
   }
   & > button {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 5vh;
+    right: 3vh;
     height: 69px;
     width: 270px;
   }
@@ -160,10 +160,15 @@ export const Container = styled.div`
 
 export const Total = styled.div`
   display: flex;
-  justify-content: space-between;
-  position: fixed;
-  bottom: 15vh;
-  right: 2vw;
+  flex-direction: column;
+
+  .totalButtons{
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 18vh;
+    right: 2vw;
+  }
   .total {
     font-family: var(--nunito);
     font-weight: 700;
@@ -188,5 +193,30 @@ export const Total = styled.div`
     color: var(--green400);
     border: none;
     background: none;
+  }
+  .favorite{
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 30vh;
+    right: 3vh;
+
+      button {
+        width: 22vw;
+        height: 40px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--gray600);
+        border: none;
+        background: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      svg {
+        width: 3vw;
+        height: 3vw;
+	    }
   }
 `;

@@ -5,6 +5,7 @@ import { ReactComponent as MyAccount } from "../../../assets/images-mobile/my_ac
 import { NavLink } from "react-router-dom";
 
 const MenuMobile = (): JSX.Element => {
+
   return (
     <MenuContainer>
       <MenuWrapper>
