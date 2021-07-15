@@ -32,7 +32,7 @@ const ProducerCartDesktop = ({ producerId }: Props): JSX.Element => {
           </div>
         </div>
         <div className="image">
-          <RatingStar />
+          <RatingStar readOnly={true}/>
         </div>
       </Card>
     </Container>

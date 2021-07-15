@@ -27,6 +27,7 @@ const ProductCardInCartHistory = ({
     //Colocar a lógica de enviar para API a avaliação aqui
     setIsOpened(false);
   };
+
   return (
     <>
       <NewEvaluation
@@ -34,6 +35,7 @@ const ProductCardInCartHistory = ({
         setIsOpened={setIsOpened}
         evaluationTarget={"product"}
         handleSubmit={handleSubmit}
+        item={item}
       ></NewEvaluation>
       <Wrapper
         scenery={drillScenery}
