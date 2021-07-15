@@ -50,10 +50,6 @@ const NewEvaluation = ({
   const [firstEvaluation, setFirstEvaluation] = useState<boolean>(false);
   const { user, initController } = useUser();
 
-  const handleFirstEvaluation = () => {
-    setFirstEvaluation(true);
-    submitProductEvaluation();
-  };
   const submitProductEvaluation = () => {
     const controller = initController();
     const newProductEvaluation: IProductEvaluation = {
@@ -64,6 +60,7 @@ const NewEvaluation = ({
       grade: productRating,
     };
     controller.createProductEvaluation(user.token, newProductEvaluation);
+    setFirstEvaluation(true);
   };
 
   const submitProducerEvaluation = () => {
@@ -76,6 +73,7 @@ const NewEvaluation = ({
       grade: producerRating,
     };
     controller.createProductorEvaluation(user.token, NewProducerEvaluation);
+    setIsOpened(false);
   };
   return (
     <>
@@ -100,12 +98,14 @@ const NewEvaluation = ({
                 ></input>
                 <Button
                   color={"green"}
-                  onClick={() => setFirstEvaluation(true)}
+                  onClick={submitProductEvaluation}
                   disabled={!productRating}
                 >
                   Enviar avaliação
                 </Button>
-                <SkipButton onClick={handleFirstEvaluation}>Pular</SkipButton>
+                <SkipButton onClick={() => setFirstEvaluation(true)}>
+                  Pular
+                </SkipButton>
               </Container>
             </section>
           ) : (
