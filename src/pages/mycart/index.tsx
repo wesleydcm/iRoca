@@ -43,7 +43,7 @@ const MyCart = () => {
   const history = useHistory();
 
   const calcShipping = (): void => {
-    if (user !== null && cart.length > 0) {
+    if (user !== null && user.auth && cart.length > 0) {
       const subtotalQty = parseFloat(
         cart.reduce((acc, product) => acc + product.product.qty, 0).toFixed(2)
       );
