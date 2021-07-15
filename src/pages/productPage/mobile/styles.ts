@@ -21,7 +21,8 @@ export const Container = styled.div`
   height: 100vh;
 
   .rec-carousel-wrapper {
-    margin-bottom: 2rem;
+    margin-bottom: 14vh;
+    padding-top: 4vh;
   }
   .rec-carousel-wrapper img {
     height: calc(28vh);
@@ -41,7 +42,7 @@ export const Container = styled.div`
   }
   & > button {
     position: absolute;
-    top: 50px;
+    top: 42vh;
     left: 50%;
     width: 70%;
     height: 50px;
@@ -52,6 +53,7 @@ export const Container = styled.div`
   }
   .scroll {
     height: 47vh;
+    padding-bottom: 100px;
     ::-webkit-scrollbar {
       width: 0;
     }
@@ -79,7 +81,7 @@ export const Container = styled.div`
     position: relative;
     margin: 2rem auto;
     height: auto;
-    > div:nth-child(2){
+    > div:nth-child(2) {
       padding: 2rem 0;
       cursor: pointer;
     }
@@ -88,10 +90,9 @@ export const Container = styled.div`
       position: absolute;
       right: -5px;
       top: 50px;
-      }
-      *{
-        font-family: var(--poppins);
-      }
+    }
+    * {
+      font-family: var(--poppins);
     }
   }
 

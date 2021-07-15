@@ -80,7 +80,8 @@ export const Card = styled.div`
   @media (min-width: 900px) {
     flex-direction: column-reverse;
 
-    .information {
+    div.information {
+      padding-top: 5vh;
       justify-content: center;
       margin-left: 30px;
       margin-bottom: 20px;
@@ -90,11 +91,12 @@ export const Card = styled.div`
     .image {
       display: flex;
       justify-content: flex-end;
+      width: 100%;
     }
 
     .image div {
       font-size: 20px;
-      width: 30px;
+
       padding-top: 5px;
     }
 

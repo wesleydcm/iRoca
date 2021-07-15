@@ -150,7 +150,7 @@ const ProductPageComponentDesktop = () => {
               <img src={`${imageURL2}`} alt={product.name} />
             )}
           </Carousel>
-          <ProducerCard producerId={product.userId} />
+          <ProducerCard producerId={product.userId} average={average} />
         </div>
         <Button type="button" color="green" onClick={addToCart}>
           Adicionar ao carrinho

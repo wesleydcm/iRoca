@@ -62,6 +62,7 @@ const ProductPageComponentMobile = () => {
     setOpenModal(!openModal);
   };
 
+  const price = product?.price || 0;
   return (
     <Wrapper>
       <Menu />
@@ -69,7 +70,7 @@ const ProductPageComponentMobile = () => {
         <Modal
           product={product}
           toggleModal={toggleModal}
-          Price={product ? product.price : 0}
+          Price={Number(price)}
         />
       )}
       <Container>
@@ -95,7 +96,7 @@ const ProductPageComponentMobile = () => {
               Em estoque <span>{product?.qty}kg</span>
             </div>
           </ProductInformation>
-          <ProducerCard producerId={product.userId} />
+          <ProducerCard producerId={product.userId} average={average} />
           <GeneralEvaluation>
             <h3>Avaliações</h3>
             <div>
