@@ -5,6 +5,9 @@ import { IProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import { useState } from "react";
 import NewEvaluation from "../../../components/NewEvaluation";
+import { useCart } from "../../../providers/cart";
+import {CART_LOCALSTORAGE_FLAG} from "../../../utils";
+
 interface Props {
   item: IProduct;
   "data-testid"?: string;
@@ -27,10 +30,19 @@ const ProductCardInCartHistory = ({
     //Colocar a lógica de enviar para API a avaliação aqui
     setIsOpened(false);
   };
+
+  const {cart, setCart} = useCart();
+
   const handleClick = () => {
     if (scenery === "history") {
       setIsOpened(true)
     }
+  }
+
+  const removeItemFromCart = () => {
+    const newCart = cart.filter((elem) => elem.product.id !== item.id);
+    setCart(newCart);
+    localStorage.setItem(CART_LOCALSTORAGE_FLAG, JSON.stringify(newCart));
   }
 
   return (
@@ -65,7 +77,7 @@ const ProductCardInCartHistory = ({
         </figure>
         <div data-css="statusWrapper">
           {scenery === "cart" && (
-            <button onClick={() => console.log("cart")}>
+            <button onClick={removeItemFromCart}>
               <TrashSvg />
             </button>
           )}

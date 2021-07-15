@@ -1,11 +1,13 @@
 import { Wrapper } from "../styles";
 import { ReactComponent as TrashSvg } from "../../../assets/images-mobile/trash.svg";
 import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/organic_flag.svg";
-import { IEvaluation, IProduct } from "../../../@types";
+import { IProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import { useState } from "react";
 import NewEvaluation from "../../../components/NewEvaluation";
-import { useUser } from "../../../providers/user";
+import { useCart } from "../../../providers/cart";
+import {CART_LOCALSTORAGE_FLAG} from "../../../utils";
+
 interface Props {
   item: IProduct;
   "data-testid"?: string;
@@ -28,6 +30,21 @@ const ProductCardInCartHistoryMobile = ({
     //Colocar a lógica de enviar para API a avaliação aqui
     setIsOpened(false);
   };
+
+  const {cart, setCart} = useCart();
+
+  const handleClick = () => {
+    if (scenery === "history") {
+      setIsOpened(true)
+    }
+  }
+
+  const removeItemFromCart = () => {
+    const newCart = cart.filter((elem) => elem.product.id !== item.id);
+    setCart(newCart);
+    localStorage.setItem(CART_LOCALSTORAGE_FLAG, JSON.stringify(newCart));
+  }
+
   return (
     <>
       <NewEvaluation
@@ -40,7 +57,7 @@ const ProductCardInCartHistoryMobile = ({
       <Wrapper
         scenery={drillScenery}
         {...rest}
-        onClick={() => setIsOpened(true)}
+        onClick={handleClick}
       >
         {item.isOrganic && (
           <figure className="organicFlag">
@@ -60,7 +77,7 @@ const ProductCardInCartHistoryMobile = ({
         </div>
         <div data-css="statusWrapper">
           {scenery === "cart" && (
-            <button>
+            <button onClick={removeItemFromCart}>
               <TrashSvg />
             </button>
           )}
