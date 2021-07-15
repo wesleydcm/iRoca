@@ -69,6 +69,7 @@ const HistoryCardMobile = ({
           />
         ))}
       </ul>
+      {!purchase.isReceived && 
       <DialogModal
         title="entrega"
         message="Sua compra foi entregue?"
@@ -78,6 +79,7 @@ const HistoryCardMobile = ({
         <span>Recebido?</span>
         <CheckSvg />
       </DialogModal>
+      }
       <div data-css="purchase__data">
         <div>
           <span>Subtotal: </span>

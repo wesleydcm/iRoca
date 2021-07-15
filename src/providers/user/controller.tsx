@@ -5,7 +5,6 @@ import type {
   IUserUpdate,
   IProductUpdate,
   IProductUpdatePurchase,
-  IPurchase,
   IEvaluations,
   IProduct,
   NewProduct,
