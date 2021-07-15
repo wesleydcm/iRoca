@@ -43,7 +43,7 @@ const MyCart = () => {
   const history = useHistory();
 
   const calcShipping = (): void => {
-    if (user !== null && cart.length > 0) {
+    if (user !== null && user.auth && cart.length > 0) {
       const subtotalQty = parseFloat(
         cart.reduce((acc, product) => acc + product.product.qty, 0).toFixed(2)
       );
@@ -126,7 +126,7 @@ const MyCart = () => {
   };
 
   const handlePayment = () => {
-    if (user !== null) {
+    if (user !== null && user.auth) {
       const check = checkStock();
       if (check === true) {
         const myId: number = user.personalData.id;
@@ -144,7 +144,7 @@ const MyCart = () => {
             delivery: delivery,
             total: total,
             isReceived: false,
-            products: cart,
+            products: cart.map((elem) => elem.product),
           };
 
           if (purchase.userId !== purchase.sellerId) {

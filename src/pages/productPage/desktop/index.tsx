@@ -38,12 +38,13 @@ const ProductPageComponentDesktop = () => {
   const [total, setTotal] = useState<number>(0);
   const { cart, setCart } = useCart();
 
+  const controller = initController();
+
   const price = product?.price || 0;
 
   useEffect(() => {
     const getProductData = async () => {
-      const controller = initController();
-
+    
       const productData = await controller.getProduct(Number(param.id));
       const Average = await controller.getEvaluationsAverage(productData);
       setAverage(Average.average);
@@ -67,6 +68,10 @@ const ProductPageComponentDesktop = () => {
       setQty(qty - 10);
     }
   };
+
+  const addFavorites = () => {
+
+  }
 
   const addToCart = () => {
     const newProduct = { product: { ...product, qty }, totalPrice: total };
@@ -150,7 +155,7 @@ const ProductPageComponentDesktop = () => {
               <img src={`${imageURL2}`} alt={product.name} />
             )}
           </Carousel>
-          <ProducerCard producerId={product.userId} />
+          <ProducerCard producerId={product.userId} average={average} />
         </div>
         <Button type="button" color="green" onClick={addToCart}>
           Adicionar ao carrinho
