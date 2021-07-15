@@ -1,6 +1,6 @@
 import HomeMobile from "./mobile";
 import HomeDesktop from "./desktop";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ITreatedProduct, IProduct } from "../../@types";
 import { categoriesAndTypes, WINDOW_SIZE_DESKTOP } from "../../utils";
 import { useUser } from "../../providers/user";
@@ -25,30 +25,21 @@ const Home = () => {
 	const { pageWidth } = useWindow();
 	const controller = initController();
 
-	//on first load, will update the "allProductsList":
-	const getOthersUsersProducts = useCallback((): void => {
-		if (user && user.auth) {
-			controller.getProduct().then((response: IProduct[]) => {
-				const validProducts = response.filter(
-					item => item.userId !== user.personalData.id,
-				);
-				setAllProductsList(validProducts);
-			});
-		} else {
-			controller.getProduct().then((response: IProduct[]) => {
-				setAllProductsList(response);
-			});
-		}
-	}, []);
-
-	useEffect(() => {
-		getOthersUsersProducts();
-	}, []);
-
 	//on every user interaction, will update the "allProductsList":
 	useEffect(() => {
 		if (!!categorySelected || !!selectedType) {
-			getOthersUsersProducts();
+			if (user && user.auth) {
+				controller.getProduct().then((response: IProduct[]) => {
+					const validProducts = response.filter(
+						item => item.userId !== user.personalData.id,
+					);
+					setAllProductsList(validProducts);
+				});
+			} else {
+				controller.getProduct().then((response: IProduct[]) => {
+					setAllProductsList(response);
+				});
+			}
 			setIsLoading(false);
 		}
 		// eslint-disable-next-line
