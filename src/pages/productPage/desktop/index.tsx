@@ -153,8 +153,10 @@ const ProductPageComponentDesktop = () => {
 
       <Total>
         <div className="favorite">
-          {!user.personalData.favorites.includes(product.id) &&
-          <button onClick={addFavorites}>Classificar como favorito<HeartSVG/></button>
+          {(user !== null && user.auth) &&
+            (!user.personalData.favorites.includes(product.id) &&
+            <button onClick={addFavorites}>Classificar como favorito<HeartSVG/></button>
+            )
           }
         </div>
         <div className = "totalButtons">
