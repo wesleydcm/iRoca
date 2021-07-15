@@ -83,7 +83,10 @@ const ProfilePageMobile = (): JSX.Element => {
   return (
     <Container>
       <ContactContent>
-        <Link to="/myAccount">
+        {user.personalData.id === Number(param.id)
+          ? "Meu perfil"
+          : "Perfil do Produtor"}
+        <Link to="/myaccount">
           <ArrowToBack />
         </Link>
         <img src={profile?.image} alt="user" />

@@ -8,35 +8,28 @@ export const Container = styled.div`
   h1 {
     font-weight: 600;
     font-size: 1.3rem;
-
     color: var(--green400);
     font-family: var(--poppins);
     position: absolute;
     top: 10px;
     left: 2rem;
+    svg {
+      margin-left: 1rem;
+    }
   }
-  figure {
-    position: relative;
-    width: fit-content;
-    margin: 1rem 0 0 4rem;
+  .divDelete {
+    background-color: var(--red);
+    width: 98px;
+    height: 28px;
+    position: absolute;
+    bottom: -163px;
+    left: 50px;
 
-    img:nth-child(1) {
-      width: 30vw;
-      height: 30vw;
-      border-radius: 100%;
+    transition: 0.5s ease;
+    &:hover {
+      transition: 0.5s ease;
+      box-shadow: 1px 2px 5px 2px var(--gray700);
     }
-    img:nth-child(2) {
-      width: 40px;
-      height: 40px;
-      position: absolute;
-      right: -18px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-    }
-  }
-  @media only screen and (min-width: 900px) {
-    padding-left: 25vw;
   }
 `;
 
@@ -45,18 +38,46 @@ export const Form = styled.form`
   margin: 0 auto;
   input {
     width: 100%;
-    margin-top: 1rem;
+
     height: 32px;
     font-size: 0.8rem;
   }
-  input::placeholder {
+  label {
+    font-size: 12px;
+    margin-top: 1rem;
     color: var(--gray900);
+  }
+  textarea {
+    background: transparent;
+    width: 100%;
+    min-height: 100px;
+    color: var(--gray700);
+    border: 2px solid var(--green400);
+    font-size: 0.8rem;
+    outline: none;
+    border-radius: 10px;
+    padding: 0 15px;
+    outline: none;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    font-family: var(--poppins);
+    font-style: normal;
+  }
+
+  textarea::placeholder {
+    color: var(--gray400);
+    font-size: 12px;
+  }
+
+  input::placeholder {
+    color: var(--gray400);
     font-size: 12px;
   }
   button {
     position: absolute;
-    top: 10px;
-    right: 20px;
+    bottom: -163px;
+    right: 50px;
     font-size: 0.8rem;
     width: 100px;
     height: 31px;
@@ -73,4 +94,26 @@ export const Box = styled.div`
     color: var(--green400);
   }
   margin: 2rem 0;
+`;
+export const DeleteButton = styled.button`
+  position: absolute;
+  font-size: 0.8rem;
+  width: 98px;
+  height: 28px;
+  transition: 0.5s ease-out;
+  border-radius: 12px;
+  color: var(--red);
+  border-color: transparent;
+  text-transform: capitalize;
+  text-align: center;
+  font-family: var(--poppins);
+  font-style: normal;
+  font-weight: 600;
+  transition: 0.5s ease;
+  transition: 0.5s ease;
+  &:hover {
+    transition: 0.5s ease;
+    box-shadow: 1px 2px 5px 2px var(--gray700);
+    transform: translate(-2px, 2px);
+  }
 `;

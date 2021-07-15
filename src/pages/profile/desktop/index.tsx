@@ -87,7 +87,10 @@ const ProfilePageDesktop = (): JSX.Element => {
   return (
     <Container>
       <h1>
-        Meu Perfil
+        {user.personalData.id === Number(param.id)
+          ? "Meu perfil"
+          : "Perfil do Produtor"}
+
         <Link to="/myaccount">
           <ArrowToBack />
         </Link>
