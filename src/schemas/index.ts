@@ -16,7 +16,7 @@ export const createProductSchema = yup.object().shape({
   imageThree: yup.string(),
   imageFour: yup.string(),
 });
-  
+
 export const editProfileSchema = yup.object().shape({
   name: yup.string(),
   birthDate: yup.string(),
@@ -29,13 +29,12 @@ export const editProfileSchema = yup.object().shape({
   complement: yup.string(),
 });
 export const editProductSchema = yup.object().shape({
-  name: yup.string(),
-  description: yup.string(),
-  price: yup.number(),
-  qty: yup.number(),
-  images: yup.array().of(
-    yup.object().shape({
-      url: yup.string(),
-    })
-  ),
+  name: yup.string().required("Informe o nome"),
+  description: yup.string().required("Descreva o produto"),
+  price: yup.string().required("Informe o preço"),
+  qty: yup.string().required("Informe quantidade em estoque"),
+  imageOne: yup.string(),
+  imageTwo: yup.string(),
+  imageThree: yup.string(),
+  imageFour: yup.string(),
 });
