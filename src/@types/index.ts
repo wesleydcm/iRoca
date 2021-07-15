@@ -77,11 +77,12 @@ export interface IProductEvaluation {
 
 export interface IProductUpdate {
   name: string;
-  description?: string;
+  category?: string;
+  description: string;
   price: number;
   qty: number;
-  images: string[];
-  evaluations: IEvaluations[];
+  images?: Image[];
+  evaluations?: IEvaluations[];
 }
 
 export interface Image {

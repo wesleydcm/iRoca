@@ -45,10 +45,38 @@ export const Form = styled.form`
   margin: 0 auto;
   input {
     width: 100%;
-    margin-top: 1rem;
+
     height: 32px;
     font-size: 0.8rem;
   }
+  label {
+    font-size: 12px;
+    margin-top: 1rem;
+    color: var(--gray900);
+  }
+  textarea {
+    background: transparent;
+    width: 100%;
+    min-height: 100px;
+    color: var(--gray700);
+    border: 2px solid var(--green400);
+    font-size: 0.8rem;
+    outline: none;
+    border-radius: 10px;
+    padding: 0 15px;
+    outline: none;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    font-family: var(--poppins);
+    font-style: normal;
+  }
+
+  textarea::placeholder {
+    color: white;
+    font-size: 12px;
+  }
+
   input::placeholder {
     color: var(--gray900);
     font-size: 12px;
