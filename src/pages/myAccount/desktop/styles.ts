@@ -3,16 +3,16 @@ import Button from "../../../components/Button";
 import { NavLink } from "react-router-dom";
 export const NotAuthContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   margin-left: 27vw;
 `;
 export const BigContainer = styled.div`
-  min-height: 662px;
+  min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
-
+  align-items: flex-start;
   flex-direction: column;
-  padding-left: 35vw;
+  padding-left: 30vw;
   padding-right: 4rem;
 `;
 
@@ -25,11 +25,9 @@ export const Link = styled(NavLink)`
 export const ContainerButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
-
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
-  margin: 0 auto;
 
   button {
     width: 100%;

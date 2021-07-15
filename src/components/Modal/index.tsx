@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
 import { Wrapper, StyledDialog } from "./styles";
+import { IPurchase } from "../../@types";
 
 interface Props {
   title: string;
@@ -12,6 +13,7 @@ interface Props {
   children: ReactNode;
   dataCss?: string;
   "data-testid"?: string;
+  evaluatedItem?: IPurchase;
 }
 
 const Transition = forwardRef(function Transition(
@@ -48,9 +50,15 @@ const DialogModal = ({
     setOpen(false);
   };
 
+  const handleClick = (): void => {
+      if (!rest.evaluatedItem) {
+        setOpen(false);
+      }
+	};
+
   return (
     <Wrapper {...rest}>
-      <button data-css={dataCss} onClick={() => setOpen(true)}>
+      <button data-css={dataCss} onClick={handleClick}>
         {children}
       </button>
 
