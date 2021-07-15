@@ -52,10 +52,10 @@ const RegisterStep3Desktop = () => {
   const history = useHistory();
 
   const schema = yup.object().shape({
-    state: yup.string().required("Campo obrigatório"),
-    city: yup.string().required("Campo obrigatório"),
-    neighborhood: yup.string().required("Campo obrigatório"),
-    street: yup.string().required("Campo obrigatório"),
+    state: yup.string(),
+    city: yup.string(),
+    neighborhood: yup.string(),
+    street: yup.string(),
     complement: yup.string(),
     cep: yup.string(),
   });

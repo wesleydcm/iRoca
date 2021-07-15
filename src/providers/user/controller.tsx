@@ -151,6 +151,31 @@ class UserController {
     }
   };
 
+  includeAsFavorite = async (data: IUserUpdate) => {
+    try {
+      const response = await api.patch(
+        `/users/${data.id}/`,
+        data.personalData,
+        {
+          headers: { Authorization: `Bearer ${data.token}` },
+        }
+      );
+      this.setUser({
+        ...this.user,
+        personalData: {
+          ...this.user.personalData,
+          ...response.data.personalData,
+          ...this.user.personalData.favorites,
+          ...response.data.personalData.favorites,
+        },
+      });
+      successToast("Produto adicionado como favorito");
+      return await response.data;
+    } catch (e) {
+      errorToast("Não foi possível adicionar como favorito");
+    }
+  };
+
   deleteUser = async (userId: number) => {
     try {
       await api.delete(`/users/${userId}/`);
