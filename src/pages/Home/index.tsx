@@ -32,7 +32,6 @@ const Home = () => {
 				const validProducts = response.filter(
 					item => item.userId !== user.personalData.id,
 				);
-				console.log("validProducts :>> ", validProducts);
 				setAllProductsList(validProducts);
 			});
 		} else {
@@ -43,9 +42,6 @@ const Home = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log("dasd");
-
-		console.log("getOthersUsersProducts :>> ", getOthersUsersProducts);
 		getOthersUsersProducts();
 	}, []);
 
