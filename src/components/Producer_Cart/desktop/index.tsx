@@ -58,16 +58,8 @@ const ProducerCartDesktop = ({ producerId, average }: Props): JSX.Element => {
           <div className="image">
             <RatingStar readOnly={true} value={average} />
           </div>
-<<<<<<< HEAD
         </Card>
       )}
-=======
-        </div>
-        <div className="image">
-          <RatingStar readOnly={true}/>
-        </div>
-      </Card>
->>>>>>> fix
     </Container>
   );
 };
