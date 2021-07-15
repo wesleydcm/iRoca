@@ -50,15 +50,13 @@ const DialogModal = ({
 		setOpen(false);
 	};
 
-	const handleClick = (): void => {
-		if (rest.evaluatedItem && !rest.evaluatedItem.isReceived) {
-			setOpen(true);
-		}
+	const handleOpen = (): void => {
+		setOpen(true);
 	};
 
 	return (
 		<Wrapper {...rest}>
-			<button data-css={dataCss} onClick={handleClick}>
+			<button data-css={dataCss} onClick={handleOpen}>
 				{children}
 			</button>
 

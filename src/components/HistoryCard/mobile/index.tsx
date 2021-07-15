@@ -71,6 +71,7 @@ const HistoryCardMobile = ({
 					message="Sua compra foi entregue?"
 					action={action}
 					dataCss="isReceivedWrapper"
+	evaluatedItem={purchase}
 				>
 					<span>Recebido?</span>
 					<CheckSvg />
