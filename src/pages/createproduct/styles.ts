@@ -53,6 +53,16 @@ export const Container = styled.div`
   @media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
     padding-left: 32vw;
 
+    .arrowToBack {
+        display: flex;
+        justify-content: space-between;
+
+        .link {
+            margin-right: 8vw;
+        }
+
+    }
+
     .error {
         span {
             top:2.5rem;
