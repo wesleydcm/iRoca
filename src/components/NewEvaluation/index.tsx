@@ -1,6 +1,8 @@
 import RatingStars from "../RatingStars";
 import { Dispatch, SetStateAction } from "react";
 import Button from "../../components/Button";
+import { IProduct, IEvaluation, IProductEvaluation } from "../../@types";
+import { useUser } from "../../providers/user";
 import {
   Container,
   CloseButton,
@@ -15,6 +17,7 @@ interface NewEvaluationProps {
   setIsOpened: Dispatch<SetStateAction<boolean>>;
   evaluationTarget: "product" | "producer";
   handleSubmit: (feedback: string) => void;
+  item: IProduct;
 }
 
 const Motion = {
@@ -33,34 +36,47 @@ const Motion = {
   },
 };
 
-const Motion2 = {
-  hidden: {
-    x: -100,
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      type: "tween",
-      delay: 0.2,
-      duration: 1,
-    },
-  },
-};
-
 const NewEvaluation = ({
   isOpened,
   setIsOpened,
   evaluationTarget,
   handleSubmit,
+  item,
 }: NewEvaluationProps) => {
   const [feedbackProduct, setFeedbackProduct] = useState<string>("");
   const [productRating, setProductRating] = useState<number>(0);
   const [feedbackProducer, setFeedbackProducer] = useState<string>("");
   const [producerRating, setProducerRating] = useState<number>(0);
   const [firstEvaluation, setFirstEvaluation] = useState<boolean>(false);
+  const { user, initController } = useUser();
 
+  const handleFirstEvaluation = () => {
+    setFirstEvaluation(true);
+    submitProductEvaluation();
+  };
+  const submitProductEvaluation = () => {
+    const controller = initController();
+    const newProductEvaluation: IProductEvaluation = {
+      userId: item.userId,
+      productId: item.id,
+      date: new Date().toDateString(),
+      feedback: feedbackProduct,
+      grade: productRating,
+    };
+    controller.createProductEvaluation(user.token, newProductEvaluation);
+  };
+
+  const submitProducerEvaluation = () => {
+    const controller = initController();
+    const NewProducerEvaluation: IEvaluation = {
+      userId: item.userId,
+      evaluatorId: user.personalData.id,
+      date: new Date().toDateString(),
+      feedback: feedbackProducer,
+      grade: producerRating,
+    };
+    controller.createProductorEvaluation(user.token, NewProducerEvaluation);
+  };
   return (
     <>
       {isOpened && (
@@ -97,7 +113,7 @@ const NewEvaluation = ({
           ) : (
             <section>
               <ContainerProducer
-                variants={Motion2}
+                variants={Motion}
                 initial="hidden"
                 animate="visible"
               >
@@ -117,7 +133,7 @@ const NewEvaluation = ({
                 ></input>
                 <Button
                   color={"green"}
-                  onClick={() => handleSubmit(feedbackProducer)}
+                  onClick={submitProducerEvaluation}
                   disabled={!producerRating}
                 >
                   Enviar avaliação

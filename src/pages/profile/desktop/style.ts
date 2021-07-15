@@ -60,8 +60,8 @@ export const Container = styled.main`
       outline: none;
       border: none;
       svg {
-        height: 56px;
-        width: 34px;
+        height: 24px;
+        width: 16px;
         path {
           fill: var(--green400);
         }

@@ -1,10 +1,11 @@
 import { Wrapper } from "../styles";
 import { ReactComponent as TrashSvg } from "../../../assets/images-mobile/trash.svg";
 import { ReactComponent as OrganicSvg } from "../../../assets/images-mobile/organic_flag.svg";
-import { IProduct } from "../../../@types";
+import { IEvaluation, IProduct } from "../../../@types";
 import { priceFormatter } from "../../../utils";
 import { useState } from "react";
 import NewEvaluation from "../../../components/NewEvaluation";
+import { useUser } from "../../../providers/user";
 interface Props {
   item: IProduct;
   "data-testid"?: string;
@@ -34,6 +35,7 @@ const ProductCardInCartHistoryMobile = ({
         setIsOpened={setIsOpened}
         evaluationTarget={"product"}
         handleSubmit={handleSubmit}
+        item={item}
       ></NewEvaluation>
       <Wrapper
         scenery={drillScenery}
@@ -49,7 +51,7 @@ const ProductCardInCartHistoryMobile = ({
           </figure>
         )}
         <figure>
-          <img src={item.images[0].url} alt={item.name} />
+          {/* <img src={item.images[0].url} alt={item.name} /> */}
           <figcaption>{item.name}</figcaption>
         </figure>
         <div>

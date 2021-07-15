@@ -14,7 +14,7 @@ const userCTX = createContext({} as IUserContext);
 export const UserProvider = ({ children }: Props) => {
   const haveUser = localStorage.getItem(USER_LOCALSTORAGE_FLAG);
 
-  const defaultValue: IUser = haveUser === null ? null : JSON.parse(haveUser);
+  const defaultValue: IUser = haveUser === null ? {} : JSON.parse(haveUser);
 
   const [user, setUser] = useState<IUser>(defaultValue);
   const { products, setProducts } = useProducts();
