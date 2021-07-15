@@ -21,8 +21,8 @@ interface Params {
   id: string;
 }
 const ProductPageComponentMobile = () => {
-  const imageURL =
-    "https://i.pinimg.com/736x/06/7f/fc/067ffce23a51a61b247f86e8b7936ee0.jpg";
+  // const imageURL =
+  //   "https://i.pinimg.com/736x/06/7f/fc/067ffce23a51a61b247f86e8b7936ee0.jpg";
   const imageURL2 =
     "https://image.freepik.com/vector-gratis/mercado-linea-caja-carton-frutas-verduras-entrega-alimentos-frescos-tienda-comestibles_24640-64229.jpg";
 

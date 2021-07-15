@@ -27,7 +27,7 @@ const ProducerCartMobile = ({ producerId, average }: Props): JSX.Element => {
   }, [producerId]);
 
   const handleClick = () => {
-    history.push(`/profile/${producerId}`);
+    history.push(`/myaccount/profile/${producerId}`);
   };
 
   return (

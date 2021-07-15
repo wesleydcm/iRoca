@@ -44,10 +44,10 @@ export const Card = styled.div`
   }
 
   .image {
-    width: 132px;
-    padding: 8px 20px 0 0;
+    width: 11.5rem;
+    padding: 0.5rem 1rem 0 0;
     display: flex;
-    align-items: baseline;
+    align-items: flex-end;
 
     @media (min-width: 900px) {
       justify-content: flex-end;
