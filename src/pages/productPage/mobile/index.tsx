@@ -35,13 +35,14 @@ const ProductPageComponentMobile = () => {
   const [average, setAverage] = useState<number>(0);
 
   const param: Params = useParams();
-  const { initController } = useUser();
+  const { initController, user } = useUser();
   const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const controller = initController();
 
   useEffect(() => {
     const getProductData = async () => {
-      const controller = initController();
-
+    
       const productData = await controller.getProduct(Number(param.id));
       const Average = await controller.getEvaluationsAverage(productData);
       setAverage(Average.average);
@@ -61,6 +62,21 @@ const ProductPageComponentMobile = () => {
     console.log("teste");
     setOpenModal(!openModal);
   };
+
+  
+  const addFavorites = () => {
+
+    const {favorites} = user.personalData
+
+    const favoriteProduct = {
+      id:user.personalData.id,
+      personalData:{
+        favorites:[...favorites, product.id]
+      },
+      token: user.token
+    }
+    controller.handleFavorite(favoriteProduct)
+  }
 
   return (
     <Wrapper>

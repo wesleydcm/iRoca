@@ -11,7 +11,7 @@ import { IProduct } from "../../../@types";
 import ProducerCard from "../../../components/Producer_Cart/desktop";
 import { useCart } from "../../../providers/cart";
 import { priceFormatter } from "../../../utils";
-import userEvent from "@testing-library/user-event";
+import { ReactComponent as HeartSVG } from "../../../assets/images-mobile/heart.svg";
 
 interface Params {
   id: string;
@@ -71,6 +71,16 @@ const ProductPageComponentDesktop = () => {
 
   const addFavorites = () => {
 
+    const {favorites} = user.personalData
+    
+    const favoriteProduct = {
+      id:user.personalData.id,
+      personalData:{
+        favorites:[...favorites, product.id]
+      },
+      token: user.token
+    }
+    controller.handleFavorite(favoriteProduct);
   }
 
   const addToCart = () => {
@@ -134,13 +144,19 @@ const ProductPageComponentDesktop = () => {
       <Menu />
 
       <Total>
-        <span className="total">{priceFormatter(total)}</span>
-        <div className="buttons">
-          <button onClick={decrement}>-</button>
-          <span>{qty}Kg</span>
-          <button onClick={increment}>+</button>
+        <div className="favorite">
+          <button onClick={addFavorites}>Classificar como favorito <HeartSVG/></button>
+        </div>
+        <div className = "totalButtons">
+          <span className="total">{priceFormatter(total)}</span>
+          <div className="buttons">
+            <button onClick={decrement}>-</button>
+            <span>{qty}Kg</span>
+            <button onClick={increment}>+</button>
+          </div>
         </div>
       </Total>
+     
       <Container>
         <h1>{product?.name}</h1>
         <div className="container">

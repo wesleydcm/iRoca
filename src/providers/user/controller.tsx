@@ -151,7 +151,7 @@ class UserController {
     }
   };
 
-  includeAsFavorite = async (data: IUserUpdate) => {
+  handleFavorite = async (data: IUserUpdate) => {
     try {
       const response = await api.patch(
         `/users/${data.id}/`,
@@ -160,18 +160,13 @@ class UserController {
           headers: { Authorization: `Bearer ${data.token}` },
         }
       );
-      this.setUser({
-        ...this.user,
-        personalData: {
-          ...this.user.personalData,
-          ...response.data.personalData,
-          ...this.user.personalData.favorites,
-          ...response.data.personalData.favorites,
-        },
-      });
+      if (data.personalData && data.personalData.favorites) {
+        this.user.personalData.favorites = data.personalData.favorites
+      }
       successToast("Produto adicionado como favorito");
       return await response.data;
     } catch (e) {
+      console.log(e)
       errorToast("Não foi possível adicionar como favorito");
     }
   };
