@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { priceFormatter } from "../../../utils/";
 import { useCart } from "../../../providers/cart";
 import { IProduct } from "../../../@types";
+import { errorToast, successToast } from "../../../utils";
 
 interface Props {
   toggleModal: () => void;
@@ -22,7 +23,7 @@ const AddToCartComponent = ({ toggleModal, product, Price }: Props) => {
     setQty(qty + 10);
   };
   const decrement = () => {
-    if (qty > 10) {
+    if (qty >= 10) {
       setQty(qty - 10);
     }
   };
@@ -52,6 +53,8 @@ const AddToCartComponent = ({ toggleModal, product, Price }: Props) => {
               }
             });
             setCart(newCart);
+            successToast("O produto foi adicionado ao carrinho")
+            toggleModal();
           } else {
             setCart([
               ...cart,
@@ -62,7 +65,12 @@ const AddToCartComponent = ({ toggleModal, product, Price }: Props) => {
                 totalPrice: newProduct.totalPrice,
               },
             ]);
+            successToast("O produto foi adicionado ao carrinho")
+            toggleModal();
           }
+        } else {
+          errorToast("Não é possível colocar no carrinho produtos de produtores diferentes")
+          toggleModal();
         }
       } else {
         setCart([
@@ -74,7 +82,11 @@ const AddToCartComponent = ({ toggleModal, product, Price }: Props) => {
             totalPrice: newProduct.totalPrice,
           },
         ]);
+        successToast("O produto foi adicionado ao carrinho")
+        toggleModal();
       }
+    } else {
+    errorToast("Informe alguma quantidade")
     }
   };
 

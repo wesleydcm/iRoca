@@ -61,17 +61,24 @@ const RegisterStep2Mobile = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    setTempUser({
-      ...tempUser,
-      name: data.name,
-      birthDate: data.birthDate,
-      cpf: data.cpf,
-      phone: data.phone,
-      image: data.image,
-    });
-
-    if (tempUser.image === "") {
-      tempUser.image = "https://i.imgur.com/ac5JjOM.png";
+    if (data.image === "") {
+      setTempUser({
+        ...tempUser,
+        name: data.name,
+        birthDate: data.birthDate,
+        cpf: data.cpf,
+        phone: data.phone,
+        image: "https://i.imgur.com/ac5JjOM.png",
+      });
+    } else {
+      setTempUser({
+        ...tempUser,
+        name: data.name,
+        birthDate: data.birthDate,
+        cpf: data.cpf,
+        phone: data.phone,
+        image: data.image,
+      });
     }
 
     reset();

@@ -12,6 +12,7 @@ import ProducerCard from "../../../components/Producer_Cart/desktop";
 import { useCart } from "../../../providers/cart";
 import { priceFormatter } from "../../../utils";
 import { ReactComponent as HeartSVG } from "../../../assets/images-mobile/heart.svg";
+import { errorToast, successToast } from "../../../utils";
 
 interface Params {
   id: string;
@@ -108,6 +109,7 @@ const ProductPageComponentDesktop = () => {
               }
             });
             setCart(newCart);
+            successToast("O produto foi adicionado ao carrinho")
           } else {
             setCart([
               ...cart,
@@ -118,7 +120,10 @@ const ProductPageComponentDesktop = () => {
                 totalPrice: newProduct.totalPrice,
               },
             ]);
+            successToast("O produto foi adicionado ao carrinho")
           }
+        } else {
+          errorToast("Não é possível colocar no carrinho produtos de produtores diferentes")
         }
       } else {
         setCart([
@@ -130,7 +135,10 @@ const ProductPageComponentDesktop = () => {
             totalPrice: newProduct.totalPrice,
           },
         ]);
+        successToast("O produto foi adicionado ao carrinho")
       }
+    } else {
+    errorToast("Informe alguma quantidade")
     }
   };
 
@@ -145,7 +153,9 @@ const ProductPageComponentDesktop = () => {
 
       <Total>
         <div className="favorite">
-          <button onClick={addFavorites}>Classificar como favorito <HeartSVG/></button>
+          {!user.personalData.favorites.includes(product.id) &&
+          <button onClick={addFavorites}>Classificar como favorito<HeartSVG/></button>
+          }
         </div>
         <div className = "totalButtons">
           <span className="total">{priceFormatter(total)}</span>
@@ -171,7 +181,7 @@ const ProductPageComponentDesktop = () => {
               <img src={`${imageURL2}`} alt={product.name} />
             )}
           </Carousel>
-          <ProducerCard producerId={product.userId} />
+          <ProducerCard producerId={product.userId} average={average} />
         </div>
         <Button type="button" color="green" onClick={addToCart}>
           Adicionar ao carrinho

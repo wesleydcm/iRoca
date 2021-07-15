@@ -209,6 +209,9 @@ export const Total = styled.div`
         color: var(--gray600);
         border: none;
         background: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
       }
 
       svg {
