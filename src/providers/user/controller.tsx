@@ -235,9 +235,6 @@ class UserController {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      successToast(
-        "Compra efetuada com sucesso, agora é só esperar o produto chegar na sua casa :)"
-      );
       //retorna uma nova lista de compras pra atualizar o feed
       return await this.getPurchasesOfUser(Number(sub));
     } catch (e) {

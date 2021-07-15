@@ -142,6 +142,7 @@ export interface IPurchase {
   isReceived: boolean;
   products: IProduct[];
 }
+
 export interface INewPurchase {
   userId: number;
   sellerId: number;
@@ -150,8 +151,9 @@ export interface INewPurchase {
   delivery: number;
   total: number;
   isReceived: boolean;
-  products: IProuctCart[];
+  products: IProduct[];
 }
+
 export interface IProuctCart {
   product: IProduct;
   totalPrice: number;
