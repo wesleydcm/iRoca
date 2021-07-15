@@ -75,6 +75,7 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
 					message="Sua compra foi entregue?"
 					action={action}
 					dataCss="isReceivedWrapper"
+					evaluatedItem={purchase}
 				>
 					<span>Recebido?</span>
 					<CheckSvg />
