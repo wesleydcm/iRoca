@@ -35,7 +35,7 @@ export const Wrapper = styled.div`
 	@media only screen and (min-width: ${`${WINDOW_SIZE_DESKTOP}px`}) {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: center;
 
 		> h2 {

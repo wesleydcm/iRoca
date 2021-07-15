@@ -5,10 +5,11 @@ import { ReactComponent as MyAccount } from "../../../assets/images-mobile/my_ac
 import { NavLink } from "react-router-dom";
 
 const MenuMobile = (): JSX.Element => {
+
   return (
     <MenuContainer>
       <MenuWrapper>
-        <NavLink to="/" activeClassName="selected">
+        <NavLink exact to="/" activeClassName="selected">
           <Anounciments />
           <span>Anúncios</span>
         </NavLink>

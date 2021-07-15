@@ -7,11 +7,13 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useUser } from "../../../providers/user";
 import DialogModal from "../../Modal";
 import { successToast } from "../../../utils";
+import { useCart } from "../../../providers/cart";
 
 const MenuDesktop = (): JSX.Element => {
 	const history = useHistory();
 
 	const { user } = useUser();
+	const { setCart } = useCart();
 
 	const handleLogout = () => {
 		localStorage.clear();
@@ -19,7 +21,7 @@ const MenuDesktop = (): JSX.Element => {
 		successToast(`Até a próxima, ${user.personalData.name}!`);
 		user.auth = false;
 		user.token = "";
-		console.log(user)
+		setCart([]);
 	};
 
 	return (

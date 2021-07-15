@@ -33,10 +33,10 @@ const MyAccountPageMobile = ({ isAuth = true }: MyProfileProps) => {
         <BigContainer>
           <Title>Minha Conta</Title>
           <ContainerButtons>
-            <Link to={`/profile/${user.personalData.id}`}>
+            <Link to={`/myaccount/profile/${user.personalData.id}`}>
               <Button color={"green"}>Ver Perfil</Button>
             </Link>
-            <Link to="/mypurchaseshistory">
+            <Link to="/myaccount/mypurchaseshistory">
               <Button color={"green"}>Histórico de compra</Button>
             </Link>
             <Link to="/myAccount/edit">

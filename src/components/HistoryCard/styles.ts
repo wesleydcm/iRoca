@@ -115,10 +115,11 @@ font-family: var(--poppins);
 		ul {
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: space-between;
-
+			justify-content: flex-start;
+			
 			li {
-				margin-bottom: 15px;
+				margin: 1rem;
+			
 			}
 		}
 
