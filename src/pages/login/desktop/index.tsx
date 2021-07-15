@@ -8,6 +8,7 @@ import { loginSchema } from "../../../schemas";
 import { useUser } from "../../../providers/user";
 import { Link, useHistory } from "react-router-dom";
 import { ReactComponent as LogoSVGdesktop } from "../../../assets/images-desktop/logo.svg";
+import { useEffect } from "react";
 
 const Motion = {
   hidden: {
@@ -29,13 +30,20 @@ const LoginPage = () => {
   const { initController, user } = useUser();
   const history = useHistory();
 
-  const login = async (data: ILoginData) => {
-    const controller = initController();
-    await controller.login(data);
+  const isAuth = () => {
     if (user.auth) {
       history.push("/");
     }
   };
+
+  const login = async (data: ILoginData) => {
+    const controller = initController();
+    await controller.login(data);
+  };
+
+  useEffect(() => {
+    isAuth();
+  }, [user.auth]);
 
   return (
     <Container variants={Motion} initial="hidden" animate="visible">
