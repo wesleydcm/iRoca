@@ -54,7 +54,7 @@ export const Modal = styled.section`
       }
     }
 
-    .informationNo {
+    .informationTwo {
       position: absolute;
       padding: 3rem 1rem;
       font-family: var(--nunito);
@@ -74,7 +74,7 @@ export const Modal = styled.section`
         }
     }
 
-    .informationYes {
+    .informationOne {
       position: absolute;
       padding: 3rem 1rem;
       font-family: var(--nunito);
@@ -99,7 +99,7 @@ export const Modal = styled.section`
     left: 50%;
     transform: translate(-50%, -50%);  
 
-    .informationNo {
+    .informationTwo {
         padding: 2rem 1rem;
 
         p {
@@ -111,7 +111,7 @@ export const Modal = styled.section`
         }
     }
 
-    .informationYes {
+    .informationOne {
         padding: 2rem 1rem;
 
         p {

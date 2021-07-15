@@ -17,10 +17,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { NewProduct } from "../../@types";
 import { createProductSchema } from "../../schemas/index";
 import { useUser } from "../../providers/user";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { WINDOW_SIZE_DESKTOP } from "../../utils/index";
 import { useWindow } from "../../providers/window";
 import ProductSwitch from "../../components/Switch";
+import { ReactComponent as ArrowToBack } from "../../assets/images-mobile/arrow-to-back.svg";
 
 interface Data {
   name: string;
@@ -75,19 +76,19 @@ const CreateProductPage = () => {
 
     if (hasImage === undefined) {
       if (newProduct.category === "frutas") {
-        newProduct.images[0] = {
+        newProduct.images = [{
           url: "https://i.imgur.com/mpSdjxN.png",
-        };
+        }];
       }
       if (newProduct.category === "vegetais") {
-        newProduct.images[0] = {
+        newProduct.images = [{
           url: "https://i.imgur.com/ePV8RUi.png",
-        };
+        }];
       }
       if (newProduct.category === "legumes") {
-        newProduct.images[0] = {
+        newProduct.images = [{
           url: "https://i.imgur.com/dajV9Qi.png",
-        };
+        }];
       }
     }
     controller.createProduct(user.token, newProduct);
@@ -218,8 +219,12 @@ const CreateProductPage = () => {
   } else {
     return (
       <Container>
-        <h1>Cadastrar produto</h1>
-
+        <div className="arrowToBack">
+          <h1>Cadastrar produto</h1>
+          <Link className="link" to="/myaccount">
+              <ArrowToBack />
+          </Link>
+        </div>
         <form onSubmit={handleSubmit(createProduct)}>
           <NameAndCategory>
             <div className="error">
@@ -243,7 +248,7 @@ const CreateProductPage = () => {
                 color="green"
               >
                 <option value="frutas">Frutas</option>
-                <option value="vegetais">Verduras</option>
+                <option value="verduras">Verduras</option>
                 <option value="legumes">Legumes</option>
               </select>
             </div>

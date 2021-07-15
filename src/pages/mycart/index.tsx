@@ -20,8 +20,9 @@ import Modal from "./Modal/modal";
 
 const MyCart = () => {
   const { user, initController } = useUser();
-  const { cart, setCart } = useCart();
+  const { cart } = useCart();
   
+  const [checkUser, setCheckUser] = useState<boolean>(false);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [notAllowedPurchase, setNotAllowedPurchase] = useState<IProduct[]>([]);
   const [shippingValue, setShippingValue] = useState<number>(0);
@@ -111,8 +112,6 @@ const MyCart = () => {
     //eslint-disable-next-line
   }, [checkStock()]);
 
-  console.log(notAllowedPurchase)
-
   const updateStock = (): void => {
     const checkCart = (item: IProuctCart, index: number) => {
       const findedProduct: any = products.find(
@@ -130,8 +129,6 @@ const MyCart = () => {
     if (user !== null) {
       const check = checkStock();
       if (check === true) {
-        updateStock();
-
         const myId: number = user.personalData.id;
         const date: string = new Date().toDateString();
         const productPurchaseId: number = cart[0].product.id;
@@ -150,13 +147,20 @@ const MyCart = () => {
             products: cart,
           };
 
-          controller.createPurchase(user.token, purchase);
-          setCart([]);
-          localStorage.removeItem(CART_LOCALSTORAGE_FLAG);
-          toggleModal();
+          if (purchase.userId !== purchase.sellerId) {
+            updateStock();
+            controller.createPurchase(user.token, purchase);
+            setCheckUser(true)
+            localStorage.removeItem(CART_LOCALSTORAGE_FLAG);
+            toggleModal();
+          } else {
+            localStorage.removeItem(CART_LOCALSTORAGE_FLAG);
+            toggleModal();
+          }
         });
       } else {
         toggleModal();
+        localStorage.removeItem(CART_LOCALSTORAGE_FLAG);
       }
     } else {
       history.push("/login");
@@ -172,6 +176,7 @@ const MyCart = () => {
         <Modal
           product={notAllowedPurchase}
           toggleModal={toggleModal}
+          checkUser={checkUser}
         />
       )}
         <h1>Carrinho</h1>
@@ -220,6 +225,7 @@ const MyCart = () => {
         <Modal
           product={notAllowedPurchase}
           toggleModal={toggleModal}
+          checkUser={checkUser}
         />
         )}
         <h1>Carrinho</h1>
