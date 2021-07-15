@@ -72,7 +72,7 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
           />
         ))}
       </ul>
-
+      
       <DialogModal
         title="entrega"
         message="Sua compra foi entregue?"
@@ -82,6 +82,7 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
         <span>Recebido?</span>
         <CheckSvg />
       </DialogModal>
+     
     </Wrapper>
   );
 };

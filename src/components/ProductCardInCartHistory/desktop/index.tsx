@@ -27,6 +27,11 @@ const ProductCardInCartHistory = ({
     //Colocar a lógica de enviar para API a avaliação aqui
     setIsOpened(false);
   };
+  const handleClick = () => {
+    if (scenery === "history") {
+      setIsOpened(true)
+    }
+  }
 
   return (
     <>
@@ -40,7 +45,7 @@ const ProductCardInCartHistory = ({
       <Wrapper
         scenery={drillScenery}
         {...rest}
-        onClick={() => setIsOpened(true)}
+        onClick={handleClick}
       >
         {item.isOrganic && (
           <figure className="organicFlag">
@@ -60,7 +65,7 @@ const ProductCardInCartHistory = ({
         </figure>
         <div data-css="statusWrapper">
           {scenery === "cart" && (
-            <button>
+            <button onClick={() => console.log("cart")}>
               <TrashSvg />
             </button>
           )}

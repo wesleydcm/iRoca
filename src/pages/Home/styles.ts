@@ -136,6 +136,7 @@ export const Wrapper = styled.div`
 		}
 		ul[data-css="filtersWrapper"] {
 			width: 100%;
+			display: flex;
 		}
 		div[data-css="filtersContainer"] {
 			width: 100%;
@@ -181,9 +182,11 @@ export const Wrapper = styled.div`
 
 		ul[data-css="productsWrapper"] {
 			align-items: flex-end;
-			justify-content: center;
+			justify-content: flex-start;
 			flex-direction: row;
 			flex-wrap: wrap;
+			margin-top: 1rem;
+			margin-left: -0.5rem;
 
 			li + li {
 				margin-top: 30px;

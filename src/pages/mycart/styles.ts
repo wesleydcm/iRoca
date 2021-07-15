@@ -63,8 +63,9 @@ export const Container = styled.div`
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: flex-start;
             margin-bottom: 2rem;
+            margin-left: -1rem;
         }
 
         li {
