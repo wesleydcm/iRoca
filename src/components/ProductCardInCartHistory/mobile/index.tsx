@@ -51,7 +51,7 @@ const ProductCardInCartHistoryMobile = ({
           </figure>
         )}
         <figure>
-          {/* <img src={item.images[0].url} alt={item.name} /> */}
+          <img src={item.images[0].url} alt={item.name} />
           <figcaption>{item.name}</figcaption>
         </figure>
         <div>
