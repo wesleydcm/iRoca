@@ -43,6 +43,7 @@ export interface IUserUpdate {
     phone?: string;
     image?: string;
     address?: IAddress;
+    favorites?: number[];
   };
   token: string;
 }
