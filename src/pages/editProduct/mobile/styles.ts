@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding-bottom: 130px;
-  padding-top: 45px;
-  padding-bottom: 130px;
+  padding-bottom: 40vw;
+  padding-top: 10vw;
 
   h1 {
     font-weight: 600;
@@ -11,7 +10,7 @@ export const Container = styled.div`
     color: var(--green400);
     font-family: var(--poppins);
     position: absolute;
-    top: 10px;
+    top: 1.5rem;
     left: 2rem;
     svg {
       margin-left: 1rem;
@@ -19,11 +18,11 @@ export const Container = styled.div`
   }
   .divDelete {
     background-color: var(--red);
-    width: 98px;
-    height: 28px;
+    width: 100px;
+    height: 30px;
     position: absolute;
-    bottom: -163px;
-    left: 50px;
+    bottom: -25vw;
+    left: 15vw;
 
     transition: 0.5s ease;
     &:hover {
@@ -76,11 +75,11 @@ export const Form = styled.form`
   }
   button {
     position: absolute;
-    bottom: -163px;
-    right: 50px;
+    bottom: -25vw;
+    right: 15vw;
     font-size: 0.8rem;
     width: 100px;
-    height: 31px;
+    height: 30px;
   }
 `;
 
@@ -97,9 +96,11 @@ export const Box = styled.div`
 `;
 export const DeleteButton = styled.button`
   position: absolute;
+  top:0;
+  left: 0;
   font-size: 0.8rem;
-  width: 98px;
-  height: 28px;
+  width: 100px;
+  height: 30px;
   transition: 0.5s ease-out;
   border-radius: 12px;
   color: var(--red);

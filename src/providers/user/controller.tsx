@@ -305,7 +305,7 @@ class UserController {
       const { evaluations } = await this.getProduct(evaluation.productId);
       const { data } = await api.patch(
         `/products/${evaluation.productId}`,
-        [...evaluations, evaluation],
+      {evaluations: [...evaluations, evaluation]},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
