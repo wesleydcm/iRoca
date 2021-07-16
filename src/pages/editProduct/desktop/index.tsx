@@ -190,7 +190,7 @@ const UpdateProductDesktop = () => {
                 type="text"
                 placeholder="link url imagem 4"
                 defaultValue={
-                  images[3] ? (images[3].url ? images[3].url : "") : ""
+                  images[3] && images[3].url
                 }
                 register={register}
                 name="imageFour"

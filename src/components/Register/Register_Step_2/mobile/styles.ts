@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   background-image: var(--green-gradient);
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export const Logo = styled.header`
@@ -35,12 +35,12 @@ export const Logo = styled.header`
 
 export const Form = styled.form`
   width: 100%;
-  height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   margin: 0 auto;
+  padding-bottom: 2rem;
 
   p {
     color: var(--color-error);
@@ -54,18 +54,19 @@ export const Form = styled.form`
     line-height: 36px;
     color: var(--font-color);
     font-family: var(--poppins);
+    margin-left: 3rem;
   }
 
   .input {
     display: flex;
     flex-direction: column;
-    height: 250px;
     justify-content: space-around;
   }
 
   .photo {
     h1 {
       font-size: 18px;
+      margin-top: 1rem;
     }
   }
 
@@ -100,6 +101,7 @@ export const Form = styled.form`
     font-family: var(--poppins);
     font-style: normal;
     height: 45px;
+    margin-top: 1rem;
 
     &::placeholder {
       color: var(--white);

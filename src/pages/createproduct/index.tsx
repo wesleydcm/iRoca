@@ -80,7 +80,7 @@ const CreateProductPage = () => {
           url: "https://i.imgur.com/mpSdjxN.png",
         }];
       }
-      if (newProduct.category === "vegetais") {
+      if (newProduct.category === "verduras") {
         newProduct.images = [{
           url: "https://i.imgur.com/ePV8RUi.png",
         }];

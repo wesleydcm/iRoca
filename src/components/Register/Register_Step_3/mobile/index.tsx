@@ -23,20 +23,17 @@ interface FormValues {
 
 const Motion = {
   hidden: {
-    x: "100vw",
     opacity: 0,
   },
   visible: {
     opacity: 1,
-    x: 0,
     transition: {
-      type: "tween",
-      duration: 0.7,
+      duration: 1.5,
     },
   },
 };
 
-const RegisterStep2Mobile = () => {
+const RegisterStep3Mobile = () => {
   const [cepValue, setCepValue] = useState("");
 
   const [districtInput, setDistrictInput] = useState("");
@@ -80,15 +77,22 @@ const RegisterStep2Mobile = () => {
       complement: data.complement,
       cep: data.cep,
     };
-    setTempUser({ ...tempUser, address });
-    controller.registerUser(tempUser).then(() => {
-      controller.login({
-        email: tempUser.email,
-        password: tempUser.password,
+    
+    tempUser.address = address;
+    tempUser.favorites = [];
+    controller
+      .registerUser(tempUser)
+      .then((response) => {
+        console.log(response);
+      })
+      .then(() => {
+        controller.login({
+          email: tempUser.email,
+          password: tempUser.password,
+        });
+        reset();
+        history.push("/");
       });
-      reset();
-      history.push("/");
-    });
   };
 
   const handleClick = useCallback(async (url) => {
@@ -199,4 +203,4 @@ const RegisterStep2Mobile = () => {
   );
 };
 
-export default RegisterStep2Mobile;
+export default RegisterStep3Mobile;

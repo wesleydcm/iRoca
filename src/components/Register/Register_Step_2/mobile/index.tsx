@@ -19,15 +19,12 @@ interface FormValues {
 
 const Motion = {
   hidden: {
-    x: "100vw",
     opacity: 0,
   },
   visible: {
     opacity: 1,
-    x: 0,
     transition: {
-      type: "tween",
-      duration: 0.7,
+      duration: 1.5,
     },
   },
 };
