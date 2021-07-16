@@ -5,7 +5,6 @@ import type {
   IUserUpdate,
   IProductUpdate,
   IProductUpdatePurchase,
-  IPurchase,
   IEvaluations,
   IProduct,
   NewProduct,
@@ -54,7 +53,6 @@ class UserController {
     try {
       const response = await api.post("/login", data);
 
-      console.log(response);
       const token = response.data.accessToken;
       const { sub } = decodeToken(token);
 

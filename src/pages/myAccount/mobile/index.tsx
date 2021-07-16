@@ -11,7 +11,7 @@ import { useUser } from "../../../providers/user";
 
 import Button from "../../../components/Button";
 import { NavLink } from "react-router-dom";
-import DialogModal from "../../../components/Modal";
+import DialogModal from "../../../components/DialogModal";
 
 interface MyProfileProps {
   isAuth?: boolean;

@@ -5,7 +5,7 @@ import { ReactComponent as MyAccount } from "../../../assets/images-mobile/my_ac
 import { ReactComponent as ExitSvg } from "../../../assets/images-desktop/bx_bx-exit.svg";
 import { NavLink, useHistory } from "react-router-dom";
 import { useUser } from "../../../providers/user";
-import DialogModal from "../../Modal";
+import DialogModal from "../../DialogModal";
 import { successToast } from "../../../utils";
 import { useCart } from "../../../providers/cart";
 
