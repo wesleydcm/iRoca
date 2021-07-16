@@ -13,15 +13,15 @@ import {
   IUserInfo,
   IProductUpdatePurchase,
   INewPurchase,
-  IProuctCart,
+  IProductCart,
 } from "../../@types";
 import { useEffect, useState } from "react";
-import Modal from "./Modal/modal"; 
+import Modal from "./Modal/modal";
 
 const MyCart = () => {
   const { user, initController } = useUser();
   const { cart } = useCart();
-  
+
   const [checkUser, setCheckUser] = useState<boolean>(false);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [notAllowedPurchase, setNotAllowedPurchase] = useState<IProduct[]>([]);
@@ -95,7 +95,7 @@ const MyCart = () => {
 
   const checkStock = (): boolean => {
 
-    const checkCart = (cart: IProuctCart): void => {
+    const checkCart = (cart: IProductCart): void => {
       const stockProduct: any = products.find(
         (product: IProduct) => product.id === cart.product.id
       );
@@ -113,7 +113,7 @@ const MyCart = () => {
   }, [checkStock()]);
 
   const updateStock = (): void => {
-    const checkCart = (item: IProuctCart, index: number) => {
+    const checkCart = (item: IProductCart, index: number) => {
       const findedProduct: any = products.find(
         (product: IProduct) => product.id === item.product.id
       );

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createContext, ReactNode, useContext, useState } from "react";
-import { ICartContext, IProuctCart } from "../../@types";
+import { ICartContext, IProductCart } from "../../@types";
 import { CART_LOCALSTORAGE_FLAG } from "../../utils";
 
 interface Props {
@@ -12,10 +12,10 @@ const cartCTX = createContext({} as ICartContext);
 export const CartProvider = ({ children }: Props) => {
   const haveCart = localStorage.getItem(CART_LOCALSTORAGE_FLAG);
 
-  const defaultValue: IProuctCart[] =
-    haveCart === null ? ([] as IProuctCart[]) : JSON.parse(haveCart);
+  const defaultValue: IProductCart[] =
+    haveCart === null ? ([] as IProductCart[]) : JSON.parse(haveCart);
 
-  const [cart, setCart] = useState<IProuctCart[]>(defaultValue);
+  const [cart, setCart] = useState<IProductCart[]>(defaultValue);
 
   useEffect(() => {
     if (cart.length !== 0) {

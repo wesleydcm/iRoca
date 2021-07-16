@@ -37,10 +37,22 @@ const ProductPageComponentDesktop = () => {
 			const Average = await controller.getEvaluationsAverage(productData);
 			setAverage(Average.average);
 
-			const newEvaluations = await controller.getAllEvaluationsData(
-				productData.evaluations,
-			);
-			productData.evaluations = newEvaluations;
+			// const newEvaluations = await controller.getAllEvaluationsData(
+			// 	productData.evaluations,
+			// );
+			// productData.evaluations = newEvaluations;
+
+			// if (productData.evaluations) {
+			// 	productData.evaluations.forEach(evaluation => {
+			// 		controller.getEvaluationData(evaluation).then(response => {
+			// 			if (response.image && response.name) {
+			// 				evaluation.evaluatorImage = response.image;
+			// 				evaluation.evaluatorName = response.name;
+			// 			}
+			// 		});
+			// 	});
+			// }
+			console.log("evaluations :>> ", productData.evaluations);
 			setProducts(productData);
 		};
 

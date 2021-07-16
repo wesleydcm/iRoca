@@ -5,10 +5,9 @@ import type {
   IUserUpdate,
   IProductUpdate,
   IProductUpdatePurchase,
-  IEvaluations,
+  IEvaluation,
   IProduct,
   NewProduct,
-  IEvaluation,
   ITreatedProduct,
   IUserInfo,
   IProductEvaluation,
@@ -109,7 +108,7 @@ class UserController {
     try {
       const response = await api.get(`/users/${userId}/evaluations/`);
       return Promise.all(
-        response.data.map((evaluation: IEvaluations) =>
+        response.data.map((evaluation: IEvaluation) =>
           this.getUserOfEvaluation(evaluation)
         )
       );
@@ -285,7 +284,7 @@ class UserController {
   };
   createProductorEvaluation = async (
     token: string,
-    evaluation: IEvaluations
+    evaluation: IEvaluation
   ) => {
     try {
       const { data } = await api.post(`/evaluations/`, evaluation, {
@@ -324,7 +323,7 @@ class UserController {
       errorToast("Não foi possível concluir avaliação");
     }
   };
-  favoriteProduct = async (token: string, evaluation: IEvaluations) => {
+  favoriteProduct = async (token: string, evaluation: IEvaluation) => {
     try {
       const { data } = await api.post(`/evaluations/`, evaluation, {
         headers: { Authorization: `Bearer ${token}` },
@@ -339,7 +338,7 @@ class UserController {
   getEvaluationsAverage = (item: IProduct): ITreatedProduct => {
     if (item.evaluations && item.evaluations.length) {
       const average =
-        item.evaluations.reduce((acc: number, evaluation: IEvaluation) => {
+        item.evaluations.reduce((acc, evaluation) => {
           return acc + evaluation.grade;
         }, 0) / item.evaluations.length;
 

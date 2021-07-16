@@ -61,13 +61,6 @@ export interface ILoginData {
   password: string;
 }
 
-export interface IEvaluations {
-  userId: number;
-  evaluatorId: number;
-  date: string;
-  feedback: string;
-  grade: number;
-}
 export interface IProductEvaluation {
   userId: number;
   productId: number;
@@ -83,7 +76,7 @@ export interface IProductUpdate {
   price: number;
   qty: number;
   images?: Image[];
-  evaluations?: IEvaluations[];
+  evaluations?: IProductEvaluation[];
 }
 
 export interface Image {
@@ -107,7 +100,7 @@ export interface IProduct {
   isOrganic: boolean;
   qty: number;
   images: Image[];
-  evaluations?: IEvaluation[];
+  evaluations?: IProductEvaluation[];
   id: number;
 }
 
@@ -120,7 +113,7 @@ export interface NewProduct {
   isOrganic: boolean;
   qty: number;
   images: Image[];
-  evaluations: IEvaluation[];
+  evaluations: IProductEvaluation[];
 }
 
 export interface IProductContext {
@@ -128,8 +121,8 @@ export interface IProductContext {
   setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
 }
 export interface ICartContext {
-  cart: IProuctCart[];
-  setCart: React.Dispatch<React.SetStateAction<IProuctCart[]>>;
+  cart: IProductCart[];
+  setCart: React.Dispatch<React.SetStateAction<IProductCart[]>>;
 }
 
 export interface IPurchase {
@@ -155,7 +148,7 @@ export interface INewPurchase {
   products: IProduct[];
 }
 
-export interface IProuctCart {
+export interface IProductCart {
   product: IProduct;
   totalPrice: number;
 }
@@ -171,7 +164,6 @@ export interface EvaluationData {
   feedback?: string;
   grade?: number;
 }
-//quando for fazer listar avaliações , fazer um getEvaluation pra pegar os ids e dps um getUser em cada card.
 
 export interface PageWidth {
   pageWidth: number;
@@ -210,7 +202,7 @@ export interface IProductUpdatePurchase {
   price?: number;
   qty: number;
   images?: string[];
-  evaluations?: IEvaluations[];
+  evaluations?: IEvaluation[];
 }
 
 export interface IEditProfile {
