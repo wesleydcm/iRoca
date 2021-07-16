@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   background-image: var(--green-gradient);
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export const Logo = styled.header`

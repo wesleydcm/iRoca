@@ -36,7 +36,7 @@ const Motion = {
   },
 };
 
-const RegisterStep2Mobile = () => {
+const RegisterStep3Mobile = () => {
   const [cepValue, setCepValue] = useState("");
 
   const [districtInput, setDistrictInput] = useState("");
@@ -199,4 +199,4 @@ const RegisterStep2Mobile = () => {
   );
 };
 
-export default RegisterStep2Mobile;
+export default RegisterStep3Mobile;
