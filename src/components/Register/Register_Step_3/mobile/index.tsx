@@ -77,15 +77,22 @@ const RegisterStep3Mobile = () => {
       complement: data.complement,
       cep: data.cep,
     };
-    setTempUser({ ...tempUser, address });
-    controller.registerUser(tempUser).then(() => {
-      controller.login({
-        email: tempUser.email,
-        password: tempUser.password,
+    
+    tempUser.address = address;
+    tempUser.favorites = [];
+    controller
+      .registerUser(tempUser)
+      .then((response) => {
+        console.log(response);
+      })
+      .then(() => {
+        controller.login({
+          email: tempUser.email,
+          password: tempUser.password,
+        });
+        reset();
+        history.push("/");
       });
-      reset();
-      history.push("/");
-    });
   };
 
   const handleClick = useCallback(async (url) => {
