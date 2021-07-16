@@ -33,7 +33,7 @@ const ProductPageComponentDesktop = () => {
 
 	useEffect(() => {
 		const getProductData = async () => {
-			const productData = await controller.getProduct(Number(param.id));
+			const productData : IProduct = await controller.getProduct(Number(param.id));
 			const Average = await controller.getEvaluationsAverage(productData);
 			setAverage(Average.average);
 
@@ -42,16 +42,17 @@ const ProductPageComponentDesktop = () => {
 			// );
 			// productData.evaluations = newEvaluations;
 
-			// if (productData.evaluations) {
-			// 	productData.evaluations.forEach(evaluation => {
-			// 		controller.getEvaluationData(evaluation).then(response => {
-			// 			if (response.image && response.name) {
-			// 				evaluation.evaluatorImage = response.image;
-			// 				evaluation.evaluatorName = response.name;
-			// 			}
-			// 		});
-			// 	});
-			// }
+			if (productData.evaluations) {
+				productData.evaluations.forEach((evaluation) => {
+					controller.getEvaluationData(evaluation).then(response => {
+						if (response.image && response.name) {
+				evaluation.evaluatorData.id = response.
+							evaluation.evaluatorData.image = response.image;
+							evaluation.evaluatorData.name = response.name;
+						}
+					});
+				});
+			}
 			console.log("evaluations :>> ", productData.evaluations);
 			setProducts(productData);
 		};

@@ -1,8 +1,8 @@
 import RatingStars from "../RatingStars";
-import { EvaluationData } from "../../@types";
+import { IEvaluationData } from "../../@types";
 import { Wrapper } from "./styles";
 interface Props {
-  evaluation: EvaluationData;
+  evaluation: IEvaluationData;
   scenery: "desktop" | "mobile";
   "data-testid"?: string;
 }
