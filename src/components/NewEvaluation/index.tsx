@@ -50,8 +50,9 @@ const NewEvaluation = ({
   const [firstEvaluation, setFirstEvaluation] = useState<boolean>(false);
   const { user, initController } = useUser();
 
+  const controller = initController();
+
   const submitProductEvaluation = () => {
-    const controller = initController();
     const newProductEvaluation: IProductEvaluation = {
       userId: item.userId,
       productId: item.id,
@@ -59,12 +60,12 @@ const NewEvaluation = ({
       feedback: feedbackProduct,
       grade: productRating,
     };
+    console.log("abc", newProductEvaluation)
     controller.createProductEvaluation(user.token, newProductEvaluation);
     setFirstEvaluation(true);
   };
 
   const submitProducerEvaluation = () => {
-    const controller = initController();
     const NewProducerEvaluation: IEvaluation = {
       userId: item.userId,
       evaluatorId: user.personalData.id,
@@ -72,6 +73,7 @@ const NewEvaluation = ({
       feedback: feedbackProducer,
       grade: producerRating,
     };
+    console.log("abc", NewProducerEvaluation)
     controller.createProductorEvaluation(user.token, NewProducerEvaluation);
     setIsOpened(false);
   };
@@ -82,7 +84,7 @@ const NewEvaluation = ({
           {!firstEvaluation ? (
             <section>
               <Container variants={Motion} initial="hidden" animate="visible">
-                <h2>Como foi a qualidade dos produtos?</h2>
+                <h2>Dê uma nota para os produtos?</h2>
 
                 <CloseButton onClick={() => setIsOpened(false)}>X</CloseButton>
 
@@ -92,7 +94,7 @@ const NewEvaluation = ({
                   setValue={setProductRating}
                 ></RatingStars>
 
-                <h2>Se quiser, podes dar um feedback:</h2>
+                <h2>Se desejar, dê um feedback:</h2>
                 <input
                   onChange={(e) => setFeedbackProduct(e.target.value)}
                 ></input>
