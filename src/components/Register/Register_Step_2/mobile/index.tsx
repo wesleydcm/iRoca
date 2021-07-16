@@ -68,7 +68,7 @@ const RegisterStep2Mobile = () => {
         birthDate: data.birthDate,
         cpf: data.cpf,
         phone: data.phone,
-        image: "https://i.imgur.com/ac5JjOM.png",
+        image: data.image || "https://i.imgur.com/ac5JjOM.png",
       });
     } else {
       setTempUser({

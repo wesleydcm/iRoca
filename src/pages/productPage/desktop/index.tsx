@@ -42,7 +42,7 @@ const ProductPageComponentDesktop = () => {
 				treatedProduct?.product?.id,
 			);
 
-			if (APIProduct.evaluations.length) {
+			if (APIProduct?.evaluations?.length) {
 				treatedProduct.average = APIProduct.evaluations.reduce(
 					(acc, evaluation) => {
 						if (evaluation.grade) {
