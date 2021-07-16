@@ -4,14 +4,13 @@ import type {
 	ILoginData,
 	IUserUpdate,
 	IProductUpdate,
-	IProductUpdatePurchase,
 	IEvaluation,
 	IProduct,
 	NewProduct,
 	ITreatedProduct,
 	IUserInfo,
-	INewPurchase,
 	IEvaluationData,
+	IPurchase,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -193,7 +192,9 @@ class UserController {
 		}
 	};
 
-	getSellerOfProduct = async (productId: number) => {
+	getProductSeller = async (
+		productId: number,
+	): Promise<IUserInfo | undefined> => {
 		try {
 			const { data } = await api.get(`/products/${productId}`);
 
@@ -205,7 +206,7 @@ class UserController {
 
 	updateProduct = async (
 		productId: number,
-		productData: IProductUpdate,
+		productData: IProductUpdate | { qty: number },
 		token: string,
 	) => {
 		try {
@@ -244,7 +245,7 @@ class UserController {
 		}
 	};
 
-	createPurchase = async (token: string, purchase: INewPurchase) => {
+	createPurchase = async (token: string, purchase: IPurchase) => {
 		const { sub } = decodeToken(token);
 		try {
 			await api.post(`/purchases/`, purchase, {
@@ -382,31 +383,31 @@ class UserController {
 		);
 	};
 
-	updateStock = async (
-		productId: number,
-		productData: IProductUpdatePurchase,
-		token: string,
-	) => {
-		try {
-			const { data } = await api.patch(`/products/${productId}`, productData, {
-				headers: { Authorization: `Bearer ${token}` },
-			});
-			const newProducts = this.products.map(item => {
-				if (item.id === data.id) {
-					return {
-						...item,
-						...data,
-					};
-				} else {
-					return item;
-				}
-			});
-			this.setProducts(newProducts);
-			return data;
-		} catch (e) {
-			//errorToast("Não foi possível atualizar produto");
-		}
-	};
+	// updateStock = async (
+	// 	productId: number,
+	// 	productData: IProductUpdatePurchase,
+	// 	token: string,
+	// ) => {
+	// 	try {
+	// 		const { data } = await api.patch(`/products/${productId}`, productData, {
+	// 			headers: { Authorization: `Bearer ${token}` },
+	// 		});
+	// 		const newProducts = this.products.map(item => {
+	// 			if (item.id === data.id) {
+	// 				return {
+	// 					...item,
+	// 					...data,
+	// 				};
+	// 			} else {
+	// 				return item;
+	// 			}
+	// 		});
+	// 		this.setProducts(newProducts);
+	// 		return data;
+	// 	} catch (e) {
+	// 		//errorToast("Não foi possível atualizar produto");
+	// 	}
+	// };
 }
 
 export default UserController;

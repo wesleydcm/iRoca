@@ -1,5 +1,5 @@
 import { MenuContainer, MenuWrapper } from "./styles";
-import { ReactComponent as Anounciments } from "../../../assets/images-mobile/anounciments.svg";
+import { ReactComponent as Announcements } from "../../../assets/images-mobile/announcements.svg";
 import { ReactComponent as Cart } from "../../../assets/images-mobile/cart.svg";
 import { ReactComponent as MyAccount } from "../../../assets/images-mobile/my_account.svg";
 import { NavLink } from "react-router-dom";
@@ -10,7 +10,7 @@ const MenuMobile = (): JSX.Element => {
     <MenuContainer>
       <MenuWrapper>
         <NavLink exact to="/" activeClassName="selected">
-          <Anounciments />
+          <Announcements />
           <span>Anúncios</span>
         </NavLink>
         <NavLink to="/mycart" activeClassName="selected" data-testid="linkToCart">

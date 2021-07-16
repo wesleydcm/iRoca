@@ -32,9 +32,10 @@ const HistoryCardMobile = ({
 	const controller = initController();
 
 	const action = () => {
-		controller.updatePurchase(user.token, purchase.id, true).then(() => {
-			purchase.isReceived = true;
-		});
+		if (purchase.id)
+			controller.updatePurchase(user.token, purchase.id, true).then(() => {
+				purchase.isReceived = true;
+			});
 	};
 
 	return (
@@ -71,7 +72,7 @@ const HistoryCardMobile = ({
 					message="Sua compra foi entregue?"
 					action={action}
 					dataCss="isReceivedWrapper"
-	evaluatedItem={purchase}
+					evaluatedItem={purchase}
 				>
 					<span>Recebido?</span>
 					<CheckSvg />

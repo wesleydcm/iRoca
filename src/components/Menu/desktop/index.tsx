@@ -1,5 +1,5 @@
 import { AsideContainer, MenuWrapper } from "./styles";
-import { ReactComponent as Anounciments } from "../../../assets/images-mobile/anounciments.svg";
+import { ReactComponent as Announcements } from "../../../assets/images-mobile/announcements.svg";
 import { ReactComponent as Cart } from "../../../assets/images-mobile/cart.svg";
 import { ReactComponent as MyAccount } from "../../../assets/images-mobile/my_account.svg";
 import { ReactComponent as ExitSvg } from "../../../assets/images-desktop/bx_bx-exit.svg";
@@ -8,6 +8,7 @@ import { useUser } from "../../../providers/user";
 import DialogModal from "../../DialogModal";
 import { successToast } from "../../../utils";
 import { useCart } from "../../../providers/cart";
+import type { ICart } from "../../../@types";
 
 const MenuDesktop = (): JSX.Element => {
 	const history = useHistory();
@@ -21,14 +22,14 @@ const MenuDesktop = (): JSX.Element => {
 		successToast(`Até a próxima, ${user.personalData.name}!`);
 		user.auth = false;
 		user.token = "";
-		setCart([]);
+		setCart({} as ICart);
 	};
 
 	return (
 		<AsideContainer>
 			<MenuWrapper>
 				<NavLink exact to="/" activeClassName="selected">
-					<Anounciments />
+					<Announcements />
 					<span>Anúncios</span>
 				</NavLink>
 				<NavLink

@@ -83,6 +83,7 @@ export interface IEvaluationData {
 	date?: string;
 	userId?: number;
 	productId?: number;
+	id?: number
 }
 
 export interface IProductUpdate {
@@ -108,7 +109,7 @@ export interface IProduct {
 	isOrganic: boolean;
 	qty: number;
 	images: Image[];
-	evaluations?: IEvaluationData[];
+	evaluations: IEvaluationData[];
 	id: number;
 }
 
@@ -128,13 +129,14 @@ export interface IProductContext {
 	products: IProduct[];
 	setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
 }
-export interface ICartContext {
-	cart: IProductCart[];
-	setCart: React.Dispatch<React.SetStateAction<IProductCart[]>>;
+
+export interface ICart {
+	productsList: IProduct[];
+	totalPrice: number;
 }
 
 export interface IPurchase {
-	id: number;
+	id?: number;
 	userId: number;
 	sellerId: number;
 	date: string;
@@ -145,21 +147,16 @@ export interface IPurchase {
 	products: IProduct[];
 }
 
-export interface INewPurchase {
-	userId: number;
-	sellerId: number;
-	date: string;
-	subtotal: number;
-	delivery: number;
-	total: number;
-	isReceived: boolean;
-	products: IProduct[];
-}
-
-export interface IProductCart {
-	product: IProduct;
-	totalPrice: number;
-}
+// export interface INewPurchase {
+// 	userId: number;
+// 	sellerId: number;
+// 	date: string;
+// 	subtotal: number;
+// 	delivery: number;
+// 	total: number;
+// 	isReceived: boolean;
+// 	products: IProduct[];
+// }
 
 export interface ITreatedPurchase {
 	purchase: IPurchase;
