@@ -54,7 +54,7 @@ const NewEvaluation = ({
 
   const submitProductEvaluation = () => {
     const newProductEvaluation: IProductEvaluation = {
-      userId: item.userId,
+      userId: user.personalData.id,
       productId: item.id,
       date: new Date().toDateString(),
       feedback: feedbackProduct,
