@@ -31,6 +31,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     isAuth();
+    //eslint-disable-next-line
   }, [user.auth]);
 
   const Motion = {

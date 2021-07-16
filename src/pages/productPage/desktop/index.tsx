@@ -20,6 +20,7 @@ interface Params {
 const ProductPageComponentDesktop = () => {
 	const [product, setProducts] = useState<IProduct>({} as IProduct);
 	const [average, setAverage] = useState<number>(0);
+
 	const param: Params = useParams();
 	const { initController, user } = useUser();
 	const [qty, setQty] = useState<number>(0);
@@ -133,7 +134,7 @@ const ProductPageComponentDesktop = () => {
 		setTotal(price * qty);
 		// eslint-disable-next-line
 	}, [qty]);
-console.log('product.evaluations :>> ', product.evaluations);
+
 	return (
 		<>
 			<Menu />
@@ -165,8 +166,8 @@ console.log('product.evaluations :>> ', product.evaluations);
 					<Carousel itemsToShow={1} isRTL={false} showArrows={true}>
 						{product &&
 							product.images &&
-							product.images.map((image, index) => (
-								<img src={`${image.url}`} alt={product.name} key={index} />
+							product.images.map((obj, index) => (
+								<img src={`${obj.url}`} alt={product.name} key={index} />
 							))}
 					</Carousel>
 					<ProducerCard producerId={product.userId} average={average} />
@@ -189,8 +190,8 @@ console.log('product.evaluations :>> ', product.evaluations);
 					</div>
 
 					<div className="evaluation-cards">
-						{product &&
-							product.evaluations &&
+						{!!product &&
+							!!product.evaluations &&
 							product.evaluations.map((item, index) => {
 								return (
 									<EvaluationCard
