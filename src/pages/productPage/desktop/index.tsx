@@ -7,11 +7,7 @@ import Carousel from "react-elastic-carousel";
 import { useEffect, useState } from "react";
 import { useUser } from "../../../providers/user";
 import { useParams } from "react-router-dom";
-import type {
-	IEvaluationData,
-	IProduct,
-	ITreatedProduct,
-} from "../../../@types";
+import type { IProduct, IProductEvaluation, ITreatedProduct } from "../../../@types";
 import ProducerCard from "../../../components/Producer_Cart/desktop";
 import { useCart } from "../../../providers/cart";
 import { priceFormatter } from "../../../utils";
@@ -22,7 +18,7 @@ interface Params {
 	id: string;
 }
 const ProductPageComponentDesktop = () => {
-	const [treatedProduct, setProduct] = useState<ITreatedProduct>(
+	const [treatedProduct, setTreatedProduct] = useState<ITreatedProduct>(
 		{} as ITreatedProduct,
 	);
 
@@ -38,35 +34,44 @@ const ProductPageComponentDesktop = () => {
 		controller.getProduct(Number(param.id)).then((APIProduct: IProduct) => {
 			const treatedProduct = controller.getEvaluationsAverage(APIProduct);
 
-			treatedProduct.isFavorite = user.personalData.favorites.includes(
-				treatedProduct?.product?.id,
-			);
+			if (treatedProduct.product.id)
+				treatedProduct.isFavorite = user.personalData.favorites.includes(
+					treatedProduct.product.id,
+				);
 
 			if (APIProduct?.evaluations?.length) {
-				treatedProduct.average = APIProduct.evaluations.reduce(
-					(acc, evaluation) => {
-						if (evaluation.grade) {
-							return acc + evaluation.grade;
-						}
-						return acc;
-					},
-					0,
-				);
+				// treatedProduct.average = APIProduct.evaluations.reduce(
+				// 	(acc, evaluation) => {
+				// 		if (evaluation.grade) {
+				// 			return acc + evaluation.grade;
+				// 		}
+				// 		return acc;
+				// 	},
+				// 	0,
+				// );
 				APIProduct.evaluations.forEach(evaluation => {
-					controller.getEvaluationData(evaluation).then(response => {
-						if (response.image && response.name) {
-							evaluation.userId = response.userId;
-							evaluation.image = response.image;
-							evaluation.name = response.name;
+					controller.getProductEvaluationData(evaluation).then(response => {
+						console.log("evaluation :>> ", response);
+						if (response.avaliatorImage && response.avaliatorName) {
+							evaluation.avaliatorId = response.avaliatorId;
+							evaluation.avaliatorImage = response.avaliatorImage;
+							evaluation.avaliatorName = response.avaliatorName;
 						}
 					});
 				});
+
+				treatedProduct.product.evaluations = APIProduct.evaluations;
 			}
 
-			setProduct(treatedProduct);
+			setTreatedProduct(treatedProduct);
 		});
 		// eslint-disable-next-line
 	}, []);
+
+	useEffect(() => {
+		console.log("treatedProduct :>> ", treatedProduct);
+		// setTreatedProduct(treatedProduct);
+	}, [treatedProduct]);
 
 	const increment = () => {
 		setQty(qty + 10);
@@ -78,23 +83,39 @@ const ProductPageComponentDesktop = () => {
 		}
 	};
 
-	const addFavorites = () => {
+	const handleFavorites = async () => {
 		const { favorites } = user.personalData;
+		if (treatedProduct.isFavorite) {
+			const newFavorites = favorites.filter(
+				favorite => favorite !== treatedProduct.product.id,
+			);
+			user.personalData.favorites = newFavorites;
 
-		const favoriteProduct = {
-			id: user.personalData.id,
-			personalData: {
-				favorites: [...favorites, treatedProduct?.product?.id],
-			},
-			token: user.token,
-		};
-		controller.handleFavorite(favoriteProduct);
+			await controller.handleFavorite(
+				user.personalData.id,
+				newFavorites,
+				user.token,
+			);
+			treatedProduct.isFavorite = false;
+			// setTreatedProduct(treatedProduct);
+		} else {
+			if (treatedProduct.product.id)
+				favorites.push(treatedProduct?.product?.id);
+
+			await controller.handleFavorite(
+				user.personalData.id,
+				favorites,
+				user.token,
+			);
+			treatedProduct.isFavorite = true;
+			// setTreatedProduct(treatedProduct);
+		}
 	};
 
 	const addToCart = (newProduct: IProduct) => {
 		if (qty) {
 			if (cart?.productsList?.length) {
-				const isAlreadyInCart = cart?.productsList?.find(product => {
+				const isAlreadyInCart = cart.productsList.find(product => {
 					return product.id === newProduct.id;
 				});
 
@@ -150,9 +171,14 @@ const ProductPageComponentDesktop = () => {
 
 			<Total>
 				<div className="favorite">
-					{user && user.auth && !treatedProduct.isFavorite && (
-						<button onClick={addFavorites}>
-							Tornar favorito:
+					{user && user.auth && treatedProduct.isFavorite ? (
+						<button onClick={handleFavorites}>
+							Remover dos favoritos:
+							<HeartSVG data-css="grayHeart" />
+						</button>
+					) : (
+						<button onClick={handleFavorites}>
+							Adicionar aos favoritos:
 							<HeartSVG />
 						</button>
 					)}
@@ -208,7 +234,7 @@ const ProductPageComponentDesktop = () => {
 					<div className="evaluation-cards">
 						{treatedProduct?.product?.evaluations.length > 0 &&
 							treatedProduct?.product?.evaluations.map(
-								(evaluation: IEvaluationData) => {
+								(evaluation: IProductEvaluation) => {
 									return (
 										<EvaluationCard
 											scenery="desktop"

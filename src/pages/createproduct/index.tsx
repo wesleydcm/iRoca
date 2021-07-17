@@ -14,7 +14,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { NewProduct } from "../../@types";
+import { IProduct } from "../../@types";
 import { createProductSchema } from "../../schemas/index";
 import { useUser } from "../../providers/user";
 import { Link, useHistory } from "react-router-dom";
@@ -55,7 +55,7 @@ const CreateProductPage = () => {
 
   const createProduct = (data: Data) => {
     const controller = initController();
-    const newProduct: NewProduct = {
+    const newProduct: IProduct = {
       userId: user.personalData.id,
       name: data.name,
       category: data.category,

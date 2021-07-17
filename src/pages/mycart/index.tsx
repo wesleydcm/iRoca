@@ -29,7 +29,12 @@ const MyCart = () => {
 
 	const controller = initController();
 	const productSeller = useMemo(async () => {
-		if (cart && cart.productsList && cart.productsList[0])
+		if (
+			cart &&
+			cart.productsList &&
+			cart.productsList[0] &&
+			cart.productsList[0].id
+		)
 			return await controller.getProductSeller(cart.productsList[0].id);
 		return undefined;
 		//eslint-disable-next-line
@@ -110,7 +115,7 @@ const MyCart = () => {
 				productInStock => productInStock.id === productInCart.id,
 			);
 
-			if (productInStock) {
+			if (productInStock?.id) {
 				controller.updateProduct(
 					productInStock.id,
 					{ qty: productInStock.qty - productInCart.qty },

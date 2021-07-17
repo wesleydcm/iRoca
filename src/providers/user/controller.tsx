@@ -4,13 +4,12 @@ import type {
 	ILoginData,
 	IUserUpdate,
 	IProductUpdate,
-	IEvaluation,
 	IProduct,
-	NewProduct,
 	ITreatedProduct,
 	IUserInfo,
-	IEvaluationData,
 	IPurchase,
+	IUserEvaluation,
+	IProductEvaluation,
 } from "../../@types";
 import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
@@ -106,7 +105,7 @@ class UserController {
 		try {
 			const response = await api.get(`/users/${userId}/evaluations/`);
 			return Promise.all(
-				response.data.map((evaluation: IEvaluation) =>
+				response.data.map((evaluation: IUserEvaluation) =>
 					this.getUserOfEvaluation(evaluation),
 				),
 			);
@@ -146,22 +145,21 @@ class UserController {
 		}
 	};
 
-	handleFavorite = async (data: IUserUpdate) => {
+	handleFavorite = async (userId: number, data: number[], token: string) => {
 		try {
 			const response = await api.patch(
-				`/users/${data.id}/`,
-				data.personalData,
+				`/users/${userId}/`,
+				{ favorites: data },
 				{
-					headers: { Authorization: `Bearer ${data.token}` },
+					headers: { Authorization: `Bearer ${token}` },
 				},
 			);
-			if (data.personalData && data.personalData.favorites) {
-				this.user.personalData.favorites = data.personalData.favorites;
+			if (data.length) {
+				this.user.personalData.favorites = data;
 			}
-			successToast("Produto adicionado como favorito");
+			successToast("Dados salvos.");
 			return await response.data;
-		} catch (e) {
-			console.log(e);
+		} catch {
 			errorToast("Não foi possível adicionar como favorito");
 		}
 	};
@@ -175,9 +173,8 @@ class UserController {
 		}
 	};
 
-	createProduct = async (token: string, product: NewProduct) => {
+	createProduct = async (token: string, product: IProduct) => {
 		const { sub } = decodeToken(token);
-		//se o token for valido, vai retornar um id diferente de 0
 		product.userId = Number(sub) || 0;
 		try {
 			const response = await api.post(`/products/`, product, {
@@ -282,23 +279,25 @@ class UserController {
 			errorToast("Não foi possível atualizar estado da compra");
 		}
 	};
-	createProductorEvaluation = async (
+
+	createSellerEvaluation = async (
 		token: string,
-		evaluation: IEvaluationData,
+		evaluation: IUserEvaluation,
 	) => {
 		try {
 			const { data } = await api.post(`/evaluations/`, evaluation, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
-			successToast("Avaliação enviada");
+			successToast("Avaliação enviada.");
 			return data;
 		} catch (e) {
 			errorToast("Não foi possível concluir avaliação");
 		}
 	};
+
 	createProductEvaluation = async (
 		token: string,
-		evaluation: IEvaluationData,
+		evaluation: IProductEvaluation,
 	) => {
 		try {
 			const { evaluations } = await this.getProduct(evaluation.productId);
@@ -317,13 +316,13 @@ class UserController {
 				}
 			});
 			this.setProducts(newProducts);
-			successToast("Avaliação enviada");
+			successToast("Avaliação enviada.");
 			return data;
-		} catch (e) {
+		} catch {
 			errorToast("Não foi possível concluir avaliação");
 		}
 	};
-	favoriteProduct = async (token: string, evaluation: IEvaluation) => {
+	favoriteProduct = async (token: string, evaluation: IProductEvaluation) => {
 		try {
 			const { data } = await api.post(`/evaluations/`, evaluation, {
 				headers: { Authorization: `Bearer ${token}` },
@@ -363,22 +362,40 @@ class UserController {
 		}
 		return [];
 	};
-	getEvaluationData = async (
-		evaluation: IEvaluationData,
-	): Promise<IEvaluationData> => {
-		const userData = await this.getUser(evaluation.userId);
+	getProductEvaluationData = async (
+		evaluation: IProductEvaluation,
+	): Promise<IProductEvaluation> => {
+		const avaliatorData: IUserInfo = await this.getUser(evaluation.avaliatorId);
 		return {
-			image: userData.image || "https://i.imgur.com/ac5JjOM.png",
-			name: userData.name,
-			feedback: evaluation.feedback || "...",
-			grade: evaluation.grade,
+			...evaluation,
+			avaliatorName: avaliatorData.name,
+			avaliatorImage: avaliatorData.image || "https://i.imgur.com/ac5JjOM.png",
 		};
 	};
 
-	getAllEvaluationsData = async (evaluations: IEvaluation[]) => {
+	getAllProductEvaluationsData = async (evaluations: IProductEvaluation[]) => {
 		return Promise.all(
-			evaluations.map((item: IEvaluation) => {
-				return this.getEvaluationData(item);
+			evaluations.map((evaluation: IProductEvaluation) => {
+				return this.getProductEvaluationData(evaluation);
+			}),
+		);
+	};
+
+	getSellerEvaluationData = async (
+		evaluation: IUserEvaluation,
+	): Promise<IUserEvaluation> => {
+		const avaliatorData: IUserInfo = await this.getUser(evaluation.avaliatorId);
+		return {
+			...evaluation,
+			avaliatorName: avaliatorData.name,
+			avaliatorImage: avaliatorData.image || "https://i.imgur.com/ac5JjOM.png",
+		};
+	};
+
+	getAllSellerEvaluationsData = async (evaluations: IUserEvaluation[]) => {
+		return Promise.all(
+			evaluations.map((evaluation: IUserEvaluation) => {
+				return this.getSellerEvaluationData(evaluation);
 			}),
 		);
 	};

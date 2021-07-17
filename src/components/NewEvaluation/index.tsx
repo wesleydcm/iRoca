@@ -1,7 +1,7 @@
 import RatingStars from "../RatingStars";
 import { Dispatch, SetStateAction } from "react";
 import Button from "../../components/Button";
-import { IProduct, IEvaluation, IEvaluationData } from "../../@types";
+import { IProduct, IProductEvaluation, IUserEvaluation } from "../../@types";
 import { useUser } from "../../providers/user";
 import {
 	Container,
@@ -11,6 +11,7 @@ import {
 	ContainerProducer,
 } from "./styles";
 import { useState } from "react";
+import { v1 as uuidV1 } from "uuid";
 
 interface NewEvaluationProps {
 	isOpened: boolean;
@@ -53,9 +54,10 @@ const NewEvaluation = ({
 	const controller = initController();
 
 	const submitProductEvaluation = () => {
-		const newProductEvaluation: IEvaluationData = {
-			userId: user.personalData.id,
-			productId: item.id,
+		const newProductEvaluation: IProductEvaluation = {
+			id: uuidV1(),
+			avaliatorId: user.personalData.id,
+			productId: item.id || 0,
 			date: new Date().toDateString(),
 			feedback: feedbackProduct,
 			grade: productRating,
@@ -66,15 +68,15 @@ const NewEvaluation = ({
 	};
 
 	const submitProducerEvaluation = () => {
-		const NewProducerEvaluation: IEvaluation = {
+		const NewProducerEvaluation: IUserEvaluation = {
 			userId: item.userId,
-			evaluatorId: user.personalData.id,
+			avaliatorId: user.personalData.id,
 			date: new Date().toDateString(),
 			feedback: feedbackProducer,
 			grade: producerRating,
 		};
 		console.log("abc", NewProducerEvaluation);
-		controller.createProductorEvaluation(user.token, NewProducerEvaluation);
+		controller.createSellerEvaluation(user.token, NewProducerEvaluation);
 		setIsOpened(false);
 	};
 	return (

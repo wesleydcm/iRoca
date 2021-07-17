@@ -61,7 +61,10 @@ const Home = () => {
 	const productsByID: IProductByID = useMemo<IProductByID>(() => {
 		// console.log("productsByID :>> ", "mount the dictionary...");
 		return allProductsList.reduce((acc, product: IProduct) => {
-			return { ...acc, [product.id]: product };
+			if (product.id) {
+				return { ...acc, [product.id]: product };
+			}
+			return acc;
 		}, {});
 	}, [allProductsList]);
 
@@ -72,9 +75,11 @@ const Home = () => {
 			const {
 				personalData: { favorites },
 			} = user;
-			// console.log('user :>> ', user.personalData);
 
-			treatedProduct.isFavorite = favorites.includes(treatedProduct.product.id);
+			if (treatedProduct.product.id)
+				treatedProduct.isFavorite = favorites.includes(
+					treatedProduct.product.id,
+				);
 
 			return treatedProduct;
 		}
@@ -83,7 +88,6 @@ const Home = () => {
 	};
 
 	const filterProducts = (): void => {
-		// console.log("filterProducts :>> ", "creating the function...");
 		const { FAVORITES, ORGANICS } = categoriesAndTypes;
 
 		if (!!searchValue.length) {

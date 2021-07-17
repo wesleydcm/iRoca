@@ -61,29 +61,26 @@ export interface ILoginData {
 	password: string;
 }
 
-export interface IEvaluation {
+export interface IUserEvaluation {
+	id?: number;
 	userId: number;
-	evaluatorId: number;
-	date: string;
 	feedback: string;
 	grade: number;
+	date: string;
+	avaliatorId: number;
+	avaliatorImage?: string;
+	avaliatorName?: string;
 }
 
-interface IEvaluatorData {
-	id: number;
-	image: string;
-	name: string;
-}
-
-export interface IEvaluationData {
-	image?: string;
-	name?: string;
-	feedback?: string;
-	grade?: number;
-	date?: string;
-	userId?: number;
-	productId?: number;
-	id?: number
+export interface IProductEvaluation {
+	id: string;
+	productId: number;
+	feedback: string;
+	grade: number;
+	date: string;
+	avaliatorId: number;
+	avaliatorImage?: string;
+	avaliatorName?: string;
 }
 
 export interface IProductUpdate {
@@ -93,7 +90,7 @@ export interface IProductUpdate {
 	price: number;
 	qty: number;
 	images?: Image[];
-	evaluations?: IEvaluationData[];
+	evaluations?: IProductEvaluation[];
 }
 
 export interface Image {
@@ -109,20 +106,8 @@ export interface IProduct {
 	isOrganic: boolean;
 	qty: number;
 	images: Image[];
-	evaluations: IEvaluationData[];
-	id: number;
-}
-
-export interface NewProduct {
-	userId: number;
-	name: string;
-	category: string;
-	description: string;
-	price: number;
-	isOrganic: boolean;
-	qty: number;
-	images: Image[];
-	evaluations: IEvaluatorData[];
+	evaluations: IProductEvaluation[];
+	id?: number;
 }
 
 export interface IProductContext {
@@ -146,17 +131,6 @@ export interface IPurchase {
 	isReceived: boolean;
 	products: IProduct[];
 }
-
-// export interface INewPurchase {
-// 	userId: number;
-// 	sellerId: number;
-// 	date: string;
-// 	subtotal: number;
-// 	delivery: number;
-// 	total: number;
-// 	isReceived: boolean;
-// 	products: IProduct[];
-// }
 
 export interface ITreatedPurchase {
 	purchase: IPurchase;
@@ -192,15 +166,6 @@ export interface ITreatedProduct {
 	product: IProduct;
 	average: number;
 	isFavorite?: boolean;
-}
-
-export interface IProductUpdatePurchase {
-	name?: string;
-	description?: string;
-	price?: number;
-	qty: number;
-	images?: string[];
-	evaluations?: IEvaluation[];
 }
 
 export interface IEditProfile {
