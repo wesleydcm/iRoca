@@ -90,7 +90,6 @@ export const Form = styled.form`
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    text-transform: lowercase;
     text-align: left;
     font-family: var(--poppins);
     font-style: normal;
@@ -101,20 +100,3 @@ export const Form = styled.form`
     }
   }
 `;
-
-// export const Footer = styled.div`
-//   width: 100%;
-//   height: 90px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   p {
-//     font-family: var(--poppins);
-//     font-size: 16px;
-//     font-weight: 500;
-//     line-height: 24px;
-//     text-align: center;
-//     color: var(--font-color);
-//   }
-// `;

@@ -41,7 +41,6 @@ export const StyledInput = styled.input<Props>`
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
-  text-transform: lowercase;
   text-align: left;
   font-family: var(--poppins);
   font-style: normal;
