@@ -7,7 +7,11 @@ import Carousel from "react-elastic-carousel";
 import { useEffect, useState } from "react";
 import { useUser } from "../../../providers/user";
 import { useParams } from "react-router-dom";
-import { IProduct } from "../../../@types";
+import type {
+	IEvaluationData,
+	IProduct,
+	ITreatedProduct,
+} from "../../../@types";
 import ProducerCard from "../../../components/Producer_Cart/desktop";
 import { useCart } from "../../../providers/cart";
 import { priceFormatter } from "../../../utils";
@@ -18,8 +22,9 @@ interface Params {
 	id: string;
 }
 const ProductPageComponentDesktop = () => {
-	const [product, setProducts] = useState<IProduct>({} as IProduct);
-	const [average, setAverage] = useState<number>(0);
+	const [treatedProduct, setProduct] = useState<ITreatedProduct>(
+		{} as ITreatedProduct,
+	);
 
 	const param: Params = useParams();
 	const { initController, user } = useUser();
@@ -29,28 +34,44 @@ const ProductPageComponentDesktop = () => {
 
 	const controller = initController();
 
-	const price = product?.price || 0;
-
 	useEffect(() => {
-		const getProductData = async () => {
-			const productData = await controller.getProduct(Number(param.id));
-			const Average = await controller.getEvaluationsAverage(productData);
-			setAverage(Average.average);
+		controller.getProduct(Number(param.id)).then((APIProduct: IProduct) => {
+			const treatedProduct = controller.getEvaluationsAverage(APIProduct);
 
-			const newEvaluations = await controller.getAllEvaluationsData(
-				productData.evaluations,
+			treatedProduct.isFavorite = user.personalData.favorites.includes(
+				treatedProduct?.product?.id,
 			);
-			productData.evaluations = newEvaluations;
-			setProducts(productData);
-		};
 
-		getProductData();
+			if (APIProduct?.evaluations?.length) {
+				treatedProduct.average = APIProduct.evaluations.reduce(
+					(acc, evaluation) => {
+						if (evaluation.grade) {
+							return acc + evaluation.grade;
+						}
+						return acc;
+					},
+					0,
+				);
+				APIProduct.evaluations.forEach(evaluation => {
+					controller.getEvaluationData(evaluation).then(response => {
+						if (response.image && response.name) {
+							evaluation.userId = response.userId;
+							evaluation.image = response.image;
+							evaluation.name = response.name;
+						}
+					});
+				});
+			}
+
+			setProduct(treatedProduct);
+		});
 		// eslint-disable-next-line
 	}, []);
 
 	const increment = () => {
 		setQty(qty + 10);
 	};
+
 	const decrement = () => {
 		if (qty >= 10) {
 			setQty(qty - 10);
@@ -63,75 +84,63 @@ const ProductPageComponentDesktop = () => {
 		const favoriteProduct = {
 			id: user.personalData.id,
 			personalData: {
-				favorites: [...favorites, product.id],
+				favorites: [...favorites, treatedProduct?.product?.id],
 			},
 			token: user.token,
 		};
 		controller.handleFavorite(favoriteProduct);
 	};
 
-	const addToCart = () => {
-		const newProduct = { product: { ...product, qty }, totalPrice: total };
-		if (newProduct.product.qty > 0) {
-			if (cart.length > 0) {
-				if (newProduct.product.userId === cart[0].product.userId) {
-					const haveProductInCart = cart.filter(
-						item => item.product.id === newProduct.product.id,
-					);
-					if (haveProductInCart.length > 0) {
-						const newProduct2 = {
-							totalPrice:
-								haveProductInCart[0].totalPrice + newProduct.totalPrice,
-							product: {
-								...haveProductInCart[0].product,
-								qty: haveProductInCart[0].product.qty + newProduct.product.qty,
-							},
-						};
-						const newCart = cart.map(item => {
-							if (item.product.id === newProduct2.product.id) {
-								return newProduct2;
-							} else {
-								return item;
-							}
-						});
-						setCart(newCart);
-						successToast("O produto foi adicionado ao carrinho");
+	const addToCart = (newProduct: IProduct) => {
+		if (qty) {
+			if (cart?.productsList?.length) {
+				const isAlreadyInCart = cart?.productsList?.find(product => {
+					return product.id === newProduct.id;
+				});
+
+				const isFromSameSeller =
+					newProduct.userId === cart.productsList[0].userId;
+
+				if (isFromSameSeller) {
+					if (isAlreadyInCart) {
+						isAlreadyInCart.qty += newProduct.qty;
+						cart.totalPrice += newProduct.qty * newProduct.price;
 					} else {
-						setCart([
-							...cart,
-							{
-								product: {
-									...newProduct.product,
-								},
-								totalPrice: newProduct.totalPrice,
-							},
-						]);
-						successToast("O produto foi adicionado ao carrinho");
+						const qtyToAdd = qty < newProduct.qty ? qty : newProduct.qty;
+
+						setCart({
+							productsList: [
+								...cart.productsList,
+								{ ...newProduct, qty: qtyToAdd },
+							],
+							totalPrice: cart.totalPrice + newProduct.qty * newProduct.price,
+						});
 					}
+					successToast("O produto adicionado ao carrinho.");
 				} else {
-					errorToast(
-						"Não é possível colocar no carrinho produtos de produtores diferentes",
-					);
+					errorToast("Por favor, escolha produtos do mesmo vendedor.");
 				}
 			} else {
-				setCart([
-					...cart,
-					{
-						product: {
-							...newProduct.product,
-						},
-						totalPrice: newProduct.totalPrice,
-					},
-				]);
+				const qtyToAdd = qty < newProduct.qty ? qty : newProduct.qty;
+
+				setCart({
+					productsList: [{ ...newProduct, qty: qtyToAdd }],
+					totalPrice: qtyToAdd * newProduct.price,
+				});
 				successToast("O produto foi adicionado ao carrinho");
 			}
 		} else {
-			errorToast("Informe alguma quantidade");
+			errorToast("Por favor, informe uma quantidade.");
 		}
 	};
 
 	useEffect(() => {
-		setTotal(price * qty);
+		setTotal(prev => {
+			if (prev !== qty) {
+				return treatedProduct?.product?.price * qty;
+			}
+			return qty;
+		});
 		// eslint-disable-next-line
 	}, [qty]);
 
@@ -141,14 +150,12 @@ const ProductPageComponentDesktop = () => {
 
 			<Total>
 				<div className="favorite">
-					{user !== null &&
-						user.auth &&
-						!user.personalData.favorites.includes(product.id) && (
-							<button onClick={addFavorites}>
-								Classificar como favorito
-								<HeartSVG />
-							</button>
-						)}
+					{user && user.auth && !treatedProduct.isFavorite && (
+						<button onClick={addFavorites}>
+							Tornar favorito:
+							<HeartSVG />
+						</button>
+					)}
 				</div>
 				<div className="totalButtons">
 					<span className="total">{priceFormatter(total)}</span>
@@ -161,46 +168,56 @@ const ProductPageComponentDesktop = () => {
 			</Total>
 
 			<Container>
-				<h1>{product?.name}</h1>
+				<h1>{treatedProduct.product && treatedProduct?.product?.name}</h1>
 				<div className="container">
 					<Carousel itemsToShow={1} isRTL={false} showArrows={true}>
-						{product &&
-							product.images &&
-							product.images.map((obj, index) => (
-								<img src={`${obj.url}`} alt={product.name} key={index} />
-							))}
+						{treatedProduct?.product?.images.map((image, index) => (
+							<img
+								src={image.url}
+								alt={treatedProduct?.product?.name}
+								key={index}
+							/>
+						))}
 					</Carousel>
-					<ProducerCard producerId={product.userId} average={average} />
+					<ProducerCard
+						producerId={treatedProduct?.product?.userId}
+						average={treatedProduct.average}
+					/>
 				</div>
-				<Button type="button" color="green" onClick={addToCart}>
+				<Button
+					type="button"
+					color="green"
+					onClick={() => addToCart(treatedProduct.product)}
+				>
 					Adicionar ao carrinho
 				</Button>
 				<div className="scroll">
 					<div className="qty">
-						Em estoque <span>{product?.qty}kg</span>
+						Em estoque <span>{treatedProduct?.product?.qty}kg</span>
 					</div>
-					<p>{product?.description}</p>
+					<p>{treatedProduct?.product?.description}</p>
 
 					<div className="general-evaluation">
 						<h3>Avaliações</h3>
 						<div>
-							<Stars readOnly={true} value={average} />
+							<Stars readOnly={true} value={treatedProduct.average} />
 							<span>Avaliação geral</span>
 						</div>
 					</div>
 
 					<div className="evaluation-cards">
-						{!!product &&
-							!!product.evaluations &&
-							product.evaluations.map((item, index) => {
-								return (
-									<EvaluationCard
-										scenery="desktop"
-										evaluation={item}
-										key={index}
-									/>
-								);
-							})}
+						{treatedProduct?.product?.evaluations.length > 0 &&
+							treatedProduct?.product?.evaluations.map(
+								(evaluation: IEvaluationData) => {
+									return (
+										<EvaluationCard
+											scenery="desktop"
+											evaluation={evaluation}
+											key={evaluation.id}
+										/>
+									);
+								},
+							)}
 					</div>
 				</div>
 			</Container>

@@ -6,12 +6,11 @@ import { priceFormatter } from "../../../utils";
 import { useState } from "react";
 import NewEvaluation from "../../../components/NewEvaluation";
 import { useCart } from "../../../providers/cart";
-import {CART_LOCALSTORAGE_FLAG} from "../../../utils";
 
 interface Props {
-  item: IProduct;
-  "data-testid"?: string;
-  scenery: "cart" | "history";
+	item: IProduct;
+	"data-testid"?: string;
+	scenery: "cart" | "history";
 }
 /**
  * === DESKTOP VERSION ===
@@ -20,72 +19,74 @@ interface Props {
  * @prop scenery - Where the this component should be rendered.
  */
 const ProductCardInCartHistory = ({
-  scenery,
-  item,
-  ...rest
+	scenery,
+	item,
+	...rest
 }: Props): JSX.Element => {
-  const drillScenery = scenery;
-  const [isOpened, setIsOpened] = useState<boolean>(false);
-  const handleSubmit = () => {
-    //Colocar a lógica de enviar para API a avaliação aqui
-    setIsOpened(false);
-  };
+	const drillScenery = scenery;
+	const [isOpened, setIsOpened] = useState<boolean>(false);
+	const handleSubmit = () => {
+		//Colocar a lógica de enviar para API a avaliação aqui
+		setIsOpened(false);
+	};
 
-  const {cart, setCart} = useCart();
+	const { cart, setCart } = useCart();
 
-  const handleClick = () => {
-    if (scenery === "history") {
-      setIsOpened(true)
-    }
-  }
+	const handleClick = () => {
+		if (scenery === "history") {
+			setIsOpened(true);
+		}
+	};
 
-  const removeItemFromCart = () => {
-    const newCart = cart.filter((elem) => elem.product.id !== item.id);
-    setCart(newCart);
-    localStorage.setItem(CART_LOCALSTORAGE_FLAG, JSON.stringify(newCart));
-  }
+	const removeItemFromCart = () => {
+		const filteredProductsList = cart.productsList.filter(
+			product => product.id !== item.id,
+		);
 
-  return (
-    <>
-      <NewEvaluation
-        isOpened={isOpened}
-        setIsOpened={setIsOpened}
-        evaluationTarget={"product"}
-        handleSubmit={handleSubmit}
-        item={item}
-      ></NewEvaluation>
-      <Wrapper
-        scenery={drillScenery}
-        {...rest}
-        onClick={handleClick}
-      >
-        {item.isOrganic && (
-          <figure className="organicFlag">
-            <OrganicSvg />
-            <figcaption>
-              {item.isOrganic ? "produto orgânico" : "produto não orgânico"}
-            </figcaption>
-          </figure>
-        )}
-        <div>
-          <h2>{item.name}</h2>
-          <h3>{item.qty}Kg</h3>
-        </div>
-        <figure>
-          <img src={item.images[0].url} alt={item.name} />
-          <figcaption>{item.name}</figcaption>
-        </figure>
-        <div data-css="statusWrapper">
-          {scenery === "cart" && (
-            <button onClick={removeItemFromCart}>
-              <TrashSvg />
-            </button>
-          )}
-          <span>{priceFormatter(item.price)}/kg</span>
-        </div>
-      </Wrapper>
-    </>
-  );
+		const newTotal = cart.productsList.reduce((acc, product) => {
+			return acc + product.price * product.qty;
+		}, 0);
+
+		setCart({ productsList: filteredProductsList, totalPrice: newTotal });
+	};
+
+	return (
+		<>
+			<NewEvaluation
+				isOpened={isOpened}
+				setIsOpened={setIsOpened}
+				evaluationTarget={"product"}
+				handleSubmit={handleSubmit}
+				item={item}
+			></NewEvaluation>
+			<Wrapper scenery={drillScenery} {...rest} onClick={handleClick}>
+				{item.isOrganic && (
+					<figure className="organicFlag">
+						<OrganicSvg />
+						<figcaption>
+							{item.isOrganic ? "produto orgânico" : "produto não orgânico"}
+						</figcaption>
+					</figure>
+				)}
+				<div>
+					<h2>{item.name}</h2>
+					<h3>{item.qty}Kg</h3>
+				</div>
+				<figure>
+					<img src={item.images[0].url} alt={item.name} />
+					<figcaption>{item.name}</figcaption>
+				</figure>
+				<div data-css="statusWrapper">
+					{scenery === "cart" && (
+						<button onClick={removeItemFromCart}>
+							<TrashSvg />
+						</button>
+					)}
+					<span>{priceFormatter(item.price)}/kg</span>
+				</div>
+			</Wrapper>
+		</>
+	);
 };
 
 export default ProductCardInCartHistory;
