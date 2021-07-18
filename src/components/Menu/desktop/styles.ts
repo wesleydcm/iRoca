@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import menuSelected from "../../../assets/images-desktop/menu-selected-bg.svg";
 
 export const AsideContainer = styled.div`
 	height: 100vh;
@@ -8,7 +7,6 @@ export const AsideContainer = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 500;
 	display: flex;
 	flex-flow: column nowrap;
 	background: var(--green400);
@@ -27,49 +25,80 @@ export const MenuWrapper = styled.nav`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	position: relative;
-	margin: 0;
-	transition: 1s;
-	padding-top: 3rem;
-	svg {
-		width: 3rem;
-	}
-
+	padding-top: 10vh;
 	a {
-		height: 95px;
 		width: 100%;
-
+		height: 8vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		position: relative;
-		z-index: 450;
-		margin-right: 0px;
+		z-index: 2;
 		transition: ease-in-out 1s;
+		margin: 2vh 0;
 
 		span {
-			font-size: 18px;
+			font-size: 1.2rem;
 			color: var(--font-color);
 			font-weight: 400;
-			display: flex;
-			align-items: center;
+			transition: color 500ms ease-out;
 		}
 
 		svg {
+			width: 3rem;
 			margin-right: 20px;
+			position: absolute;
+			left: 30%;
+			transform: translateX(-30%);
 			path {
-				fill: white;
+				fill: var(--white);
+				transition: fill 500ms ease-out;
+			}
+		}
+		div[data-css="background"] {
+			height: inherit;
+			width: 96%;
+			background-color: var(--white);
+			position: absolute;
+			right: -1px;
+			z-index: -1;
+			transform: scaleX(0);
+			transform-origin: 50vh;
+			border-top-left-radius: 2vw;
+			border-bottom-left-radius: 2vw;
+			transition: transform 300ms ease-out;
+
+			::before,
+			::after {
+				content: "";
+				width: 10%;
+				height: 4vh;
+				background-color: var(--green400);
+				position: absolute;
+				right: 0;
+				z-index: -1;
+			}
+			::before {
+				top: -50%;
+				border-bottom-right-radius: 2vw;
+			}
+			div {
+				width: 10%;
+				height: 170%;
+				position: absolute;
+				top: -37%;
+				right: 0;
+				background-color: var(--white);
+				z-index: -2;
+				transition: transform 1ms;
+			}
+			::after {
+				bottom: -50%;
+				border-top-right-radius: 2vw;
 			}
 		}
 
 		&.selected {
-			background: url(${menuSelected});
-			background-position: center;
-			background-repeat: no-repeat;
-			background-clip: border-box;
-			background-size: cover;
-			height: 174px;
-			transition: 1s;
 			span {
 				color: var(--green400);
 			}
@@ -79,6 +108,9 @@ export const MenuWrapper = styled.nav`
 				path {
 					fill: var(--green400);
 				}
+			}
+			div[data-css="background"] {
+				transform: scaleY(1);
 			}
 		}
 	}

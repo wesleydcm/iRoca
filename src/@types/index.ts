@@ -144,7 +144,7 @@ export interface ICategoriesAndTypes {
 	VEGETABLES2: string;
 	FAVORITES: string;
 	ORGANICS: string;
-	COMMONS: string;
+	ALL: string;
 }
 
 export interface IBestProducts {

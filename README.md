@@ -1,46 +1,51 @@
-# Getting Started with Create React App
+# iRoça App (V1.0)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### _Status do Projeto:_ 🚧 **Aguardando um Back-End real...** 🚧
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+---
 
-### `yarn start`
+### **Este projeto é uma idealização do Wesley da Costa, adotada como projeto de fim do módulo de **_#frontEnd_**, do curso de **_#fullStack_\*\* da [Kenzie Academy Brasil](https://kenzie.com.br/).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Apresentação:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- ### Descrição:
+  - O **_iRoça_** é um aplicativo destinado permitir que o pequeno produtor rural se cadastre e exponha todos os seus produtos, com os respectivos preços e quantidades disponíveis no momento, ganhando mais visibilidade aumentando sua capacidade de negociação e venda.
+  - Mais detalhes neste [**_PDF_**](https://drive.google.com/file/d/1SvS6R2T0su4XplLWAki5sIecs5QOaOou/view?usp=sharing)
 
-### `yarn test`
+### Tecnologias aplicadas:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Linguagem aplicada: [**_TypeScript_**](https://www.typescriptlang.org/) ;
+- Versionamento via [**_Git_**](https://git-scm.com/) ;
+- Conhecimentos intermediário em [**_React_**](https://reactjs.org/) e diversas outras libs auxiliares; e
+- Autenticação via _"fakeAPI"_ ([**_JSON Server_**](https://www.npmjs.com/package/json-server) + [**_JSON Server Auth_**](https://www.npmjs.com/package/json-server-auth)).
 
-### `yarn build`
+### Demonstração:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Vide vídeo apresentação no seguinte [link]().
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `yarn eject`
+### Team:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<a href="https://www.linkedin.com/in/marconemm/">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/15804964?s=400&amp;u=60f45399d863c1410217fc6666bc628c43f554dd&amp;v=4" width="100px;" alt="Marcone Melo"/>
+ <br />
+ <sub><b>Marcone Melo</b></sub></a>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[![GitLab Badge](https://img.shields.io/badge/-Marcone_Melo-black?style=plastic&logo=GitLab&logoColor=yellow&link=https://gitlab.com/marconemm)](https://gitlab.com/marconemm)
+[![GitHub Badge](https://img.shields.io/badge/-Marcone_Melo-black?style=plastic&logo=GitHub&logoColor=white&link=https://github.com/marconemm)](https://github.com/marconemm)
+[![Linkedin Badge](https://img.shields.io/badge/-Marcone_Melo-blue?style=plastic&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/marconemm/)](https://www.linkedin.com/in/marconemm/)
+[![Yahoo Badge](https://img.shields.io/badge/-marconemendonca@ymail.com-c14438?style=plastic&logo=Yahoo!&logoColor=white&link=mailto:marconemendonca@ymail.com)](mailto:marconemendonca@ymail.com)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<a href="https://www.linkedin.com/in/wesleydcm/">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/71963380" width="100px;" alt="Wesley da Costa"/>
+ <br />
+ <sub><b>Wesley da Costa</b></sub></a>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[![GitLab Badge](https://img.shields.io/badge/-Wesley_da_Costa-black?style=plastic&logo=GitLab&logoColor=yellow&link=https://gitlab.com/wesleydcm)](https://gitlab.com/wesleydcm)
+[![GitHub Badge](https://img.shields.io/badge/-Wesley_da_Costa-black?style=plastic&logo=GitHub&logoColor=white&link=https://github.com/wesleydcm)](https://github.com/wesleydcm)
+[![Linkedin Badge](https://img.shields.io/badge/-Wesley_da_Costa-blue?style=plastic&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/wesleydcm/)](https://www.linkedin.com/in/wesleydcm/)

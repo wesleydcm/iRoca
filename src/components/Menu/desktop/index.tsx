@@ -31,6 +31,9 @@ const MenuDesktop = (): JSX.Element => {
 				<NavLink exact to="/" activeClassName="selected">
 					<Announcements />
 					<span>Anúncios</span>
+					<div data-css="background">
+						<div></div>
+					</div>
 				</NavLink>
 				<NavLink
 					to="/mycart"
@@ -39,10 +42,16 @@ const MenuDesktop = (): JSX.Element => {
 				>
 					<Cart />
 					<span>Carrinho</span>
+					<div data-css="background">
+						<div></div>
+					</div>
 				</NavLink>
 				<NavLink to="/myaccount" activeClassName="selected">
 					<MyAccount />
 					<span>Minha Conta</span>
+					<div data-css="background">
+						<div></div>
+					</div>
 				</NavLink>
 				{user && user.auth ? (
 					<DialogModal

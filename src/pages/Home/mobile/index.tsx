@@ -41,7 +41,7 @@ const HomeMobile = ({
   onClick,
 }: Props) => {
   const { user } = useUser();
-  const { ORGANICS, COMMONS, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
+  const { ORGANICS, ALL, FAVORITES, FRUIT, VEGETABLES1, VEGETABLES2 } =
     categoriesAndTypes;
 
   return (
@@ -57,18 +57,18 @@ const HomeMobile = ({
       />
 
       <ul data-css="filtersWrapper">
-        <LiStyled isSelected={selectedType === COMMONS}>
-          {selectedType === COMMONS && <CheckSvg />}
+        <LiStyled isSelected={selectedType === ALL}>
+          {selectedType === ALL && <CheckSvg />}
           <button
             type="button"
             onClick={() => {
-              setTypeSelected(COMMONS);
+              setTypeSelected(ALL);
               setSearchValue("");
             }}
           >
-            <img src={CommonProductsSvg} alt={COMMONS} />
+            <img src={CommonProductsSvg} alt={ALL} />
           </button>
-          <span>{COMMONS}</span>
+          <span>{ALL}</span>
         </LiStyled>
         <LiStyled isSelected={selectedType === ORGANICS}>
           {selectedType === ORGANICS && <CheckSvg />}
