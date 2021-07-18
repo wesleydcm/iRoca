@@ -13,16 +13,13 @@ import EvaluationCard from "../../../components/EvaluationCard";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "../../../providers/user";
 import Loading from "../../../components/Loading";
-import { IUserInfo, IEvaluation, IProduct } from "../../../@types";
+import { IUserInfo, IProduct, IUserEvaluation } from "../../../@types";
 import {
   EDIT_PRODUCT_LOCALSTORAGE_FLAG,
   FEEDBACK_MESSAGES,
 } from "../../../utils";
 import { useHistory } from "react-router-dom";
-interface Evaluations {
-  avaliator: IUserInfo;
-  evaluation: IEvaluation;
-}
+
 interface Params {
   id: string;
 }
@@ -32,7 +29,7 @@ const ProfilePageDesktop = (): JSX.Element => {
   const [profile, setProfile] = useState<IUserInfo>();
   const [display, setDisplay] = useState(true);
   const [load, setLoad] = useState(false);
-  const [evaluation, setEvaluation] = useState<Evaluations[]>([]);
+  const [evaluation, setEvaluation] = useState<IUserEvaluation[]>([]);
   const [averageEvaluation, setAverageEvaluation] = useState<number>();
   const [profileProducts, setProfileProducts] = useState<IProduct[]>([]);
   const { initController } = useUser();
@@ -60,7 +57,7 @@ const ProfilePageDesktop = (): JSX.Element => {
     const average =
       Number(
         evaluation?.reduce((acc, evaluation) => {
-          return acc + evaluation.evaluation.grade;
+          return acc + evaluation.grade;
         }, 0)
       ) / Number(evaluation?.length);
 
@@ -123,16 +120,11 @@ const ProfilePageDesktop = (): JSX.Element => {
                 <RatingStar readOnly value={averageEvaluation} />
               </div>
               {evaluation.length ? (
-                evaluation?.map((evaluation, index) => (
+                evaluation?.map(evaluation => (
                   <EvaluationCard
-                    evaluation={{
-                      name: evaluation.avaliator.name,
-                      image: evaluation.avaliator.image,
-                      grade: evaluation.evaluation.grade,
-                      feedback: evaluation.evaluation.feedback,
-                    }}
+                    evaluation={evaluation}
                     scenery="desktop"
-                    key={index}
+                    key={evaluation.id}
                   />
                 ))
               ) : (

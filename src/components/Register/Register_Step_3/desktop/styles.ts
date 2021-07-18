@@ -99,7 +99,6 @@ export const Form = styled(motion.form)`
       font-weight: 500;
       font-size: 16px;
       line-height: 24px;
-      text-transform: lowercase;
       text-align: left;
       font-family: var(--poppins);
       font-style: normal;

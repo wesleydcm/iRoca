@@ -1,7 +1,8 @@
 import ProductPageMobile from "./mobile";
 import ProductPageDesktop from "./desktop";
 
-const ProductPageComponent = () => {
+const ProductPage = () => {
+
   return window.innerWidth < 900 ? (
     <ProductPageMobile />
   ) : (
@@ -9,4 +10,4 @@ const ProductPageComponent = () => {
   );
 };
 
-export default ProductPageComponent;
+export default ProductPage;

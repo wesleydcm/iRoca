@@ -1,7 +1,7 @@
 import { Container, Modal } from "./modalstyles";
 import Button from "../../../components/Button";
 import { IoMdCloseCircle } from "react-icons/io";
-import { IProduct } from "../../../@types";
+import { ICart, IProduct } from "../../../@types";
 import { useHistory } from "react-router-dom";
 import { useCart } from "../../../providers/cart";
 
@@ -12,15 +12,15 @@ interface Props {
 }
 
 const AddToCartComponent = ({ toggleModal, product, checkUser }: Props) => {
-  
+
   const history = useHistory();
-  
+
   const { setCart } = useCart();
 
-  const goToAnnoucements = () => {
+  const goToAnnouncements = () => {
     toggleModal();
     history.push("/")
-    setCart([]);
+    setCart({} as ICart);
   }
 
   console.log(product)
@@ -64,16 +64,14 @@ const AddToCartComponent = ({ toggleModal, product, checkUser }: Props) => {
         }
 
         <div className="btn">
-          <Button color="green" onClick={goToAnnoucements}>
+          <Button color="green" onClick={goToAnnouncements}>
             Voltar
           </Button>
         </div>
-        <IoMdCloseCircle className="close" onClick={goToAnnoucements} />
+        <IoMdCloseCircle className="close" onClick={goToAnnouncements} />
       </Modal>
     </Container>
   );
 };
 
 export default AddToCartComponent;
-
-

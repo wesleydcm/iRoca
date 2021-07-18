@@ -7,7 +7,6 @@ import MyAccountPageComponent from "../pages/myAccount";
 import ProfilePage from "../pages/profile";
 import UpdateProduct from "../pages/editProduct";
 import Home from "../pages/Home";
-import ProductPage from "../pages/productPage";
 import MenuMobile from "../components/Menu/mobile";
 import MenuDesktop from "../components/Menu/desktop";
 import { useWindow } from "../providers/window";
@@ -18,6 +17,7 @@ import LoginPage from "../pages/login";
 import EditProfile from "../pages/editProfile";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
 import MyPurchasesHistory from "../pages/MyPurchasesHistory";
+import ProductPage from "../pages/Product";
 
 const RouterComponent = () => {
   const { pageWidth } = useWindow();

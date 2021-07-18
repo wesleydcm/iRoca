@@ -22,7 +22,6 @@ export const StyledInput = styled.input`
   text-align: left;
   font-family: var(--poppins);
   font-style: normal;
-  text-transform: lowercase;
 
   &::placeholder {
     color: ${({ color }) =>

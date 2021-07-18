@@ -44,7 +44,7 @@ const RegisterStep3Mobile = () => {
 
   const [stateInput, setStateInput] = useState("");
 
-  const { tempUser, setTempUser, initController } = useUser();
+  const { tempUser, initController } = useUser();
 
   const history = useHistory();
 
@@ -77,7 +77,7 @@ const RegisterStep3Mobile = () => {
       complement: data.complement,
       cep: data.cep,
     };
-    
+
     tempUser.address = address;
     tempUser.favorites = [];
     controller
