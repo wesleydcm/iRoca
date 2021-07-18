@@ -1,5 +1,3 @@
-import UserController from "../providers/user/controller";
-
 export interface IPurchaseSeller {
 	name: string;
 	email: string;
@@ -46,14 +44,6 @@ export interface IUserUpdate {
 		favorites?: number[];
 	};
 	token: string;
-}
-
-export interface IUserContext {
-	user: IUser;
-	setUser: React.Dispatch<React.SetStateAction<IUser>>;
-	initController: () => UserController;
-	tempUser: IUserInfo;
-	setTempUser: React.Dispatch<React.SetStateAction<IUserInfo>>;
 }
 
 export interface ILoginData {

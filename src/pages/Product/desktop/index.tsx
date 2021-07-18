@@ -7,7 +7,7 @@ import Carousel from "react-elastic-carousel";
 import { useEffect, useState } from "react";
 import { useUser } from "../../../providers/user";
 import { useParams } from "react-router-dom";
-import type { IProduct, IProductEvaluation, ITreatedProduct } from "../../../@types";
+import type { IProduct, ITreatedProduct } from "../../../@types";
 import ProducerCard from "../../../components/Producer_Cart/desktop";
 import { useCart } from "../../../providers/cart";
 import { priceFormatter } from "../../../utils";
@@ -17,11 +17,10 @@ import { errorToast, successToast } from "../../../utils";
 interface Params {
 	id: string;
 }
-const ProductPageComponentDesktop = () => {
+const ProductPageDesktop = () => {
 	const [treatedProduct, setTreatedProduct] = useState<ITreatedProduct>(
 		{} as ITreatedProduct,
 	);
-
 	const param: Params = useParams();
 	const { initController, user } = useUser();
 	const [qty, setQty] = useState<number>(0);
@@ -31,47 +30,31 @@ const ProductPageComponentDesktop = () => {
 	const controller = initController();
 
 	useEffect(() => {
-		controller.getProduct(Number(param.id)).then((APIProduct: IProduct) => {
-			const treatedProduct = controller.getEvaluationsAverage(APIProduct);
+		const asyncFetch = async () => {
+			const fetchedProduct: IProduct = await controller.getProduct(
+				Number(param.id),
+			);
+			const treatedProduct = controller.getEvaluationsAverage(fetchedProduct);
 
-			if (treatedProduct.product.id)
+			if (treatedProduct.product.id) {
 				treatedProduct.isFavorite = user.personalData.favorites.includes(
 					treatedProduct.product.id,
 				);
+			}
 
-			if (APIProduct?.evaluations?.length) {
-				// treatedProduct.average = APIProduct.evaluations.reduce(
-				// 	(acc, evaluation) => {
-				// 		if (evaluation.grade) {
-				// 			return acc + evaluation.grade;
-				// 		}
-				// 		return acc;
-				// 	},
-				// 	0,
-				// );
-				APIProduct.evaluations.forEach(evaluation => {
-					controller.getProductEvaluationData(evaluation).then(response => {
-						console.log("evaluation :>> ", response);
-						if (response.avaliatorImage && response.avaliatorName) {
-							evaluation.avaliatorId = response.avaliatorId;
-							evaluation.avaliatorImage = response.avaliatorImage;
-							evaluation.avaliatorName = response.avaliatorName;
-						}
-					});
-				});
+			const { evaluations } = treatedProduct.product;
 
-				treatedProduct.product.evaluations = APIProduct.evaluations;
+			for (let i = 0; i < evaluations.length; i++) {
+				evaluations[i] = await controller.getProductEvaluationData(
+					evaluations[i],
+				);
 			}
 
 			setTreatedProduct(treatedProduct);
-		});
+		};
+		asyncFetch();
 		// eslint-disable-next-line
 	}, []);
-
-	useEffect(() => {
-		console.log("treatedProduct :>> ", treatedProduct);
-		// setTreatedProduct(treatedProduct);
-	}, [treatedProduct]);
 
 	const increment = () => {
 		setQty(qty + 10);
@@ -96,8 +79,8 @@ const ProductPageComponentDesktop = () => {
 				newFavorites,
 				user.token,
 			);
-			treatedProduct.isFavorite = false;
-			// setTreatedProduct(treatedProduct);
+
+			setTreatedProduct({ ...treatedProduct, isFavorite: false });
 		} else {
 			if (treatedProduct.product.id)
 				favorites.push(treatedProduct?.product?.id);
@@ -107,8 +90,8 @@ const ProductPageComponentDesktop = () => {
 				favorites,
 				user.token,
 			);
-			treatedProduct.isFavorite = true;
-			// setTreatedProduct(treatedProduct);
+
+			setTreatedProduct({ ...treatedProduct, isFavorite: true });
 		}
 	};
 
@@ -197,13 +180,17 @@ const ProductPageComponentDesktop = () => {
 				<h1>{treatedProduct.product && treatedProduct?.product?.name}</h1>
 				<div className="container">
 					<Carousel itemsToShow={1} isRTL={false} showArrows={true}>
-						{treatedProduct?.product?.images.map((image, index) => (
-							<img
-								src={image.url}
-								alt={treatedProduct?.product?.name}
-								key={index}
-							/>
-						))}
+						{treatedProduct?.product?.images.length ? (
+							treatedProduct.product.images.map((image, index) => (
+								<img
+									src={image.url}
+									alt={treatedProduct?.product?.name}
+									key={index}
+								/>
+							))
+						) : (
+							<img src="https://heloix.com/wp-content/uploads/2020/11/product_default_icon.jpg" alt="Produto sem imagens." />
+						)}
 					</Carousel>
 					<ProducerCard
 						producerId={treatedProduct?.product?.userId}
@@ -232,18 +219,12 @@ const ProductPageComponentDesktop = () => {
 					</div>
 
 					<div className="evaluation-cards">
-						{treatedProduct?.product?.evaluations.length > 0 &&
-							treatedProduct?.product?.evaluations.map(
-								(evaluation: IProductEvaluation) => {
-									return (
-										<EvaluationCard
-											scenery="desktop"
-											evaluation={evaluation}
-											key={evaluation.id}
-										/>
-									);
-								},
-							)}
+						{treatedProduct.product?.evaluations.length > 0 &&
+							treatedProduct.product.evaluations.map(evaluation => {
+								return (
+									<EvaluationCard evaluation={evaluation} key={evaluation.id} />
+								);
+							})}
 					</div>
 				</div>
 			</Container>
@@ -251,4 +232,4 @@ const ProductPageComponentDesktop = () => {
 	);
 };
 
-export default ProductPageComponentDesktop;
+export default ProductPageDesktop;

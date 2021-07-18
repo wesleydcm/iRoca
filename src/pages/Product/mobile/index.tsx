@@ -20,8 +20,8 @@ import { ReactComponent as HeartSVG } from "../../../assets/images-mobile/heart.
 interface Params {
 	id: string;
 }
-const ProductPageComponentMobile = () => {
-	const [treatedProduct, setProduct] = useState<ITreatedProduct>(
+const ProductPageMobile = () => {
+	const [treatedProduct, setTreatedProduct] = useState<ITreatedProduct>(
 		{} as ITreatedProduct,
 	);
 
@@ -31,57 +31,64 @@ const ProductPageComponentMobile = () => {
 
 	const controller = initController();
 
-	// useEffect(() => {
-	// 	controller.getProduct(Number(param.id)).then((APIProduct: IProduct) => {
-	// 		const treatedProduct = controller.getEvaluationsAverage(APIProduct);
+	useEffect(() => {
+		const asyncFetch = async () => {
+			const fetchedProduct: IProduct = await controller.getProduct(
+				Number(param.id),
+			);
+			const treatedProduct = controller.getEvaluationsAverage(fetchedProduct);
 
-	// 		treatedProduct.isFavorite = user.personalData.favorites.includes(
-	// 			treatedProduct?.product?.id,
-	// 		);
+			if (treatedProduct.product.id) {
+				treatedProduct.isFavorite = user.personalData.favorites.includes(
+					treatedProduct.product.id,
+				);
+			}
 
-	// 		if (APIProduct?.evaluations?.length) {
-	// 			treatedProduct.average = APIProduct.evaluations.reduce(
-	// 				(acc, evaluation) => {
-	// 					if (evaluation.grade) {
-	// 						return acc + evaluation.grade;
-	// 					}
-	// 					return acc;
-	// 				},
-	// 				0,
-	// 			);
-	// 			APIProduct.evaluations.forEach(evaluation => {
-	// 				controller.getEvaluationData(evaluation).then(response => {
-	// 					if (response.image && response.name) {
-	// 						evaluation.userId = response.userId;
-	// 						evaluation.image = response.image;
-	// 						evaluation.name = response.name;
-	// 					}
-	// 				});
-	// 			});
-	// 		}
+			const { evaluations } = treatedProduct.product;
 
-	// 		setProduct(treatedProduct);
-	// 	});
-	// 	// eslint-disable-next-line
-	// }, []);
+			for (let i = 0; i < evaluations.length; i++) {
+				evaluations[i] = await controller.getProductEvaluationData(
+					evaluations[i],
+				);
+			}
+
+			setTreatedProduct(treatedProduct);
+		};
+		asyncFetch();
+		// eslint-disable-next-line
+	}, []);
 
 	const toggleModal = () => {
 		setOpenModal(!openModal);
 	};
 
 	const handleFavorites = async () => {
-		// const { favorites } = user.personalData;
+		const { favorites } = user.personalData;
+		if (treatedProduct.isFavorite) {
+			const newFavorites = favorites.filter(
+				favorite => favorite !== treatedProduct.product.id,
+			);
+			user.personalData.favorites = newFavorites;
 
-		// favorites.push(treatedProduct?.product?.id);
+			await controller.handleFavorite(
+				user.personalData.id,
+				newFavorites,
+				user.token,
+			);
 
-		// await controller.handleFavorite(
-		// 	user.personalData.id,
-		// 	favorites,
-		// 	user.token,
-		// );
-		// treatedProduct.isFavorite = user.personalData.favorites.includes(
-		// 	treatedProduct?.product?.id,
-		// );
+			setTreatedProduct({ ...treatedProduct, isFavorite: false });
+		} else {
+			if (treatedProduct.product.id)
+				favorites.push(treatedProduct?.product?.id);
+
+			await controller.handleFavorite(
+				user.personalData.id,
+				favorites,
+				user.token,
+			);
+
+			setTreatedProduct({ ...treatedProduct, isFavorite: true });
+		}
 	};
 
 	return (
@@ -95,15 +102,21 @@ const ProductPageComponentMobile = () => {
 				/>
 			)}
 			<Container>
-				<Carousel itemsToShow={1} isRTL={false} showArrows={false}>
-					{treatedProduct?.product?.images &&
-						treatedProduct?.product?.images.map((obj, index) => (
+				<Carousel itemsToShow={1} isRTL={false} showArrows={true}>
+					{treatedProduct?.product?.images.length ? (
+						treatedProduct.product.images.map((image, index) => (
 							<img
-								src={`${obj.url}`}
+								src={image.url}
 								alt={treatedProduct?.product?.name}
 								key={index}
 							/>
-						))}
+						))
+					) : (
+						<img
+							src="https://heloix.com/wp-content/uploads/2020/11/product_default_icon.jpg"
+							alt="Produto sem imagens."
+						/>
+					)}
 				</Carousel>
 				<Button type="button" color="green" onClick={toggleModal}>
 					Adicionar ao carrinho
@@ -156,4 +169,4 @@ const ProductPageComponentMobile = () => {
 	);
 };
 
-export default ProductPageComponentMobile;
+export default ProductPageMobile;

@@ -1,9 +1,10 @@
+import { memo } from "react";
 import RatingStars from "../RatingStars";
 import type { IProductEvaluation, IUserEvaluation } from "../../@types";
 import { Wrapper } from "./styles";
 interface Props {
 	evaluation: IProductEvaluation | IUserEvaluation;
-	scenery: "desktop" | "mobile";
+	scenery?: "desktop" | "mobile";
 	"data-testid"?: string;
 }
 const EvaluationCard = ({
@@ -39,4 +40,4 @@ const EvaluationCard = ({
 		</Wrapper>
 	);
 };
-export default EvaluationCard;
+export default memo(EvaluationCard);
