@@ -13,7 +13,7 @@ export const categoriesAndTypes = {
   VEGETABLES2: "verduras",
   FAVORITES: "favoritos",
   ORGANICS: "orgânicos",
-  COMMONS: "todos",
+  ALL: "todos",
 };
 
 export const successToast = (message: string) => {

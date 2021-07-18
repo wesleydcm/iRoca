@@ -134,10 +134,6 @@ export const Wrapper = styled.div`
 		ul[data-css="filtersWrapper"] > li {
 			display: flex;
 		}
-		ul[data-css="filtersWrapper"] {
-			width: 100%;
-			display: flex;
-		}
 		div[data-css="filtersContainer"] {
 			width: 100%;
 			justify-content: space-between;
@@ -150,6 +146,8 @@ export const Wrapper = styled.div`
 		}
 
 		ul[data-css="filtersWrapper"] {
+			width: 100%;
+			display: flex;
 			margin-top: 10px;
 		}
 

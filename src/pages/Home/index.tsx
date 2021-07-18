@@ -14,7 +14,7 @@ const Home = () => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [categorySelected, setCategorySelected] = useState<string>("");
 	const [selectedType, setTypeSelected] = useState<string>(
-		categoriesAndTypes.COMMONS,
+		categoriesAndTypes.ALL,
 	);
 	const [filteredProductsList, setFilteredProductsList] = useState<
 		ITreatedProduct[]

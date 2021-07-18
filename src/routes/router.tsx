@@ -18,41 +18,53 @@ import EditProfile from "../pages/editProfile";
 import { WINDOW_SIZE_DESKTOP } from "../utils";
 import MyPurchasesHistory from "../pages/MyPurchasesHistory";
 import ProductPage from "../pages/Product";
+import MenuAuxDiv from "../components/Menu/AuxDiv";
 
 const RouterComponent = () => {
-  const { pageWidth } = useWindow();
-  const { pathname } = useLocation();
-  return (
-    <>
-      {!["/login", "/register", "/register-second", "/register-third"].includes(
-        pathname
-      ) && (pageWidth > WINDOW_SIZE_DESKTOP ? <MenuDesktop /> : <MenuMobile />)}
+	const { pageWidth } = useWindow();
+	const { pathname } = useLocation();
+	return (
+		<>
+			{!["/login", "/register", "/register-second", "/register-third"].includes(
+				pathname,
+			) &&
+				(pageWidth > WINDOW_SIZE_DESKTOP ? (
+					<>
+						<MenuDesktop />
+						<MenuAuxDiv />
+					</>
+				) : (
+					<MenuMobile />
+				))}
 
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/product/:id" component={ProductPage} />
-        <Route path="/myaccount/mypurchaseshistory" component={MyPurchasesHistory} />
-        <Route path="/register" component={Register} />
-        <Route path="/register-second" component={Register2} />
-        <Route path="/register-third" component={Register3} />
+			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route path="/login" component={LoginPage} />
+				<Route path="/product/:id" component={ProductPage} />
+				<Route
+					path="/myaccount/mypurchaseshistory"
+					component={MyPurchasesHistory}
+				/>
+				<Route path="/register" component={Register} />
+				<Route path="/register-second" component={Register2} />
+				<Route path="/register-third" component={Register3} />
 
-        <Route exact path="/myaccount" component={MyAccountPageComponent} />
-        <Route exact path="/myaccount/profile/:id" component={ProfilePage} />
+				<Route exact path="/myaccount" component={MyAccountPageComponent} />
+				<Route exact path="/myaccount/profile/:id" component={ProfilePage} />
 
-        <Route
-          path="/myaccount/profile/update-product/:id"
-          component={UpdateProduct}
-        />
-        <Route path="/mycart" component={MyCart} />
+				<Route
+					path="/myaccount/profile/update-product/:id"
+					component={UpdateProduct}
+				/>
+				<Route path="/mycart" component={MyCart} />
 
-        <Route exact path="/myaccount/products" component={CreateProductPage} />
+				<Route exact path="/myaccount/products" component={CreateProductPage} />
 
-        <Route path="/myAccount/profile" component={ProfilePage} />
+				<Route path="/myAccount/profile" component={ProfilePage} />
 
-        <Route path="/myAccount/edit" component={EditProfile} />
-      </Switch>
-    </>
-  );
+				<Route path="/myAccount/edit" component={EditProfile} />
+			</Switch>
+		</>
+	);
 };
 export default RouterComponent;
