@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const AsideContainer = styled.div`
 	height: 100vh;
 	width: 30vw;
-	min-height: 660px;
+	/* min-height: 660px; */
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -45,10 +45,11 @@ export const MenuWrapper = styled.nav`
 		}
 
 		svg {
-			width: 3rem;
+			width: 2.5vw;
+			height: 2.5vw;
 			margin-right: 20px;
 			position: absolute;
-			left: 30%;
+			left: 6vw;
 			transform: translateX(-30%);
 			path {
 				fill: var(--white);
