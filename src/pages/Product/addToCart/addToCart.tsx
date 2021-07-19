@@ -30,8 +30,10 @@ const AddToCartComponent = ({ toggleModal, product, Price }: Props) => {
 
 	const addToCart = (newProduct: IProduct) => {
 		if (qty) {
+			const qtyToAdd = qty < newProduct.qty ? qty : newProduct.qty;
+
 			if (cart?.productsList?.length) {
-				const isAlreadyInCart = cart?.productsList?.find(product => {
+				const isAlreadyInCart = cart.productsList.find(product => {
 					return product.id === newProduct.id;
 				});
 
@@ -40,11 +42,9 @@ const AddToCartComponent = ({ toggleModal, product, Price }: Props) => {
 
 				if (isFromSameSeller) {
 					if (isAlreadyInCart) {
-						isAlreadyInCart.qty += newProduct.qty;
+						isAlreadyInCart.qty += qtyToAdd;
 						cart.totalPrice += newProduct.qty * newProduct.price;
 					} else {
-						const qtyToAdd = qty < newProduct.qty ? qty : newProduct.qty;
-
 						setCart({
 							productsList: [
 								...cart.productsList,
@@ -58,8 +58,6 @@ const AddToCartComponent = ({ toggleModal, product, Price }: Props) => {
 					errorToast("Por favor, escolha produtos do mesmo vendedor.");
 				}
 			} else {
-				const qtyToAdd = qty < newProduct.qty ? qty : newProduct.qty;
-
 				setCart({
 					productsList: [{ ...newProduct, qty: qtyToAdd }],
 					totalPrice: qtyToAdd * newProduct.price,
@@ -67,7 +65,7 @@ const AddToCartComponent = ({ toggleModal, product, Price }: Props) => {
 				successToast("O produto foi adicionado ao carrinho");
 			}
 		} else {
-			errorToast("Informe alguma quantidade");
+			errorToast("Por favor, informe uma quantidade.");
 		}
 	};
 

@@ -11,14 +11,17 @@ interface Props {
 	item: ITreatedProduct;
 	isFavorite?: boolean;
 	"data-testid"?: string;
-	ownerProducter?: boolean;
+	ownerProducer?: boolean;
 	editProduct?: (product: number) => void;
 }
 /**
  * It's the product that must be used into announcements.
  * == DESKTOP VERSION ==
- * @prop `item` - The item as "IProduct" that must be rendered.
- * @prop `IsFavorite` - The flag used to display the `favicon in this card.
+ * @prop {IProduct} `item` - The item that must be rendered.
+ * @prop {boolean} `IsFavorite` - The flag used to display the `favicon in this card.
+ * @prop {string} `data-testid` - Only for Jest tests proposal.
+ * @prop {boolean} `ownerProducer` - Determines if the logged user is the this product owner.
+ * @prop {(product: number) => void} `editProduct` - The function used to edit the product.
  */
 
 const ProductCardInAnnouncement = ({
@@ -32,15 +35,17 @@ const ProductCardInAnnouncement = ({
 	//   reRendersAmount.current++
 	// );
 	const history = useHistory();
-	const { ownerProducter, editProduct } = { ...rest };
 
 	return (
 		<Wrapper
 			onClick={() => {
-				if (product.id)
-					ownerProducter
-						? editProduct && editProduct(product.id)
-						: history.push(`/product/${product.id}`);
+				if (product.id && rest.ownerProducer) {
+					if (rest.editProduct) {
+						rest.editProduct(product.id);
+					}
+				} else {
+					history.push(`/product/${product.id}`);
+				}
 			}}
 			{...rest}
 		>

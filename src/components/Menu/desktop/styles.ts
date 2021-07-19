@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const AsideContainer = styled.div`
 	height: 100vh;
 	width: 30vw;
-	/* min-height: 660px; */
 	position: fixed;
 	top: 0;
 	left: 0;

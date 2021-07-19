@@ -32,7 +32,7 @@ const HistoryCardMobile = ({
 	const controller = initController();
 
 	const action = () => {
-		if (purchase.id)
+		if (user.token && purchase.id)
 			controller.updatePurchase(user.token, purchase.id, true).then(() => {
 				purchase.isReceived = true;
 			});

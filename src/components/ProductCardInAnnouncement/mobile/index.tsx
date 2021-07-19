@@ -11,7 +11,7 @@ interface Props {
 	item: ITreatedProduct;
 	isFavorite?: boolean;
 	"data-testid"?: string;
-	ownerProducter?: boolean;
+	ownerProducer?: boolean;
 	editProduct?: (product: number) => void;
 }
 /**
@@ -33,15 +33,17 @@ const ProductCardInAnnouncementMobile = ({
 
 	const history = useHistory();
 
-	const { ownerProducter, editProduct } = { ...rest };
-
 	return (
 		<Wrapper
 			onClick={() => {
-				if (product.id)
-					ownerProducter
-						? editProduct && editProduct(product.id)
-						: history.push(`/product/${product.id}`);
+				console.log("rest.ownerProducer :>> ", rest.ownerProducer);
+				if (product.id && rest.ownerProducer) {
+					if (rest.editProduct) {
+						rest.editProduct(product.id);
+					}
+				} else {
+					history.push(`/product/${product.id}`);
+				}
 			}}
 			{...rest}
 		>

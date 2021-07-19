@@ -1,9 +1,9 @@
 import {
-  Container,
-  ContactContent,
-  ToggleRendering,
-  EvaluationContent,
-  ProductContent,
+	Container,
+	ContactContent,
+	ToggleRendering,
+	EvaluationContent,
+	ProductContent,
 } from "./style";
 import { ReactComponent as ArrowToBack } from "../../../assets/images-mobile/arrow-to-back.svg";
 import { useState, useEffect } from "react";
@@ -13,146 +13,153 @@ import EvaluationCard from "../../../components/EvaluationCard";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "../../../providers/user";
 import Loading from "../../../components/Loading";
-import { IUserInfo, IProduct, IUserEvaluation } from "../../../@types";
+import { IUser, IProduct, IUserEvaluation, IUserInfo } from "../../../@types";
 import {
-  EDIT_PRODUCT_LOCALSTORAGE_FLAG,
-  FEEDBACK_MESSAGES,
+	EDIT_PRODUCT_LOCALSTORAGE_FLAG,
+	FEEDBACK_MESSAGES,
 } from "../../../utils";
 import { useHistory } from "react-router-dom";
 
 interface Params {
-  id: string;
+	id: string;
 }
 const ProfilePageDesktop = (): JSX.Element => {
-  const param: Params = useParams();
-  const { user } = useUser();
-  const [profile, setProfile] = useState<IUserInfo>();
-  const [display, setDisplay] = useState(true);
-  const [load, setLoad] = useState(false);
-  const [evaluation, setEvaluation] = useState<IUserEvaluation[]>([]);
-  const [averageEvaluation, setAverageEvaluation] = useState<number>();
-  const [profileProducts, setProfileProducts] = useState<IProduct[]>([]);
-  const { initController } = useUser();
-  const controller = initController();
-  const history = useHistory();
+	const param: Params = useParams();
+	const [userProductsList, setUserProductsList] = useState<IProduct[]>([]);
+	const [display, setDisplay] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
+	const [currentProfile, setCurrentProfile] = useState<IUser>({} as IUser);
+	const { user, initController } = useUser();
+	const controller = initController();
+	const history = useHistory();
 
-  useEffect(() => {
-    setLoad(true);
-    controller
-      .getUser(Number(param.id))
-      .then((response) => setProfile(response));
+	useEffect(() => {
+		const fetchCurrentProfile = async () => {
+			const fetchedUser: IUser = {} as IUser;
 
-    controller.getEvaluationsOfUser(Number(param.id)).then((response: any) => {
-      setEvaluation(response);
-      setLoad(false);
-    });
+			const APIProfile: IUserInfo = await controller.getUser(Number(param.id));
+			fetchedUser.personalData = APIProfile;
 
-    controller
-      .getProductsOfUser(Number(param.id))
-      .then((response) => setProfileProducts(response));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+			const profileEvalList = await controller.getUserEvaluations(
+				Number(param.id),
+			);
 
-  useEffect(() => {
-    const average =
-      Number(
-        evaluation?.reduce((acc, evaluation) => {
-          return acc + evaluation.grade;
-        }, 0)
-      ) / Number(evaluation?.length);
+			if (profileEvalList) {
+				fetchedUser.evaluations = await controller.getAllSellerEvaluationsData(
+					profileEvalList,
+				);
+				fetchedUser.average =
+					profileEvalList.reduce(
+						(acc, evaluation) => acc + evaluation.grade,
+						0,
+					) / fetchedUser.evaluations.length;
+			}
 
-    setAverageEvaluation(average);
-  }, [evaluation]);
+			const profileProductsList = await controller.getUserProducts(
+				Number(param.id),
+			);
 
-  const handleToggle = (value: boolean) => {
-    setLoad(true);
-    setDisplay(value);
-    setLoad(false);
-  };
+			setCurrentProfile({ ...fetchedUser });
+			setUserProductsList(profileProductsList);
+			setIsLoading(false);
+		};
 
-  const handleEditProduct = (productId: number) => {
-    localStorage.setItem(
-      EDIT_PRODUCT_LOCALSTORAGE_FLAG,
-      JSON.stringify(productId)
-    );
+		fetchCurrentProfile();
+		// eslint-disable-next-line
+	}, [param.id]);
 
-    user.personalData.id === Number(param.id)
-      ? history.push(`/myaccount/profile/update-product/${productId}`)
-      : history.push(`/product/${productId}`);
-  };
+	const handleToggle = (value: boolean) => {
+		setDisplay(value);
+	};
 
-  return (
-    <Container>
-      <h1>
-        {user.personalData.id === Number(param.id)
-          ? "Meu perfil"
-          : "Perfil do Produtor"}
+	const handleEditProduct = (productId: number) => {
+		localStorage.setItem(
+			EDIT_PRODUCT_LOCALSTORAGE_FLAG,
+			JSON.stringify(productId),
+		);
 
-        <Link to="/myaccount">
-          <ArrowToBack />
-        </Link>
-      </h1>
-      <ContactContent>
-        <img src={profile?.image} alt="user" />
-        <div className="contacts">
-          <h2>{profile?.name}</h2>
-          <h3>Contato</h3>
-          <h4>Telefone: {profile?.phone}</h4>
-          <h4>Email: {profile?.email}</h4>
-        </div>
-      </ContactContent>
-      <ToggleRendering buttonActive={display}>
-        <button onClick={() => handleToggle(true)}>
-          <span>Avaliações</span>
-        </button>
-        <button onClick={() => handleToggle(false)}>
-          <span>Produtos</span>
-        </button>
-      </ToggleRendering>
-      {load ? (
-        <Loading size={90} />
-      ) : (
-        <>
-          {display ? (
-            <EvaluationContent>
-              <div className="averageEvaluation">
-                <h4>Avaliação Geral</h4>
-                <RatingStar readOnly value={averageEvaluation} />
-              </div>
-              {evaluation.length ? (
-                evaluation?.map(evaluation => (
-                  <EvaluationCard
-                    evaluation={evaluation}
-                    scenery="desktop"
-                    key={evaluation.id}
-                  />
-                ))
-              ) : (
-                <h2>{FEEDBACK_MESSAGES.WITHOUT_EVALUATION}</h2>
-              )}
-            </EvaluationContent>
-          ) : (
-            <ProductContent>
-              {profileProducts.length ? (
-                profileProducts.map((myProduct) => (
-                  <ProductCardInAnnouncement
-                    item={{
-                      product: myProduct,
-                      average: Number(averageEvaluation),
-                    }}
-                    key={myProduct.id}
-                    editProduct={handleEditProduct}
-                    ownerProducter={true}
-                  />
-                ))
-              ) : (
-                <h2>{FEEDBACK_MESSAGES.WITHOUT_PRODUCTS}</h2>
-              )}
-            </ProductContent>
-          )}
-        </>
-      )}
-    </Container>
-  );
+		history.push(`/myaccount/edit-product/${productId}`);
+	};
+
+	return (
+		<Container>
+			<h1>
+				{user.personalData.id === Number(param.id)
+					? "Meu perfil"
+					: "Perfil do Vendedor"}
+
+				<Link to="/myaccount">
+					<ArrowToBack />
+				</Link>
+			</h1>
+			{isLoading ? (
+				<Loading size={100} />
+			) : (
+				<>
+					<ContactContent>
+						<img
+							src={currentProfile.personalData?.image}
+							alt={currentProfile.personalData?.name}
+						/>
+						<div className="contacts">
+							<h2>{currentProfile.personalData?.name}</h2>
+							<h3>Contato</h3>
+							<h4>Telefone: {currentProfile.personalData?.phone}</h4>
+							<h4>Email: {currentProfile.personalData?.email}</h4>
+						</div>
+					</ContactContent>
+					<ToggleRendering buttonActive={display}>
+						<button onClick={() => handleToggle(true)}>
+							<span>Avaliações</span>
+						</button>
+						<button onClick={() => handleToggle(false)}>
+							<span>Produtos</span>
+						</button>
+					</ToggleRendering>
+					{display ? (
+						<EvaluationContent>
+							<div className="averageEvaluation">
+								<h4>Avaliação Geral</h4>
+								<RatingStar readOnly value={currentProfile.average} />
+							</div>
+							{currentProfile.evaluations?.length ? (
+								<ul>
+									{currentProfile.evaluations.map(
+										(evaluation: IUserEvaluation) => (
+											<EvaluationCard
+												evaluation={evaluation}
+												scenery="desktop"
+												key={evaluation.id}
+											/>
+										),
+									)}
+								</ul>
+							) : (
+								<h2>{FEEDBACK_MESSAGES.WITHOUT_EVALUATION}</h2>
+							)}
+						</EvaluationContent>
+					) : (
+						<ProductContent>
+							{userProductsList.length ? (
+								userProductsList.map(myProduct => (
+									<ProductCardInAnnouncement
+										item={{
+											product: myProduct,
+											average: Number(currentProfile.average),
+										}}
+										key={myProduct.id}
+										editProduct={handleEditProduct}
+										ownerProducer={true}
+									/>
+								))
+							) : (
+								<h2>{FEEDBACK_MESSAGES.WITHOUT_PRODUCTS}</h2>
+							)}
+						</ProductContent>
+					)}
+				</>
+			)}
+		</Container>
+	);
 };
 export default ProfilePageDesktop;

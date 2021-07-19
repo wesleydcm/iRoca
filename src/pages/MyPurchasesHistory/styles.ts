@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import { WINDOW_SIZE_DESKTOP } from "../../utils";
 
+export const LoaderContainer = styled.div`
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
 export const LiStyled = styled.li`
 	display: flex;
 	align-items: center;
