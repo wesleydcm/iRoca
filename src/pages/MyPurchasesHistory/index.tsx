@@ -11,6 +11,7 @@ import MyPurchasesHistoryMobile from "./mobile";
 import MyPurchasesHistoryDesktop from "./desktop";
 import Loading from "../../components/Loading";
 import { Redirect } from "react-router-dom";
+import { LoaderContainer } from "./styles";
 
 const MyPurchasesHistory = (): JSX.Element => {
 	const [purchasesList, setPurchasesList] = useState<IPurchase[]>([]);
@@ -25,7 +26,7 @@ const MyPurchasesHistory = (): JSX.Element => {
 	useEffect(() => {
 		if (user && user.auth) {
 			controller
-				.getPurchasesOfUser(user.personalData.id)
+				.getUserPurchases(user.personalData.id)
 				.then((response: IPurchase[]) => {
 					hasUniqueSeller(response);
 					setPurchasesList(response);
@@ -98,7 +99,9 @@ const MyPurchasesHistory = (): JSX.Element => {
 	return (
 		<>
 			{isLoading ? (
-				<Loading size={50} />
+				<LoaderContainer>
+					<Loading size={pageWidth < WINDOW_SIZE_DESKTOP ? 50 : 100} />
+				</LoaderContainer>
 			) : !!treatedPurchasesList.length && pageWidth < WINDOW_SIZE_DESKTOP ? (
 				<MyPurchasesHistoryMobile treatedPurchasesList={treatedPurchasesList} />
 			) : (

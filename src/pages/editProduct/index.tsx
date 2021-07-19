@@ -4,7 +4,7 @@ import UpdateProductDesktop from "./desktop";
 const UpdateProduct = () => {
   return (
     <>
-      {window.innerWidth < 899 ? (
+      {window.innerWidth < 900 ? (
         <UpdateProductMobile />
       ) : (
         <UpdateProductDesktop />

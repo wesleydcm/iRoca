@@ -74,22 +74,24 @@ const ProductPageDesktop = () => {
 			);
 			user.personalData.favorites = newFavorites;
 
-			await controller.handleFavorite(
-				user.personalData.id,
-				newFavorites,
-				user.token,
-			);
+			if (user.token)
+				await controller.handleFavorite(
+					user.personalData.id,
+					newFavorites,
+					user.token,
+				);
 
 			setTreatedProduct({ ...treatedProduct, isFavorite: false });
 		} else {
 			if (treatedProduct.product.id)
 				favorites.push(treatedProduct?.product?.id);
 
-			await controller.handleFavorite(
-				user.personalData.id,
-				favorites,
-				user.token,
-			);
+			if (user.token)
+				await controller.handleFavorite(
+					user.personalData.id,
+					favorites,
+					user.token,
+				);
 
 			setTreatedProduct({ ...treatedProduct, isFavorite: true });
 		}
@@ -97,6 +99,8 @@ const ProductPageDesktop = () => {
 
 	const addToCart = (newProduct: IProduct) => {
 		if (qty) {
+			const qtyToAdd = qty < newProduct.qty ? qty : newProduct.qty;
+
 			if (cart?.productsList?.length) {
 				const isAlreadyInCart = cart.productsList.find(product => {
 					return product.id === newProduct.id;
@@ -107,10 +111,9 @@ const ProductPageDesktop = () => {
 
 				if (isFromSameSeller) {
 					if (isAlreadyInCart) {
-						isAlreadyInCart.qty += newProduct.qty;
+						isAlreadyInCart.qty += qtyToAdd;
 						cart.totalPrice += newProduct.qty * newProduct.price;
 					} else {
-						const qtyToAdd = qty < newProduct.qty ? qty : newProduct.qty;
 
 						setCart({
 							productsList: [
@@ -125,8 +128,6 @@ const ProductPageDesktop = () => {
 					errorToast("Por favor, escolha produtos do mesmo vendedor.");
 				}
 			} else {
-				const qtyToAdd = qty < newProduct.qty ? qty : newProduct.qty;
-
 				setCart({
 					productsList: [{ ...newProduct, qty: qtyToAdd }],
 					totalPrice: qtyToAdd * newProduct.price,
@@ -189,7 +190,10 @@ const ProductPageDesktop = () => {
 								/>
 							))
 						) : (
-							<img src="https://heloix.com/wp-content/uploads/2020/11/product_default_icon.jpg" alt="Produto sem imagens." />
+							<img
+								src="https://heloix.com/wp-content/uploads/2020/11/product_default_icon.jpg"
+								alt="Produto sem imagens."
+							/>
 						)}
 					</Carousel>
 					<ProducerCard

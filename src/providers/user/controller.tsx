@@ -15,6 +15,7 @@ import api from "../../services/index";
 import { errorToast, successToast } from "../../utils";
 import { decodeToken } from "react-jwt";
 import { decode } from "querystring";
+import { AxiosResponse } from "axios";
 
 class UserController {
 	private setUser: Dispatch<SetStateAction<IUser>>;
@@ -70,8 +71,8 @@ class UserController {
 		try {
 			const response = await api.get(`/users/${userId}`);
 			return await response.data;
-		} catch (e) {
-			errorToast("Ocorreu algum erro no sistema");
+		} catch {
+			errorToast("Não foi possível buscar seus dados.");
 		}
 	};
 
@@ -84,7 +85,7 @@ class UserController {
 		}
 	};
 
-	getPurchasesOfUser = async (userId: number) => {
+	getUserPurchases = async (userId: number) => {
 		try {
 			const response = await api.get(`/users/${userId}/purchases/`);
 			return response.data;
@@ -93,28 +94,35 @@ class UserController {
 		}
 	};
 
-	getUserOfEvaluation = async (evaluation: any) => {
-		const user = await this.getUser(evaluation.avaliatorId);
+	getAvaliator = async (
+		evaluation: IUserEvaluation,
+	): Promise<IUserEvaluation> => {
+		const avaliator: IUser = await this.getUser(evaluation.avaliatorId);
+
 		return {
-			avaliator: user,
-			evaluation: evaluation,
+			...evaluation,
+			avaliatorImage: avaliator.personalData?.image,
+			avaliatorName: avaliator.personalData?.name,
 		};
 	};
 
-	getEvaluationsOfUser = async (userId: number) => {
+	getUserEvaluations = async (userId: number) => {
 		try {
-			const response = await api.get(`/users/${userId}/evaluations/`);
+			const evaluationsList: AxiosResponse<IUserEvaluation[]> = await api.get(
+				`/users/${userId}/evaluations/`,
+			);
+
 			return Promise.all(
-				response.data.map((evaluation: IUserEvaluation) =>
-					this.getUserOfEvaluation(evaluation),
+				evaluationsList.data.map((evaluation: IUserEvaluation) =>
+					this.getAvaliator(evaluation),
 				),
 			);
-		} catch (e) {
+		} catch {
 			errorToast("Ocorreu algum erro no sistema");
 		}
 	};
 
-	getProductsOfUser = async (userId: number) => {
+	getUserProducts = async (userId: number) => {
 		try {
 			const response = await api.get(`/users/${userId}/products/`);
 			return await response.data;
@@ -250,7 +258,7 @@ class UserController {
 			});
 
 			//retorna uma nova lista de compras pra atualizar o feed
-			return await this.getPurchasesOfUser(Number(sub));
+			return await this.getUserPurchases(Number(sub));
 		} catch (e) {
 			errorToast("Não foi possível concluir compra");
 		}
@@ -272,7 +280,7 @@ class UserController {
 			);
 			successToast("Dados salvos!");
 			//retorna a nova lista de compras para atualizar o feed
-			const newList = await this.getPurchasesOfUser(Number(sub));
+			const newList = await this.getUserPurchases(Number(sub));
 			console.log("newList :>> ", newList);
 			return newList;
 		} catch (e) {
@@ -399,32 +407,6 @@ class UserController {
 			}),
 		);
 	};
-
-	// updateStock = async (
-	// 	productId: number,
-	// 	productData: IProductUpdatePurchase,
-	// 	token: string,
-	// ) => {
-	// 	try {
-	// 		const { data } = await api.patch(`/products/${productId}`, productData, {
-	// 			headers: { Authorization: `Bearer ${token}` },
-	// 		});
-	// 		const newProducts = this.products.map(item => {
-	// 			if (item.id === data.id) {
-	// 				return {
-	// 					...item,
-	// 					...data,
-	// 				};
-	// 			} else {
-	// 				return item;
-	// 			}
-	// 		});
-	// 		this.setProducts(newProducts);
-	// 		return data;
-	// 	} catch (e) {
-	// 		//errorToast("Não foi possível atualizar produto");
-	// 	}
-	// };
 }
 
 export default UserController;
