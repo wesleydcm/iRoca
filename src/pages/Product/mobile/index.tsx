@@ -70,22 +70,24 @@ const ProductPageMobile = () => {
 			);
 			user.personalData.favorites = newFavorites;
 
-			await controller.handleFavorite(
-				user.personalData.id,
-				newFavorites,
-				user.token,
-			);
+			if (user.token)
+				await controller.handleFavorite(
+					user.personalData.id,
+					newFavorites,
+					user.token,
+				);
 
 			setTreatedProduct({ ...treatedProduct, isFavorite: false });
 		} else {
 			if (treatedProduct.product.id)
 				favorites.push(treatedProduct?.product?.id);
 
-			await controller.handleFavorite(
-				user.personalData.id,
-				favorites,
-				user.token,
-			);
+			if (user.token)
+				await controller.handleFavorite(
+					user.personalData.id,
+					favorites,
+					user.token,
+				);
 
 			setTreatedProduct({ ...treatedProduct, isFavorite: true });
 		}

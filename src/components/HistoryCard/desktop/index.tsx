@@ -24,7 +24,7 @@ const HistoryCard = ({ seller, purchase, ...rest }: Props): JSX.Element => {
 	const controller = initController();
 
 	const action = () => {
-		if (purchase.id)
+		if (user.token && purchase.id)
 			controller.updatePurchase(user.token, purchase.id, true).then(() => {
 				purchase.isReceived = true;
 			});

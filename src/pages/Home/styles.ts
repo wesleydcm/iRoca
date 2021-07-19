@@ -200,6 +200,6 @@ export const Wrapper = styled.div`
 		}
 	}
 	@media only screen and (min-width: 1100px) {
-		padding-left: 28vw;
+		padding-left: 32vw;
 	}
 `;

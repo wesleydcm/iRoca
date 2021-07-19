@@ -13,7 +13,7 @@ import EvaluationCard from "../../../components/EvaluationCard";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { useUser } from "../../../providers/user";
 import Loading from "../../../components/Loading";
-import { IUserInfo, IProduct, IUserEvaluation } from "../../../@types";
+import { IUserInfo, IProduct, IUserEvaluation, IUser } from "../../../@types";
 import {
 	EDIT_PRODUCT_LOCALSTORAGE_FLAG,
 	FEEDBACK_MESSAGES,
@@ -25,53 +25,60 @@ interface Params {
 
 const ProfilePageMobile = (): JSX.Element => {
 	const param: Params = useParams();
-	const { user } = useUser();
+	const [userProductsList, setUserProductsList] = useState<IProduct[]>([]);
 	const [display, setDisplay] = useState(true);
-	const [load, setLoad] = useState(false);
-	const [profile, setProfile] = useState<IUserInfo>();
-	const [evaluationsList, setEvaluationList] = useState<IUserEvaluation[]>([]);
-	const [averageEvaluation, setAverageEvaluation] = useState<number>();
-	const [profileProducts, setProfileProducts] = useState<IProduct[]>([]);
-	const { initController } = useUser();
+	const [load, setLoad] = useState(true);
+	const [currentProfile, setCurrentProfile] = useState<IUser>({} as IUser);
+	const { user, initController } = useUser();
 	const controller = initController();
 	const history = useHistory();
+
 	useEffect(() => {
-		setLoad(true);
-		controller.getUser(Number(param.id)).then(response => setProfile(response));
-		controller.getEvaluationsOfUser(Number(param.id)).then((response: any) => {
-			setEvaluationList(response);
+		const fetchCurrentProfile = async () => {
+			const fetchedUser: IUser = {} as IUser;
+
+			const APIProfile: IUserInfo = await controller.getUser(Number(param.id));
+			fetchedUser.personalData = APIProfile;
+
+			const profileEvalList = await controller.getUserEvaluations(
+				Number(param.id),
+			);
+
+			if (profileEvalList) {
+				fetchedUser.evaluations = await controller.getAllSellerEvaluationsData(
+					profileEvalList,
+				);
+				fetchedUser.average =
+					profileEvalList.reduce(
+						(acc, evaluation) => acc + evaluation.grade,
+						0,
+					) / fetchedUser.evaluations.length;
+			}
+
+			const profileProductsList = await controller.getUserProducts(
+				Number(param.id),
+			);
+
+			setCurrentProfile({ ...fetchedUser });
+			setUserProductsList(profileProductsList);
 			setLoad(false);
-		});
-		controller
-			.getProductsOfUser(Number(param.id))
-			.then(response => setProfileProducts(response));
+		};
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-	useEffect(() => {
-		const average =
-			Number(
-				evaluationsList?.reduce((acc, evaluation) => {
-					return acc + evaluation.grade;
-				}, 0),
-			) / Number(evaluationsList?.length);
-
-		setAverageEvaluation(average);
-	}, [evaluationsList]);
+		fetchCurrentProfile();
+		// eslint-disable-next-line
+	}, [param.id]);
 
 	const handleToggle = (value: boolean) => {
-		setLoad(true);
 		setDisplay(value);
-		setLoad(false);
 	};
+
 	const handleEditProduct = (productId: number) => {
 		localStorage.setItem(
 			EDIT_PRODUCT_LOCALSTORAGE_FLAG,
 			JSON.stringify(productId),
 		);
-		user.personalData.id === Number(param.id)
-			? history.push(`/myaccount/profile/update-product/${productId}`)
-			: history.push(`/product/${productId}`);
+
+		history.push(`/myaccount/edit-product/${productId}`);
 	};
 
 	return (
@@ -79,14 +86,16 @@ const ProfilePageMobile = (): JSX.Element => {
 			<ContactContent>
 				{user.personalData.id === Number(param.id)
 					? "Meu perfil"
-					: "Perfil do Produtor"}
+					: "Perfil do Vendedor"}
 				<Link to="/myaccount">
-					<ArrowToBack />
 				</Link>
-				<img src={profile?.image} alt="user" />
-				<h2>{profile?.name}</h2>
-				<h4>{profile?.phone}</h4>
-				<h4>{profile?.email}</h4>
+				<img
+					src={currentProfile.personalData?.image}
+					alt={currentProfile.personalData?.name}
+				/>
+				<h2>{currentProfile.personalData?.name}</h2>
+				<h4>{currentProfile.personalData?.phone}</h4>
+				<h4>{currentProfile.personalData?.email}</h4>
 			</ContactContent>
 			<ToggleRendering buttonActive={display}>
 				<button onClick={() => handleToggle(true)}>
@@ -97,39 +106,43 @@ const ProfilePageMobile = (): JSX.Element => {
 				</button>
 			</ToggleRendering>
 			{load ? (
-				<Loading size={90} />
+				<Loading size={50} />
 			) : (
 				<>
 					{display ? (
 						<EvaluationContent>
-							<div>
+							<div className="averageEvaluation">
 								<h4>Avaliação Geral</h4>
-								<RatingStar readOnly value={averageEvaluation} />
+								<RatingStar readOnly value={currentProfile.average} />
 							</div>
-							{evaluationsList.length ? (
-								evaluationsList?.map(evaluation => (
-									<EvaluationCard
-										evaluation={evaluation}
-										scenery="mobile"
-										key={evaluation.id}
-									/>
-								))
+							{currentProfile.evaluations?.length ? (
+								<ul>
+									{currentProfile.evaluations.map(
+										(evaluation: IUserEvaluation) => (
+											<EvaluationCard
+												evaluation={evaluation}
+												scenery="desktop"
+												key={evaluation.id}
+											/>
+										),
+									)}
+								</ul>
 							) : (
 								<h2>{FEEDBACK_MESSAGES.WITHOUT_EVALUATION}</h2>
 							)}
 						</EvaluationContent>
 					) : (
 						<ProductContent>
-							{profileProducts.length ? (
-								profileProducts.map(myProduct => (
+							{userProductsList.length ? (
+								userProductsList.map(myProduct => (
 									<ProductCardInAnnouncementMobile
 										item={{
 											product: myProduct,
-											average: Number(averageEvaluation),
+											average: Number(currentProfile.average),
 										}}
 										key={myProduct.id}
 										editProduct={handleEditProduct}
-										ownerProducter={true}
+										ownerProducer={true}
 									/>
 								))
 							) : (

@@ -115,7 +115,7 @@ const MyCart = () => {
 				productInStock => productInStock.id === productInCart.id,
 			);
 
-			if (productInStock?.id) {
+			if (user.token && productInStock?.id) {
 				controller.updateProduct(
 					productInStock.id,
 					{ qty: productInStock.qty - productInCart.qty },
@@ -144,7 +144,7 @@ const MyCart = () => {
 							products: cart.productsList,
 						};
 
-						if (purchase.userId !== purchase.sellerId) {
+						if (user.token && purchase.userId !== purchase.sellerId) {
 							updateStock();
 							controller.createPurchase(user.token, purchase);
 							setCheckUser(true);

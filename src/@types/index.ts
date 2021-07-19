@@ -15,8 +15,10 @@ export interface IAddress {
 
 export interface IUser {
 	personalData: IUserInfo;
-	token: string;
+	token?: string;
 	auth?: boolean;
+	evaluations?: IUserEvaluation[];
+	average?: number;
 }
 
 export interface IUserInfo {
@@ -43,7 +45,7 @@ export interface IUserUpdate {
 		address?: IAddress;
 		favorites?: number[];
 	};
-	token: string;
+	token?: string;
 }
 
 export interface ILoginData {

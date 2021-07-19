@@ -62,8 +62,8 @@ const NewEvaluation = ({
 			feedback: feedbackProduct,
 			grade: productRating,
 		};
-		console.log("abc", newProductEvaluation);
-		controller.createProductEvaluation(user.token, newProductEvaluation);
+		if (user.token)
+			controller.createProductEvaluation(user.token, newProductEvaluation);
 		setFirstEvaluation(true);
 	};
 
@@ -75,8 +75,8 @@ const NewEvaluation = ({
 			feedback: feedbackProducer,
 			grade: producerRating,
 		};
-		console.log("abc", NewProducerEvaluation);
-		controller.createSellerEvaluation(user.token, NewProducerEvaluation);
+		if (user.token)
+			controller.createSellerEvaluation(user.token, NewProducerEvaluation);
 		setIsOpened(false);
 	};
 	return (
