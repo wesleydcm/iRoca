@@ -31,8 +31,16 @@ Vide vídeo apresentação no seguinte [link]().
 
 ### Team:
 
+<a href="https://www.linkedin.com/in/heitor-rezende">
+ <img style="border-radius: 50%;" src="https://secure.gravatar.com/avatar/97cf0329a788a80037d1c10b7e85d0de?s=800&d=identicon" width="90px;" alt="Wesley da Costa"/>
+ <br />
+ <sub><b>Heitor Rezende</b></sub></a>
+
+[![GitLab Badge](https://img.shields.io/badge/-Heitor_Rezende-black?style=plastic&logo=GitLab&logoColor=yellow&link=https://gitlab.com/heitorrezende)](https://gitlab.com/heitorrezende)
+[![Linkedin Badge](https://img.shields.io/badge/-Heitor_Rezende-blue?style=plastic&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/heitor-rezende)](https://www.linkedin.com/in/heitor-rezende)
+
 <a href="https://www.linkedin.com/in/marconemm/">
- <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/15804964?s=400&amp;u=60f45399d863c1410217fc6666bc628c43f554dd&amp;v=4" width="100px;" alt="Marcone Melo"/>
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/15804964?s=400&amp;u=60f45399d863c1410217fc6666bc628c43f554dd&amp;v=4" width="90px;" alt="Marcone Melo"/>
  <br />
  <sub><b>Marcone Melo</b></sub></a>
 
@@ -41,8 +49,16 @@ Vide vídeo apresentação no seguinte [link]().
 [![Linkedin Badge](https://img.shields.io/badge/-Marcone_Melo-blue?style=plastic&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/marconemm/)](https://www.linkedin.com/in/marconemm/)
 [![Yahoo Badge](https://img.shields.io/badge/-marconemendonca@ymail.com-c14438?style=plastic&logo=Yahoo!&logoColor=white&link=mailto:marconemendonca@ymail.com)](mailto:marconemendonca@ymail.com)
 
+<a href="https://www.linkedin.com/in/victor-ivan">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/17788366" width="90px;" alt="Wesley da Costa"/>
+ <br />
+ <sub><b>Victor Ivan (Daddy, The)</b></sub></a>
+
+[![GitHub Badge](https://img.shields.io/badge/-Victor_Ivan-black?style=plastic&logo=GitHub&logoColor=white&link=https://github.com/vitoivan/)](https://github.com/vitoivan/)
+[![Linkedin Badge](https://img.shields.io/badge/-Victor_Ivan-blue?style=plastic&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/victor-ivan)](https://www.linkedin.com/in/victor-ivan)
+
 <a href="https://www.linkedin.com/in/wesleydcm/">
- <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/71963380" width="100px;" alt="Wesley da Costa"/>
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/71963380" width="90px;" alt="Wesley da Costa"/>
  <br />
  <sub><b>Wesley da Costa</b></sub></a>
 
